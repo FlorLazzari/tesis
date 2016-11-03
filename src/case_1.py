@@ -13,6 +13,7 @@ C_T = 0.42			#
 z_0 = 0.00003		# aerodynamic surface roughness (COMO LO INCLUYO EN LA ECUACION??)  
 I_0 = 0.070			# (para z = z_h) ambient streamwise turbulence intensity  (COMO LO INCLUYO EN LA ECUACION??)  
 
+#
 
 # coordenadas:
 
