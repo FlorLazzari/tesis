@@ -90,7 +90,7 @@ exponente = np.zeros((len(x_n),len(r_cuadrado)))
 gaussiana = np.zeros((len(x_n),len(r_cuadrado)))
 deficit_dividido_U_inf = np.zeros((len(x_n),len(r_cuadrado)))
 
-for i in range (0,len(x_n)):
+for i in range x_n:
 	for j in range (0,len(r_cuadrado)):
 		exponente[i,j] = -r_cuadrado[j] / (2 * sigma_n_cuadrado[i])
 		gaussiana[i,j] = exp(exponente[i,j])
