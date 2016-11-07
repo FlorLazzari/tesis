@@ -43,21 +43,14 @@ para verlo tenes que poner git branch -a (que incluye todos los branches que hay
 Para ver mi historial de commits
 git log
 
-Si hay dudas de algo 
+Si hay dudas de algo
 git help
 
 
+Para resolver el problema de la version de python:
+
+pip install --upgrade pip
+pip install numpy==<version>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
+nota mental: "virtual environment"
