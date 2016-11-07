@@ -1,0 +1,63 @@
+Para clonar el repo de la "nube"
+git clone <el ssh del repo>
+
+Para agregar cosas aser commiteadas
+git add --all (si queres agregar todo lo que se modifico)
+git add <nombre del archivo> (para agregar un archivo especifico)
+
+Para commitear cosas
+git commit
+obs: cuando hagas el git commit, se va a abrir el vim para que hagas un comentario
+para empezar a escribir en vim tocar letra "i", ahora ya vas a poder escribir.
+Para terminar de escribir, poner esc(salir de modo insert) + :(abrir la linea de comandos de vim) + wq(write and quit)
+obs2: Para settear el vim por default poner git config --global core.editor "vim"
+
+Para pusher cosas
+git push (si el branch esta en la "nube")
+si no, git te va a tirar un comando como git setup set-upstream <tu branch>, copialo y pegalo
+
+Para ver los cambios que se hicieron
+git status
+
+Para cambiar de branch
+git checkout <tu branch>
+
+Para crear un branch a partir de donde estoy
+git checkout -b <nombre del nuevo branch>
+
+Para "mergear" un branch en otro branch
+Primero me tengo que parar en el branch a donde quiero que colapsen, luego
+git merge <nombre del branch a colapsar>
+
+Para ver los cambios que se hiciseron en un archivo
+git diff <archivo que se modifico>
+
+Para traer los cambios que estan en la "nube"
+git pull
+
+Para saber en que branch estoy
+git branch
+obs: Si el branch esta en la "nube" cuando pongas git branch este no va a aparecer,
+para verlo tenes que poner git branch -a (que incluye todos los branches que hay tanto local como remoto)
+
+Para ver mi historial de commits
+git log
+
+Si hay dudas de algo 
+git help
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
