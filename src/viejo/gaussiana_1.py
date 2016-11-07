@@ -3,21 +3,13 @@
 # no entiendo por qué si no pongo éste "magic comment" no funciona
 # explicación en https://www.python.org/dev/peps/pep-0263/
 
-
-from __future__ import division  # para evitar el problema de la división entera (must occur at the beginning of the file)
-
-
 # paper : A new analytical model for wind-turbine wakes1
 
-
+from __future__ import division  # para evitar el problema de la división entera (must occur at the beginning of the file)
 import numpy as np # para trabajar con arrays de forma mas eficiente (tipo matlab)
-
 # import math # para que entienda la funcion exp(), otra opción es:
-
 from numpy import exp, abs, angle, pi
-
 from math import log
-
 import matplotlib.pyplot as plt # para hacer los gráficos
 
 
@@ -25,55 +17,49 @@ l = raw_input("Which case do you want to work with? 1/2/3/4?")
 
 if l == "1":
 	print("case_1")
-	import case_1 as c
+	from case_1 import *  # el <*> significa todo
 elif l == "2":
 	print("case_2")
-	import case_2 as c
+	from case_2 import *
 elif l == "3":
 	print("case_3")
-	import case_3 as c
+	from case_3 import *
 elif l == "4":
 	print("case_4")
-	import case_4 as c
+	from case_4 import *
 
 
+#
+# d_0 = c.d_0
+# z_h = c.z_h
+# U_hub = c.U_hub
+# C_T = c.C_T
+# z_0 = c.z_0
+# I_0 = c.I_0
+#
+# x_n = c.x_n
+# y_n = c.y_n
+# z_n = c.z_n
 
-d_0 = c.d_0
-z_h = c.z_h
-U_hub = c.U_hub
-C_T = c.C_T
-z_0 = c.z_0
-I_0 = c.I_0
+# esto esta mal, corregirlo con lo que tiene santi:
 
-x_n = c.x_n
-y_n = c.y_n
-z_n = c.z_n
+#m= raw_input("Do you want to see the gaussian figures? Y/N ")
 
-
-
-m= raw_input("Do you want to see the gaussian figures? Y/N ")
-
-if m == "Y" :
-	print("You'll see the figures")
-	h = 0
-else :
-	print("You won't see the figures")
-	h =plt.ion()
+#if m == "Y" :
+#	print("You'll see the figures")
+#	h = 0
+#else :
+#	print("You won't see the figures")
+#	h =plt.ion()
 
 
 
 # defino variables :
 
 k_estrella = 0.2	#
-
-
 n = (1 - C_T)**0.5
-
 beta = 0.5 * ((1+n)/n)
-
 epsilon = 0.25 * ((beta)**0.5)
-
-
 
 # cambio de coordenadas:
 
@@ -89,28 +75,20 @@ def pol2cart(r, phi):
 
 [r, phi] = cart2pol(y_n,z_n)
 
-
-
 # cómo varía sigma/d_0 (sigma normalizado) con x :
 
 sigma_n = k_estrella*x_n + epsilon
 
-
 # gaussiana:
 
 sigma_n_cuadrado = (sigma_n)**2
-
 r_cuadrado = r**2
-
 C = 1 - (1-(C_T/(8*sigma_n_cuadrado)))**(1/2)
-
 
 # introduzco las variables porque sino me dice "sarasa is not defined" (por que??)
 exponente = np.zeros((len(x_n),len(r_cuadrado)))
 gaussiana = np.zeros((len(x_n),len(r_cuadrado)))
 deficit_dividido_U_inf = np.zeros((len(x_n),len(r_cuadrado)))
-
-
 
 for i in range (0,len(x_n)):
 	for j in range (0,len(r_cuadrado)):
@@ -118,37 +96,24 @@ for i in range (0,len(x_n)):
 		gaussiana[i,j] = exp(exponente[i,j])
 		deficit_dividido_U_inf[i,j] = C[i] * gaussiana[i,j]
 
-# para chequear:
-exponente.shape
-
-
 # la matriz quedó armada de la siguiente forma:
 # (sigma_n_cuadrado , r_cuadrado)
 
 # para obtener la gaussiana para un dado sigma_n_cuadrado (o lo que es lo mismo para una dada x):
 
 #fin = np.arange(0,len(r_cuadrado))
-
 #x = completar con un dado x!
-
 #deficit_dividido_U_inf[x,fin]
 
-
-
-
 # quiero graficar deficit_dividido_deficit_max en fc de r_dividido_r_mitad
-
 # deficit_dividido_deficit_max = gaussiana (esto se ve algebraicamente)
 
-# entonces en principio voy a graficar la gaussiana en funcion de r
+# grafico la gaussiana en funcion de r
 
 fin = np.arange(0,len(r_cuadrado))
-
 y = np.zeros((len(x_n),len(r_cuadrado)))
 
-
-
-# figura 3 del paper:
+# simil figura 3 del paper:
 
 for i in range(0,len(x_n)):
 	y[i] = gaussiana[x_n[i],fin]
@@ -165,44 +130,38 @@ for i in range(0,len(x_n)):
 
 # para ver todos los graficos en una misma figure:
 
-h
-fig = plt.figure(1)
+x_n_0 = int(max(x_n))
+x_n_1 = int(x_n_0 / 2)
+x_n_2 = int(x_n_0 / 3)
+x_n_3 = int(x_n_0 * 0.75)
+
+fig = plt.figure()
 plt.ylim([0,1])
 plt.xlim([0,1])
 plt.xlabel('r')
 plt.ylabel(r'$\Delta U / \Delta U_{max} $')
-plt.plot(r,y[0])
-plt.plot(r,y[1])
-plt.plot(r,y[2])
-plt.plot(r,y[3])
-plt.plot(r,y[4])
-plt.plot(r,y[5])
-plt.plot(r,y[6])
-plt.plot(r,y[7])
-plt.plot(r,y[8])
-plt.plot(r,y[9])
+plt.plot(r,y[x_n_0])
+plt.plot(r,y[x_n_1])
+plt.plot(r,y[x_n_2])
+plt.plot(r,y[x_n_3])
 plt.show()
 #fig.savefig('figura_3_gaussiana.png')
 
 # faltaría ponerle leyenda para que se entienda la variación en x
 
-# calculo r_medio : (para cada x voy a tener un r_medio)
+# calculo r_medio (alaliticamente) : (para cada x voy a tener un r_medio)
 
 cociente_r_r_medio = np.zeros((len(x_n),len(r_cuadrado)))
+r_medio = log(2) * 2 * (sigma_n**2)				#esto sale de hacer la cuenta
 
-r_medio = log(2) * 2 * (sigma_n**2)
+# por definición log es en base e
 
 for i in range (0,len(x_n)):
     for j in range (0,len(r)):
         cociente_r_r_medio[i,j] = r[j]/r_medio[i]
 
-
-
 fin = np.arange(0,len(r_cuadrado))
-
 z = np.zeros((len(x_n),len(r_cuadrado)))
-
-
 
 # figura 3 del paper:
 
@@ -210,43 +169,28 @@ for i in range(0,len(x_n)):
 	z[i] = cociente_r_r_medio[x_n[i],fin]
 
 
-
-
+fig = plt.figure()
+plt.ylim([0,1])
+plt.xlim([0,5])
 plt.xlabel(r'$r / r_{1/2}$')
 plt.ylabel(r'$\Delta U / \Delta U_{max} $')
-plt.plot(z[0],y[0])
-plt.plot(z[1],y[1])
-plt.plot(z[2],y[2])
-plt.plot(z[3],y[3])
-plt.plot(z[4],y[4])
-plt.plot(z[5],y[5])
-plt.plot(z[6],y[6])
-plt.plot(z[7],y[7])
-plt.plot(z[8],y[8])
-plt.plot(z[9],y[9])
+plt.plot(z[x_n_0],y[x_n_0])
+plt.plot(z[x_n_1],y[x_n_1])
+plt.plot(z[x_n_2],y[x_n_2])
+plt.plot(z[x_n_3],y[x_n_3])
 plt.show()
+fig.savefig('figuras/gaussiana.png')
 
-
-
-
-
-# por definición log es en base e
 
 # figura (no está en el paper): deficit_dividido_U_inf en funcion de x para distintos r
 
-
-
 fin_2 = np.arange(0,len(x_n))
-
 y_2 = np.zeros((4,len(x_n)))
 
-
-
-r_0 = max(r)
-r_1 = max(r) / 2
-r_2 = max(r) / 3
-r_3 = max(r) * 0.75
-
+r_0 = int(max(r))
+r_1 = int(r_0 / 2)
+r_2 = int(r_0 / 3)
+r_3 = int(r_0 * 0.75)
 
 y_2[0] = deficit_dividido_U_inf[fin_2,r_0]
 y_2[1] = deficit_dividido_U_inf[fin_2,r_1]
@@ -255,8 +199,7 @@ y_2[3] = deficit_dividido_U_inf[fin_2,r_3]
 
 # vemos como la relación es casi idéntica para distintos valores de r (esto está bien?)
 
-h
-fig = plt.figure(2)
+fig = plt.figure()
 plt.ylim([0,0.5])
 plt.xlim([0,6])
 plt.xlabel(r'$ x / d_{0} $')
@@ -319,8 +262,8 @@ plt.show()
 len(sigma_n)
 len(x_n)
 
-h
-fig = plt.figure(3)
+#h
+fig = plt.figure()
 #plt.ylim([0,1])
 plt.xlabel(r'$ x / d_{0} $')
 plt.ylabel(r'$\sigma / d_{0} $')
