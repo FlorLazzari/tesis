@@ -1,7 +1,9 @@
+Para trabajar con cosas del repo me tengo que parar adentro de la carpeta del repo (ej: adentro de <tesis>)
+
 Para clonar el repo de la "nube"
 git clone <el ssh del repo>
 
-Para agregar cosas aser commiteadas
+Para agregar cosas a ser commiteadas
 git add --all (si queres agregar todo lo que se modifico)
 git add <nombre del archivo> (para agregar un archivo especifico)
 
