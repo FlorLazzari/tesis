@@ -90,7 +90,7 @@ exponente = np.zeros((len(x_n),len(r_cuadrado)))
 gaussiana = np.zeros((len(x_n),len(r_cuadrado)))
 deficit_dividido_U_inf = np.zeros((len(x_n),len(r_cuadrado)))
 
-for i in range x_n:
+for i in range (0,len(x_n)):
 	for j in range (0,len(r_cuadrado)):
 		exponente[i,j] = -r_cuadrado[j] / (2 * sigma_n_cuadrado[i])
 		gaussiana[i,j] = exp(exponente[i,j])
@@ -111,12 +111,12 @@ for i in range x_n:
 # grafico la gaussiana en funcion de r
 
 fin = np.arange(0,len(r_cuadrado))
-y = np.zeros((len(x_n),len(r_cuadrado)))
+#y = np.zeros((len(x_n),len(r_cuadrado)))
 
 # simil figura 3 del paper:
 
-for i in range(0,len(x_n)):
-	y[i] = gaussiana[x_n[i],fin]
+#for i in range(0,len(x_n)):
+#	y[i] = gaussiana[x_n[i],fin]
 
 #	plt.ylim([0,1])
 #	plt.xlabel('r')
@@ -140,10 +140,10 @@ plt.ylim([0,1])
 plt.xlim([0,1])
 plt.xlabel('r')
 plt.ylabel(r'$\Delta U / \Delta U_{max} $')
-plt.plot(r,y[x_n_0])
-plt.plot(r,y[x_n_1])
-plt.plot(r,y[x_n_2])
-plt.plot(r,y[x_n_3])
+plt.plot(r,gaussiana[x_n_0,fin])
+plt.plot(r,gaussiana[x_n_1,fin])
+plt.plot(r,gaussiana[x_n_2,fin])
+plt.plot(r,gaussiana[x_n_3,fin])
 plt.show()
 #fig.savefig('figura_3_gaussiana.png')
 
@@ -161,12 +161,12 @@ for i in range (0,len(x_n)):
         cociente_r_r_medio[i,j] = r[j]/r_medio[i]
 
 fin = np.arange(0,len(r_cuadrado))
-z = np.zeros((len(x_n),len(r_cuadrado)))
+#z = np.zeros((len(x_n),len(r_cuadrado)))
 
 # figura 3 del paper:
 
-for i in range(0,len(x_n)):
-	z[i] = cociente_r_r_medio[x_n[i],fin]
+#for i in range(0,len(x_n)):
+#	z[i] = cociente_r_r_medio[x_n[i],fin]
 
 
 fig = plt.figure()
@@ -174,10 +174,10 @@ plt.ylim([0,1])
 plt.xlim([0,5])
 plt.xlabel(r'$r / r_{1/2}$')
 plt.ylabel(r'$\Delta U / \Delta U_{max} $')
-plt.plot(z[x_n_0],y[x_n_0])
-plt.plot(z[x_n_1],y[x_n_1])
-plt.plot(z[x_n_2],y[x_n_2])
-plt.plot(z[x_n_3],y[x_n_3])
+plt.plot(cociente_r_r_medio[x_n_0,fin],gaussiana[x_n_0,fin])
+plt.plot(cociente_r_r_medio[x_n_1,fin],gaussiana[x_n_1,fin])
+plt.plot(cociente_r_r_medio[x_n_2,fin],gaussiana[x_n_2,fin])
+plt.plot(cociente_r_r_medio[x_n_3,fin],gaussiana[x_n_3,fin])
 plt.show()
 fig.savefig('figuras/gaussiana.png')
 
