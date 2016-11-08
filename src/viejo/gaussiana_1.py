@@ -145,7 +145,8 @@ plt.plot(r,gaussiana[x_n_1,fin])
 plt.plot(r,gaussiana[x_n_2,fin])
 plt.plot(r,gaussiana[x_n_3,fin])
 plt.show()
-#fig.savefig('figura_3_gaussiana.png')
+fig.savefig('figuras/gaussiana_1.png')
+
 
 # faltaría ponerle leyenda para que se entienda la variación en x
 
@@ -179,7 +180,7 @@ plt.plot(cociente_r_r_medio[x_n_1,fin],gaussiana[x_n_1,fin])
 plt.plot(cociente_r_r_medio[x_n_2,fin],gaussiana[x_n_2,fin])
 plt.plot(cociente_r_r_medio[x_n_3,fin],gaussiana[x_n_3,fin])
 plt.show()
-fig.savefig('figuras/gaussiana.png')
+fig.savefig('figuras/gaussiana_2.png')
 
 
 # figura (no está en el paper): deficit_dividido_U_inf en funcion de x para distintos r
@@ -209,7 +210,8 @@ plt.plot(x_n,y_2[1], 'x')
 plt.plot(x_n,y_2[2], 'x')
 plt.plot(x_n,y_2[3], 'x')
 plt.show()
-#fig.savefig('figura_5_gaussiana.png')
+fig.savefig('figuras/gaussiana_3.png')
+
 
 # quiero calcular los valores r_mitad, se definen como aquellos para los cuales:
 
@@ -269,8 +271,7 @@ plt.xlabel(r'$ x / d_{0} $')
 plt.ylabel(r'$\sigma / d_{0} $')
 plt.plot(x_n,sigma_n, 'x')
 plt.show()
-#fig.savefig('figura_4_gaussiana.png')
-
+fig.savefig('figuras/gaussiana_4.png')
 
 # voy a hacer gaussiana en forma de función
 
@@ -310,7 +311,7 @@ cp = plt.contourf(x_n,r,a)
 plt.colorbar(cp)
 plt.show()
 plt.figure()
-#fig.savefig('figura_6_gaussiana.png')
+fig.savefig('figuras/gaussiana_5.png')
 
 
 # faltaría hacerlo en función de z_n. ¿Cómo?
