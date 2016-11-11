@@ -2,41 +2,41 @@
 import matplotlib.pyplot as plt # para hacer los gráficos
 
 class Figura(object):
-    def __init__(self):
-        self.nombre= None
-        self.x = None
-        self.y = None
-        self.xLim = None
-        self.yLim = None
-        self.xLablel = None
-        self.yLablel = None
+    def __init__(self,nombre,x,y,xLim,yLim,xLabel,yLabel):
+        self.nombre= nombre
+        self.x = x
+        self.y = y
+        self.xLim = xLim
+        self.yLim = yLim
+        self.xLabel = xLabel
+        self.yLabel = yLabel
 
-    def graph(self,nombre,x,y,xLim,yLim,xLabel,yLabel):
+    def graph(self):
         fig = plt.figure()
-        plt.xlim(xLim)
-        plt.ylim(yLim)
-        plt.xlabel(xLabel)
-        plt.ylabel(yLabel)
-        plt.plot(x,y)
+        plt.xlim(self.xLim)
+        plt.ylim(self.yLim)
+        plt.xlabel(self.xLabel)
+        plt.ylabel(self.yLabel)
+        plt.plot(self.x,self.y)
         plt.show()
 
-    def graph_save(self,nombre,x,y,xLim,yLim,xLabel,yLabel):
+    def graph_save(self):
         fig = plt.figure()
-        plt.xlim(xLim)
-        plt.ylim(yLim)
-        plt.xlabel(xLabel)
-        plt.ylabel(yLabel)
-        plt.plot(x,y)
-        direc = "figuras/gaussiana_%s.png" % nombre
+        plt.xlim(self.xLim)
+        plt.ylim(self.yLim)
+        plt.xlabel(self.xLabel)
+        plt.ylabel(self.yLabel)
+        plt.plot(self.x,self.y)
+        direc = "figuras/gaussiana_%s.png" % self.nombre
         fig.savefig(direc)
 
-    def graph_show_save(self,nombre,x,y,xLim,yLim,xLabel,yLabel):
+    def graph_show_save(self):
         fig = plt.figure()
-        plt.xlim(xLim)
-        plt.ylim(yLim)
-        plt.xlabel(xLabel)
-        plt.ylabel(yLabel)
-        plt.plot(x,y)
+        plt.xlim(self.xLim)
+        plt.ylim(self.yLim)
+        plt.xlabel(self.xLabel)
+        plt.ylabel(self.yLabel)
+        plt.plot(self.x,self.y)
         plt.show()
-        direc = "figuras/gaussiana_%s.png" % nombre
+        direc = "figuras/gaussiana_%s.png" % self.nombre
         fig.savefig(direc)
