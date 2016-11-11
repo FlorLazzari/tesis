@@ -2,6 +2,7 @@
 import matplotlib.pyplot as plt # para hacer los gráficos
 
 class Figura(object):
+
     def __init__(self,nombre,x_y,xLabel,yLabel,numero):
         self.nombre= nombre
         self.x_y = x_y
