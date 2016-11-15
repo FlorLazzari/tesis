@@ -29,31 +29,6 @@ elif l == "4":
 	from case_4 import *
 
 
-#
-# d_0 = c.d_0
-# z_h = c.z_h
-# U_hub = c.U_hub
-# C_T = c.C_T
-# z_0 = c.z_0
-# I_0 = c.I_0
-#
-# x_n = c.x_n
-# y_n = c.y_n
-# z_n = c.z_n
-
-# esto esta mal, corregirlo con lo que tiene santi:
-
-#m= raw_input("Do you want to see the gaussian figures? Y/N ")
-
-#if m == "Y" :
-#	print("You'll see the figures")
-#	h = 0
-#else :
-#	print("You won't see the figures")
-#	h =plt.ion()
-
-
-
 # defino variables :
 
 k_estrella = 0.2	#
@@ -96,9 +71,6 @@ for i in range (0,len(x_n)):
 		gaussiana[i,j] = exp(exponente[i,j])
 		deficit_dividido_U_inf[i,j] = C[i] * gaussiana[i,j]
 
-# la matriz quedó armada de la siguiente forma:
-# (sigma_n_cuadrado , r_cuadrado)
-
 # para obtener la gaussiana para un dado sigma_n_cuadrado (o lo que es lo mismo para una dada x):
 
 #fin = np.arange(0,len(r_cuadrado))
@@ -130,7 +102,7 @@ fin = np.arange(0,len(r_cuadrado))
 
 # para ver todos los graficos en una misma figure:
 
-x_n_0 = int(max(x_n))
+x_n_0 = len(x_n)-1
 x_n_1 = int(x_n_0 / 2)
 x_n_2 = int(x_n_0 / 3)
 x_n_3 = int(x_n_0 * 0.75)

@@ -12,7 +12,7 @@ class Figura(object):
         self.yLabel = yLabel
         self.numero = numero
 
-    def graph(self):
+    def show(self):
         if self.xLim != None:
             plt.xlim(self.xLim)
         if self.yLim != None:
@@ -31,7 +31,7 @@ class Figura(object):
         fig = plt.figure()
         plt.close(fig)
 
-    def graph_save(self):
+    def save(self):
         if self.xLim != None:
             plt.xlim(self.xLim)
         if self.yLim != None:
@@ -51,7 +51,7 @@ class Figura(object):
         fig.savefig(direc)
         plt.close(fig)
 
-    def graph_show_save(self):
+    def show_save(self):
         if self.xLim != None:
             plt.xlim(self.xLim)
         if self.yLim != None:
