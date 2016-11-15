@@ -11,6 +11,7 @@ class Coordenadas(object):
         self.z_n = None
         self.r = None
         self.phi = None
+        # no se si poner a r y phi como un atributo es lo mejor del mundo
 
     def normalizar(self,case):
         self.x_n = self.x/case.d_0

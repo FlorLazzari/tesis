@@ -73,8 +73,8 @@ class Figura(object):
         plt.close(fig)
 
 
-
 # el error que me tira es el siguiente:
+# creo que el error no estaba sin el plt.close(fig)
 
 # can't invoke "event" command: application has been destroyed
 #     while executing

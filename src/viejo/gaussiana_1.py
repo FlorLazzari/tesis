@@ -299,7 +299,7 @@ fig.savefig('figuras/gaussiana_4.png')
 
 # filled contour plot
 
-X,R = np.meshgrid(x_n,r)
+#X,R = np.meshgrid(x_n,r)
 
 a = deficit_dividido_U_inf.transpose()
 
@@ -311,7 +311,7 @@ cp = plt.contourf(x_n,r,a)
 plt.colorbar(cp)
 plt.show()
 plt.figure()
-fig.savefig('figuras/gaussiana_5.png')
+fig.savefig('figuras/gaussiana_5_conmeshgrid.png')
 
 
 # faltaría hacerlo en función de z_n. ¿Cómo?
