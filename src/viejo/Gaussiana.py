@@ -3,6 +3,8 @@
 # from Modelo import Modelo
 import numpy as np
 from numpy import exp
+from cart2pol import cart2pol
+
 
 # super() lets you avoid referring to the base class explicitly, which can be nice.
 # But the main advantage comes with multiple inheritance, where all sorts of fun
@@ -28,21 +30,27 @@ class Gaussiana(object):
         self.exponente = None
         self.gauss = None
         self.deficit_dividido_U_inf = None
-        self.r = np.arange(1)
-        self.x_n = np.arange(1)
+        self.x_n = None
+        self.y_n = None
+        self.z_n = None
+        self.r = None
+        self.phi = None
+        self.c = None
 
     def play(self):
         self.coordenadas.normalizar(self.case)
         self.x_n = self.coordenadas.x_n
-        y_n = self.coordenadas.y_n
-        z_n = self.coordenadas.z_n
-        self.coordenadas.cart2pol()
-        self.r = self.coordenadas.r
-        phi = self.coordenadas.phi
+        self.y_n = self.coordenadas.y_n
+        self.z_n = self.coordenadas.z_n
+        self.r, self.phi = cart2pol(self.y_n, self.z_n)
         sigma_n = self.k_estrella * self.x_n + self.epsilon
         sigma_n_cuadrado = (sigma_n)**2
         r_cuadrado = self.r**2
-        c = 1 - (1-(self.c_T/(8*sigma_n_cuadrado)))**(1/2)
+        # el problema esta en c = 0
+        #
+        # C = 1 - (1-(C_T/(8*sigma_n_cuadrado)))**(1/2)
+        #
+        self.c = 1 - (1-(self.c_T/(8*sigma_n_cuadrado)))**(0.5)
         self.exponente = np.zeros((len(self.x_n),len(self.r)))
         self.gauss = np.zeros((len(self.x_n),len(self.r)))
         self.deficit_dividido_U_inf = np.zeros((len(self.x_n),len(self.r)))
@@ -50,7 +58,7 @@ class Gaussiana(object):
             for j in range (0,len(self.r)):
                 self.exponente[i,j] = -r_cuadrado[j] / (2 * sigma_n_cuadrado[i])
                 self.gauss[i,j] = exp(self.exponente[i,j])
-                self.deficit_dividido_U_inf[i,j] = c[i] * self.gauss[i,j]
+                self.deficit_dividido_U_inf[i,j] = self.c[i] * self.gauss[i,j]
 
 
 

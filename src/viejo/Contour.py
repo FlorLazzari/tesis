@@ -9,7 +9,7 @@ class Contour(object):
         self.xLabel = xLabel
         self.yLabel = yLabel
 
-    def graph(self):
+    def show(self):
         plt.xlabel(self.xLabel)
         plt.ylabel(self.yLabel)
         cp = plt.contourf(self.x_z_a['x_1'],self.x_z_a['z_1'],self.x_z_a['a_1'])
@@ -18,7 +18,7 @@ class Contour(object):
         fig = plt.figure()
         plt.close(fig)
 
-    def graph_save(self):
+    def save(self):
         plt.xlabel(self.xLabel)
         plt.ylabel(self.yLabel)
         cp = plt.contourf(self.x_z_a['x_1'],self.x_z_a['z_1'],self.x_z_a['a_1'])
@@ -28,7 +28,7 @@ class Contour(object):
         fig.savefig(direc)
         plt.close(fig)
 
-    def graph_show_save(self):
+    def show_save(self):
         plt.xlabel(self.xLabel)
         plt.ylabel(self.yLabel)
         cp = plt.contourf(self.x_z_a['x_1'],self.x_z_a['z_1'],self.x_z_a['a_1'])

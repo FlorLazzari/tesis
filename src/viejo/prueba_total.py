@@ -45,5 +45,37 @@ x_y = { 'x_1': modelo_1.r, 'y_1': modelo_1.gauss[v_0,barrido_r],
 figura_1 = Figura(nombre,x_y,xLabel,yLabel,numero)
 figura_1.show_save()
 
-
 # el save de la figura no esta funcionando
+################################################################################
+
+from Contour import Contour
+#
+# a = modelo_1.deficit_dividido_U_inf.transpose()
+#
+# x_z_a = {'x_1': modelo_1.x_n, 'z_1': modelo_1.r, 'a_1': a}
+#
+# contour_1 = Contour("contour_1",x_z_a,"xLabel","yLabel")
+#
+# contour_1.show()
+
+#########
+
+
+import matplotlib.pyplot as plt # para hacer los gráficos
+
+
+fig = plt.figure()
+plt.xlabel(r'$ x / d_{0} $')
+plt.ylabel('r')
+plt.title('Gaussian Filled Contour Plot')
+cp = plt.contourf(modelo_1.x_n,modelo_1.r,modelo_1.deficit_dividido_U_inf.transpose())
+plt.colorbar(cp)
+plt.show()
+plt.figure()
+
+
+##########
+# print(modelo_1.gauss)
+# print(modelo_1.exponente)
+print(modelo_1.c)
+#print(modelo_1.deficit_dividido_U_inf)

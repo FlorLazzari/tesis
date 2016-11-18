@@ -28,6 +28,8 @@ elif l == "4":
 	print("case_4")
 	from case_4 import *
 
+print(len(x_n))
+print(x_n)
 
 # defino variables :
 
@@ -284,6 +286,9 @@ plt.colorbar(cp)
 plt.show()
 plt.figure()
 fig.savefig('figuras/gaussiana_5_conmeshgrid.png')
+
+
+print(C)
 
 
 # faltaría hacerlo en función de z_n. ¿Cómo?
