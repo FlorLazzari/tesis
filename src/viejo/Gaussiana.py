@@ -26,6 +26,8 @@ class Gaussiana(object):
         # aca las coordenadas nuevas estan pisando las "coordenadas de Metodo"
         # no entiendo si me sirve para algo la inheritance en este caso
 
+# me parece que esto no hace nada distinto porque en la práctica usar r es lo
+# mismo que usar z
 
     def play_pol(self, coordenadas, c_T):
         coordenadas.normalizar(self.case)
@@ -53,8 +55,8 @@ class Gaussiana(object):
         self.x_n = coordenadas.x_n
         self.y_n = coordenadas.y_n
         self.z_n = coordenadas.z_n
-        sigma_n = self.k_estrella * self.x_n + self.epsilon
-        sigma_n_cuadrado = (sigma_n)**2
+        self.sigma_n = self.k_estrella * self.x_n + self.epsilon
+        sigma_n_cuadrado = (self.sigma_n)**2
         #r_cuadrado = self.y_n**2 + self.z_n**2
         c = 1 - (1-(self.c_T/(8*sigma_n_cuadrado)))**(0.5)
         r_cuadrado = np.zeros((len(self.y_n),len(self.z_n)))

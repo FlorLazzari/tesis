@@ -31,6 +31,12 @@ Para "mergear" un branch en otro branch
 Primero me tengo que parar en el branch a donde quiero que colapsen, luego
 git merge <nombre del branch a colapsar>
 
+Para borrar un branch local
+git branch -d <nombre del branch a borrar>
+
+Para borrar un branch que esta en la "nube"
+git push origin --delete <nombre del branch a borrar>
+
 Para ver los cambios que se hiciseron en un archivo
 git diff <archivo que se modifico>
 
