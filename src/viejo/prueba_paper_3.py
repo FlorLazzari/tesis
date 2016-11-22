@@ -36,8 +36,16 @@ I_0 = 0.07
 case = Case(d_0,z_h,U_hub,C_T,z_0,I_0)
 coordenadas = Coordenadas(x,y,z)
 
+# para que los resultados sean comparables a los del paper uso los datos que dan en
+# la introducción para k_estrella y epsilon (si uso lo del fit lineal de la figura 4
+# el gráfico 3 queda cualquier cosa):
 k_estrella = 0.2
-epsilon = 0.25
+epsilon = 0.268855463528
+
+# k_estrella = 0.023
+# epsilon = 0.219
+# estos valores de k_estrella y epsilon los saqué del ajuste de la lineal del gráfico
+# de sigmna_n vs x_n (figura 4)
 
 modelo = Gaussiana(case,k_estrella,epsilon)
 
@@ -112,24 +120,3 @@ figura = Figura(nombre,x_y,xLabel,yLabel,numero)
 figura.show_save()
 
 # figura 3 del paper : checked!
-
-################################################################################
-# figura 4: sigma_n / x_n
-
-x_y = { 'x_1': cociente_r_r_medio[v_0,barrido_r_n], 'y_1': gauss_cociente_v_0,
-
-nombre = "figura_4"
-xLabel = r'$x/d_{0}$'
-yLabel = r'$\sigma / d{0} $'
-numero = 1
-
-figura = Figura(nombre,x_y,xLabel,yLabel,numero)
-figura.show_save()
-
-
-
-plt.xlabel(r'$ x / d_{0} $')
-plt.ylabel(r'$\sigma / d_{0} $')
-plt.plot(x_n,sigma_n, 'x')
-plt.show()
-fig.savefig('figuras/gaussiana_4.png')

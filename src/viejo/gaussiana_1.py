@@ -38,6 +38,9 @@ n = (1 - C_T)**0.5
 beta = 0.5 * ((1+n)/n)
 epsilon = 0.25 * ((beta)**0.5)
 
+print(k_estrella)
+print(epsilon)
+
 # cambio de coordenadas:
 
 def cart2pol(x, y):

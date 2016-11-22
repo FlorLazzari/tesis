@@ -52,6 +52,9 @@ class Gaussiana(object):
 
     def play_cart(self, coordenadas, c_T):
         if isinstance(coordenadas, Coordenadas):
+            self.x = coordenadas.x
+            self.y = coordenadas.y
+            self.z = coordenadas.z
             coordenadas.normalizar(self.case)
             self.x_n = coordenadas.x_n
             self.y_n = coordenadas.y_n
@@ -60,6 +63,10 @@ class Gaussiana(object):
             self.x_n = coordenadas.x_n
             self.y_n = coordenadas.y_n
             self.z_n = coordenadas.z_n
+            coordenadas.desnormalizar(self.case)
+            self.x = coordenadas.x
+            self.y = coordenadas.y
+            self.z = coordenadas.z
         self.c_T = c_T
         self.sigma_n = self.k_estrella * self.x_n + self.epsilon
         sigma_n_cuadrado = (self.sigma_n)**2

@@ -16,4 +16,10 @@ class Coordenadas(object):
     def normalizar(self,case):
         self.x_n = self.x/case.d_0
         self.y_n = self.y/case.d_0
+        self.z_n = self.z /case.d_0
+
+    def normalizar_hub(self,case):
+        self.x_n = self.x/case.d_0
+        self.y_n = self.y/case.d_0
         self.z_n = (self.z - case.z_h)/case.d_0
+        
