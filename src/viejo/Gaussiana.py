@@ -4,7 +4,8 @@
 import numpy as np
 from numpy import exp
 from cart2pol import cart2pol
-
+from Coordenadas import Coordenadas
+from Coordenadas_Norm import Coordenadas_Norm
 
 # super() lets you avoid referring to the base class explicitly, which can be nice.
 # But the main advantage comes with multiple inheritance, where all sorts of fun
@@ -50,11 +51,16 @@ class Gaussiana(object):
                 self.deficit_dividido_U_inf[i,j] = c[i] * self.gauss[i,j]
 
     def play_cart(self, coordenadas, c_T):
-        coordenadas.normalizar(self.case)
+        if isinstance(coordenadas, Coordenadas):
+            coordenadas.normalizar(self.case)
+            self.x_n = coordenadas.x_n
+            self.y_n = coordenadas.y_n
+            self.z_n = coordenadas.z_n
+        elif isinstance(coordenadas, Coordenadas_Norm):
+            self.x_n = coordenadas.x_n
+            self.y_n = coordenadas.y_n
+            self.z_n = coordenadas.z_n
         self.c_T = c_T
-        self.x_n = coordenadas.x_n
-        self.y_n = coordenadas.y_n
-        self.z_n = coordenadas.z_n
         self.sigma_n = self.k_estrella * self.x_n + self.epsilon
         sigma_n_cuadrado = (self.sigma_n)**2
         #r_cuadrado = self.y_n**2 + self.z_n**2

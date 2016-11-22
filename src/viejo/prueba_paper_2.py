@@ -25,27 +25,12 @@ y = d_0 * y_n
 z = d_0 * z_n
 
 # inicializo caso, coordenadas, modelo:
-
-d_0 = 0.15
-z_h = 0.125
-U_hub = 2.2
-C_T = 0.42
-z_0 = 0.00003
-I_0 = 0.07
-
-case = Case(d_0,z_h,U_hub,C_T,z_0,I_0)
+case = Case(0.15,0.125,2.2,0.42,0.00003,0.07)
 coordenadas = Coordenadas(x,y,z)
-
-k_estrella = 0.2
-epsilon = 0.25
-
-modelo = Gaussiana(case,k_estrella,epsilon)
+modelo = Gaussiana(case,0.2,0.25)
 
 # corro el modelo:
-
-c_T = 0.5
-
-modelo.play_cart(coordenadas,c_T)
+modelo.play_cart(coordenadas,0.5)
 
 ################################################################################
 # figura 3: delta_U / delta_U_inf vs r / r_{1/2}
@@ -108,28 +93,8 @@ xLabel = r'$r/r_{1/2}$'
 yLabel = r'$\Delta U / \Delta U_{max} $'
 numero = 4
 
-figura = Figura(nombre,x_y,xLabel,yLabel,numero)
-figura.show_save()
+
+figura_1 = Figura(nombre,x_y,xLabel,yLabel,numero)
+figura_1.show_save()
 
 # figura 3 del paper : checked!
-
-################################################################################
-# figura 4: sigma_n / x_n
-
-x_y = { 'x_1': cociente_r_r_medio[v_0,barrido_r_n], 'y_1': gauss_cociente_v_0,
-
-nombre = "figura_4"
-xLabel = r'$x/d_{0}$'
-yLabel = r'$\sigma / d{0} $'
-numero = 1
-
-figura = Figura(nombre,x_y,xLabel,yLabel,numero)
-figura.show_save()
-
-
-
-plt.xlabel(r'$ x / d_{0} $')
-plt.ylabel(r'$\sigma / d_{0} $')
-plt.plot(x_n,sigma_n, 'x')
-plt.show()
-fig.savefig('figuras/gaussiana_4.png')

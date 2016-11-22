@@ -127,7 +127,7 @@ fig.savefig('figuras/gaussiana_1.png')
 # calculo r_medio (alaliticamente) : (para cada x voy a tener un r_medio)
 
 cociente_r_r_medio = np.zeros((len(x_n),len(r_cuadrado)))
-r_medio = log(2) * 2 * (sigma_n**2)				#esto sale de hacer la cuenta
+r_medio = (log(2) * 2 * (sigma_n**2))*(0.5)				#esto sale de hacer la cuenta
 
 # por definición log es en base e
 
