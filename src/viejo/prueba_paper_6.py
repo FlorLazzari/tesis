@@ -12,9 +12,9 @@ from math import log
 ################################################################################
 # coordenadas:
 
-x_n = np.arange(0,20,0.05)
-y_n = np.arange(0,3,0.05)
-z_n = np.arange(0,3,0.05)
+x_n = np.arange(0,2,0.05)
+y_n = np.arange(0,2,0.05)
+z_n = np.arange(0,2,0.05)
 
 d_0 = 0.15
 
@@ -52,30 +52,29 @@ modelo = Gaussiana(case,k_estrella,epsilon)
 
 c_T = 0.5
 
-# como voy a graficar en funcion de "r" (que en realidad lo estoy estudiando como
-# r == z) no quiero que normalice con z_hub, entonces uso play_pol:
-modelo.play_pol(coordenadas,c_T)
+# no voy a graficar en funcion de "r" (que en realidad lo estoy estudiando como
+# r == z), quiero que normalice con z_hub, entonces uso play_cart:
+modelo.play_cart(coordenadas,c_T)
 
 ################################################################################
-# figura 5: ( deficit_dividido_U_inf )_{max} vs x_n
+# figura 6: x_n vs z_n vs U
 
-from barrer import barrer
+# primero voy a hacer x_n vs z_n vs deficit_dividido_U_inf
 
-barrido_x_n = barrer(x_n)
-# el máximo lo consigo para el valor mas pequeño de y_n y z_n por eso los tomo nulos
+from Contour import Contour
+from colapsar import colapsar
 
-x_y = { 'x_1': modelo.x_n, 'y_1': modelo.deficit_dividido_U_inf[barrido_x_n,0,0] }
+# colapso en la posición y = 0:
+b = colapsar(modelo.deficit_dividido_U_inf,0)
+a = b.transpose()
 
-nombre = "figura_5"
+x_z_a = {'x_1': modelo.x_n, 'z_1': modelo.z_n, 'a_1': a}
+
+nombre = "figura_6_deficit"
 xLabel = r'$x / d_{0}$'
-yLabel = r'$ (\Delta U / U_{\infty})_{max} $'
-numero = 1
+yLabel = r'$z / d_{0}$'
 
-figura = Figura(nombre,x_y,xLabel,yLabel,numero)
-figura.yLim = [0,0.5]
-figura.xLim = [2,20]
-figura.show_save()
+contour = Contour(nombre,x_z_a,xLabel,yLabel)
+contour.show()
 
-# figura 5 del paper : checked! (no queda exactamente igual que el del paper pero
-# cambia mucho dependiendo del epsilon y el k_estrella asi que tengo que entender
-# bien cuales usaron)
+# figura 6_deficit del paper :

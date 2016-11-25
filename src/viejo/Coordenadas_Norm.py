@@ -13,11 +13,13 @@ class Coordenadas_Norm(object):
         self.x = None
         self.y = None
         self.z = None
-        self.r = None
-        self.phi = None
-        # no se si poner a r y phi como un atributo es lo mejor del mundo
 
     def desnormalizar(self,case):
+        self.x = self.x_n * case.d_0
+        self.y = self.y_n * case.d_0
+        self.z = self.z_n * case.d_0
+
+    def desnormalizar_hub(self,case):
         self.x = self.x_n*case.d_0
         self.y = self.y_n*case.d_0
         self.z = (self.z_n*case.d_0) + case.z_h

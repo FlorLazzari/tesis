@@ -29,7 +29,7 @@ coordenadas_1 = Coordenadas(x,y,z)
 
 modelo_1 = Gaussiana(case_1,0.2,0.25)
 
-modelo_1.play_pol(coordenadas_1,0.5)
+modelo_1.play_pol_2d(coordenadas_1,0.5)
 
 from fraccionar import fraccionar
 from barrer import barrer
