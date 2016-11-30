@@ -80,7 +80,40 @@ modelo.play_cart(coordenadas,c_T)
 ################################################################################
 # figura 6: x_n vs z_n vs U
 
-# no puedo hacer log(vector)
-U_inf = case.z_0 * (log(modelo.z_n/case.z_h) / log(modelo.z_n/case.z_h))
 
 # U = U_inf * (1 - modelo.deficit_dividido_U_inf)
+
+
+# no puedo hacer log(vector)
+
+U_hub = case.U_hub
+z_h = case.z_h
+z_0 = case.z_0
+z_0_vect = case.z_0 * np.ones((len(modelo.z_n)))
+
+# for i in range (0,len(self.x_n)):
+#     for j in range (0,len(self.y_n)):
+#         for k in range (0,len(self.z_n)):
+#             U_inf[i,j,k] = U_hub * ((log(modelo.z_n[k] / z_0)) / log(z_h / z_0)
+
+U_inf = np.zeros((len(modelo.z_n)))
+divi = np.zeros((len(modelo.z_n)))
+num = np.zeros((len(modelo.z_n)))
+
+denom = log(z_h / z_0) * np.ones((len(modelo.z_n)))
+print(modelo.z)
+print(z_0_vect)
+
+U_inf[0] = 0
+
+for k in range(1,len(modelo.z_n)):
+    divi[k] = modelo.z[k] / z_0_vect[k]
+    num[k] = log(divi[k])
+    U_inf[k] = U_hub * ( num[k] / denom[k])
+
+print(divi)
+print(U_inf)
+x_y = {'x_1': np.arange(0,len(modelo.z_n)), 'y_1': U_inf}
+
+figura_prueba = Figura("hola",x_y,"hola","chau",1)
+figura_prueba.show()
