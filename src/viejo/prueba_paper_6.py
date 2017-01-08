@@ -57,25 +57,26 @@ c_T = 0.5
 modelo.play_cart(coordenadas,c_T)
 
 ################################################################################
-# # primero voy a hacer x_n vs z_n vs deficit_dividido_U_inf
-#
-# from Contour import Contour
-# from colapsar import colapsar
-#
-# # colapso en la posición y = 0:
-# b = colapsar(modelo.deficit_dividido_U_inf,0)
-# a = b.transpose()
-#
-# x_z_a = {'x_1': modelo.x_n, 'z_1': modelo.z_n, 'a_1': a}
-#
-# nombre = "figura_6_deficit"
-# xLabel = r'$x / d_{0}$'
-# yLabel = r'$z / d_{0}$'
-#
-# contour = Contour(nombre,x_z_a,xLabel,yLabel)
-# contour.show()
-#
-# # figura 6_deficit del paper : checked!
+# primero voy a hacer x_n vs z_n vs deficit_dividido_U_inf
+
+from Contour import Contour
+from colapsar import colapsar
+
+# colapso en la posición y = 0:
+b = colapsar(modelo.deficit_dividido_U_inf,0)
+a = b.transpose()
+
+x_z_a = {'x_1': modelo.x_n, 'z_1': modelo.z_n, 'a_1': a}
+
+nombre = "figura_6_deficit"
+xLabel = r'$x / d_{0}$'
+yLabel = r'$z / d_{0}$'
+
+contour = Contour(nombre,x_z_a,xLabel,yLabel)
+contour.show()
+
+# figura 6_deficit del paper (sin la condicion de viento externo correcto): checked!
+
 
 ################################################################################
 # figura 6: x_n vs z_n vs U
