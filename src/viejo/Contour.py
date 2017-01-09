@@ -1,5 +1,6 @@
 # coding=utf-8
 import matplotlib.pyplot as plt # para hacer los gráficos
+import os
 
 class Contour(object):
 
@@ -18,23 +19,33 @@ class Contour(object):
         fig = plt.figure()
         plt.close(fig)
 
-    def save(self):
+    def save(self,direc):
         plt.xlabel(self.xLabel)
         plt.ylabel(self.yLabel)
         cp = plt.contourf(self.x_z_a['x_1'],self.x_z_a['z_1'],self.x_z_a['a_1'])
         plt.colorbar(cp)
-        direc = "figuras/gaussiana_%s.png" % self.nombre
+        try:
+            os.makedirs(direc)
+        except OSError:
+            if not os.path.isdir(direc):
+                raise
+        path = "%s/%s.png" % (direc,self.nombre)
         fig = plt.figure()
-        fig.savefig(direc)
+        fig.savefig(path)
         plt.close(fig)
 
-    def show_save(self):
+    def show_save(self,direc):
         plt.xlabel(self.xLabel)
         plt.ylabel(self.yLabel)
         cp = plt.contourf(self.x_z_a['x_1'],self.x_z_a['z_1'],self.x_z_a['a_1'])
         plt.colorbar(cp)
         plt.show()
-        direc = "figuras/gaussiana_%s.png" % self.nombre
+        try:
+            os.makedirs(direc)
+        except OSError:
+            if not os.path.isdir(direc):
+                raise
+        path = "%s/%s.png" % (direc,self.nombre)
         fig = plt.figure()
-        fig.savefig(direc)
+        fig.savefig(path)
         plt.close(fig)

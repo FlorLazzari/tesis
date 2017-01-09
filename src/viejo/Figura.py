@@ -1,5 +1,6 @@
 # coding=utf-8
 import matplotlib.pyplot as plt # para hacer los gráficos
+import os
 
 class Figura(object):
 
@@ -31,7 +32,7 @@ class Figura(object):
         fig = plt.figure()
         plt.close(fig)
 
-    def save(self):
+    def save(self,direc):
         if self.xLim != None:
             plt.xlim(self.xLim)
         if self.yLim != None:
@@ -46,12 +47,18 @@ class Figura(object):
             plt.plot(self.x_y['x_1'],self.x_y['y_1'],self.x_y['x_2'],self.x_y['y_2'],self.x_y['x_3'],self.x_y['y_3'])
         elif self.numero == 4:
             plt.plot(self.x_y['x_1'],self.x_y['y_1'],self.x_y['x_2'],self.x_y['y_2'],self.x_y['x_3'],self.x_y['y_3'],self.x_y['x_4'],self.x_y['y_4'])
-        direc = "figuras/gaussiana_%s.png" % self.nombre
+
+        try:
+            os.makedirs(direc)
+        except OSError:
+            if not os.path.isdir(direc):
+                raise
+        path = "%s/%s.png" % (direc,self.nombre)
         fig = plt.figure()
-        fig.savefig(direc)
+        fig.savefig(path)
         plt.close(fig)
 
-    def show_save(self):
+    def show_save(self,direc):
         if self.xLim != None:
             plt.xlim(self.xLim)
         if self.yLim != None:
@@ -67,9 +74,15 @@ class Figura(object):
         elif self.numero == 4:
             plt.plot(self.x_y['x_1'],self.x_y['y_1'],self.x_y['x_2'],self.x_y['y_2'],self.x_y['x_3'],self.x_y['y_3'],self.x_y['x_4'],self.x_y['y_4'])
         plt.show()
-        direc = "figuras/gaussiana_%s.png" % self.nombre
+
+        try:
+            os.makedirs(direc)
+        except OSError:
+            if not os.path.isdir(direc):
+                raise
+        path = "%s/%s.png" % (direc,self.nombre)
         fig = plt.figure()
-        fig.savefig(direc)
+        fig.savefig(path)
         plt.close(fig)
 
 
