@@ -54,7 +54,7 @@ coordenadas = Coordenadas(x,y,z)
 k_estrella = 0.2
 epsilon = 0.268855463528
 
-modelo = Gaussiana(case,k_estrella,epsilon)
+gaussiana = Gaussiana(case,k_estrella,epsilon)
 
 # corro el modelo:
 
@@ -70,7 +70,28 @@ c_T = 0.91 # lo calcule haciendo una regresion lineal con los dos puntos
            # se que no es exactamente lineal (se ve del grafico),
            # pero en ese intervalo se aproxima muy bien por una lineal
 
-modelo.play_pol(coordenadas,c_T)
 
+
+gaussiana.play_cart(coordenadas,c_T)
+
+deficit_dividido_U_inf = gaussiana.deficit_dividido_U_inf
 
 ################################################################################
+
+# x/d = 1
+
+# voy a tener un problema:
+# yo normalice todo como coordenada/d y el nuevo paper normaliza todo con
+# coordenada/r por lo tanto voy a tener que usar una de las dos convensiones
+# como para que todo sea comparable (voy a tener que cambiar measurements para
+# quede como hize todo el resto, lo hago despues, ahora veo si la forma tiene
+# algo de sentido)
+
+
+# corte para z = z_hub, vario en y
+
+# para que indice x/d == 1?
+coordenadas.normalizar(case)
+print(coordenadas.x_n)
+
+#deficit_dividido_U_inf[,z_h]

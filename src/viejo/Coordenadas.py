@@ -1,4 +1,5 @@
 import numpy as np
+from Case import Case
 
 class Coordenadas(object):
 
@@ -10,12 +11,12 @@ class Coordenadas(object):
         self.y_n = None
         self.z_n = None
 
-    def normalizar(self,case):
-        self.x_n = self.x/case.d_0
-        self.y_n = self.y/case.d_0
-        self.z_n = self.z /case.d_0
+    def normalizar(self,Case):
+        self.x_n = self.x/Case.d_0
+        self.y_n = self.y/Case.d_0
+        self.z_n = self.z/Case.d_0
 
-    def normalizar_hub(self,case):
-        self.x_n = self.x/case.d_0
-        self.y_n = self.y/case.d_0
-        self.z_n = (self.z - case.z_h)/case.d_0
+    def normalizar_hub(self,Case):
+        self.x_n = self.x/Case.d_0
+        self.y_n = self.y/Case.d_0
+        self.z_n = (self.z - Case.z_h)/Case.d_0
