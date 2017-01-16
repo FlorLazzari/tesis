@@ -15,7 +15,7 @@ figura_prueba.show()
 # a simple vista pareciera que la imagen es el espejo que la del paper (6.a):
 # chequear.. (tiene algo que ver con ese (-) que aparece arriba de cada columna?)
 
-## (1-U/Uref) vs y/r
+## (1-U/Uref) vs z/d
 
 x_y = {"x_1" : z, "y_1" : deficit_dividido_U_inf_z}
 nombre = "z/d vs deficit_dividido_U_inf x/d=5"

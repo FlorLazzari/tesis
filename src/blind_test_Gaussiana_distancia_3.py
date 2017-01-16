@@ -25,7 +25,7 @@ width = 3
 height = 2
 
 x = np.arange(0,length,0.05)
-y = np.arange(0,width,0.05)
+y = np.arange(-width,width,0.05)
 z = np.arange(0,height,0.05)
 
 # inicializo caso, coordenadas, modelo:
@@ -78,7 +78,7 @@ deficit_dividido_U_inf = gaussiana.deficit_dividido_U_inf
 
 ################################################################################
 
-# x/d = 1
+# x/d = 3
 
 # voy a tener un problema:
 # yo normalice todo como coordenada/d y el nuevo paper normaliza todo con
@@ -90,17 +90,17 @@ deficit_dividido_U_inf = gaussiana.deficit_dividido_U_inf
 
 # corte para z = z_hub, vario en y
 
-# como hago para que indice x/d == 1? primero lo voy a hacer a mano:
+# como hago para que indice x/d == 3? primero lo voy a hacer a mano:
 coordenadas.normalizar(case)
 # print(coordenadas.x_n)
 
 # a mano encuentro:
 
-indice_x_d_1 = 19
+indice_x_d_3 = 55
 indice_z_h = 17
 
 # print(coordenadas.z)
 # print(case.z_h)
 
-x = coordenadas.y_n
-y = deficit_dividido_U_inf[indice_x_d_1,:,indice_z_h]
+y_Gaussiana = coordenadas.y_n
+deficit_dividido_U_inf_Gaussiana = deficit_dividido_U_inf[indice_x_d_3,:,indice_z_h]

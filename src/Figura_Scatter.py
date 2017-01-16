@@ -23,11 +23,11 @@ class Figura_Scatter(object):
         if self.numero == 1:
             plt.plot(self.x_y['x_1'],self.x_y['y_1'],'x')
         elif self.numero == 2:
-            plt.plot(self.x_y['x_1'],self.x_y['y_1'],self.x_y['x_2'],self.x_y['y_2'],'x')
+            plt.plot(self.x_y['x_1'],self.x_y['y_1'],'x',self.x_y['x_2'],self.x_y['y_2'])
         elif self.numero == 3:
-            plt.plot(self.x_y['x_1'],self.x_y['y_1'],self.x_y['x_2'],self.x_y['y_2'],self.x_y['x_3'],self.x_y['y_3'],'x')
+            plt.plot(self.x_y['x_1'],self.x_y['y_1'],'x',self.x_y['x_2'],self.x_y['y_2'],'x',self.x_y['x_3'],self.x_y['y_3'],'x')
         elif self.numero == 4:
-            plt.plot(self.x_y['x_1'],self.x_y['y_1'],self.x_y['x_2'],self.x_y['y_2'],self.x_y['x_3'],self.x_y['y_3'],self.x_y['x_4'],self.x_y['y_4'],'x')
+            plt.plot(self.x_y['x_1'],self.x_y['y_1'],'x',self.x_y['x_2'],self.x_y['y_2'],'x',self.x_y['x_3'],self.x_y['y_3'],'x',self.x_y['x_4'],self.x_y['y_4'],'x')
         plt.show()
         fig = plt.figure()
         plt.close(fig)
@@ -42,11 +42,11 @@ class Figura_Scatter(object):
         if self.numero == 1:
             plt.plot(self.x_y['x_1'],self.x_y['y_1'],'x')
         elif self.numero == 2:
-            plt.plot(self.x_y['x_1'],self.x_y['y_1'],self.x_y['x_2'],self.x_y['y_2'],'x')
+            plt.plot(self.x_y['x_1'],self.x_y['y_1'],'x',self.x_y['x_2'],self.x_y['y_2'],'x')
         elif self.numero == 3:
-            plt.plot(self.x_y['x_1'],self.x_y['y_1'],self.x_y['x_2'],self.x_y['y_2'],self.x_y['x_3'],self.x_y['y_3'],'x')
+            plt.plot(self.x_y['x_1'],self.x_y['y_1'],'x',self.x_y['x_2'],self.x_y['y_2'],'x',self.x_y['x_3'],self.x_y['y_3'],'x')
         elif self.numero == 4:
-            plt.plot(self.x_y['x_1'],self.x_y['y_1'],self.x_y['x_2'],self.x_y['y_2'],self.x_y['x_3'],self.x_y['y_3'],self.x_y['x_4'],self.x_y['y_4'],'x')
+            plt.plot(self.x_y['x_1'],self.x_y['y_1'],'x',self.x_y['x_2'],self.x_y['y_2'],'x',self.x_y['x_3'],self.x_y['y_3'],'x',self.x_y['x_4'],self.x_y['y_4'],'x')
 
         try:
             os.makedirs(direc)
@@ -68,11 +68,11 @@ class Figura_Scatter(object):
         if self.numero == 1:
             plt.plot(self.x_y['x_1'],self.x_y['y_1'],'x')
         elif self.numero == 2:
-            plt.plot(self.x_y['x_1'],self.x_y['y_1'],self.x_y['x_2'],self.x_y['y_2'],'x')
+            plt.plot(self.x_y['x_1'],self.x_y['y_1'],'x',self.x_y['x_2'],self.x_y['y_2'],'x')
         elif self.numero == 3:
-            plt.plot(self.x_y['x_1'],self.x_y['y_1'],self.x_y['x_2'],self.x_y['y_2'],self.x_y['x_3'],self.x_y['y_3'],'x')
+            plt.plot(self.x_y['x_1'],self.x_y['y_1'],'x',self.x_y['x_2'],self.x_y['y_2'],'x',self.x_y['x_3'],self.x_y['y_3'],'x')
         elif self.numero == 4:
-            plt.plot(self.x_y['x_1'],self.x_y['y_1'],self.x_y['x_2'],self.x_y['y_2'],self.x_y['x_3'],self.x_y['y_3'],self.x_y['x_4'],self.x_y['y_4'],'x')
+            plt.plot(self.x_y['x_1'],self.x_y['y_1'],'x',self.x_y['x_2'],self.x_y['y_2'],'x',self.x_y['x_3'],self.x_y['y_3'],'x',self.x_y['x_4'],self.x_y['y_4'],'x')
         plt.show()
 
         try:
