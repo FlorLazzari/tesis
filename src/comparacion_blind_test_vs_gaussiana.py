@@ -49,3 +49,8 @@ yLabel = r'$ \Delta U / U_{\infty}$'
 figura_prueba = Figura_Scatter(nombre,x_y,xLabel,yLabel,2)
 figura_prueba.xLim = [-2,2]
 figura_prueba.show()
+
+
+# el problema que tengo al comparar los graficos es que la gaussiana del modelo se
+# achica mucho con la distancia, voy a ver que parametro tengo que tocar para cambiar
+# eso
