@@ -117,25 +117,11 @@ denom = log(z_h / z_0) * np.ones((len(modelo.z_n)))
 # figura 6: z_n vs U_inf para distintos valores de x
 #           z_n vs U_inf para distintos valores de y
 
-U_inf_y = np.zeros((len(modelo.x_n),len(modelo.y_n),len(modelo.z_n)))
-U_inf = np.zeros((len(modelo.x_n),len(modelo.y_n),len(modelo.z_n)))
-U = np.zeros((len(modelo.x_n),len(modelo.y_n),len(modelo.z_n)))
+from crear_U_logaritmico import crear_U_logaritmico
+from restar_U_inf_menos_deficit import restar_U_inf_menos_deficit
 
-
-# for i in range (0,len(x_n)):
-#     for j in range (0,len(y_n)):
-#         U_inf[i,j,0] = 0
-
-for i in range (0,len(x_n)):
-    for j in range (0,len(y_n)):
-        for k in range (1,len(z_n)):
-            divi[k] = modelo.z[k] / z_0
-            num[k] = log(divi[k])
-            # U_inf_y[i,0,k] = U_hub * ( num[k] / denom[k] )
-            # U_inf[i,j,k] = U_inf_y[i,0,k]
-            U_inf[i,j,k] = U_hub * ( num[k] / denom[k] )
-            U[i,j,k] = U_inf[i,j,k] * (1 - modelo.deficit_dividido_U_inf[i,j,k])
-
+U_inf = crear_U_logaritmico(case,coordenadas)
+U =  restar_U_inf_menos_deficit(coordenadas, modelo, U_inf)
 
 a = U_inf[0,0,:]
 b = U_inf[3,0,:]
