@@ -55,8 +55,8 @@ k_estrella = 0.2
 epsilon = 0.268855463528
 
 # trucheo:
-k_estrella = 0.023
-epsilon = 0.219
+# k_estrella = 0.023
+# epsilon = 0.219
 
 gaussiana = Gaussiana(case,k_estrella,epsilon)
 

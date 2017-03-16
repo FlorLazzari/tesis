@@ -161,6 +161,16 @@ figura_prueba.show()
 #            U_inf tiene simetria esferica  ???
 
 
+from potenciar import potenciar
+
+# x_0 = punto donde quiero calcular la potencia
+x_0 = 3
+
+potencia_disponible = potenciar(modelo.case.d_0,x_0,U)
+print "Potencia Disponible:"
+print potencia_disponible
+
+
 ################################################################################
 # figura 6: x_n vs z_n vs U para distintos valores de x
 #           x_n vs z_n vs U para distintos valores de y

@@ -34,7 +34,7 @@ d_0 = 0.894    # diameter of the wind turbine
 z_h = 0.817
 
 # no tengo datos de esto:
-U_hub = 0      # esto seria una U_ref??
+U_hub = 0      # esto seria una U_ref?? Gaussiana no lo usa asi que no me preocupa
 C_T = 0
 z_0 = 0
 I_0 = 0
@@ -55,8 +55,8 @@ k_estrella = 0.2
 epsilon = 0.268855463528
 
 # trucheo:
-k_estrella = 0.023
-epsilon = 0.219
+# k_estrella = 0.023
+# epsilon = 0.219
 
 
 
@@ -89,7 +89,7 @@ deficit_dividido_U_inf = gaussiana.deficit_dividido_U_inf
 # voy a tener un problema:
 # yo normalice todo como coordenada/d y el nuevo paper normaliza todo con
 # coordenada/r por lo tanto voy a tener que usar una de las dos convensiones
-# como para que todo sea comparable (voy a tener que cambiar measurements para
+# como para que todo sea comparable (voy a tener que cambiar measurements para que
 # quede como hize todo el resto, lo hago despues, ahora veo si la forma tiene
 # algo de sentido)
 
@@ -102,11 +102,23 @@ coordenadas.normalizar(case)
 
 # a mano encuentro:
 
-indice_x_d_1 = 19
-indice_z_h = 17
+# indice_x_d_1 = 19
+# indice_z_h = 17
+
+# como python indexa desde 0 voy a restar uno a estos indices encontrados
+
+indice_x_d_1 = 18
+indice_z_h = 16
 
 # print(coordenadas.z)
 # print(case.z_h)
 
 y_Gaussiana = coordenadas.y_n
 deficit_dividido_U_inf_Gaussiana = deficit_dividido_U_inf[indice_x_d_1,:,indice_z_h]
+
+
+print deficit_dividido_U_inf_Gaussiana
+# print deficit_dividido_U_inf
+
+
+# problema: no se por que deficit_dividido_U_inf_Gaussiana es una lista de puros nan's

@@ -52,5 +52,8 @@ figura_prueba.show()
 
 
 # el problema que tengo al comparar los graficos es que la gaussiana del modelo se
-# achica mucho con la distancia, voy a ver que parametro tengo que tocar para cambiar
+# achica mucho con la distancia, voy a ver qué parametro tengo que tocar para cambiar
 # eso
+
+# los parámetros que puedo cambiar son k_estrella y epsilon (la amplitud de la gaussiana depende de ambos),
+# pero cuidado! porque los dos parámetros modifican el exponente de la gaussiana también
