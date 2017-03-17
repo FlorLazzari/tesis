@@ -1,4 +1,7 @@
-# comparar graficos de las mediciones del blind test con el modelo Gaussiana
+# coding=utf-8
+
+
+# comparar FORMA DE GRÁFICOS de las mediciones del blind test con el modelo Gaussiana
 
 # los archivos que voy a comparar son:
 # - measurements_distance_1.py
@@ -21,6 +24,7 @@ yLabel = r'$ \Delta U / U_{\infty}$'
 figura_prueba = Figura_Scatter(nombre,x_y,xLabel,yLabel,2)
 figura_prueba.xLim = [-2,2]
 figura_prueba.show()
+
 
 from measurements_distance_3 import y,deficit_dividido_U_inf_y,sigma_y,z,deficit_dividido_U_inf_z,sigma_z
 from blind_test_Gaussiana_distancia_3 import y_Gaussiana, deficit_dividido_U_inf_Gaussiana
