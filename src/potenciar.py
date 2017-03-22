@@ -12,7 +12,7 @@ rho = 1.225
 # x_0 = es el punto donde quiero calcular la potencia disponible
 # U = es el viento a la salida del molino
 
-def potenciar(d_0,x,y,z,x_0,U):
+def potenciar(d_0,x_n,y,z,x_n_0,U):
     # area = area sobre la cual quiero estudiar potencia disponible, en general
     # es igual al area que barre el molino
     radio = d_0 / 2
@@ -25,11 +25,11 @@ def potenciar(d_0,x,y,z,x_0,U):
     # x [x_indice_radio] = radio
     indice_radio_y = indexar(y,radio)
     indice_radio_z = indexar(z,radio)
-    indice_x_0 = indexar(x,x_0)
+    indice_x_n_0 = indexar(x_n,x_n_0)
     potencia_disponible_parcial = np.zeros((indice_radio_y,indice_radio_z))
     potencia_disponible = 0
     for i in range (0,indice_radio_y):
         for j in range (0,indice_radio_z):
-            potencia_disponible_parcial[i,j] = coeficiente * U[indice_x_0,i,j]
+            potencia_disponible_parcial[i,j] = coeficiente * U[indice_x_n_0,i,j]
             potencia_disponible = sum(sum(potencia_disponible_parcial))
     return potencia_disponible

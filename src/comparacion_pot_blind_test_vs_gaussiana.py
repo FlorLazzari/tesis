@@ -60,9 +60,10 @@ U_gaussiana =  restar_U_inf_menos_deficit(coordenadas, modelo, U_inf)
 
 from potenciar import potenciar
 
-x_0 = 0.2
+x_n_0 = 1
 
-potencia_disponible = potenciar(modelo.case.d_0,x,y,z,x_0,U_gaussiana)
+
+potencia_disponible = potenciar(modelo.case.d_0,x_n,y,z,x_n_0,U_gaussiana)
 print "Potencia Disponible para el modelo gaussiana:",potencia_disponible
 
 ################################################################################
@@ -86,8 +87,10 @@ print "coordenadas_measurements.z =",coordenadas_measurements.z
 print "case.z_0 =",case.z_0
 
 U_inf = crear_U_logaritmico(case,coordenadas_measurements)
-# U_gaussiana =  restar_U_inf_menos_deficit(coordenadas_measurements, modelo, U_inf)
 
+# me gustaria hacer algo de la pinta:
+# U_gaussiana =  restar_U_inf_menos_deficit(coordenadas_measurements, modelo, U_inf)
+# pero no puedo por un tema de dimensiones... asi que hago lo siguiente:
 
 from indexar import indexar
 
@@ -95,12 +98,6 @@ indice_x_n_1 = indexar(x_n,1)
 indice_z_h = indexar(z,z_h)
 
 
-# U[i,j,k] = U_inf[indice_x_0,j,k] * (1 - deficit_dividido_U_inf_y)
-
-# print type(U_inf)
-# print type(deficit_dividido_U_inf_y)
-# print U_inf.shape
-# print len(deficit_dividido_U_inf_y)
 deficit_dividido_U_inf_y_matrix = np.zeros((len(coordenadas_measurements.x),len(coordenadas_measurements.y),len(coordenadas_measurements.z)))
 deficit_dividido_U_inf_y_matrix[indice_x_n_1,:,indice_z_h] = deficit_dividido_U_inf_y
 
@@ -110,12 +107,10 @@ for i in range (0,len(coordenadas_measurements.x)):
         for k in range (1,len(coordenadas_measurements.z)):
             U[i,j,k] = U_inf[i,j,k] * (1 - deficit_dividido_U_inf_y_matrix[i,j,k])
 
-print "U_inf =", U_inf[indice_x_n_1,:,indice_z_h]
-
 x_y = {"x_1" : y, "y_1" : U_inf[indice_x_n_1,:,indice_z_h]}
-nombre = "y/d vs deficit_dividido_U_inf x/d=1"
-xLabel = r'$y/d$'
-yLabel = r'$ \Delta U / U_{\infty}$'
+nombre = "y vs U_inf en x/d=1"
+xLabel = r'$y$'
+yLabel = r'$ U_{\infty}$'
 
 figura_prueba = Figura_Scatter(nombre,x_y,xLabel,yLabel,1)
 figura_prueba.show()
@@ -135,9 +130,9 @@ figura_prueba.show()
 
 
 x_y = {"x_1" : y, "y_1" : U[indice_x_n_1,:,indice_z_h]}
-nombre = "y/d vs deficit_dividido_U_inf x/d=1"
-xLabel = r'$y/d$'
-yLabel = r'$ \Delta U / U_{\infty}$'
+nombre = "y vs U en x/d=1 en z_h"
+xLabel = r'$y$'
+yLabel = r'$U en x/d=1 en z_h$'
 
 figura_prueba = Figura_Scatter(nombre,x_y,xLabel,yLabel,1)
 figura_prueba.show()
@@ -168,8 +163,7 @@ z = z[:indice_z_nulo]
 
 deficit_dividido_U_inf_z = deficit_dividido_U_inf_z[:indice_z_nulo]
 
-
-print "z truncado =",z
+# print "z truncado =",z
 
 coordenadas_measurements = Coordenadas(x,y,z)
 
@@ -191,18 +185,19 @@ for i in range (0,len(coordenadas_measurements.x)):
 
 # y = 0 es el medio del hub
 
-print "U_inf =", U_inf[indice_x_n_1,0,:]
+# esa matriz U[i,j,k] solo tiene sentido para:
+# [i,j,k] = [indice_x_n_1,0,:]
+
+# print "U_inf =", U_inf[indice_x_n_1,0,:]
 
 x_y = {"x_1" : z, "y_1" : U_inf[indice_x_n_1,0,:]}
-nombre = "y/d vs deficit_dividido_U_inf x/d=1"
-xLabel = r'$y/d$'
-yLabel = r'$ \Delta U / U_{\infty}$'
+nombre = "z vs U_inf en x/d=1 en y=0"
+xLabel = r'$z$'
+yLabel = r'$ U_{\infty} en x/d=1 en y=0$'
 
 figura_prueba = Figura_Scatter(nombre,x_y,xLabel,yLabel,1)
 figura_prueba.show()
 
-# esa matriz U[i,j,k] solo tiene sentido para:
-# [i,j,k] = [indice_x_n_1,0,:]
 
 # grafico a ver que onda
 
@@ -211,12 +206,10 @@ figura_prueba.show()
 # print "deficit_dividido_U_inf_y =",deficit_dividido_U_inf_y
 # print "U_inf =",U_inf
 
-
-
 x_y = {"x_1" : z, "y_1" : U[indice_x_n_1,0,:]}
-nombre = "y/d vs deficit_dividido_U_inf x/d=1"
-xLabel = r'$y/d$'
-yLabel = r'$ \Delta U / U_{\infty}$'
+nombre = "z vs U en x/d=1 en y=0"
+xLabel = r'$z$'
+yLabel = r'$U en x/d=1 en y=0$'
 
 figura_prueba = Figura_Scatter(nombre,x_y,xLabel,yLabel,1)
 figura_prueba.show()
@@ -225,11 +218,18 @@ figura_prueba.show()
 # los graficos no son nada prolijos, habria que frenar y pensar si lo que estoy
 # haciendo tiene sentido antes de seguir con el calculo de la potencia
 
+# no se cuan bien esta lo de aplicarle el perfil de viento logaritmico a las
+# mediciones, me parece un enchastre
+
 ################################################################################
 # calculo de POTENCIA
 
+# la idea seria calcular la potencia en un plano
+# primero voy a calcular en el plano donde el perfil logaritmico importa,
+# es decir en el plano (x,z)
+
 rho = 1.225
-#
+
 # def potenciar(d_0,x,y,z,x_0,U):
 #     radio = d_0 / 2
 #     area = 3.14 * (radio**2)

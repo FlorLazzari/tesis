@@ -164,9 +164,9 @@ figura_prueba.show()
 from potenciar import potenciar
 
 # x_0 = punto donde quiero calcular la potencia
-x_0 = 0.2
+x_n_0 = 1
 
-potencia_disponible = potenciar(modelo.case.d_0,x,y,z,x_0,U)
+potencia_disponible = potenciar(modelo.case.d_0,x_n,y,z,x_n_0,U)
 print "Potencia Disponible:",potencia_disponible
 
 
