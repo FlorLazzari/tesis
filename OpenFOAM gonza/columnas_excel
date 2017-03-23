@@ -1,0 +1,13 @@
+que significa cada columna en el excel?
+
+y = misma coordenada "y" que en mi modelo. ojo! la diferencia es que este eje no
+esta centrado en el eje de la turbina, el 0 se encuentra a 1.36m del centro del hub.
+Para corregir esto debería restarle 1.36 a toda la coordenada y.
+
+U_0 = U_x (siendo x la direccion del viento)
+U_1 = U_y (siendo y la profundidad)
+U_2 = U_z (siendo z la altura)
+
+
+Todos estos valores son en la recta que recorre el eje y a la altura del hub
+(x = distance_n, barrido en y, z = z_hub) 
