@@ -73,19 +73,20 @@ x_n = coordenadas.x_n
 
 z_h = case.z_h
 
-from crear_U_logaritmico import crear_U_logaritmico
+from crear_U_cte import crear_U_cte
 from restar_U_inf_menos_deficit import restar_U_inf_menos_deficit
 
-U_inf = crear_U_logaritmico(case,coordenadas)
+U_inf = crear_U_cte(case,coordenadas)
 U_gaussiana =  restar_U_inf_menos_deficit(coordenadas, modelo, U_inf)
 
 from potenciar import potenciar
+
 
 x_n_0 = 1
 
 
 potencia_disponible = potenciar(modelo.case.d_0,x_n,y,z,x_n_0,U_gaussiana)
-print "Potencia Disponible para el modelo gaussiana:",potencia_disponible
+print "Potencia Disponible para el modelo gaussiana con los datos del blind test y una condición de viento U_inf = cte :",potencia_disponible
 
 ################################################################################
 # POTENCIA DISPONIBLE para las MEDICIONES:
@@ -104,10 +105,10 @@ from measurements_distance_1 import y,deficit_dividido_U_inf_y,sigma_y
 
 coordenadas_measurements = Coordenadas(x,y,z)
 
-print "coordenadas_measurements.z =",coordenadas_measurements.z
-print "case.z_0 =",case.z_0
+# print "coordenadas_measurements.z =",coordenadas_measurements.z
+# print "case.z_0 =",case.z_0
 
-U_inf = crear_U_logaritmico(case,coordenadas_measurements)
+U_inf = crear_U_cte(case,coordenadas_measurements)
 
 # me gustaria hacer algo de la pinta:
 # U_gaussiana =  restar_U_inf_menos_deficit(coordenadas_measurements, modelo, U_inf)
@@ -131,7 +132,7 @@ for i in range (0,len(coordenadas_measurements.x)):
 x_y = {"x_1" : y, "y_1" : U_inf[indice_x_n_1,:,indice_z_h]}
 nombre = "y vs U_inf en x/d=1"
 xLabel = r'$y$'
-yLabel = r'$ U_{\infty}$'
+yLabel = r'$ U_{\infty} (x/d = 1, z = z_h)$'
 
 figura_prueba = Figura_Scatter(nombre,x_y,xLabel,yLabel,1)
 figura_prueba.show()
@@ -153,7 +154,7 @@ figura_prueba.show()
 x_y = {"x_1" : y, "y_1" : U[indice_x_n_1,:,indice_z_h]}
 nombre = "y vs U en x/d=1 en z_h"
 xLabel = r'$y$'
-yLabel = r'$U en x/d=1 en z_h$'
+yLabel = r'$U (x/d = 1, z = z_h)$'
 
 figura_prueba = Figura_Scatter(nombre,x_y,xLabel,yLabel,1)
 figura_prueba.show()
@@ -165,6 +166,7 @@ figura_prueba.show()
 # 2. el grafico de U muestra que en el eje y el perfil logaritmico no influye en nada
 #
 # veamos que en z SI deberia cambiar:
+
 
 ################################################################################
 from measurements_distance_1 import z,deficit_dividido_U_inf_z,sigma_z
@@ -188,7 +190,7 @@ deficit_dividido_U_inf_z = deficit_dividido_U_inf_z[:indice_z_nulo]
 
 coordenadas_measurements = Coordenadas(x,y,z)
 
-U_inf = crear_U_logaritmico(case,coordenadas_measurements)
+U_inf = crear_U_cte(case,coordenadas_measurements)
 
 from indexar import indexar
 
@@ -214,10 +216,14 @@ for i in range (0,len(coordenadas_measurements.x)):
 x_y = {"x_1" : z, "y_1" : U_inf[indice_x_n_1,0,:]}
 nombre = "z vs U_inf en x/d=1 en y=0"
 xLabel = r'$z$'
-yLabel = r'$ U_{\infty} en x/d=1 en y=0$'
+yLabel = r'$ U_{\infty} (x/d = 1, y = 0)$'
 
 figura_prueba = Figura_Scatter(nombre,x_y,xLabel,yLabel,1)
 figura_prueba.show()
+
+# el grafico es una cte = U_hub lo cual tiene sentido!
+
+print "para verificar con el grafico, U_hub =", case.U_hub
 
 
 # grafico a ver que onda
@@ -227,27 +233,33 @@ figura_prueba.show()
 # print "deficit_dividido_U_inf_y =",deficit_dividido_U_inf_y
 # print "U_inf =",U_inf
 
+x_y = {"x_1" : z, "y_1" : deficit_dividido_U_inf_z_matrix[indice_x_n_1,0,:]}
+nombre = "z vs U en x/d=1 en y=0"
+xLabel = r'$z$'
+yLabel = r'$ \Delta U / U_{\infty} (x/d = 1, y = 0)$'
+
+
+figura_prueba = Figura_Scatter(nombre,x_y,xLabel,yLabel,1)
+figura_prueba.show()
+
+
+
 x_y = {"x_1" : z, "y_1" : U[indice_x_n_1,0,:]}
 nombre = "z vs U en x/d=1 en y=0"
 xLabel = r'$z$'
-yLabel = r'$U en x/d=1 en y=0$'
+yLabel = r'$U (x/d = 1, y = 0)$'
 
 figura_prueba = Figura_Scatter(nombre,x_y,xLabel,yLabel,1)
 figura_prueba.show()
 
 # conclusiones de esto:
-# los graficos no son nada prolijos, habria que frenar y pensar si lo que estoy
-# haciendo tiene sentido antes de seguir con el calculo de la potencia
 
-# no se cuan bien esta lo de aplicarle el perfil de viento logaritmico a las
-# mediciones, me parece un enchastre
 
 ################################################################################
 # calculo de POTENCIA
 
 # la idea seria calcular la potencia en un plano
-# primero voy a calcular en el plano donde el perfil logaritmico importa,
-# es decir en el plano (x,z)
+# primero voy a calcular en el plano (x,y)
 
 rho = 1.225
 
@@ -273,3 +285,4 @@ rho = 1.225
 
 # potencia_disponible = potenciar(modelo.case.d_0,x,y,z,x_0,U)
 # print "Potencia Disponible:",potencia_disponible
+#

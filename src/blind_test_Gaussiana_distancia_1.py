@@ -11,36 +11,8 @@ from math import log
 
 ################################################################################
 
-# test section = 12 m x 2 m x 3 m
-# rotor diameter = 0.894 m
-# centre of the rotor is located at z = 0.817 m
-#
-# model was designed to operate at 10 m/s with a TSR = 6
+from case_blind_test import case, coordenadas
 
-
-# coordenadas:
-
-length = 12
-width = 3
-height = 2
-
-x = np.arange(0,length,0.05)
-y = np.arange(-width,width,0.05)
-z = np.arange(0,height,0.05)
-
-# inicializo caso, coordenadas, modelo:
-
-d_0 = 0.894    # diameter of the wind turbine
-z_h = 0.817
-
-# no tengo datos de esto:
-U_hub = 0      # esto seria una U_ref?? Gaussiana no lo usa asi que no me preocupa
-C_T = 0
-z_0 = 0
-I_0 = 0
-
-case = Case(d_0,z_h,U_hub,C_T,z_0,I_0)
-coordenadas = Coordenadas(x,y,z)
 
 # para que los resultados sean comparables a los del paper uso los datos que dan en
 # la introducción para k_estrella y epsilon (si uso lo del fit lineal de la figura 4
@@ -57,8 +29,6 @@ epsilon = 0.268855463528
 # trucheo:
 # k_estrella = 0.023
 # epsilon = 0.219
-
-
 
 gaussiana = Gaussiana(case,k_estrella,epsilon)
 
@@ -82,7 +52,10 @@ gaussiana.play_cart(coordenadas,c_T)
 
 deficit_dividido_U_inf = gaussiana.deficit_dividido_U_inf
 
+
+
 ################################################################################
+
 
 # x/d = 1
 
@@ -117,7 +90,7 @@ y_Gaussiana = coordenadas.y_n
 deficit_dividido_U_inf_Gaussiana = deficit_dividido_U_inf[indice_x_d_1,:,indice_z_h]
 
 
-print deficit_dividido_U_inf_Gaussiana
+# print deficit_dividido_U_inf_Gaussiana
 # print deficit_dividido_U_inf
 
 
