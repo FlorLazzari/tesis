@@ -28,8 +28,14 @@ def potenciar(d_0,x_n,y,z,x_n_0,U):
     indice_x_n_0 = indexar(x_n,x_n_0)
     potencia_disponible_parcial = np.zeros((indice_radio_y,indice_radio_z))
     potencia_disponible = 0
+    # for i in range (0,indice_radio_y):
+    #     for j in range (0,indice_radio_z):
+    #         potencia_disponible_parcial[i,j] = coeficiente * (U[indice_x_n_0,i,j])**3
+    #         potencia_disponible = sum(sum(potencia_disponible_parcial))
+    # return potencia_disponible
+    #
     for i in range (0,indice_radio_y):
-        for j in range (0,indice_radio_z):
-            potencia_disponible_parcial[i,j] = coeficiente * U[indice_x_n_0,i,j]
+        for j in range (0,int((indice_radio_y - i**2)**0.5)):
+            potencia_disponible_parcial[i,j] = coeficiente * (U[indice_x_n_0,i,j])**3
             potencia_disponible = sum(sum(potencia_disponible_parcial))
     return potencia_disponible
