@@ -23,18 +23,21 @@ k_wake = 0.075
 
 class Jensen(object):
 
-    def __init__(self, case, k_wake, epsilon):
-        super(Gaussiana, self).__init__()
+    def __init__(self, case, k_wake):
+        super(Jensen, self).__init__()
         # aca no sirve de nada porque le puse (object)
         self.case = case
         self.k_wake = k_wake
-        self.epsilon = epsilon
         # aca las coordenadas nuevas estan pisando las "coordenadas de Metodo"
         # no entiendo si me sirve para algo la inheritance en este caso
 
-        def play(self,coordenadas,c_T):
-            for i in range (0,len(self.x_n)):
-                self.deficit_dividido_U_inf[i] = (1 - (1 - c_T)**0.5 ) / (1 + (2*k_wake*x[i])/self.case.d_0)**2
+    def play(self,coordenadas,c_T):
+        self.x = coordenadas.x
+        self.y = coordenadas.y
+        self.z = coordenadas.z
+        self.deficit_dividido_U_inf = np.zeros((len(self.x),len(self.y),len(self.z)))
+        for i in range (0,len(self.x)):
+            self.deficit_dividido_U_inf[i] = (1 - (1 - c_T)**0.5 ) / (1 + (2*k_wake*self.x[i])/self.case.d_0)**2
 
 
 

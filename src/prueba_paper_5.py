@@ -51,7 +51,7 @@ modelo = Gaussiana(case,k_estrella,epsilon)
 
 # corro el modelo:
 
-c_T = 0.5
+c_T = 0.42
 
 # como voy a graficar en funcion de "r" (que en realidad lo estoy estudiando como
 # r == z) no quiero que normalice con z_hub, entonces uso play_pol:

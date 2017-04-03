@@ -43,7 +43,7 @@ modelo = Gaussiana(case,k_estrella,epsilon)
 
 # corro el modelo:
 
-c_T = 0.5
+c_T = 0.42
 
 modelo.play_cart(coordenadas,c_T)
 

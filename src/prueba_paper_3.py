@@ -16,7 +16,7 @@ x_n = np.arange(0,4.5,0.05)
 y_n = np.arange(0,3,0.05)
 z_n = np.arange(0,3,0.05)
 # tengo que usar los vectores y_z y z_n del mismo tamaño, pero python no me hace
-# problema si no los uso iguales. 
+# problema si no los uso iguales.
 
 d_0 = 0.15
 
@@ -52,7 +52,8 @@ modelo = Gaussiana(case,k_estrella,epsilon)
 
 # corro el modelo:
 
-c_T = 0.5
+c_T = 0.42
+# este es el valor para el case 1
 
 # como voy a graficar en funcion de "r" (que en realidad lo estoy estudiando como
 # r == z) no quiero que normalice con z_hub, entonces uso play_pol:
@@ -120,6 +121,6 @@ yLabel = r'$\Delta U / \Delta U_{max} $'
 numero = 4
 
 figura = Figura(nombre,x_y,xLabel,yLabel,numero)
-figura.show_save()
+figura.show()
 
 # figura 3 del paper : checked!
