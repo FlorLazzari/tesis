@@ -28,7 +28,7 @@ c_T = 0.91 # lo calcule haciendo una regresion lineal con los dos puntos
 
 betha = 0.5 * ((1 + (1 - c_T)**0.5 ) / ((1 - c_T)**0.5 ))
 
-epsilon = 0.25 * (betha)**0.5  # esta correccion sale de la pagina 5 del paper
+epsilon = 0.2 * (betha)**0.5  # esta correccion sale de la pagina 5 del paper
 
 print "epsilon:",epsilon
 

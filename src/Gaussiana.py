@@ -30,6 +30,10 @@ class Gaussiana(object):
 # me parece que esto no hace nada distinto porque en la práctica usar r es lo
 # mismo que usar z
 
+    def evalDeficitNorm(self, coord):
+        pass
+        return deficit
+
     def play_pol_2d(self, coordenadas, c_T):
         if isinstance(coordenadas, Coordenadas):
             self.x = coordenadas.x
