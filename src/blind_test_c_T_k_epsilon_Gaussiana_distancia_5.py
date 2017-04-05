@@ -14,26 +14,6 @@ from math import log
 from case_blind_test import case, coordenadas
 
 
-# para que los resultados sean comparables a los del paper uso los datos que dan en
-# la introducción para k_estrella y epsilon (si uso lo del fit lineal de la figura 4
-# el gráfico 3 queda cualquier cosa):
-# k_estrella = 0.023
-# epsilon = 0.219
-# estos valores de k_estrella y epsilon los saqué del ajuste de la lineal del gráfico
-# de sigmna_n vs x_n (figura 4)
-
-# estos valores salen del calculo en la introduccion
-k_estrella = 0.2
-epsilon = 0.268855463528
-
-# trucheo:
-# k_estrella = 0.023
-# epsilon = 0.219
-
-gaussiana = Gaussiana(case,k_estrella,epsilon)
-
-# corro el modelo:
-
 # el c_T lo saco de los datos medidos, yo no lo voy a calcular, no?
 # calculo c_T:
 TSR_1 = 5.74
@@ -46,11 +26,31 @@ c_T = 0.91 # lo calcule haciendo una regresion lineal con los dos puntos
            # se que no es exactamente lineal (se ve del grafico),
            # pero en ese intervalo se aproxima muy bien por una lineal
 
+betha = 0.5 * ((1 + (1 - c_T)**0.5 ) / ((1 - c_T)**0.5 ))
+
+epsilon = 0.25 * (betha)**0.5  # esta correccion sale de la pagina 5 del paper
+
+print "epsilon:",epsilon
+
+print "epsilon calculado con case 1 =  0.268855463528"
+
+print "espilon de la regrecion lineal = 0.219"
+
+
+
+# de la galera, lo saque a mano del fit:
+k_estrella = 0.03
+
+gaussiana = Gaussiana(case,k_estrella,epsilon)
+
+# corro el modelo:
 
 
 gaussiana.play_cart(coordenadas,c_T)
 
 deficit_dividido_U_inf = gaussiana.deficit_dividido_U_inf
+
+
 
 
 
@@ -70,15 +70,24 @@ deficit_dividido_U_inf = gaussiana.deficit_dividido_U_inf
 
 # como hago para que indice x/d == 3? primero lo voy a hacer a mano:
 coordenadas.normalizar(case)
-# print(coordenadas.x_n)
 
-# a mano encuentro:
 
-indice_x_d_5 = 90
-indice_z_h = 17
+from indexar import indexar
 
-# print(coordenadas.z)
-# print(case.z_h)
+indice_x_d_5 = indexar(coordenadas.x_n, 5)
+indice_z_h = indexar(coordenadas.z,case.z_h)
+
+
+print "indice_x_d_5",indice_x_d_5
+print "coordenadas.x_n",coordenadas.x_n
+print "case.z_h",case.z_h
+print "indice_z_h",indice_z_h
+print "coordenadas.z",coordenadas.z
+
 
 y_Gaussiana = coordenadas.y_n
 deficit_dividido_U_inf_Gaussiana = deficit_dividido_U_inf[indice_x_d_5,:,indice_z_h]
+
+
+print "deficit_dividido_U_inf",deficit_dividido_U_inf
+print "deficit_dividido_U_inf_Gaussiana",deficit_dividido_U_inf_Gaussiana
