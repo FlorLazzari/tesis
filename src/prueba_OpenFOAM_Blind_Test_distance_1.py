@@ -55,7 +55,7 @@ diff_U_x_U = [U[i] - U_x[i] for i in range(0,len(U_y))]
 x_y = {"x_1" : y_n, "y_1" : diff_U_x_U}
 nombre = "y/d vs diff_U_x_U en x/d=1"
 xLabel = r'$y/d$'
-yLabel = r'$diff U$'
+yLabel = r'$U_{diff}$'
 
 figura_prueba = Figura_Scatter(nombre,x_y,xLabel,yLabel,1)
 figura_prueba.show()
