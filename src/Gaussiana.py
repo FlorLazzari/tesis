@@ -1,6 +1,6 @@
 # coding=utf-8
 
-# from Modelo import Modelo
+import Modelo
 import numpy as np
 from numpy import exp
 from cart2pol import cart2pol
@@ -16,11 +16,10 @@ from Coordenadas_Norm import Coordenadas_Norm
 # tiene que ver con usar la barra espaciadora y y el tab en el mismo script??
 
 
-class Gaussiana(object):
+class Gaussiana(Modelo):
 
     def __init__(self, case, k_estrella, epsilon):
         super(Gaussiana, self).__init__()
-        # aca no sirve de nada porque le puse (object)
         self.case = case
         self.k_estrella = k_estrella
         self.epsilon = epsilon

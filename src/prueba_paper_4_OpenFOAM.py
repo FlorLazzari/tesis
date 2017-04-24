@@ -2,11 +2,11 @@
 
 import numpy as np
 
-from Case import Case
-from Coordenadas import Coordenadas
-from Coordenadas_Norm import Coordenadas_Norm
-from Gaussiana import Gaussiana
-from Figura import Figura
+import Case
+import Coordenadas
+import Coordenadas_Norm
+import Gaussiana
+import Figura
 from math import log
 
 import pylab as plb
@@ -16,7 +16,7 @@ from scipy import asarray as ar,exp
 
 
 from Figura_Scatter import Figura_Scatter
-from OpenFOAM_Blind_Test_distance_1_gonza import y,y_n,U_x,U_y,U_z,U
+from OpenFOAM_Blind_Test_distance_1_gonza import y,y_n,U_x,U_y,U_z,U,deficit_dividido_U_inf_OpenFOAM
 
 ################################################################################
 # corte horizontal de U:
@@ -29,32 +29,48 @@ yLabel = r'$ U$'
 figura_prueba = Figura_Scatter(nombre,x_y,xLabel,yLabel,1)
 figura_prueba.show()
 
+x_y = {"x_1" : y_n, "y_1" : deficit_dividido_U_inf_OpenFOAM}
+nombre = "y/d vs deficit_dividido_U_inf_OpenFOAM en x/d=1"
+xLabel = r'$y/d$'
+yLabel = r'$deficit_dividido_U_inf$'
+
+figura_prueba = Figura_Scatter(nombre,x_y,xLabel,yLabel,1)
+figura_prueba.show()
+
+
+
 # ahora la idea seria fitear una gaussiana para obtener la sigma y asi tener sigma_n
 # http://stackoverflow.com/questions/19206332/gaussian-fit-for-python
 
 
-# x = ar(range(10))
-# y = ar([0,1,2,3,4,5,4,3,2,1])
 
-n = len(y_n)
+# para fitear con una gaussiana:
 
-mean_sin_suma[:] = [(y_n[i]*U[i])/n for i in y_n]
-mean = sum(mean_sin_suma)/n                   #note this correction
-sigma = sum(U*(y_n-mean)**2)/n        #note this correction
+from scipy.optimize import curve_fit
+import matplotlib.pyplot as plt
 
-def gaus(x,a,x0,sigma):
-    return a*exp(-(x-x0)**2/(2*sigma**2))
 
-popt,pcov = curve_fit(gaus,y_n,U,p0=[1,mean,sigma])
+# Define model function to be used to fit to the data above:
+def gauss(x, *p):
+    A, mu, sigma = p
+    return A*np.exp(-(x-mu)**2/(2.*sigma**2))
 
-plt.plot(x,y,'b+:',label='data')
-plt.plot(x,gaus(x,*popt),'ro:',label='fit')
-plt.legend()
-plt.title('Fig. 3 - Fit for Time Constant')
-plt.xlabel('Time (s)')
-plt.ylabel('Voltage (V)')
+# p0 is the initial guess for the fitting coefficients (A, mu and sigma above)
+p0 = [1., 0., 1.]
+
+coeff, var_matrix = curve_fit(gauss, y_n, U, p0=p0)
+
+# Get the fitted curve
+fit = gauss(y_n, *coeff)
+
+plt.plot(y_n, U, label='Test data')
+plt.plot(y_n, fit, label='Fitted data')
+
+# Finally, lets get the fitting parameters, i.e. the mean and standard deviation:
+print 'Fitted mean = ', coeff[1]
+print 'Fitted standard deviation = ', coeff[2]
+
 plt.show()
-
 
 
 
