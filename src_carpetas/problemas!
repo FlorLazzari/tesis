@@ -1,0 +1,22 @@
+problemas:
+
+
+- los problemas mas grandes están en demo.py (me gustaría saber cómo plotear
+algo en 3D)
+
+- reduciendo a problemas más pequeños: (en demo_3.py)
+
+  - quiero graficar lo que está en el link
+  https://plot.ly/python/3d-mesh/
+
+  - dice "The file can be downloaded from here"
+
+  - quiero clonar el repo y no puedo
+
+  - estoy siguiendo los pasos de
+  https://git-scm.com/book/it/v2/Git-Basics-Getting-a-Git-Repository
+  no es mucha ciencia, pero me dice que el repo no existe
+
+
+- otro tema, qué es esto de plotly online y offiline??
+https://images.plot.ly/plotly-documentation/images/python_cheat_sheet.pdf
