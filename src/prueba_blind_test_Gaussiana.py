@@ -43,3 +43,7 @@ figura_prueba.show()
 
 figura_prueba = Figura_Scatter(nombre,x_y,xLabel,yLabel,1)
 figura_prueba.show()
+
+
+
+# ahora me gustaria hacer un fit gaussiano de esto para poder obtener la sigma:
