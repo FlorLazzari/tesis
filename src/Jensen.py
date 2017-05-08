@@ -23,13 +23,11 @@ k_wake = 0.075
 
 class Jensen(object):
 
-    def __init__(self, case, k_wake):
+    def __init__(self, case):#, k_wake):
         super(Jensen, self).__init__()
         # aca no sirve de nada porque le puse (object)
         self.case = case
-        self.k_wake = k_wake
-        # aca las coordenadas nuevas estan pisando las "coordenadas de Metodo"
-        # no entiendo si me sirve para algo la inheritance en este caso
+        #self.k_wake = k_wake
 
     def play(self,coordenadas,c_T):
         self.x = coordenadas.x
@@ -38,8 +36,6 @@ class Jensen(object):
         self.deficit_dividido_U_inf = np.zeros((len(self.x),len(self.y),len(self.z)))
         for i in range (0,len(self.x)):
             self.deficit_dividido_U_inf[i] = (1 - (1 - c_T)**0.5 ) / (1 + (2*k_wake*self.x[i])/self.case.d_0)**2
-
-
 
     # def play_pol_2d(self, coordenadas, c_T):
     #     if isinstance(coordenadas, Coordenadas):

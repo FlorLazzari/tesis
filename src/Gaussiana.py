@@ -11,12 +11,7 @@ from Coordenadas_Norm import Coordenadas_Norm
 # But the main advantage comes with multiple inheritance, where all sorts of fun
 # stuff can happen.
 
-
-# tengo de estos por todos lados: IndentationError: unexpected indent
-# tiene que ver con usar la barra espaciadora y y el tab en el mismo script??
-
-
-class Gaussiana(object): #(Modelo)
+class Gaussiana(object):
 
     def __init__(self, case, k_estrella, epsilon):
         #super(Gaussiana, self).__init__()
@@ -25,9 +20,6 @@ class Gaussiana(object): #(Modelo)
         self.epsilon = epsilon
         # aca las coordenadas nuevas estan pisando las "coordenadas de Metodo"
         # no entiendo si me sirve para algo la inheritance en este caso
-
-# me parece que esto no hace nada distinto porque en la práctica usar r es lo
-# mismo que usar z
 
     def evalDeficitNorm(self, coord):
         pass
@@ -93,12 +85,11 @@ class Gaussiana(object): #(Modelo)
         self.deficit_dividido_U_inf = np.zeros((len(self.x_n),len(self.y_n),len(self.z_n)))
         for i in range (0,len(self.x_n)):
             for j in range (0,len(self.y_n)):
-                    for k in range (0,len(self.z_n)):
-                        r_cuadrado[j,k] = (self.y_n[j])**2 + (self.z_n[k])**2
-                        exponente[i,j,k] = -r_cuadrado[j,k] / (2 * sigma_n_cuadrado[i])
-                        self.gauss[i,j,k] = exp(exponente[i,j,k])
-                        self.deficit_dividido_U_inf[i,j,k] = c[i] * self.gauss[i,j,k]
-
+                for k in range (0,len(self.z_n)):
+                    r_cuadrado[j,k] = (self.y_n[j])**2 + (self.z_n[k])**2
+                    exponente[i,j,k] = -r_cuadrado[j,k] / (2 * sigma_n_cuadrado[i])
+                    self.gauss[i,j,k] = exp(exponente[i,j,k])
+                    self.deficit_dividido_U_inf[i,j,k] = c[i] * self.gauss[i,j,k]
 
     def play_cart(self, coordenadas, c_T):
         if isinstance(coordenadas, Coordenadas):
@@ -128,8 +119,8 @@ class Gaussiana(object): #(Modelo)
         self.deficit_dividido_U_inf = np.zeros((len(self.x_n),len(self.y_n),len(self.z_n)))
         for i in range (0,len(self.x_n)):
             for j in range (0,len(self.y_n)):
-                    for k in range (0,len(self.z_n)):
-                        r_cuadrado[j,k] = (self.y_n[j])**2 + (self.z_n[k])**2
-                        exponente[i,j,k] = -r_cuadrado[j,k] / (2 * sigma_n_cuadrado[i])
-                        self.gauss[i,j,k] = exp(exponente[i,j,k])
-                        self.deficit_dividido_U_inf[i,j,k] = c[i] * self.gauss[i,j,k]
+                for k in range (0,len(self.z_n)):
+                    r_cuadrado[j,k] = (self.y_n[j])**2 + (self.z_n[k])**2
+                    exponente[i,j,k] = -r_cuadrado[j,k] / (2 * sigma_n_cuadrado[i])
+                    self.gauss[i,j,k] = exp(exponente[i,j,k])
+                    self.deficit_dividido_U_inf[i,j,k] = c[i] * self.gauss[i,j,k]

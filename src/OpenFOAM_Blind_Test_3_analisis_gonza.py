@@ -65,15 +65,8 @@ for j in range(1,8):
                     'coordenada_x': datos[j][comienzo_cortado:largo_cortado, 9],
                     'coordenada_y': datos[j][comienzo_cortado:largo_cortado, 10],
                     'coordenada_z': datos[j][comienzo_cortado:largo_cortado, 11]}
-
-    # sigma[j] = fitear_gaussiana(distancia[j]['coordenada_y'], distancia[j]['deficit_dividido_U_inf_OpenFOAM'])
-    # sigma_n[j] = sigma[j] / d_0
-
-x = np.array(distancia[1]['coordenada_y'])
-y = np.array(distancia[1]['deficit_dividido_U_inf_OpenFOAM'])
-sigma[1] = fitear_gaussiana(x,y)
-sigma_n[1] = sigma[1] / d_0
-
+    sigma[j] = fitear_gaussiana(distancia[j]['coordenada_y'], distancia[j]['deficit_dividido_U_inf_OpenFOAM'])
+    sigma_n[j] = sigma[j] / d_0
 
 # # grafico las figuras para chequear que sean distintas
 # x_y = { "x_1" : distancia[1]['coordenada_y'], "y_1" : distancia[1]['deficit_dividido_U_inf_OpenFOAM'],
@@ -96,14 +89,3 @@ numero = 1
 
 figura = Figura_Scatter(nombre,x_y,xLabel,yLabel,numero)
 figura.show()
-
-
-#
-# # grafico la coordenada x para tener una idea de la forma que tiene
-# x_y = {"x_1" : np.arange(largo), "y_1" : coordenada_x}
-# nombre = "y/d vs deficit_dividido_U_inf x/d=1"
-# xLabel = r'$numero$'
-# yLabel = r'$ coordenada x$'
-#
-# figura_prueba = Figura_Scatter(nombre,x_y,xLabel,yLabel,1)
-# figura_prueba.show()

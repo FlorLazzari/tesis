@@ -92,6 +92,3 @@ deficit_dividido_U_inf_Gaussiana = deficit_dividido_U_inf[indice_x_d_1,:,indice_
 
 # print deficit_dividido_U_inf_Gaussiana
 # print deficit_dividido_U_inf
-
-
-# problema: no se por que deficit_dividido_U_inf_Gaussiana es una lista de puros nan's

@@ -35,6 +35,14 @@ I_0 = 0.07
 case = Case(d_0,z_h,U_hub,C_T,z_0,I_0)
 coordenadas = Coordenadas(x,y,z)
 
-
 jensen = Jensen(case, 0.075)
 jensen.play(coordenadas,case.C_T)
+
+x_y = { 'x_1': y_n, 'y_1': sigma_n }
+nombre = "figura_4"
+xLabel = r'$x / d_{0}$'
+yLabel = r'$\sigma / d_{0} $'
+numero = 1
+
+figura = Figura_Scatter(nombre,x_y,xLabel,yLabel,numero)
+figura.show()
