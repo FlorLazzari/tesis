@@ -20,7 +20,7 @@ from OpenFOAM_Blind_Test_distance_1_gonza import y,y_n,U_x,U_y,U_z,U,deficit_div
 x_n = np.zeros(3)
 sigma = np.zeros(3)
 
-from fit_gaussiano import fitear_gaussiana
+from fitear_gaussiana import fitear_gaussiana
 
 from OpenFOAM_Blind_Test_distance_1_gonza import y_n,deficit_dividido_U_inf_OpenFOAM
 
@@ -71,6 +71,7 @@ sigma_2_n = sigma / d_0
 ################################################################################
 # junto a todos los resultados obtenidos en un vector
 sigma_n = [sigma_0_n, sigma_1_n, sigma_2_n]
+print sigma_n
 
 ################################################################################
 # figura 4: sigma_n / x_n
@@ -83,7 +84,6 @@ yLabel = r'$\sigma / d_{0} $'
 numero = 1
 
 figura = Figura_Scatter(nombre,x_y,xLabel,yLabel,numero)
-figura.yLim = [0,1]
 figura.show()
 
 # figura 4 del paper : checked!
