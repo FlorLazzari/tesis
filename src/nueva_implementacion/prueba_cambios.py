@@ -2,6 +2,11 @@
 
 import numpy as np
 
+# me gustaria hacer algo asi para ordenar la implementacion en carpetas:
+# import sys
+# sys.path.append(/home/florencia/Documentos/tesis_gitHub/tesis/src/nueva_implementacion/casos)
+# from Case_2 import Case
+
 from Case_2 import Case
 from Coordenadas import Coordenadas
 from Coordenadas_Norm import Coordenadas_Norm
@@ -13,10 +18,10 @@ d_0 = 0.15
 z_h = 0.125
 U_hub = 2.2
 
-pto = 1.2
+pto = 1.9
 
 case = Case(d_0,z_h,U_hub)
-coord = np.array((pto, pto, pto))
+coord = np.array([pto, pto, pto])
 
 k_estrella = 0.2
 epsilon = 0.268855463528
@@ -35,9 +40,9 @@ from Gaussiana import Gaussiana
 from Case import Case
 from indexar import indexar
 
-x = np.arange(0,1.5,0.1)
-y = np.arange(0,1.5,0.1)
-z = np.arange(0,1.5,0.1)
+x = np.arange(0,pto+1,0.1)
+y = np.arange(0,pto+1,0.1)
+z = np.arange(0,pto+1,0.1)
 
 indice_x_1 = indexar(x, pto)
 indice_y_1 = indexar(y, pto)
@@ -60,4 +65,4 @@ print "gaussiana vieja = ", modelo.deficit_dividido_U_inf[indice_x_1, indice_y_1
 
 
 # problemas! no obtengo los mismos resultados para las implementaciones
-# distintas unicamente para pto = 1
+# distintas unicamente para ptos enteros
