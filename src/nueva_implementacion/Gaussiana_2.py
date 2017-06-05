@@ -2,7 +2,7 @@ from __future__ import division
 # coding=utf-8
 
 from Modelo_2 import Modelo
-# import numpy as np
+import numpy as np
 from numpy import exp
 from Case_2 import Case
 # from cart2pol import cart2pol
@@ -21,9 +21,6 @@ class Gaussiana(Modelo):
     def evalDeficitNorm(self, coord, c_T):
         # coord deben ser no normalizadas (np.array)
         # normalizo:
-        coord[0] = coord[0]/self.case.d_0
-        coord[1] = coord[1]/self.case.d_0
-        coord[2] = (coord[2] - self.case.z_h)/self.case.d_0
-        sigma_n = self.k_estrella * coord[0] + self.epsilon
+        sigma_n = self.k_estrella * (coord[0]/self.case.d_0) + self.epsilon
         c = 1 - (1-(c_T/(8*(sigma_n**2))))**(0.5)
-        return c * exp(-(coord[1]**2 + coord[2]**2) / (2 * (sigma_n**2)))
+        return c * exp(-((coord[1]/self.case.d_0)**2 + ((coord[2] - self.case.z_h)/self.case.d_0)**2) / (2 * (sigma_n**2)))
