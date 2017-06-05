@@ -42,7 +42,7 @@ largo_cortado = largo-5
 comienzo_cortado = 5
 
 for j in range(1,8):
-    for i in range(5, largo_cortado):
+    for i in range(comienzo_cortado, largo_cortado):
         # nut[i] = datos[j][i, 0]
         # turbulencia[i] = datos[j][i, 1]
         # presion[i] = datos[j][i, 2]
