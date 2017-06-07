@@ -20,7 +20,6 @@ class Gaussiana(Modelo):
 
     def evalDeficitNorm(self, coord, c_T):
         # coord deben ser no normalizadas (np.array)
-        # normalizo:
         sigma_n = self.k_estrella * (coord[0]/self.case.d_0) + self.epsilon
         c = 1 - (1-(c_T/(8*(sigma_n**2))))**(0.5)
         return c * exp(-((coord[1]/self.case.d_0)**2 + ((coord[2] - self.case.z_h)/self.case.d_0)**2) / (2 * (sigma_n**2)))
