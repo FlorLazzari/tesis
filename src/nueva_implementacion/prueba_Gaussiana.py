@@ -11,22 +11,26 @@ from Case_2 import Case
 from Coordenadas import Coordenadas
 from Coordenadas_Norm import Coordenadas_Norm
 from Gaussiana_2 import Gaussiana
+from Turbina import Turbina
 
 ################################################################################
 
 d_0 = 0.15
+x_h = 0
+y_h = 0
 z_h = 0.125
-U_hub = 2.2
+U_inf = 2.2
 
 pto = 1.9
 
-case = Case(d_0,z_h,U_hub)
+case = Case(U_inf)
+turbina = Turbina(d_0, x_h, y_h, z_h)
 coord = np.array([pto, pto, pto])
 
 k_estrella = 0.2
 epsilon = 0.268855463528
 
-gaussiana = Gaussiana(case,k_estrella,epsilon)
+gaussiana = Gaussiana(case,turbina,k_estrella,epsilon)
 
 c_T = 0.5
 
@@ -36,6 +40,7 @@ print "gaussiana nueva = ", deficit_dividido_U_inf
 
 ################################################################################
 
+# para que esto funcione debe estar en una carpeta junto a la implementacion vieja
 from Gaussiana import Gaussiana
 from Case import Case
 from indexar import indexar

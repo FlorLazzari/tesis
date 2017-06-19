@@ -10,20 +10,24 @@ import numpy as np
 from Case_2 import Case
 from Gaussiana_2 import Gaussiana
 from Figura import Figura
+from Turbina import Turbina
 
 ################################################################################
 
 d_0 = 0.15
+x_h = 0
+y_h = 0
 z_h = 0.125
-U_hub = 2.2
+U_inf = 2.2
 
 y = np.arange(0, 4*d_0, 0.01)
 deficit_dividido_U_inf = np.zeros(len(y))
 
 k_estrella = 0.2
 epsilon = 0.268855463528
-case = Case(d_0,z_h,U_hub)
-gaussiana = Gaussiana(case,k_estrella,epsilon)
+case = Case(U_inf)
+turbina = Turbina(d_0, x_h, y_h, z_h)
+gaussiana = Gaussiana(case,turbina,k_estrella,epsilon)
 c_T = 0.5
 
 # barrido en y:

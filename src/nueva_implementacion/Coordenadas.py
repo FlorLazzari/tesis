@@ -1,5 +1,5 @@
 import numpy as np
-from Case_2 import Case
+from Turbina import Turbina
 
 class Coordenadas(object):
 
@@ -11,12 +11,12 @@ class Coordenadas(object):
         self.y_n = None
         self.z_n = None
 
-    def normalizar(self,Case):
-        self.x_n = self.x/Case.d_0
-        self.y_n = self.y/Case.d_0
-        self.z_n = self.z/Case.d_0
+    def normalizar(self,Turbina):
+        self.x_n = self.x/Turbina.d_0
+        self.y_n = self.y/Turbina.d_0
+        self.z_n = self.z/Turbina.d_0
 
-    def normalizar_hub(self,Case):
-        self.x_n = self.x/Case.d_0
-        self.y_n = self.y/Case.d_0
-        self.z_n = (self.z - Case.z_h)/Case.d_0
+    def normalizar_hub(self,Turbina):
+        self.x_n = self.x/Turbina.d_0
+        self.y_n = self.y/Turbina.d_0
+        self.z_n = (self.z - Turbina.z_h)/Turbina.d_0

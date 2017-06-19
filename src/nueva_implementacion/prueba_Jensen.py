@@ -10,19 +10,23 @@ import numpy as np
 from Case_2 import Case
 from Jensen_2 import Jensen
 from Figura import Figura
+from Turbina import Turbina
 
 ################################################################################
 
 d_0 = 0.15
+x_h = 0
+y_h = 0
 z_h = 0.125
-U_hub = 2.2
+U_inf = 2.2
 
 y = np.arange(0, 4*d_0, 0.01)
 deficit_dividido_U_inf = np.zeros(len(y))
 
 k_wake = 0.075
-case = Case(d_0,z_h,U_hub)
-jensen = Jensen(case,k_wake)
+case = Case(U_inf)
+turbina = Turbina(d_0, x_h, y_h, z_h)
+jensen = Jensen(case,turbina,k_wake)
 c_T = 0.5
 
 # barrido en y:

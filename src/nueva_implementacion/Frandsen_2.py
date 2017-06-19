@@ -5,6 +5,7 @@ from Modelo_2 import Modelo
 import numpy as np
 from numpy import exp, abs, angle, pi
 from Case_2 import Case
+from Turbina import Turbina
 # from cart2pol import cart2pol
 # from Coordenadas import Coordenadas
 # from Coordenadas_Norm import Coordenadas_Norm
@@ -16,19 +17,19 @@ from Case_2 import Case
 
 class Frandsen(Modelo):
 
-    def __init__(self, case, k_wake):
-        super(Frandsen, self).__init__(case)        # self.case = case
+    def __init__(self, case, turbina, k_wake):
+        super(Frandsen, self).__init__(case, turbina)        # self.case = case + self.turbina = turbina
         self.k_wake = k_wake
 
     def evalDeficitNorm(self, coord, c_T):
         # coord deben ser no normalizadas (np.array)
 		beta = 0.5 * ((1+((1 - c_T)**0.5))/((1 - c_T)**0.5))
-		d_w = ((beta + 10 * self.k_wake * (coord[0]/self.case.d_0) )**0.5) * self.case.d_0
-		if (abs(coord[1]) <= (d_w / 2)) & (abs(coord[2] - self.case.z_h) <= (d_w / 2)):
+		d_w = ((beta + 10 * self.k_wake * (coord[0]/self.turbina.d_0) )**0.5) * self.turbina.d_0
+		if (abs(coord[1]) <= (d_w / 2)) & (abs(coord[2] - self.turbina.z_h) <= (d_w / 2)):
 			return 0.5 * (1 - (1 - (2*c_T) / beta )**0.5)
 		else:
 			return 0
-			
+
 
 # # A_0 = area swept by the wind-turbine blades
 # A_0 = pi * (d_0/2)**2

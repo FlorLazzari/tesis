@@ -33,7 +33,7 @@ def integrar_disco_monte_carlo(n,f,d_0):
     for i in range(n):
         rand_y = np.random.uniform(0, d_0/2)
         rand_z = np.random.uniform(0, d_0/2)
-        if (rand_y**2 + rand_z**2 < d_0/2):
+        if (rand_y**2 + rand_z**2 < (d_0/2)**2):
             count = count + f(rand_y, rand_z)
     volume = (d_0/2)**2
     return (volume * count)/n
