@@ -24,3 +24,5 @@ class Jensen(Modelo):
 
     def evalDeficitNorm(self, coord, c_T):
         return (1 - (1 - c_T)**0.5 ) / (1 + (2*(self.k_wake)*coord[0])/self.case.d_0)**2
+
+# problema con Jensen: donde termina la estela? cual es el d_w equivalente al de Frandsen?
