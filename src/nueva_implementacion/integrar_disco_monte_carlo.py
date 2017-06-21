@@ -38,12 +38,12 @@ def integrar_disco_monte_carlo(n,f,d_0):
     volume = (d_0/2)**2
     return (volume * count)/n
 
-# ejemplo:
-n = 10**6                             # como elijo el n apropiadamente?
-def f(y,z):
-    return 1
-d_0 = 2
-
-sol = integrar_disco_monte_carlo(n,f,d_0)
-print sol
-print "pi =", sol*4
+# # ejemplo:
+# n = 10**6                             # como elijo el n apropiadamente?
+# def f(y,z):
+#     return 1
+# d_0 = 2
+#
+# sol = integrar_disco_monte_carlo(n,f,d_0)
+# print sol
+# print "pi =", sol*4

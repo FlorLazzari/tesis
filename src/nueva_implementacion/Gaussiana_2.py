@@ -5,7 +5,7 @@ from Modelo_2 import Modelo
 import numpy as np
 from numpy import exp
 from Case_2 import Case
-from Turbina import Turbina
+from Turbina_2 import Turbina
 # from cart2pol import cart2pol
 # from Coordenadas import Coordenadas
 # from Coordenadas_Norm import Coordenadas_Norm
