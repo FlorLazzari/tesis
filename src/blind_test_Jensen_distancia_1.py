@@ -25,6 +25,7 @@ c_T = 0.91 # lo calcule haciendo una regresion lineal con los dos puntos
 jensen.play(coordenadas,c_T)
 deficit_dividido_U_inf = jensen.deficit_dividido_U_inf
 
+print deficit_dividido_U_inf
 
 ################################################################################
 
