@@ -12,8 +12,10 @@ from integrar_disco_monte_carlo import integrar_disco_monte_carlo
 # debo numerarlas de izquierda a derecha sino todo el script no tiene sentido
 # mi_posicion = np.array([x_0, y_0, z_0])
 
-def calcular_U(modelo, posicion_turbinas, mi_posicion):
+def calcular_U(modelo, posicion_turbinas, coord_selec):
 
     for i in range(mi_posicion):
-        if (posicion_turbinas[i][0] < mi_posicion[0]):      # si hay turbinas a la izquierda
-            estela = Estela()
+        if (coord_turbina[i][0] < coord_selec[0]):      # si hay turbinas a la izquierda
+            turbina = Turbina()
+            turbina.calcular_c_T()
+            estela = Estela()                               # calcula estela unicamente en el pto

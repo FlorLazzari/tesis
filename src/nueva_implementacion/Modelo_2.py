@@ -1,13 +1,7 @@
-from Case_2 import Case
-from Turbina import Turbina
-
-
 class Modelo(object):
 
-    def __init__(self, case, turbina):
-        self.case = case
-        self.turbina = turbina
-
+    def __init__(self):
+        pass
     def evalDeficitNorm(self, coord, c_T):
         pass
 

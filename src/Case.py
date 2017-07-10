@@ -1,3 +1,4 @@
+# coding=utf-8
 class Case(object):
 
     def __init__(self,d_0,z_h,U_hub,C_T,z_0,I_0):

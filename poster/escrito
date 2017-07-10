@@ -1,0 +1,70 @@
+%El objetivo del proyecto en el que se enmarca esta tesis es el desarrollo de herramientas
+%computacionales que permitan modelar el flujo en el entorno de las turbinas eólicas, dando
+%lugar a modelos de pronóstico de potencia eólica en parques eólicos. Se analizarán distintas
+%combinaciones de métodos que permitan contar con un abanico de opciones de variado costo
+%computacional de acuerdo con las necesidades operativas de cada caso.
+
+
+desarrollar modelos de orden redu-
+cido de estelas de turbinas eólicas a un bajo costo computacional. Se modelará el efecto de
+las turbinas sobre el flujo atmosférico mediante modelos que representan la aerodinámica en
+el entorno cercano a las turbinas. Además, se analizará la forma de representar la interacción
+de las estelas de varias turbinas.
+
+
+%El objeto final será construir un código en Python
+
+%La estela que se produce detrás de una turbina puede ser representada con distinto nivel de
+%detalle, dependiendo de la precisión requerida se utilizan diferentes recursos computaciones.
+%La alternativa para ahorrar recursos computacionales es utilizar los modelos reducidos de
+%turbinas, en los cuales se substituyen las aspas por fuerzas volumétricas con efecto equivalente
+%actuando sobre el fluido. Se han propuesto diversos modelos de este tipo, que se diferencian
+%en el grado de descripción del rotor, a mayor detalle mayor costo computacional. En esta tesis
+%se utilizará el Actuador Discal (AD), en el que las fuerzas se distribuyen de manera constante
+%sobre el área que barren las aspas del rotor (Sanderse, 2009). Estas fuerzas representan el
+%efecto del rotor promediada en el tiempo.
+
+%Los modelos de estelas de turbinas eólicas utilizan simplificaciones para caracterizarlas
+%de manera de evitar la resolución de las ecuaciones diferenciales de la fluidodinámica. Las
+%2simplificaciones introducidas implican una pérdida de precisión pero una importante reducción
+%del costo computacional.
+
+%Estos modelos en general tienen validez en lo que se denomina estela
+%lejana de la turbina que la produce y generalmente se utilizan para generar las condiciones de
+%entrada a turbinas que se encuentran aguas abajo.
+
+
+%Estos modelos en general tienen validez en lo que se denomina estela
+%lejana de la turbina que la produce y generalmente se utilizan para generar las condiciones de
+%entrada a turbinas que se encuentran aguas abajo.
+
+
+%Validación de los resultados. En primer lugar se recurrirá a resultados analı́ticos
+%publicados en la literatura para verificar la solución provista por los modelos. Luego
+%se contrastarán los resultados con los casos de prueba obtenidos mediante simulaciones
+%realizadas utilizando los métodos NWP y fluidodinámica computacional (CFD), en los
+%cuales se encuentran trabajando otros integrantes del grupo. Finalmente, los modelos
+%estudiados se compararán con ensayos a escala en túnel de viento y datos de parques
+%eólicos reales en Argentina.
+
+
+%compromiso entre la precisión
+%necesaria y el costo computacional.
+
+
+%El potencial eólico de la Argentina es uno de los mayores del mundo. Actualmente la
+%participación de esta fuente de energı́a en el mercado eléctrico nacional es baja, pero se
+%espera que en los próximos años aumente considerablemente. Debido a esta expectativa, se
+%necesitan herramientas que faciliten la incorporación de mayores cantidades de energı́a de
+%esta fuente en el mercado eléctrico nacional.
+
+%El objetivo último de este proyecto es sentar las bases al desarrollo de modelos operativos
+%de pronóstico de potencia eólica y de modelado del flujo atmosférico en parques eólicos.
+
+
+%No se dispone de una solución general para este conjunto de ecuaciones, y salvo ciertos tipos de flujo y situaciones muy concretas no es posible hallar una solución analítica; por lo que en muchas ocasiones es preciso recurrir al análisis numérico para determinar una solución aproximada. A la rama de la mecánica de fluidos que se ocupa de la obtención de estas soluciones mediante métodos numéricos se la denomina dinámica de fluidos computacional 
+
+
+
+
+%Jensen model:

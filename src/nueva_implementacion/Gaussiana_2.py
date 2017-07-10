@@ -4,7 +4,6 @@ from __future__ import division
 from Modelo_2 import Modelo
 import numpy as np
 from numpy import exp
-from Case_2 import Case
 from Turbina_2 import Turbina
 # from cart2pol import cart2pol
 # from Coordenadas import Coordenadas
@@ -14,8 +13,8 @@ from Turbina_2 import Turbina
 
 class Gaussiana(Modelo):
 
-    def __init__(self, case, turbina, k_estrella, epsilon):
-        super(Gaussiana, self).__init__(case, turbina)        # self.case = case + self.turbina = turbina
+    def __init__(self, k_estrella, epsilon):
+        super(Gaussiana, self).__init__()        # self.case = case + self.turbina = turbina
         self.k_estrella = k_estrella
         self.epsilon = epsilon
 
