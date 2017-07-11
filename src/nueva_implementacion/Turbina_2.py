@@ -17,30 +17,30 @@ class Turbina(object):
         pass
 
     def calcular_c_T(self, Modelo, U_inf, coord_turbina, n):
-        # rho = densidad del aire
-        # At sea level and at 15 C air has a density of approximately 1.225 kg/m3
-        q = 10              # division dentro de la grilla
-        rho = 1.225
+        q = 10              # division dentro de la grilla (queda hardcodeado aca adentro, habria que ver que valor de q es el ideal)
         U = []
         U_adentro_disco = np.array([])
-        for i in np.linspace(self.coord_selec[1]-(self.d_0/2), self.coord_selec[1]+(self.d_0/2), q):
-            for j in np.linspace(self.coord_selec[2]-(self.d_0/2), self.coord_selec[2]+(self.d_0/2), q):
-                if ((i-self.coord_selec[1])**2 + (j-self.coord_selec[2])**2 < (self.d_0/2)**2):
-                    U = calcular_U_en_pto(Modelo, U_inf, coord_turbina, n, self.coord_selec)
-                    # para el caso mas sencillo (donde no hay turbina a la izq) vale esto, sino
-                    # saldra de calcular el U dependiendo del modelo y la distribucion de turbinas etc.
-                    U_adentro_disco = np.append(U_adentro_disco, U)
+        N = 500     # como estimo el orden?
+        count = 0
+        x = self.coord_selec[0]
+        for i in range(N):
+            rand_y = np.random.uniform(self.coord_selec[1]-(self.d_0/2), self.coord_selec[1]+(self.d_0/2))
+            rand_z = np.random.uniform(self.coord_selec[2]-(self.d_0/2), self.coord_selec[2]+(self.d_0/2))
+            coord_random = np.array([x, rand_y, rand_z])
+            if ((rand_y-self.coord_selec[1])**2 + (rand_z-self.coord_selec[2])**2 < (self.d_0/2)**2):
+                U = calcular_U_en_pto(Modelo, U_inf, coord_turbina, n, coord_random)
+                U_adentro_disco = np.append(U_adentro_disco, U)
+                count = count + U**2
         U_medio_disco = np.mean(U_adentro_disco)
         print(U_medio_disco)
-        # U_mean debe ser un valor entero, por lo tanto lo redondeo
         c_T_tab = self.c_T_tabulado(U_medio_disco)
-
-        # podria usarse interpolacion para mejorar la tabla
-        # n = 2# como estimo el orden de n?
-        # f = # saldra del modelo
-        # T = integrar_disco_monte_carlo(n,f,d_0)
-        # c_T_medio = T / (0.5 * rho * (U_medio_disco)**2 * (pi*(d_0/2)**2) )
-
+        volume = (self.d_0)**2
+        integral_U_cuadrado = (volume * count)/N
+        T_turbina = c_T_tab * integral_U_cuadrado   # lo dividi por (0.5 * rho) porque luego dividire por eso
+        T_disponible = (U_medio_disco)**2 * (np.pi*(self.d_0/2)**2)     # lo dividi por (0.5 * rho) porque luego multiplicare por eso
+        c_T = T_turbina / T_disponible
+        print ('c_T calculado:', c_T)
+        print ('c_T_tab:', c_T_tab)
 
     def calcular_c_P(self):
         pass

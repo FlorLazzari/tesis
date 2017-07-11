@@ -2,8 +2,7 @@ from __future__ import division
 # coding=utf-8
 
 import numpy as np
-from Turbina_2 import Turbina
-from Turbina_Vestas import Turbina_Vestas
+from Turbina_Marca import Turbina_Marca
 from Gaussiana_2 import Gaussiana
 
 d_0 = 60
