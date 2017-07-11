@@ -10,8 +10,8 @@ d_0 = 60
 
 
 
-turbina_0 = Turbina_Vestas(np.array([0,0,100]))
-turbina_1 = Turbina_Vestas(np.array([20,0,100]))
+turbina_0 = Turbina_Marca(np.array([0,0,100]))
+turbina_1 = Turbina_Marca(np.array([20,0,100]))
 
 
 U_inf = 10
