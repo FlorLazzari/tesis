@@ -9,9 +9,9 @@ import matplotlib.pyplot as plt
 
 class Turbina_Marca(Turbina):
 
-    def __init__(self, coord_selec):
+    def __init__(self, coord):
         d_0 = 40
-        super(Turbina_Marca, self).__init__(d_0, coord_selec)
+        super(Turbina_Marca, self).__init__(d_0, coord)
 
     def c_T_tabulado(self, U):
         # Cubic-spline:
