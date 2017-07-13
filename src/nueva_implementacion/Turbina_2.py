@@ -3,13 +3,13 @@ from __future__ import division
 
 import numpy as np
 from numpy import exp
-from calcular_U_en_pto import calcular_U_en_pto
 
 class Turbina(object):
 
     def __init__(self, d_0, coord):
         self.d_0 = d_0
         self.coord = coord
+        self.c_T = None
 
     def c_T_tabulado(self):
         pass

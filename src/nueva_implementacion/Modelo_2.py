@@ -2,7 +2,8 @@ class Modelo(object):
 
     def __init__(self):
         pass
-    def evalDeficitNorm(self, coord, c_T):
+
+    def evaluar_deficit_normalizado(self, coord, c_T):
         pass
 
     # def play_cart(self, coordenadas, c_T):
