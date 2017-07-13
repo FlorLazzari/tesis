@@ -15,25 +15,27 @@ def calcular_u_en_coord(modelo, u_inf, coord, parque_de_turbinas):
     u_coord = u_inf
     turbinas_a_la_izquierda = parque_de_turbinas.turbinas_a_la_izquierda_de_una_coord(coord)
 
+    print turbinas_a_la_izquierda
+    index = 0
     for turbina in turbinas_a_la_izquierda:
-        deficit_normalizado = modelo.evaluar_deficit_normalizado(turbina, coord)
-        u_coord = u_coord * (1 - deficit_normalizado)
-        return u_coord
+        # deficit_normalizado_en_coord = modelo.evaluar_deficit_normalizado(turbina, coord)
+        # u_coord = u_coord * (1 - deficit_normalizado_en_coord)
+        # print turbinas_a_la_izquierda[index + 1]
+        siguiente_turbina = turbinas_a_la_izquierda[index + 1]
+        index += 1
+        deficit_normalizado_en_turbina_siguiente = modelo.evaluar_deficit_normalizado(turbina, siguiente_turbina.coord)
+    return u_coord
 
-
-    #         turbina[i] = Turbina(d_0, coord_turbina)                            # coord deben ser no normalizadas (np.array)
-    #         turbina[i].calcular_c_T(c_T_table, modelo, U_disco)         # si es la primer turbina => U_disco = U_inf
-    #         estela[i] = Estela(turbina[i], modelo)                      # la turbina le pasa el c_T
-    #         deficit_dividido_U_inf[i] = estela[i].calcular_en_coord_selec(coord_selec)   # es el deficit generado por la estela i en la coord_selec
-    # suma_deficit = np.sum(deficit_dividido_U_inf)                       # en este caso lo estoy sumando a lo bruto, en el futuro deberia haber algo de la forma:
-    #                                                                     # suma_deficit = suma(deficit_dividido_U_inf)
-    # return U_coord_selec
+# problema: se me va el indice
+# habria que hacer algo como un u_disco = [u.coord1, u.coord2, ...] donde coord1, coord2, etc sean random
 
 # # test
 # gaussiana = Gaussiana()
-# turbina_1 = Turbina_Marca(np.array([0,0,100]))
-# parque_de_turbinas = Parque_de_turbinas([turbina_1])
+# turbina_1 = Turbina_Marca(Coord(np.array([0,0,100])))
+# turbina_2 = Turbina_Marca(Coord(np.array([4,0,100])))
+# turbina_3 = Turbina_Marca(Coord(np.array([5,0,100])))
+# parque_de_turbinas = Parque_de_turbinas([turbina_1, turbina_2, turbina_3])
 # u = U()
-# coord = np.array([3,0,100])
+# coord = Coord(np.array([6,0,100]))
 # u.coord = calcular_u_en_coord(gaussiana, 10, coord, parque_de_turbinas)
 # print u.coord
