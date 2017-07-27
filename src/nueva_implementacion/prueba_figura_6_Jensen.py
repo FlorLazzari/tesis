@@ -1,7 +1,7 @@
 from __future__ import division
 # coding=utf-8
 
-from Gaussiana_2 import Gaussiana
+from Jensen_2 import Jensen
 from Parque_de_turbinas import Parque_de_turbinas
 from Turbina_Paper import Turbina_Paper
 from U import U
@@ -12,7 +12,7 @@ from calcular_u_en_coord import calcular_u_en_coord
 import numpy as np
 import matplotlib.pyplot as plt
 
-gaussiana = Gaussiana()
+jensen = Jensen()
 turbina_0 = Turbina_Paper(Coord(np.array([0,0,0.125])))
 parque_de_turbinas = Parque_de_turbinas([turbina_0])
 
@@ -57,7 +57,7 @@ for i in range(X.shape[0]):
         coord = Coord(np.array([x[i], y_0, z[j]]))
         if coord.z != 0:
             u_inf.calcular_logaritmico(coord, u_hub, z_h, z_0)
-            data_prueba[j,i] = calcular_u_en_coord(gaussiana, u_inf.coord, coord, parque_de_turbinas)
+            data_prueba[j,i] = calcular_u_en_coord(jensen, u_inf.coord, coord, parque_de_turbinas)
             # print ('data_prueba[i,j]', i, j, data_prueba[i,j])
 
 contornos = [1.0, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 1.9, 2.0, 2.1, 2.2, 2.3, 2.4, 2.5]

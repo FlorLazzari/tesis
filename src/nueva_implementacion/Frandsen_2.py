@@ -3,30 +3,25 @@ from __future__ import division
 
 from Modelo_2 import Modelo
 import numpy as np
-from numpy import exp, abs, angle, pi
-from Case_2 import Case
-from Turbina import Turbina
-# from cart2pol import cart2pol
-# from Coordenadas import Coordenadas
-# from Coordenadas_Norm import Coordenadas_Norm
+from numpy import abs
 
 #k_wake = 0.1						# proposed by Jensen
-#k_wake_on_shore = 0.075			#suggested in the literature
+# k_wake_on_shore = 0.075			#suggested in the literature
 #k_wake_off_shore = 0.04 and 0.05	#suggested in the literature
 
 
 class Frandsen(Modelo):
 
-    def __init__(self, case, turbina, k_wake):
-        super(Frandsen, self).__init__(case, turbina)        # self.case = case + self.turbina = turbina
-        self.k_wake = k_wake
+    def __init__(self):
+        super(Frandsen, self).__init__()        # self.case = case + self.turbina = turbina
+        self.k_wake = 0.1
 
-    def evalDeficitNorm(self, coord, c_T):
+    def evaluar_deficit_normalizado(self, turbina, coord_selec):
         # coord deben ser no normalizadas (np.array)
-		beta = 0.5 * ((1+((1 - c_T)**0.5))/((1 - c_T)**0.5))
-		d_w = ((beta + 10 * self.k_wake * (coord[0]/self.turbina.d_0) )**0.5) * self.turbina.d_0
-		if (abs(coord[1]) <= (d_w / 2)) & (abs(coord[2] - self.turbina.z_h) <= (d_w / 2)):
-			return 0.5 * (1 - (1 - (2*c_T) / beta )**0.5)
+		beta = 0.5 * ((1+((1 - turbina.c_T)**0.5))/((1 - turbina.c_T)**0.5))
+		d_w = ((beta + 10 * self.k_wake * (coord_selec.x/turbina.d_0) )**0.5) * turbina.d_0
+		if (abs(coord_selec.y) <= (d_w / 2)) & (abs(coord_selec.z - turbina.coord.z) <= (d_w / 2)):
+			return 0.5 * (1 - (1 - (2*turbina.c_T) / beta )**0.5)
 		else:
 			return 0
 

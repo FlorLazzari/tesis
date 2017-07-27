@@ -15,15 +15,15 @@ def calcular_u_en_coord(modelo, u_inf, coord, parque_de_turbinas):
     u_coord = u_inf
     turbinas_a_la_izquierda = parque_de_turbinas.turbinas_a_la_izquierda_de_una_coord(coord)
 
-    print turbinas_a_la_izquierda
+    # print turbinas_a_la_izquierda
     index = 0
     for turbina in turbinas_a_la_izquierda:
-        # deficit_normalizado_en_coord = modelo.evaluar_deficit_normalizado(turbina, coord)
-        # u_coord = u_coord * (1 - deficit_normalizado_en_coord)
+        deficit_normalizado_en_coord = modelo.evaluar_deficit_normalizado(turbina, coord)
+        u_coord = u_coord * (1 - deficit_normalizado_en_coord)
         # print turbinas_a_la_izquierda[index + 1]
-        siguiente_turbina = turbinas_a_la_izquierda[index + 1]
-        index += 1
-        deficit_normalizado_en_turbina_siguiente = modelo.evaluar_deficit_normalizado(turbina, siguiente_turbina.coord)
+        # siguiente_turbina = turbinas_a_la_izquierda[index + 1]
+        # index += 1
+        # deficit_normalizado_en_turbina_siguiente = modelo.evaluar_deficit_normalizado(turbina, siguiente_turbina.coord)
     return u_coord
 
 # problema: se me va el indice
