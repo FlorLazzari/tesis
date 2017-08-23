@@ -18,34 +18,12 @@ class Frandsen(Modelo):
 
     def evaluar_deficit_normalizado(self, turbina, coord_selec):
         # coord deben ser no normalizadas (np.array)
-		beta = 0.5 * ((1+((1 - turbina.c_T)**0.5))/((1 - turbina.c_T)**0.5))
-		d_w = ((beta + 10 * self.k_wake * (coord_selec.x/turbina.d_0) )**0.5) * turbina.d_0
-		if (abs(coord_selec.y) <= (d_w / 2)) & (abs(coord_selec.z - turbina.coord.z) <= (d_w / 2)):
-			return 0.5 * (1 - (1 - (2*turbina.c_T) / beta )**0.5)
-		else:
-			return 0
-
-
-# # A_0 = area swept by the wind-turbine blades
-# A_0 = pi * (d_0/2)**2
-#
-# # A_w = cross-sectional area of the wake (el +1 es porque tengo el dato de A_a además de la tira dada por d_w que mide x_n)
-# A_w = np.zeros(len(x_n)+1)
-#
-# n = (1 - C_T)**0.5
-# beta = 0.5 * ((1+n)/n)
-#
-# # A_a = cross-sectional area of the wake just after the initial wake expansion
-# A_a = beta * A_0
-#
-# # expansion factor alpha is of order 10 k_wake
-# alpha = 10 * k_wake		# habría que encontrar el valor exacto de alpha
-#
-# d_w = ((beta + alpha * x_n)**0.5) * d_0
-#
-# # esto fue una intuición mía, en ningún lugar lo aclara bien:
-# A_w = pi * (d_w/2)**2
-#
-# frac = A_0 / A_w
-# deficit_dividido_U_inf = 0.5 * (1 - (1 - 2*C_T*frac )**0.5)
-#
+        beta = 0.5 * ((1+((1 - turbina.c_T)**0.5))/((1 - turbina.c_T)**0.5))
+        d_w = ((beta + 10 * self.k_wake * (coord_selec.x/turbina.d_0))**0.5)*turbina.d_0
+        a_w = np.pi * (d_w / 2)**2
+        d_0 =(beta**0.5) * turbina.d_0
+        a_0 = np.pi * (d_0 / 2)**2
+        if (abs(coord_selec.y) <= (d_w / 2)) & (abs(coord_selec.z - turbina.coord.z) <= (d_w / 2)):
+            return 0.5 * (1 - (1 - (2*turbina.c_T) * (a_0/a_w) )**0.5)
+        else:
+            return 0

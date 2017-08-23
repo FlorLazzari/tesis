@@ -65,6 +65,382 @@ de las estelas de varias turbinas.
 %No se dispone de una solución general para este conjunto de ecuaciones, y salvo ciertos tipos de flujo y situaciones muy concretas no es posible hallar una solución analítica; por lo que en muchas ocasiones es preciso recurrir al análisis numérico para determinar una solución aproximada. A la rama de la mecánica de fluidos que se ocupa de la obtención de estas soluciones mediante métodos numéricos se la denomina dinámica de fluidos computacional 
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-%Jensen model:
+
+%  The AAU Poster Theme.
+%  2013-05-08 v. 1.1.0
+%  Copyright 2013 by Jesper Kjær Nielsen <jkn@es.aau.dk>
+%
+%  This is free software: you can redistribute it and/or modify
+%  it under the terms of the GNU General Public License as published by
+%  the Free Software Foundation, either version 3 of the License, or
+%  (at your option) any later version.
+%
+%  This is distributed in the hope that it will be useful,
+%  but WITHOUT ANY WARRANTY; without even the implied warranty of
+%  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+%  GNU General Public License for more details.
+%
+%  You can find the GNU General Public License at <http://www.gnu.org/licenses/>.
+\documentclass[a0paper,portrait]{baposter}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Language, Encoding and Fonts
+% http://en.wikibooks.org/wiki/LaTeX/Internationalization
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Select encoding of your inputs. Depends on
+% your operating system and its default input
+% encoding. Typically, you should use
+%   Linux  : utf8 (most modern Linux distributions)
+%            latin1 
+%   Windows: ansinew
+%            latin1 (works in most cases)
+%   Mac    : applemac
+% Notice that you can manually change the input
+% encoding of your files by selecting "save as"
+% an select the desired input encoding. 
+\usepackage[utf8]{inputenc}
+% Make latex understand and use the typographic
+% rules of the language used in the document.
+\usepackage[english]{babel}
+% Use the vector font Latin Modern which is going
+% to be the default font in latex in the future.
+\usepackage{helvet}
+% Change the default font family from roman to sans serif
+\renewcommand{\familydefault}{\sfdefault} % for text
+\usepackage[helvet]{sfmath} % for math
+% Choose the font encoding
+\usepackage[T1]{fontenc}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Graphics and Tables
+% http://en.wikibooks.org/wiki/LaTeX/Importing_Graphics
+% http://en.wikibooks.org/wiki/LaTeX/Tables
+% http://pgfplots.sourceforge.net/
+\usepackage{wrapfig}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% You cannot use floats in the baposter theme.
+% We therefore load the caption package which provides
+% the command \captionof
+% Set up how figure and table captions are displayed
+\usepackage{caption}
+\captionsetup{
+  font=small,% set font size to footnotesize
+  labelfont=bf % bold label (e.g., Figure 3.2) font
+}
+% Make the standard latex tables look so much better
+\usepackage{array,booktabs}
+% For creating beautiful plots
+\usepackage{pgfplots}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Mathematics
+% http://en.wikibooks.org/wiki/LaTeX/Mathematics
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Defines new environments such as equation,
+% align and split 
+\usepackage{amsmath}
+% Adds new math symbols
+\usepackage{amssymb}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Colours
+% http://en.wikibooks.org/wiki/LaTeX/Colors
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\selectcolormodel{RGB}
+% define the three aau colors
+\definecolor{aaublue1}{RGB}{33,26,82}% dark blue
+\definecolor{aaublue2}{RGB}{113,109,143} % light blue
+\definecolor{aaublue3}{RGB}{194,193,204} % lighter blue
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Lists
+% http://en.wikibooks.org/wiki/LaTeX/List_Structures
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Easier configuration of lists
+\usepackage{enumitem}
+%configure itemize
+\setlist{%
+  topsep=0pt,% set space before and after list
+  noitemsep,% remove space between items
+  labelindent=\parindent,% set the label indentation to the paragraph indentation
+  leftmargin=*,% remove the left margin
+  font=\color{aaublue1}\normalfont, %set the colour of all bullets, numbers and descriptions to aaublue1
+}
+% use set<itemize,enumerate,description> if you have an older latex distribution
+\setitemize[1]{label={\raise1.25pt\hbox{$\blacktriangleright$}}}
+\setitemize[2]{label={\scriptsize\raise1.25pt\hbox{$\blacktriangleright$}}}
+\setitemize[3]{label={\raise1.25pt\hbox{$\star$}}}
+\setitemize[4]{label={-}}
+%\setenumerate[1]{label={\theenumi.}}
+%\setenumerate[2]{label={(\theenumii)}}
+%\setenumerate[3]{label={\theenumiii.}}
+%\setenumerate[4]{label={\theenumiv.}}
+%\setdescription{font=\color{aaublue1}\normalfont\bfseries}
+
+% use setlist[<itemize,enumerate,description>,<level>] if you have a newer latex distribution
+%\setlist[itemize,1]{label={\raise1.25pt\hbox{$\blacktriangleright$}}}
+%\setlist[itemize,2]{label={\scriptsize\raise1.25pt\hbox{$\blacktriangleright$}}}
+%\setlist[itemize,3]{label={\raise1.25pt\hbox{$\star$}}}
+%\setlist[itemize,4]{label={-}}
+%\setlist[enumerate,1]{label={\theenumi.}}
+%\setlist[enumerate,2]{label={(\theenumii)}}
+%\setlist[enumerate,3]{label={\theenumiii.}}
+%\setlist[enumerate,4]{label={\theenumiv.}}
+%\setlist[description]{font=\color{aaublue1}\normalfont\bfseries}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Misc
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% change/remove some names
+\addto{\captionsenglish}{
+  %remove the title of the bibliograhpy
+  \renewcommand{\refname}{\vspace{-0.7em}}
+  %change Figure to Fig. in figure captions
+  \renewcommand{\figurename}{Fig.}
+}
+% create links
+\usepackage{url}
+%note that the hyperref package is currently incompatible with the baposter class
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Macros
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\alert}[1]{{\color{aaublue1}#1}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Document Start 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Some changes that cannot be made in the preamble
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% set the background of the poster
+\background{
+  \begin{tikzpicture}[remember picture,overlay]%
+    %the poster background color
+    \fill[fill=aaublue3] (current page.north west) rectangle (current page.south east);
+    %the header
+    \fill [fill=aaublue1] (current page.north west) rectangle ([yshift=-\headerheight] current page.north east);
+  \end{tikzpicture}
+}
+% if you want to reduce the space before and after equations, use and adjust
+% the following lines
+%\addtolength{\abovedisplayskip}{-2mm}
+%\addtolength{\belowdisplayskip}{-2mm}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% General poster setup
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{poster}{
+  %general options for the poster
+  grid=false,
+  columns=3,
+%  colspacing=4.2mm,
+  headerheight=0.1\textheight,
+  background=user,
+%  bgColorOne=red!42, %is used when background != user and none
+%  bgColortwo=green!42, %is used when background is shaded
+  eyecatcher=true,
+  %posterbox options
+  headerborder=closed,
+  borderColor=aaublue1,
+  headershape=rectangle,
+  headershade=plain,
+  headerColorOne=aaublue1,
+%  headerColortwo=yellow!42, %is used when the header background is shaded
+  textborder=rectangle,
+  boxshade=plain,
+  boxColorOne=white,
+%  boxColorTwo=cyan!42,%is used when the text background is shaded
+  headerFontColor=white,
+  headerfont=\Large\sf\bf,
+  linewidth=1pt
+}
+%the Eye Catcher (the logo on the left)
+{
+  %this can be commented out or replaced by a company/department logo
+  \includegraphics[height=0.6\headerheight]{logoCSC.png}
+}
+%the poster title
+{\color{white}\bf
+  Computational Simulation of Wakes in Wind Farms
+}
+%the author(s)
+{\color{white}\small
+  \vspace{1em} Florencia Lazzari\\[0.5em]
+  Departamento de Física, Aalborg University, Denmark\\
+  flor.lazzari@hotmail.com
+}
+%the logo (the logo on the right)
+{
+  %this can be commented out or replaced by a company/department logo
+  \includegraphics[height=0.75\headerheight]{aau_logo_new_neg}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% the actual content of the poster begins here
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{posterbox}[name=summary,column=0,row=0]{Summary}
+
+Simple analytical wake models are validated to predict the wind velocity distribution downwind of a wind turbine. The most common analytical models are based on inaccurate assumptions considering a top-hat shape for the velocity deficit. An alternative model is derived assuming a Gaussian distribution for the velocity deficit in the wake. These models are implemented and the results are compared to wind-tunnel measured data of wind turbine wakes. In general, it is found that the velocity deficit in the wake predicted by the Gaussian analytical model is in better agreement with the measurements than the top-hat models.
+
+% faltaria comparar con Computational Fluid Dynamics (CFD) ?
+
+\end{posterbox}
+
+\begin{posterbox}[name=wind_energy,span=2,column=1,row=0]{Wind Energy}
+
+
+\begin{wrapfigure}{l}{0.5\textwidth}
+  \begin{center}
+    \includegraphics[width=7cm, height=4cm]{potencial_eolico_mundial}
+  \end{center}
+\end{wrapfigure}
+
+
+
+%El objetivo del proyecto en el que se enmarca esta tesis es el desarrollo de herramientas
+%computacionales que permitan modelar el flujo en el entorno de las turbinas eólicas, dando
+%lugar a modelos de pronóstico de potencia eólica en parques eólicos. Se analizarán distintas
+%combinaciones de métodos que permitan contar con un abanico de opciones de variado costo
+%computacional de acuerdo con las necesidades operativas de cada caso.
+
+Wind energy is a form of renewable electricity generation that helps to reduce greenhouse gas emissions. 
+Because of the variable nature of the wind resource, the ability to forecast wind speed some time ahead is valuable. The wind is sufficiently stable and predictable on an annual scale, although it presents significant variations at smaller timescales. The forecast of energy production allows to foresee possible variations in generation, making possible a better management of the electric network. In addition, flow modeling is useful for prospecting and installation of future projects.
+
+%La energía eólica es una forma de generación eléctrica renovable que ayuda a disminuir las emisiones de gases de efecto invernadero al reemplazar fuentes de energía a base de combustibles fósiles. 
+%El viento es suficientemente estable y predecible a escala anual, aunque presenta variaciones significativas a escalas de tiempo menores. El pronóstico de producción de energía permite prever posibles variaciones en la generación, posibilitando una mejor gestión de la red eléctrica. Además, el modelado del flujo resulta de utilidad para la prospección e instalación de futuros proyectos.
+
+
+\end{posterbox}
+
+
+\begin{posterbox}[name=wake,column=0,row=0, below=summary]{Wake}
+
+A wind turbine is a device for extracting kinetic energy from the wind, its aerodynamic behaviour is modeled by the use of an $actuator$ $disc$. The actuator disc induces a velocity variation which must be superimposed on the free-stream velocity.
+% Assuming that the affected mass of air remains separate from the rest of the air, a boundary surface can be drawn containing the affected air mass and this boundary can be extended forming a long stream-tube of circular cross section.
+The air within the stream-tube slows down, but does not become compressed, making the cross-sectional area expand. As the air passes through the rotor disc, there is a drop in static pressure such that, on leaving, the air is below the atmospheric pressure level. The air then proceeds downstream with reduced speed and static pressure – this region of the flow is called the $wake$.
+The rise in static pressure is at the expense of the kinetic energy and so causes a further slowing down of the wind. Thus, between the far upstream and far wake conditions, no change in static pressure exists but there is a reduction in kinetic energy.
+
+\begin{center}
+  \includegraphics[width=6cm, height=4cm]{stream_tube.jpg}
+  \label{fig:figlabel}
+\end{center}
+
+% \begin{itemize}
+% \item $\infty$: far upstream, $d$: at disc, $w$: far wake
+% \end{itemize}
+
+\end{posterbox}
+
+\begin{posterbox}[name=computational_methods,column=0,below=wake, above=bottom]{Computational Methods}
+
+\begin{itemize}
+\item $Direct$ $Numerical$ $Simulation$ $(DNS)$: N–S equations are numerically solved. The whole range of spatial and temporal scales of the turbulence must be resolved in the computational mesh. 
+\end{itemize} 
+
+\begin{itemize}
+\item $Turbulence$ $Models$: a model is constructed to predict the effects of turbulence. The governing equations of the flow are averaged (RANS) in order to focus on large-scale and non-fluctuating features. \begin{itemize}
+\item $Large$ $Eddy$ $Simulation$: ignors the smallest length scales, which are the most computationally expensive to resolve, via low-pass filtering of the Navier–Stokes equations, removing small-scale information from the solution.
+\end{itemize}
+\end{itemize} 
+
+
+\begin{itemize}
+\item $Analytical$ $Models$: a model is derived by applying conservation of mass and momentum and assuming a specific distribution for the velocity of the fluid.
+
+\end{itemize}
+
+
+%Al modelar la estela de una turbina, la alternativa para ahorrar recursos computacionales es utilizar modelos reducidos, en los cuales se sustituyen las aspas por fuerzas volumétricas con efecto equivalente. 
+
+\end{posterbox}
+
+
+\begin{posterbox}[name=comparing_methods,column=1,below=wind_energy]{Comparing Methods}
+
+Depending on the accuracy required in the study of a fluid, different computational methods are chosen. 
+
+A DNS requires a number of mesh points $N$ satisfying $N^{3}\geq \mathrm {Re} ^{2.25}$, where $Re$ is the Reynolds number. Hence, the memory storage requirement in a DNS grows very fast with $Re$. For $Re$ encountered in most industrial applications, the computational resources required by a DNS exceed the capacity of the most powerful computers currently available.
+
+For the simulation of practical engineering systems with complex geometry or flow configurations, LES has become increasingly sophisticated and accurate in recent years. It is cheaper than DNS but it still requires huge processing time.
+
+When modelling wind farms to make power forecasting, it is important to reduce the time taken to run the simulation. This is the reason why simple analytical models are useful tools to predict wind-turbine wake flows. They are widely used due to their simplicity and low computational cost.
+
+
+\begin{center}
+  \includegraphics[width=6cm, height=3cm]{potencial_eolico_mundial}
+  \label{fig:figlabel}
+\end{center}
+
+
+\end{posterbox}
+
+
+\begin{posterbox}[name=analytical_models,column=1,below=comparing_methods,above=bottom]{Analytical Models}
+
+%Se han propuesto diversos modelos de orden reducido para el estudio de la estela de una turbina. 
+
+The pioneering analytical wake models were the ones proposed by $Jensen$ and $Frandsen$, they were presented more than 30 years ago, yet they continue to be a standard tool in commercial software packages. Both models assume a top-hat shape for the velocity deficit in the wake. They claimed that it gives an estimate of the energy content rather than describing the velocity field accurately. Nevertheless, note that the energy available in the wind varies as the cube of the wind speed and, therefore, an improper evaluation of velocity field in a wind farm can lead to large errors in the prediction of the energy output.
+
+
+A new model was derived by Porté-Agel, applying conservation of mass and momentum and assuming a Gaussian distribution for the velocity deficit in the wake.
+
+\end{posterbox}
+
+
+
+\begin{posterbox}[name=equations,column=2,below=wind_energy]{Equations}
+\begin{itemize}
+\item Jensen
+\begin{equation*}
+\frac{\Delta U}{U_{\infty}} = \frac{1 - \sqrt{1 - C_T}}{(1 + \frac{2 k_{wake} x}{d_0})^2}
+\end{equation*}
+\end{itemize}
+\begin{itemize}
+\item Frandsen
+\begin{equation*}
+\frac{\Delta U}{U_{\infty}} = \frac{1}{2} - \frac{1}{2}\sqrt{1 - 2 \frac{A_0}{A_W(x)}C_T}
+\end{equation*}
+\end{itemize}
+\begin{itemize}
+\item Porté-Agel
+\begin{equation*}
+\frac{\Delta U}{U_{\infty}} = C(x) exp\Bigg\{\frac{-1}{2(\frac{k^*x}{d_0} + \epsilon)^2}\bigg( \bigg( \frac{r(x,y)}{d_0}\bigg)^2\Bigg\}
+\end{equation*}
+\end{itemize}
+Profiles of the mean velocity (top) and velocity deficit (bottom) downwind of a wind turbine obtained by assuming: (left) a top-hat and (right) a Gaussian distribution for the velocity deficit.
+\begin{center}
+  \includegraphics[width=6cm, height=4cm]{models.jpg}
+  \label{fig:figlabel}
+\end{center}
+\end{posterbox}
+
+
+
+
+\begin{posterbox}[name=implementation,column=2,below=equations, above=bottom]{Implementation}
+
+The three analytical models where implemented in python. 
+\begin{center}
+  \includegraphics[width=7cm, height=7.5cm]{grafico_J_F_G_medido.jpg}
+  \label{fig:figlabel}
+\end{center}
+
+\end{posterbox}
+
+Contours of streamwise velocity (m/s): from top to bottom, Jensen, Frandsen, Porté-Agel and wind-tunnel measurements.The results show that Porté-Agel 
+
+The comparison with the high-resolution wind-tunnel measurements shows that the velocity profiles obtained with the proposed model are in acceptable agreement with the experiments
+In contrast, the
+top-hat models, as expected, generally underestimate the velocity
+deficit at the center of the wake and overestimate it near the edge
+of the wake.
+
+
+\end{poster}
+\end{document}
+
