@@ -16,12 +16,20 @@ def calcular_u_en_coord(modelo, u_inf, coord, parque_de_turbinas):
     u_coord = u_inf
     turbinas_a_la_izquierda = parque_de_turbinas.turbinas_a_la_izquierda_de_una_coord(coord)
     deficit_normalizado_en_coord = []
-# el parque ya esta inicializado, el c_T de la primera turbina esta calculado
-    index = 0
-# el for no deberia incluir a la primera turbina
-    for turbina in turbinas_a_la_izquierda:
-        turbina.generar_coord_random()
-        # ahora calculo la contribucion de cada turbina a la izquierda en las coord_random
+    # el parque ya esta inicializado, el c_T de la primera turbina esta calculado
+    # el for no deberia incluir a la primera turbina
+    for turbina_selec in turbinas_a_la_izquierda:
+        turbina_selec.generar_coord_random()
+        turbinas_a_la_izquierda_de_turbina_selec = parque_de_turbinas.turbinas_a_la_izquierda_de_una_coord(turbina_selec.coord)
+        cantidad_turbinas_izquiera_de_selec = len(turbinas_a_la_izquierda_de_turbina_selec)
+        for turbina in turbinas_a_la_izquierda_de_turbina_selec:
+            cantidad_adentro_disco = 0
+            for coord_random in coord_random_arreglo:
+                if ((coord_random[1]-turbina_selec.coord[1])**2 + (coord_random[2]-turbina_selec.coord[2])**2 < (turbina_selec.d_0/2)**2):
+                    deficit_normalizado_en_coord_random = modelo.evaluar_deficit_normalizado(turbina, coord_random)
+                    turbina_selec.estela_de_otras_turbinas = np.append(turbina.estela, deficit_normalizado_en_coord_random)
+                    cantidad_adentro_disco += 1
+        turbina_selec.calcular_c_T(cantidad_adentro_disco, cantidad_turbinas_izquierda_de_selec)
 
         q = 10              # division dentro de la grilla (queda hardcodeado aca adentro, habria que ver que valor de q es el ideal)
         U = []

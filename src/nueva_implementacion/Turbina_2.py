@@ -10,6 +10,7 @@ class Turbina(object):
         self.d_0 = d_0
         self.coord = coord
         self.c_T = None
+        self.estela_de_otras_turbinas = []
 
     def c_T_tabulado(self):
         pass
@@ -20,29 +21,74 @@ class Turbina(object):
         for i in range(N):
             rand_y = np.random.uniform(self.coord[1]-(self.d_0/2), self.coord[1]+(self.d_0/2))
             rand_z = np.random.uniform(self.coord[2]-(self.d_0/2), self.coord[2]+(self.d_0/2))
-            coord_random = Coord([self.coord[0], rand_y, rand_z])
-            coord_random_arreglo.append(coord_random)
+            coord_random = np.array([self.coord[0], rand_y, rand_z])
+            coord_random_arreglo = np.append(coord_random_arreglo, coord_random)
         return coord_random_arreglo
 
-    def calcular_c_T(self, Modelo, U_inf, coord, coord_random):
-        q = 10              # division dentro de la grilla (queda hardcodeado aca adentro, habria que ver que valor de q es el ideal)
-        U = []
-        U_adentro_disco = np.array([])
-        count = 0
-        if ((coord_random[1]-self.coord[1])**2 + (coord_random[2]-self.coord[2])**2 < (self.d_0/2)**2):
-            U = calcular_U_en_pto(Modelo, U_inf, coord_turbina, n, coord_random)
-            U_adentro_disco = np.append(U_adentro_disco, U)
-            count = count + U**2
-        U_medio_disco = np.mean(U_adentro_disco)
-        print(U_medio_disco)
-        c_T_tab = self.c_T_tabulado(U_medio_disco)
-        volume = (self.d_0)**2
-        integral_U_cuadrado = (volume * count)/N
-        T_turbina = c_T_tab * integral_U_cuadrado   # lo dividi por (0.5 * rho) porque luego dividire por eso
-        T_disponible = (U_medio_disco)**2 * (np.pi*(self.d_0/2)**2)     # lo dividi por (0.5 * rho) porque luego multiplicare por eso
-        c_T = T_turbina / T_disponible
-        print ('c_T calculado:', c_T)
-        print ('c_T_tab:', c_T_tab)
+    def merge_estela(self, estela, cantidad_adentro_disco, cantidad_turbinas_izquierda_de_selec):
+        estela_en_coord_rand_mergeada = np.zeros(cantidad_adentro_disco)
+        for i in range(0,cantidad_adentro_disco):
+            for j in range(0,cantidad_turbinas_izquierda_de_selec):
+                estela_en_coord_rand_mergeada[i] += estela[i+j]
+        return estela_en_coord_rand_mergeada
 
-    def calcular_c_P(self):
-        pass
+# prueba:
+turbina = Turbina(0,0)
+estela = [0,1,2,3,4,5,6,7,8,9,10,11,12,13]
+cant_A = 7
+cant_B = 2
+estela_mergeada = turbina.merge_estela(estela, cant_A, cant_B)
+print estela_mergeada
+
+    # def calcular_c_T(self, cantidad_adentro_disco, cantidad_turbinas_izquierda_de_selec):
+    #     q = 10              # division dentro de la grilla (queda hardcodeado aca adentro, habria que ver que valor de q es el ideal)
+    #     U = []
+    #     U_adentro_disco = np.array([])
+    #     N = 500     # como estimo el orden?
+    #     count = 0
+    #     # primero mergeo las estelas de todas las turbinas
+    #     merge_estela(self.estela_de_otras_turbinas, cantidad_adentro_disco, cantidad_turbinas_izquierda_de_selec)
+    #
+    #         self.estela_de_otras_turbinas
+    #         U =
+    #         U_adentro_disco = np.append(U_adentro_disco, U)
+    #         count = count + U**2
+    #     U_medio_disco = np.mean(U_adentro_disco)
+    #     print(U_medio_disco)
+    #     c_T_tab = self.c_T_tabulado(U_medio_disco)
+    #     volume = (self.d_0)**2
+    #     integral_U_cuadrado = (volume * count)/N
+    #     T_turbina = c_T_tab * integral_U_cuadrado   # lo dividi por (0.5 * rho) porque luego dividire por eso
+    #     T_disponible = (U_medio_disco)**2 * (np.pi*(self.d_0/2)**2)     # lo dividi por (0.5 * rho) porque luego multiplicare por eso
+    #     c_T = T_turbina / T_disponible
+    #     print ('c_T calculado:', c_T)
+    #     print ('c_T_tab:', c_T_tab)
+
+    # def calcular_c_T(self, Modelo, U_inf, coord, n):
+    #     q = 10              # division dentro de la grilla (queda hardcodeado aca adentro, habria que ver que valor de q es el ideal)
+    #     U = []
+    #     U_adentro_disco = np.array([])
+    #     N = 500     # como estimo el orden?
+    #     count = 0
+    #     x = self.coord[0]
+    #     for i in range(N):
+    #         rand_y = np.random.uniform(self.coord[1]-(self.d_0/2), self.coord[1]+(self.d_0/2))
+    #         rand_z = np.random.uniform(self.coord[2]-(self.d_0/2), self.coord[2]+(self.d_0/2))
+    #         coord_random = np.array([x, rand_y, rand_z])
+    #         if ((rand_y-self.coord[1])**2 + (rand_z-self.coord[2])**2 < (self.d_0/2)**2):
+    #             U = calcular_U_en_pto(Modelo, U_inf, coord_turbina, n, coord_random)
+    #             U_adentro_disco = np.append(U_adentro_disco, U)
+    #             count = count + U**2
+    #     U_medio_disco = np.mean(U_adentro_disco)
+    #     print(U_medio_disco)
+    #     c_T_tab = self.c_T_tabulado(U_medio_disco)
+    #     volume = (self.d_0)**2
+    #     integral_U_cuadrado = (volume * count)/N
+    #     T_turbina = c_T_tab * integral_U_cuadrado   # lo dividi por (0.5 * rho) porque luego dividire por eso
+    #     T_disponible = (U_medio_disco)**2 * (np.pi*(self.d_0/2)**2)     # lo dividi por (0.5 * rho) porque luego multiplicare por eso
+    #     c_T = T_turbina / T_disponible
+    #     print ('c_T calculado:', c_T)
+    #     print ('c_T_tab:', c_T_tab)
+
+    # def calcular_c_P(self):
+    #     pass
