@@ -17,7 +17,7 @@ class Turbina(object):
         pass
 
     def generar_coord_random(self):
-        N = 500     # como estimo el orden?
+        N = 5     # como estimo el orden?
         coord_random_arreglo = []
         for i in range(N):
             rand_y = np.random.uniform(self.coord.y-(self.d_0/2), self.coord.y+(self.d_0/2))
@@ -40,6 +40,17 @@ class Turbina(object):
 # cant_turbinas = 2
 # estela_mergeada = turbina.merge_estela(estela, cant_adentro, cant_turbinas)
 # print estela_mergeada
+
+
+    def calcular_c_T(estela, coord_random_adentro_disco, u_inf):
+        - cantidad_adentro_disco = len(coord_random_adentro_disco)
+        - cantidad_turbinas_izquierda_de_selec = len(estela)/cantidad_adentro_disco
+        - self.merge_estela(estela, cantidad_adentro_disco, cantidad_turbinas_izquierda_de_selec)
+        - u_inf_arreglo = calcular u_inf en cada coord_random_arreglo (podria ser usando el modelo del log dado en U() )
+        - restar la estela total a la u_inf en todo el u_inf_arreglo
+        - hacer el montecarlo con el u_inf_arreglo
+        - obtener el c_T
+
 
     # def calcular_c_T(self, cantidad_adentro_disco, cantidad_turbinas_izquierda_de_selec):
     #     q = 10              # division dentro de la grilla (queda hardcodeado aca adentro, habria que ver que valor de q es el ideal)

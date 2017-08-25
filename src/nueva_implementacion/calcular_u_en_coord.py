@@ -32,7 +32,7 @@ def calcular_u_en_coord(modelo, u_inf, coord, parque_de_turbinas):
         turbinas_a_la_izquierda_de_turbina_selec = parque_de_turbinas.turbinas_a_la_izquierda_de_una_coord(turbina_selec.coord)
         cantidad_turbinas_izquierda_de_selec = len(turbinas_a_la_izquierda_de_turbina_selec)
         print "cantidad_turbinas_izquierda_de_selec:", cantidad_turbinas_izquierda_de_selec
-        estela = 0
+        estela = []
         for turbina in turbinas_a_la_izquierda_de_turbina_selec:
             print "turbina c_T:", turbina.c_T
 
@@ -40,39 +40,40 @@ def calcular_u_en_coord(modelo, u_inf, coord, parque_de_turbinas):
             cantidad_adentro_disco = 0
             count = 0
             N = len(coord_random_arreglo)
+            print N
             U_adentro_disco = 0
+            coord_random_adentro_disco = []
             for coord_random in coord_random_arreglo:
                 # print coord_random.x
                 # print coord_random.y
                 # print coord_random.z
                 if ((coord_random.y-turbina_selec.coord.y)**2 + (coord_random.z-turbina_selec.coord.z)**2 < (turbina_selec.d_0/2)**2):
                     deficit_normalizado_en_coord_random = modelo.evaluar_deficit_normalizado(turbina, coord_random)
-                    # calculo el viento con el deficit dado por la otra turbina
-                    # por ahora lo hago para un u no logaritmico
+                    estela = np.append(estela, deficit_normalizado_en_coord_random)
+                    coord_random_adentro_disco = np.append(coord_random_adentro_disco, coord_random)
 
-                    # estela = np.append(estela, deficit_normalizado_en_coord_random)
-                    # u_coord = u_inf * (1 - deficit_en_coord_rand_mergeada)
-                    u_coord = u_inf * (1 - deficit_normalizado_en_coord_random)
-                    U = u_coord
-                    U_adentro_disco = np.append(U_adentro_disco, U)
-                    count = count + U**2
+            print "estela", estela
+            print "coord_random_adentro_disco", coord_random_adentro_disco
+
+        la siguiente linea es en la que hay que seguir trabajando: (en la clase turbina)
+        turbina_selec.calcular_c_T(estela, coord_random_adentro_disco, u_inf)
+
+
 
             # cantidad_adentro_disco = len(estela)/cantidad_turbinas_izquierda_de_selec
             # turbina.merge_estela(estela, cantidad_adentro_disco, cantidad_turbinas_izquierda_de_selec)
 
-                U_medio_disco = np.mean(U_adentro_disco)
-                c_T_tab = turbina_selec.c_T_tabulado(U_medio_disco)
-                volume = (turbina_selec.d_0)**2
-                integral_U_cuadrado = (volume * count)/N
-                T_turbina_selec = c_T_tab * integral_U_cuadrado   # lo dividi por (0.5 * rho) porque luego dividire por eso
-                T_disponible = (U_medio_disco)**2 * (np.pi*(turbina_selec.d_0/2)**2)     # lo dividi por (0.5 * rho) porque luego multiplicare por eso
-                turbina_selec.c_T = T_turbina_selec / T_disponible
+            # U_medio_disco = np.mean(U_adentro_disco)
+            # c_T_tab = turbina_selec.c_T_tabulado(U_medio_disco)
+            # volume = (turbina_selec.d_0)**2
+            # integral_U_cuadrado = (volume * count)/N
+            # T_turbina_selec = c_T_tab * integral_U_cuadrado   # lo dividi por (0.5 * rho) porque luego dividire por eso
+            # T_disponible = (U_medio_disco)**2 * (np.pi*(turbina_selec.d_0/2)**2)     # lo dividi por (0.5 * rho) porque luego multiplicare por eso
+            # turbina_selec.c_T = T_turbina_selec / T_disponible
 
 
 
 
-                    # turbina_selec.estela_de_otras_turbinas = np.append(turbina_selec.estela_de_otras_turbinas, deficit_normalizado_en_coord_random)
-                    # cantidad_adentro_disco += 1
 
 # prueba:
 from Turbina_Paper import Turbina_Paper
@@ -82,11 +83,8 @@ coord = Coord(np.array([60*7*6, 0, 100]))
 turbina_1 = Turbina_Paper(Coord(np.array([0,0,100])))
 turbina_2 = Turbina_Paper(Coord(np.array([60*7,0,100])))
 turbina_3 = Turbina_Paper(Coord(np.array([60*7*2,0,100])))
-turbina_4 = Turbina_Paper(Coord(np.array([60*7*3,0,100])))
-turbina_5 = Turbina_Paper(Coord(np.array([60*7*4,0,100])))
-turbina_6 = Turbina_Paper(Coord(np.array([60*7*5,0,100])))
 
-parque_de_turbinas = Parque_de_turbinas([turbina_1, turbina_2, turbina_3, turbina_4, turbina_5, turbina_6])
+parque_de_turbinas = Parque_de_turbinas([turbina_1, turbina_2, turbina_3])
 calcular_u_en_coord(gaussiana, u_inf, coord, parque_de_turbinas)
 
 
