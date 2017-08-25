@@ -3,6 +3,7 @@ from __future__ import division
 
 import numpy as np
 from numpy import exp
+from Coord import Coord
 
 class Turbina(object):
 
@@ -19,26 +20,26 @@ class Turbina(object):
         N = 500     # como estimo el orden?
         coord_random_arreglo = []
         for i in range(N):
-            rand_y = np.random.uniform(self.coord[1]-(self.d_0/2), self.coord[1]+(self.d_0/2))
-            rand_z = np.random.uniform(self.coord[2]-(self.d_0/2), self.coord[2]+(self.d_0/2))
-            coord_random = np.array([self.coord[0], rand_y, rand_z])
+            rand_y = np.random.uniform(self.coord.y-(self.d_0/2), self.coord.y+(self.d_0/2))
+            rand_z = np.random.uniform(self.coord.z-(self.d_0/2), self.coord.z+(self.d_0/2))
+            coord_random = Coord(np.array([self.coord.x, rand_y, rand_z]))
             coord_random_arreglo = np.append(coord_random_arreglo, coord_random)
         return coord_random_arreglo
 
     def merge_estela(self, estela, cantidad_adentro_disco, cantidad_turbinas_izquierda_de_selec):
         estela_en_coord_rand_mergeada = np.zeros(cantidad_adentro_disco)
-        for i in range(0,cantidad_adentro_disco):
-            for j in range(0,cantidad_turbinas_izquierda_de_selec):
-                estela_en_coord_rand_mergeada[i] += estela[i+j]
+        for i in range(cantidad_adentro_disco):
+            for j in range(cantidad_turbinas_izquierda_de_selec):
+                estela_en_coord_rand_mergeada[i] += estela[i+cantidad_adentro_disco*j]
         return estela_en_coord_rand_mergeada
 
 # prueba:
-turbina = Turbina(0,0)
-estela = [0,1,2,3,4,5,6,7,8,9,10,11,12,13]
-cant_A = 7
-cant_B = 2
-estela_mergeada = turbina.merge_estela(estela, cant_A, cant_B)
-print estela_mergeada
+# turbina = Turbina(0,0)
+# estela = [0,1,2,3,4,5,6,7,8,9,10,11,12,13]
+# cant_adentro = 7
+# cant_turbinas = 2
+# estela_mergeada = turbina.merge_estela(estela, cant_adentro, cant_turbinas)
+# print estela_mergeada
 
     # def calcular_c_T(self, cantidad_adentro_disco, cantidad_turbinas_izquierda_de_selec):
     #     q = 10              # division dentro de la grilla (queda hardcodeado aca adentro, habria que ver que valor de q es el ideal)
