@@ -4,6 +4,7 @@ from __future__ import division
 import numpy as np
 from numpy import exp
 from Coord import Coord
+from U_inf import U_inf
 
 class Turbina(object):
 
@@ -26,30 +27,22 @@ class Turbina(object):
             coord_random_arreglo = np.append(coord_random_arreglo, coord_random)
         return coord_random_arreglo
 
-    def merge_estela(self, estela, cantidad_adentro_disco, cantidad_turbinas_izquierda_de_selec):
-        estela_en_coord_rand_mergeada = np.zeros(cantidad_adentro_disco)
-        for i in range(cantidad_adentro_disco):
-            for j in range(cantidad_turbinas_izquierda_de_selec):
-                estela_en_coord_rand_mergeada[i] += estela[i+cantidad_adentro_disco*j]
-        return estela_en_coord_rand_mergeada
-
-# prueba:
-# turbina = Turbina(0,0)
-# estela = [0,1,2,3,4,5,6,7,8,9,10,11,12,13]
-# cant_adentro = 7
-# cant_turbinas = 2
-# estela_mergeada = turbina.merge_estela(estela, cant_adentro, cant_turbinas)
-# print estela_mergeada
 
 
-    def calcular_c_T(estela, coord_random_adentro_disco, u_inf):
-        - cantidad_adentro_disco = len(coord_random_adentro_disco)
-        - cantidad_turbinas_izquierda_de_selec = len(estela)/cantidad_adentro_disco
-        - self.merge_estela(estela, cantidad_adentro_disco, cantidad_turbinas_izquierda_de_selec)
-        - u_inf_arreglo = calcular u_inf en cada coord_random_arreglo (podria ser usando el modelo del log dado en U() )
-        - restar la estela total a la u_inf en todo el u_inf_arreglo
-        - hacer el montecarlo con el u_inf_arreglo
-        - obtener el c_T
+
+    def calcular_c_T(estela, coord_random_adentro_disco, u_inf, cantidad_turbinas_izquierda_de_selec):
+    #     - cantidad_adentro_disco = len(coord_random_adentro_disco)
+    #     - cantidad_turbinas_izquierda_de_selec = len(estela)/cantidad_adentro_disco
+    #     - self.merge_estela(estela, cantidad_adentro_disco, cantidad_turbinas_izquierda_de_selec)
+    #     - u_inf_arreglo = calcular u_inf en cada coord_random_arreglo (podria ser usando el modelo del log dado en U() )
+    #     - restar la estela total a la u_inf en todo el u_inf_arreglo
+    #     - hacer el montecarlo con el u_inf_arreglo
+    #     - obtener el c_T
+    #
+        cantidad_adentro_disco = len(coord_random_adentro_disco)
+        self.merge_estela(estela, cantidad_adentro_disco, cantidad_turbinas_izquierda_de_selec)
+        u_inf_arreglo = U_inf()
+
 
 
     # def calcular_c_T(self, cantidad_adentro_disco, cantidad_turbinas_izquierda_de_selec):
