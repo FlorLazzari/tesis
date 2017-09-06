@@ -2,18 +2,9 @@ class U(object):
     def __init__(self):
         self.coord = None
 
-estas dos cosas estan muy a lo bestia, ni siquiera estan probadas, hay que terminar esto:
-
-    def merge_estela(self, estela, cantidad_adentro_disco, cantidad_turbinas_izquierda_de_selec):
-        estela_en_coord_rand_mergeada = np.zeros(cantidad_adentro_disco)
-        for i in range(cantidad_adentro_disco):
-            for j in range(cantidad_turbinas_izquierda_de_selec):
-                estela_en_coord_rand_mergeada[i] += estela[i+cantidad_adentro_disco*j]
-        return estela_en_coord_rand_mergeada
-
-
-    def restar_deficit():
-        u_coord = u_coord * (1 - deficit_normalizado_en_coord)
+    #
+    # def restar_deficit(u_inf):
+    #     u.coord = u_inf.coord * (1 - deficit_normalizado_en_coord)
 
 # prueba:
 # turbina = Turbina(0,0)

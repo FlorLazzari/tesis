@@ -13,7 +13,7 @@ class Turbina_Paper(Turbina):
         d_0 = 0.15
         super(Turbina_Paper, self).__init__(d_0, coord)
 
-    def c_T_tabulado(self, U):
+    def c_T_tabulado(self, u):
         # Cubic-spline:
         U_tabulado = np.arange(4, 26)
         c_T_tabulado = 0.42

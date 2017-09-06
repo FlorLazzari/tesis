@@ -3,8 +3,9 @@ from __future__ import division
 
 class Parque_de_turbinas(object):
 
-    def __init__(self, turbinas):
+    def __init__(self, turbinas, z_0):
         self.turbinas = turbinas
+        self.z_0 = z_0
 
     def ordenar_turbinas_de_izquierda_a_derecha(self):
         turbinas_ordenadas = []
