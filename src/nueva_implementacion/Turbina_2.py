@@ -29,7 +29,7 @@ class Turbina(object):
             coord_random_arreglo.append(coord_random)
         return coord_random_arreglo
 
-    def calcular_c_T(self, estela, coord_random_adentro_disco, u_hub, z_0, u_inf, N):
+    def calcular_c_T(self, estela, coord_random_adentro_disco, z_0, flujo_base, N):
 
         # estela: [element of class Estela]
             # contiene el arreglo de deficits en un vector de
@@ -47,9 +47,8 @@ class Turbina(object):
 
         u_adentro_disco = []
         i = 0
-        for coord in coord_random_adentro_disco:
-            u_inf.coord = coord
-            u_inf.calcular_logaritmico(self.coord.z, z_0)
+        for pto in range(len(coord_random_adentro_disco)):
+            flujo_base.calcular_logaritmico(pto, z_h, z_0)
             u = u_inf.coord * (1 - estela.mergeada[i])
             i += 1
             u_adentro_disco = np.append(u_adentro_disco, u)

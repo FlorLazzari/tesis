@@ -11,11 +11,11 @@ import numpy as np
 from numpy import exp
 from Estela import Estela
 
-def calcular_u_en_coord(modelo, coord, parque_de_turbinas, u_inf):
+def calcular_u_en_coord(modelo, coord, parque_de_turbinas, flujo_base):
 
     turbinas_a_la_izquierda_de_coord = parque_de_turbinas.turbinas_a_la_izquierda_de_una_coord(coord)
     deficit_normalizado_en_coord = []
-    parque_de_turbinas.inicializar_parque(u_inf.coord_hub)
+    parque_de_turbinas.inicializar_parque(flujo_base.u_hub)
 
     # el parque ya esta inicializado, el c_T de la primera turbina esta calculado
 
@@ -44,7 +44,7 @@ def calcular_u_en_coord(modelo, coord, parque_de_turbinas, u_inf):
         estela = Estela(arreglo_deficit, cantidad_coords_adentro_disco, cantidad_turbinas_izquierda_de_selec)
         estela.merge()
 
-        turbina_selec.calcular_c_T(estela, coord_random_adentro_disco, u_inf.coord_hub, parque_de_turbinas.z_0, u_inf, N)
+        turbina_selec.calcular_c_T(estela, coord_random_adentro_disco, parque_de_turbinas.z_0, u_inf, N)
 #
 #         deficit_normalizado_en_coord_contribucion_turbina_selec = modelo.evaluar_deficit_normalizado(parque_de_turbinas.turbina_selec, coord)
 #         deficit_normalizado_en_coord = np.append(deficit_normalizado_en_coord_contribucion_turbina_selec)

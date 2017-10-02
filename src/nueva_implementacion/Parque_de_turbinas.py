@@ -21,13 +21,13 @@ class Parque_de_turbinas(object):
 
     # def calcular_c_T_tabulado(self):
 
-    def calcular_c_T_primer_turbina(self, u_inf):
-        c_T_tab = self.turbinas[0].c_T_tabulado(u_inf)
+    def calcular_c_T_primer_turbina(self, u_hub):
+        c_T_tab = self.turbinas[0].c_T_tabulado(u_hub)
         return c_T_tab
 
-    def inicializar_parque(self, u_inf):
+    def inicializar_parque(self, u_hub):
         self.ordenar_turbinas_de_izquierda_a_derecha()
-        self.turbinas[0].c_T = self.calcular_c_T_primer_turbina(u_inf)
+        self.turbinas[0].c_T = self.calcular_c_T_primer_turbina(u_hub)
 
 
 # test:
