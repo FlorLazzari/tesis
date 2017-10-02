@@ -46,22 +46,13 @@ def calcular_u_en_coord(modelo, coord, parque_de_turbinas, u_inf):
 
         turbina_selec.calcular_c_T(estela, coord_random_adentro_disco, u_inf.coord_hub, parque_de_turbinas.z_0, u_inf, N)
 #
-#
-#
-#             print "estela", estela
-#             print "coord_random_adentro_disco", coord_random_adentro_disco
-#
-#                 # la siguiente linea es en la que hay que seguir trabajando: (en la clase turbina)
-#                 turbina_selec.calcular_c_T(estela, coord_random_adentro_disco, u_inf)
-#
 #         deficit_normalizado_en_coord_contribucion_turbina_selec = modelo.evaluar_deficit_normalizado(parque_de_turbinas.turbina_selec, coord)
 #         deficit_normalizado_en_coord = np.append(deficit_normalizado_en_coord_contribucion_turbina_selec)
 #         # estas dos cosas estan hechas muy a lo bestia en la clase U, falta terminar eso y probarlo
 #         merge_estela()
 #         restar_deficit()
 #         # u_coord = ??
-#
-#         print u_coord
+
 
 
 # prueba:

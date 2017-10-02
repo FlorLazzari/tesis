@@ -1,4 +1,8 @@
 to do list:
+- terminar calcular_u_en_coord_2
 - comparar con OpenFOAM
-- superposición
-- pronóstico de potencia
+- probar =! metodos de superposición de estela
+- pronóstico de potencia (metodo c_P en turbina)
+- probar =! perfiles de viento (dia/noche)
+- elegir casos y probar =! visualizaciones
+- tiempo que tarda en correr para un parque?

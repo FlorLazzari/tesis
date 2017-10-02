@@ -15,7 +15,6 @@ def calcular_u_en_coord(modelo, u_inf, coord, parque_de_turbinas):
 
     u_coord = u_inf
     turbinas_a_la_izquierda = parque_de_turbinas.turbinas_a_la_izquierda_de_una_coord(coord)
-    print u_coord
     for turbina in turbinas_a_la_izquierda:
         deficit_normalizado_en_coord = modelo.evaluar_deficit_normalizado(turbina, coord)
         u_coord = u_coord * (1 - deficit_normalizado_en_coord)
