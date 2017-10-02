@@ -70,8 +70,8 @@ d_0 = turbina_1.d_0
 turbina_2 = Turbina_Rawson(Coord(np.array([d_0*7,0,z_h])))
 turbina_3 = Turbina_Rawson(Coord(np.array([d_0*14,0,z_h])))
 
-turbina_1.c_T = 0.5
-turbina_2.c_T = 0.5
+# turbina_1.c_T = 0.5
+# turbina_2.c_T = 0.5
 z_0 = 0.01
 
 parque_de_turbinas = Parque_de_turbinas([turbina_1, turbina_2, turbina_3], z_0)

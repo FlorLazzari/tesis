@@ -26,7 +26,7 @@ class Turbina(object):
             rand_y = np.random.uniform(self.coord.y-(self.d_0/2), self.coord.y+(self.d_0/2))
             rand_z = np.random.uniform(self.coord.z-(self.d_0/2), self.coord.z+(self.d_0/2))
             coord_random = Coord(np.array([self.coord.x, rand_y, rand_z]))
-            coord_random_arreglo = np.append(coord_random_arreglo, coord_random)
+            coord_random_arreglo.append(coord_random)
         return coord_random_arreglo
 
     def calcular_c_T(self, estela, coord_random_adentro_disco, u_hub, z_0, u_inf, N):
@@ -61,8 +61,8 @@ class Turbina(object):
         integral_u2 = (volume * count)/N
         T_turbina = c_T_tab * integral_u2   # lo dividi por (0.5 * rho) porque luego dividire por eso
         T_disponible = (u_medio_disco)**2 * (np.pi*(self.d_0/2)**2)     # lo dividi por (0.5 * rho) porque luego multiplicare por eso
-        c_T = T_turbina / T_disponible
-        print ('c_T calculado:', c_T)
+        self.c_T = T_turbina / T_disponible
+        print ('c_T calculado:', self.c_T)
         print ('c_T_tab:', c_T_tab)
 
 # #prueba calcular_c_T:
