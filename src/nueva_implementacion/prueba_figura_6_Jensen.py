@@ -24,6 +24,7 @@ z_h = turbina_0.coord.z
 # velocidad a la altura de la turbina
 u_inf.coord_hub =  2.2
 parque_de_turbinas.inicializar_parque(u_inf)
+parque_de_turbinas.calcular_c_T_primer_turbina(u_inf)
 
 u = U()
 

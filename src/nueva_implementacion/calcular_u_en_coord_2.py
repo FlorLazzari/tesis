@@ -5,6 +5,7 @@ from Modelo_2 import Modelo
 from Gaussiana_2 import Gaussiana
 from Parque_de_turbinas import Parque_de_turbinas
 from Turbina_Marca import Turbina_Marca
+from Turbina_2 import Turbina
 from U import U
 from Coord import Coord
 import numpy as np
@@ -17,13 +18,8 @@ def calcular_u_en_coord(modelo, coord, parque_de_turbinas, u_inf):
     deficit_normalizado_en_coord = []
     parque_de_turbinas.inicializar_parque(u_inf.coord_hub)
 
-    # el parque ya esta inicializado, el c_T de la primera turbina esta calculado
-
-    print "c_T primera turbina", parque_de_turbinas.turbinas[0].c_T
-
     # calculo c_T teniendo en cuenta la interaccion de las otras turbinas
-
-    for turbina_selec in turbinas_a_la_izquierda_de_coord[1:]:
+    for turbina_selec in turbinas_a_la_izquierda_de_coord:
         print turbina_selec
         # orden del montecarlo
         N = 500
@@ -31,6 +27,10 @@ def calcular_u_en_coord(modelo, coord, parque_de_turbinas, u_inf):
         turbinas_a_la_izquierda_de_turbina_selec = parque_de_turbinas.turbinas_a_la_izquierda_de_una_coord(turbina_selec.coord)
         cantidad_turbinas_izquierda_de_selec = len(turbinas_a_la_izquierda_de_turbina_selec)
         print "cantidad_turbinas_izquierda_de_selec:", cantidad_turbinas_izquierda_de_selec
+        if cantidad_turbinas_izquierda_de_selec==0:
+            turbina_virtual = Turbina(turbina_selec.d_0, Coord(np.array([turbina_selec.coord.x,turbina_selec.coord.y,turbina_selec.coord.z])))
+            turbina_virtual.c_T = 0
+            turbinas_a_la_izquierda_de_turbina_selec = [turbina_virtual]
         arreglo_deficit = []
         for turbina in turbinas_a_la_izquierda_de_turbina_selec:
             # ahora calculo la estela de turbina sobre turbina_selec
@@ -44,8 +44,9 @@ def calcular_u_en_coord(modelo, coord, parque_de_turbinas, u_inf):
         estela = Estela(arreglo_deficit, cantidad_coords_adentro_disco, cantidad_turbinas_izquierda_de_selec)
         estela.merge()
 
-        turbina_selec.calcular_c_T(estela, coord_random_adentro_disco, u_inf.coord_hub, parque_de_turbinas.z_0, u_inf, N)
-#
+        turbina_selec.calcular_c_T(estela, coord_random_adentro_disco, parque_de_turbinas.z_0, u_inf, N)
+        turbina_selec.calcular_c_P(estela, coord_random_adentro_disco, parque_de_turbinas.z_0, u_inf, N)
+
 #         deficit_normalizado_en_coord_contribucion_turbina_selec = modelo.evaluar_deficit_normalizado(parque_de_turbinas.turbina_selec, coord)
 #         deficit_normalizado_en_coord = np.append(deficit_normalizado_en_coord_contribucion_turbina_selec)
 #         # estas dos cosas estan hechas muy a lo bestia en la clase U, falta terminar eso y probarlo
@@ -77,6 +78,11 @@ z_0 = 0.01
 parque_de_turbinas = Parque_de_turbinas([turbina_1, turbina_2, turbina_3], z_0)
 calcular_u_en_coord(gaussiana, coord, parque_de_turbinas, u_inf)
 
+
+# ahora quiero calcular la potencia extraida por el parque
+for turbina in parque_de_turbinas.turbinas:
+    parque_de_turbinas.potencia += turbina.potencia
+    print turbina.potencia
 
 # # test
 # gaussiana = Gaussiana()

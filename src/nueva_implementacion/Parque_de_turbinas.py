@@ -6,6 +6,7 @@ class Parque_de_turbinas(object):
     def __init__(self, turbinas, z_0):
         self.turbinas = turbinas
         self.z_0 = z_0
+        self.potencia = 0
 
     def ordenar_turbinas_de_izquierda_a_derecha(self):
         turbinas_ordenadas = []
@@ -22,12 +23,11 @@ class Parque_de_turbinas(object):
     # def calcular_c_T_tabulado(self):
 
     def calcular_c_T_primer_turbina(self, u_inf):
-        c_T_tab = self.turbinas[0].c_T_tabulado(u_inf)
-        return c_T_tab
+        self.turbinas[0].c_T = self.turbinas[0].c_T_tabulado(u_inf)
 
     def inicializar_parque(self, u_inf):
         self.ordenar_turbinas_de_izquierda_a_derecha()
-        self.turbinas[0].c_T = self.calcular_c_T_primer_turbina(u_inf)
+        # self.turbinas[0].c_T = self.calcular_c_T_primer_turbina(u_inf)
 
 
 # test:
