@@ -49,7 +49,7 @@ class Turbina(object):
         i = 0
         for coord in coord_random_adentro_disco:
             u_inf.coord = coord
-            u_inf.calcular_logaritmico(self.coord.z, z_0)
+            u_inf.perfil_flujo_base(self.coord.z, z_0)
             u = u_inf.coord * (1 - estela.mergeada[i])
             i += 1
             u_adentro_disco = np.append(u_adentro_disco, u)
@@ -62,8 +62,8 @@ class Turbina(object):
         T_turbina = c_T_tab * integral_u2   # lo dividi por (0.5 * rho) porque luego dividire por eso
         T_disponible = (u_medio_disco)**2 * (np.pi*(self.d_0/2)**2)     # lo dividi por (0.5 * rho) porque luego multiplicare por eso
         self.c_T = T_turbina / T_disponible
-        print ('c_T calculado:', self.c_T)
-        print ('c_T_tab:', c_T_tab)
+        # print ('c_T calculado:', self.c_T)
+        # print ('c_T_tab:', c_T_tab)
 
 # #prueba calcular_c_T:
 #
@@ -117,7 +117,7 @@ class Turbina(object):
         i = 0
         for coord in coord_random_adentro_disco:
             u_inf.coord = coord
-            u_inf.calcular_logaritmico(self.coord.z, z_0)
+            u_inf.perfil_flujo_base(self.coord.z, z_0)
             u = u_inf.coord * (1 - estela.mergeada[i])
             i += 1
             u_adentro_disco = np.append(u_adentro_disco, u)
@@ -130,5 +130,5 @@ class Turbina(object):
         self.potencia = c_P_tab * integral_u3   # lo dividi por (0.5 * rho) porque luego dividire por eso
         P_disponible = (u_medio_disco)**3 * (np.pi*(self.d_0/2)**2)     # lo dividi por (0.5 * rho) porque luego multiplicare por eso
         self.c_P = self.potencia / P_disponible
-        print ('c_P calculado:', self.c_P)
-        print ('c_P_tab:', c_P_tab)
+        # print ('c_P calculado:', self.c_P)
+        # print ('c_P_tab:', c_P_tab)

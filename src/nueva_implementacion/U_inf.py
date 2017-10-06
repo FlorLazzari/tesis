@@ -2,10 +2,12 @@ class U_inf(object):
     def __init__(self):
         self.coord = None
         self.coord_hub = None
+        self.perfil = None
 
-    def calcular_logaritmico(self, z_h, z_0):
-        from math import log
-        self.coord = self.coord_hub * (log(self.coord.z / z_0) / log(z_h / z_0))
+    def perfil_flujo_base(self, z_h, z_0):
+        if self.perfil == 'log':
+            from math import log
+            self.coord = self.coord_hub * (log(self.coord.z / z_0) / log(z_h / z_0))
 
 
 
