@@ -11,6 +11,8 @@ from Coord import Coord
 import numpy as np
 from numpy import exp
 from Estela import Estela
+from decimal import Decimal
+
 
 def calcular_u_en_coord(modelo, coord, parque_de_turbinas, u_inf):
 
@@ -53,7 +55,7 @@ def calcular_u_en_coord(modelo, coord, parque_de_turbinas, u_inf):
         turbina_selec.calcular_c_P(estela_sobre_turbina_selec, coord_random_adentro_disco, parque_de_turbinas.z_0, u_inf, N)
 
         print 'c_T de TURBINA SELECCIONADA = ',turbina_selec.c_T
-        print 'potencia generada por TURBINA SELECCIONADA = ',turbina_selec.potencia
+        print 'potencia generada por TURBINA SELECCIONADA = %.2e' % Decimal(turbina_selec.potencia)
 
         # calculo en la coord
         deficit_normalizado_en_coord_contribucion_turbina_selec = modelo.evaluar_deficit_normalizado(turbina_selec, coord)

@@ -127,8 +127,9 @@ class Turbina(object):
         c_P_tab = self.c_P_tabulado(u_medio_disco)
         volume = (self.d_0)**2
         integral_u3 = (volume * count)/N
-        self.potencia = c_P_tab * integral_u3   # lo dividi por (0.5 * rho) porque luego dividire por eso
+        rho = 1.225  # densidad del aire 
+        self.potencia = c_P_tab * integral_u3 * 0.5 * rho   # lo dividi por (0.5 * rho) porque luego dividire por eso
         P_disponible = (u_medio_disco)**3 * (np.pi*(self.d_0/2)**2)     # lo dividi por (0.5 * rho) porque luego multiplicare por eso
-        self.c_P = self.potencia / P_disponible
+        self.c_P = self.potencia / (0.5 * rho * P_disponible)
         # print ('c_P calculado:', self.c_P)
         # print ('c_P_tab:', c_P_tab)
