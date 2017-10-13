@@ -22,6 +22,9 @@ class Turbina(object):
     def c_P_tabulado(self, u):
         pass
 
+    def P_tabulado(self, u):
+        pass
+
     def generar_coord_random(self, N):
         coord_random_arreglo = []
         for i in range(N):
@@ -32,7 +35,6 @@ class Turbina(object):
         return coord_random_arreglo
 
     def calcular_c_T(self, estela, coord_random_adentro_disco, z_0, u_inf, N):
-
         # estela: [element of class Estela]
             # contiene el arreglo de deficits en un vector de
             # len = cantidad_coords_adentro_disco * cantidad_turbinas_izquierda_de_selec
@@ -45,25 +47,27 @@ class Turbina(object):
         # N: [int]
             # numero de coordenadas random que utilizamos para hacer el montecarlo
 
-        u_adentro_disco = []
-        i = 0
-        for coord in coord_random_adentro_disco:
-            u_inf.coord = coord
-            u_inf.perfil_flujo_base(self.coord.z, z_0)
-            u = u_inf.coord * (1 - estela.mergeada[i])
-            i += 1
-            u_adentro_disco = np.append(u_adentro_disco, u)
-        u_adentro_disco2 = u_adentro_disco**2
-        count = sum(u_adentro_disco2)
-        u_medio_disco = np.mean(u_adentro_disco)
-        c_T_tab = self.c_T_tabulado(u_medio_disco)
-        volume = (self.d_0)**2
-        integral_u2 = (volume * count)/N
-        T_turbina = c_T_tab * integral_u2   # lo dividi por (0.5 * rho) porque luego dividire por eso
-        T_disponible = (u_medio_disco)**2 * (np.pi*(self.d_0/2)**2)     # lo dividi por (0.5 * rho) porque luego multiplicare por eso
-        self.c_T = T_turbina / T_disponible
-        # print ('c_T calculado:', self.c_T)
-        # print ('c_T_tab:', c_T_tab)
+        if self.c_T is None:
+            u_adentro_disco = []
+            i = 0
+            for coord in coord_random_adentro_disco:
+                u_inf.coord = coord
+                u_inf.perfil_flujo_base(self.coord.z, z_0)
+                u = u_inf.coord * (1 - estela.mergeada[i])
+                i += 1
+                u_adentro_disco = np.append(u_adentro_disco, u)
+            u_adentro_disco2 = u_adentro_disco**2
+            count = sum(u_adentro_disco2)
+            u_medio_disco = np.mean(u_adentro_disco)
+            c_T_tab = self.c_T_tabulado(u_medio_disco)
+            volume = (self.d_0)**2
+            integral_u2 = (volume * count)/N
+            T_turbina = c_T_tab * integral_u2   # lo dividi por (0.5 * rho) porque luego dividire por eso
+            T_disponible = (u_medio_disco)**2 * (np.pi*(self.d_0/2)**2)     # lo dividi por (0.5 * rho) porque luego multiplicare por eso
+            self.c_T = T_turbina / T_disponible
+            # print ('c_T calculado:', self.c_T)
+            # print ('c_T_tab:', c_T_tab)
+
 
 # #prueba calcular_c_T:
 #
@@ -127,9 +131,26 @@ class Turbina(object):
         c_P_tab = self.c_P_tabulado(u_medio_disco)
         volume = (self.d_0)**2
         integral_u3 = (volume * count)/N
-        rho = 1.225  # densidad del aire 
+        rho = 1.225  # densidad del aire
         self.potencia = c_P_tab * integral_u3 * 0.5 * rho   # lo dividi por (0.5 * rho) porque luego dividire por eso
         P_disponible = (u_medio_disco)**3 * (np.pi*(self.d_0/2)**2)     # lo dividi por (0.5 * rho) porque luego multiplicare por eso
         self.c_P = self.potencia / (0.5 * rho * P_disponible)
         # print ('c_P calculado:', self.c_P)
         # print ('c_P_tab:', c_P_tab)
+
+
+    def calcular_P(self, estela, coord_random_adentro_disco, z_0, u_inf, N):
+        # esta bien calcularlo asi?
+        # estaria bueno ya pasarle el vector con 'u' para no calcular de nuevo exactamente lo mismo
+
+        u_adentro_disco = []
+        i = 0
+        for coord in coord_random_adentro_disco:
+            u_inf.coord = coord
+            u_inf.perfil_flujo_base(self.coord.z, z_0)
+            u = u_inf.coord * (1 - estela.mergeada[i])
+            i += 1
+            u_adentro_disco = np.append(u_adentro_disco, u)
+        u_medio_disco = np.mean(u_adentro_disco)
+
+        self.potencia = self.P_tabulado(u_medio_disco)

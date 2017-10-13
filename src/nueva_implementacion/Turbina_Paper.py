@@ -15,7 +15,6 @@ class Turbina_Paper(Turbina):
 
     def c_T_tabulado(self, u):
         # Cubic-spline:
-        U_tabulado = np.arange(4, 26)
         c_T_tabulado = 0.42
 
         # Unew = np.arange(4,26,0.1)
@@ -26,3 +25,10 @@ class Turbina_Paper(Turbina):
         # plt.title('Cubic-spline interpolation')
         # plt.show()
         return c_T_tabulado
+
+    def c_P_tabulado(self, U):
+        U_tabulado = np.arange(4, 26)
+
+        # este valor es cualquier cosa!! lo invente, habria que ver del paper el c_P
+        c_P_tabulado = 0.42
+        return c_Ptabulado

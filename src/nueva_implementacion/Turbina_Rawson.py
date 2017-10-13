@@ -30,11 +30,11 @@ class Turbina_Rawson(Turbina):
         # plt.show()
         return c_Tnew
 
-    def c_P_tabulado(self, U):
+    def P_tabulado(self, U):
         # Cubic-spline:
         U_tabulado = np.arange(4, 26)
         # tabla para "regimen de trabajo" = Modo 2
-        c_P_tabulado = np.array([88, 204, 371, 602, 880, 1147, 1405, 1623, 1729, 1761, 1774, 1786, 1795, 1799, 1800, 1800, 1800, 1800, 1800, 1800, 1800, 1800])
-        tck = interpolate.splrep(U_tabulado, c_P_tabulado, s=0)
-        c_Pnew = interpolate.splev(U, tck, der=0)
-        return c_Pnew
+        P_tabulado = np.array([88, 204, 371, 602, 880, 1147, 1405, 1623, 1729, 1761, 1774, 1786, 1795, 1799, 1800, 1800, 1800, 1800, 1800, 1800, 1800, 1800])
+        tck = interpolate.splrep(U_tabulado, P_tabulado, s=0)
+        Pnew = interpolate.splev(U, tck, der=0)
+        return Pnew
