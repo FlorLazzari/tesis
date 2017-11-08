@@ -31,9 +31,9 @@ parque_de_turbinas = Parque_de_turbinas([turbina_0], z_0)
 
 coordenadas = []
 # recordar que el range funciona de la siguiente forma [)
-x = np.arange(0, 20.01*(turbina_0.d_0), 0.01)
+x = np.arange(0, 20*(turbina_0.d_0), 0.01)
 y_0 = 0
-z = np.arange(0, 20.01*(turbina_0.d_0), 0.01)
+z = np.arange(0, 20*(turbina_0.d_0), 0.01)
 
 for i in x:
     for j in z:
@@ -56,7 +56,7 @@ for i in range(X.shape[0]):
     for j in range(X.shape[1]):
         coord = Coord(np.array([x[i], y_0, z[j]]))
         if coord.z != 0:
-            data_prueba[j,i] = calcular_u_en_coord(gaussiana, coord, parque_de_turbinas, u_inf)
+            data_prueba[j,i] = calcular_u_en_coord(gaussiana, 'linear', coord, parque_de_turbinas, u_inf, 50)
             # print ('data_prueba[i,j]', i, j, data_prueba[i,j])
 
 contornos = [1.0, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 1.9, 2.0, 2.1, 2.2, 2.3, 2.4, 2.5]

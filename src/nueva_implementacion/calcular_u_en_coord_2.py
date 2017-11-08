@@ -15,12 +15,14 @@ from decimal import Decimal
 from U_inf import U_inf
 
 
-def calcular_u_en_coord(modelo, coord, parque_de_turbinas, u_inf, N):
+def calcular_u_en_coord(modelo, metodo, coord, parque_de_turbinas, u_inf, N):
 
     turbinas_a_la_izquierda_de_coord = parque_de_turbinas.turbinas_a_la_izquierda_de_una_coord(coord)
     deficit_normalizado_en_coord = []
     parque_de_turbinas.inicializar_parque(u_inf.coord_hub)
+
     # calculo c_T teniendo en cuenta la interaccion de las otras turbinas
+
     for turbina_selec in turbinas_a_la_izquierda_de_coord:
         # print '-----------------------------------------------------------------'
         # print 'coordenadas de TURBINA SELECCIONADA:'
@@ -47,7 +49,8 @@ def calcular_u_en_coord(modelo, coord, parque_de_turbinas, u_inf, N):
                     coord_random_adentro_disco = np.append(coord_random_adentro_disco, coord_random)
         cantidad_coords_adentro_disco = len(coord_random_adentro_disco)
         estela_sobre_turbina_selec = Estela(arreglo_deficit, cantidad_coords_adentro_disco, cantidad_turbinas_izquierda_de_selec)
-        estela_sobre_turbina_selec.merge()
+
+        estela_sobre_turbina_selec.merge(metodo)
         turbina_selec.calcular_c_T(estela_sobre_turbina_selec, coord_random_adentro_disco, parque_de_turbinas.z_0, u_inf, N)
         # turbina_selec.calcular_c_P(estela_sobre_turbina_selec, coord_random_adentro_disco, parque_de_turbinas.z_0, u_inf, N)
         turbina_selec.calcular_P(estela_sobre_turbina_selec, coord_random_adentro_disco, parque_de_turbinas.z_0, u_inf, N)
@@ -60,7 +63,7 @@ def calcular_u_en_coord(modelo, coord, parque_de_turbinas, u_inf, N):
         deficit_normalizado_en_coord_contribucion_turbina_selec = modelo.evaluar_deficit_normalizado(turbina_selec, coord)
         deficit_normalizado_en_coord.append(deficit_normalizado_en_coord_contribucion_turbina_selec)
     estela_sobre_coord = Estela(deficit_normalizado_en_coord, 1, len(turbinas_a_la_izquierda_de_coord))
-    estela_sobre_coord.merge()
+    estela_sobre_coord.merge(metodo)
     u_inf.coord = coord
     # tome a la primer turbina como la altura donde se mide la u_inf (en principio
     # no tiene mucha relevancia ya que las turbinas tienen todas la misma altura,

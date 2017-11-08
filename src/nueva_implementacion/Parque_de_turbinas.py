@@ -30,7 +30,7 @@ class Parque_de_turbinas(object):
         # self.turbinas[0].c_T = self.calcular_c_T_primer_turbina(u_inf)
 
 
-# test:
+## test:
 # from Turbina_Marca import Turbina_Marca
 # import numpy as np
 #

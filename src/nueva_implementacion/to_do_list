@@ -1,10 +1,12 @@
 to do list:
+- leer tesis de Noe en /tesis de otras personas   y empezar a diagramar tesis
 - leer user guide de OpenFOAM y empezar a escribir tesis, hay tips muy buenos
-- leer la tesis de la holandesa que esta en papers biblio, parece muy importante
+- leer la tesis de la holandesa que esta en papers biblio, parece muy importante (tiene un modelo nuevo)
 - comparar con OpenFOAM
 - probar =! metodos de superposición de estela
   . leer engineering models for merging wakes in wind farm optimization applications
   . reproducir figura 4 del paper "limitations to the validity .." (dos turbinas alineadas)
+     ** estoy tratando de reproducir este grafico pero no entiendo por que el metodo 'largest' no esta funcionando
   . leer "master thesis: .." para entender lo de Ainslie que es lo que recomiendan en el paper "limitations .."
 - pronóstico de potencia (metodo c_P en turbina)
 - probar =! perfiles de viento (dia/noche)
