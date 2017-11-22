@@ -6,7 +6,7 @@ to do list:
 - probar =! metodos de superposición de estela
   . leer engineering models for merging wakes in wind farm optimization applications
   . reproducir figura 4 del paper "limitations to the validity .." (dos turbinas alineadas)
-     ** estoy tratando de reproducir este grafico pero no entiendo por que el metodo 'largest' no esta funcionando
+     ** estoy tratando de reproducir este grafico pero no entiendo por que los metodos independientes no estan funcionando
   . leer "master thesis: .." para entender lo de Ainslie que es lo que recomiendan en el paper "limitations .."
 - pronóstico de potencia (metodo c_P en turbina)
 - probar =! perfiles de viento (dia/noche)

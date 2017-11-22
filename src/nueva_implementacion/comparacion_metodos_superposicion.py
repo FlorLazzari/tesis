@@ -55,7 +55,7 @@ data_prueba_primera = np.zeros(len(y))
 
 for i in range(len(y)):
     coord = Coord(np.array([x_0, y[i], z_o]))
-    data_prueba_primera[i] = calcular_u_en_coord(gaussiana, 'linear', coord, parque_de_turbinas_primera_indep, u_inf, 50)
+    data_prueba_primera[i] = calcular_u_en_coord(gaussiana, 'linear', coord, parque_de_turbinas_primera_indep, u_inf, 2000)
 
 # en este caso el metodo_superposicion = 'linear' pero podria ser cualquier cosa ya que hay unicamente una estela, no hay interaccion
 
@@ -82,7 +82,7 @@ data_prueba_segunda = np.zeros(len(y))
 
 for i in range(len(y)):
     coord = Coord(np.array([x_0, y[i], z_o]))
-    data_prueba_segunda[i] = calcular_u_en_coord(gaussiana, 'linear', coord, parque_de_turbinas_segunda_indep, u_inf, 50)
+    data_prueba_segunda[i] = calcular_u_en_coord(gaussiana, 'linear', coord, parque_de_turbinas_segunda_indep, u_inf, 2000)
 
 # plt.plot(y, data_prueba_primera/u_inf.coord_hub, label='Single rotor at 16D')
 # plt.plot(y, data_prueba_segunda/u_inf.coord_hub, label='Single rotor at 8D')
@@ -103,7 +103,7 @@ data_prueba_ambas_linear = np.zeros(len(y))
 
 for i in range(len(y)):
     coord = Coord(np.array([x_0, y[i], z_o]))
-    data_prueba_ambas_linear[i] = calcular_u_en_coord(gaussiana, 'linear', coord, parque_de_turbinas_ambas, u_inf, 50)
+    data_prueba_ambas_linear[i] = calcular_u_en_coord(gaussiana, 'linear', coord, parque_de_turbinas_ambas, u_inf, 2000)
 
 # calculo el deficit generado por ambas (a 16D de la primera turbina) utilizando
 # el metodo de superposicion 'rss'
@@ -112,7 +112,7 @@ data_prueba_ambas_rss = np.zeros(len(y))
 
 for i in range(len(y)):
     coord = Coord(np.array([x_0, y[i], z_o]))
-    data_prueba_ambas_rss[i] = calcular_u_en_coord(gaussiana, 'rss', coord, parque_de_turbinas_ambas, u_inf, 50)
+    data_prueba_ambas_rss[i] = calcular_u_en_coord(gaussiana, 'rss', coord, parque_de_turbinas_ambas, u_inf, 2000)
 
 # calculo el deficit generado por ambas (a 16D de la primera turbina) utilizando
 # el metodo de superposicion 'largest'
@@ -121,7 +121,16 @@ data_prueba_ambas_largest = np.zeros(len(y))
 
 for i in range(len(y)):
     coord = Coord(np.array([x_0, y[i], z_o]))
-    data_prueba_ambas_largest[i] = calcular_u_en_coord(gaussiana, 'largest', coord, parque_de_turbinas_ambas, u_inf, 50)
+    data_prueba_ambas_largest[i] = calcular_u_en_coord(gaussiana, 'largest', coord, parque_de_turbinas_ambas, u_inf, 2000)
+
+
+################################################################################
+
+# sumo linealmente
+data_prueba_ambas_linear_indep = data_prueba_primera + data_prueba_segunda
+data_prueba_ambas_rss_indep = ((np.array(data_prueba_primera))**2 + (np.array(data_prueba_segunda))**2)**0.5
+data_prueba_ambas_largest_indep = np.max([data_prueba_primera, data_prueba_segunda], axis=0)
+
 
 plt.title('Perfil de velocidad normalizada detras de dos turbinas alineadas')
 plt.plot(y, data_prueba_primera/u_inf.coord_hub, 'bx',label='Single rotor at 16D')
@@ -129,5 +138,10 @@ plt.plot(y, data_prueba_segunda/u_inf.coord_hub, 'rx', label='Single rotor at 8D
 plt.plot(y, data_prueba_ambas_linear/u_inf.coord_hub, 'c', label= 'Superposicion lineal')
 plt.plot(y, data_prueba_ambas_rss/u_inf.coord_hub, 'g', label= 'Superposicion rss')
 plt.plot(y, data_prueba_ambas_largest/u_inf.coord_hub, 'k', label= 'Superposicion largest')
+
+plt.plot(y, data_prueba_ambas_linear_indep/u_inf.coord_hub, 'co', label= 'Superposicion lineal')
+plt.plot(y, data_prueba_ambas_rss_indep/u_inf.coord_hub, 'go', label= 'Superposicion rss')
+plt.plot(y, data_prueba_ambas_largest_indep/u_inf.coord_hub, 'ko', label= 'Superposicion largest')
+
 plt.legend()
 plt.show()
