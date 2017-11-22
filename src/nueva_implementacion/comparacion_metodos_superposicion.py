@@ -43,7 +43,7 @@ z_0 = 0.00003
 
 
 # 2)
-# calculo el deficit para la primera turbina independiente a 16D
+# calculo el deficit a 16D para la primera turbina independiente
 
 parque_de_turbinas_primera_indep = Parque_de_turbinas([turbina_0], z_0)
 
@@ -55,7 +55,9 @@ data_prueba_primera = np.zeros(len(y))
 
 for i in range(len(y)):
     coord = Coord(np.array([x_0, y[i], z_o]))
-    data_prueba_primera[i] = calcular_u_en_coord(gaussiana, 'linear',coord, parque_de_turbinas_primera_indep, u_inf, 50)
+    data_prueba_primera[i] = calcular_u_en_coord(gaussiana, 'linear', coord, parque_de_turbinas_primera_indep, u_inf, 50)
+
+# en este caso el metodo_superposicion = 'linear' pero podria ser cualquier cosa ya que hay unicamente una estela, no hay interaccion
 
 # plt.plot(y, data_prueba_primera)
 # plt.show()
