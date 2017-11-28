@@ -1,0 +1,567 @@
+﻿\chapter{Singularidades}\label{sing}
+
+
+
+En este capítulo enunciaremos y demostraremos los Teoremas de Singularidad, usando los resultados vistos a lo largo de la tesis. La primera sección está dedicada a sobre cómo se define una singularidad en Relatividad General. En la siguiente sección presentaremos dichos Teoremas y luego, en las dos siguientes secciones, se sigue la discusión de \citep{2011CQGra..28l5009F} para generalizar los mismos. Para finalizar, en la sección \ref{Higgs}, veremos una aplicación de la generalización de los Teoremas en un modelo inflacionario del Higgs. Las referencias principales de la sección son \citep{1968AnPhy..48..526G,2006physics...5007S,1984ucp..book.....W,1975lsss.book.....H,Penrose}.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%   Definición de singularidad
+
+
+
+\section{Definición de singularidad}
+
+
+A la hora de estudiar Teoremas de Singularidades, uno de los primeros interrogantes que surge es sobre cómo definir una singularidad en un espacio-tiempo. En esta primera sección daremos dos formas de concluir que para hablar de una singularidad en un espacio-tiempo se debe hablar de \textit{incompletitud geodésica}. La primera forma es la motivada por Geroch \citep{1968AnPhy..48..526G} que presenta la completitud geodésica de una manera quizás más intuitiva, ejemplificando con casos conocidos, complementada con lo discutido en \citep{2006physics...5007S}; la segunda forma que presentaremos es la que se sigue en \citep{1975lsss.book.....H} que otorga una manera más matemática de concluir la completitud geodésica. Ambas maneras se complementan entre sí para concluir que se debe hablar de incompletitud geodésica a la hora de estudiar Teoremas de Singularidad. Comencemos con la primer manera.
+
+Una posible primera definición sería definir un espacio-tiempo como singular si tiene puntos en donde la métrica no está definida, tal como ocurre en otras teorías como el electromagnetismo donde el campo eléctrico de una carga puntual no está definido en la posición de la carga. Si se remueve dicha región del espacio-tiempo, entonces la métrica estaría definida en todos lados pues. 
+%Sin embargo,(\textcolor{red}{¿dónde? Por lo menos $C^2$ para Ec. de Einstein y generalizo a $C^\infty$}) la métrica debe estar definida de manera regular en todos los puntos del espacio-tiempo y por lo tanto dichos puntos no podrían pertenecer al mismo (es decir, no podríamos indicar ``dónde" o ``cuándo" se da la singularidad).
+Sin embargo, en electromagnetismo es claro cuándo cierta región ha sido removida ya que tenemos una métrica de fondo (Minkowski) sobre la cual el campo electromagnético ``se sitúa". En Relatividad General, sin embargo, esto no es posible ya que la propia métrica es el campo a estudiar, i.e: no hay una métrica de fondo sobre la cual hacer referencia y por lo tanto no hay una manera intrínseca de decir cuándo una región ha sido removida o no del espacio-tiempo.
+
+Siguiendo con el ejemplo del campo electromagnético anterior, a medida que nos acercamos a la posición de la carga el campo electromagnético tiende a infinito. Por lo tanto, se podría pensar que otra posible definición sería decir que un espacio-tiempo es singular si la métrica tiende a infinito en algún punto del mismo. Sin embargo, el problema con esta definición es que podría tratarse de una mala elección del sistema de coordenadas. Por ejemplo, si se tiene la siguiente métrica
+
+$$
+ds^2=-(1/t)^2dt^2+dr^2
+$$ 
+
+definida para $t>0$, pareciera que la métrica posee una singularidad en $t=0$ ya que la misma tiende a infinito a medida que nos acercamos a dicho punto. Sin embargo, la métrica anterior no es otra cosa más que la métrica de Minkowski, la cual sabemos que no es singular. Otro ejemplo conocido sería el de la singularidad en $r=2m$ en la métrica de Schwarzschild, en donde mediante un cambio de coordenadas (Kruskal-Szekeres) dicha singularidad desaparece.
+
+El tipo de singularidades previas se las suele denotar como ``singularidades coordenadas" y se deben a una mala elección de coordenadas precisamente. Por lo tanto, la siguiente opción que se podría considerar es ver el comportamiento de invariantes escalares de la curvatura: un espacio-tiempo es singular si algún invariante escalar diverge. El cuidado que hay que tener con esta definición es que no se puede determinar si un invariante escalar diverge porque nos acercamos a la singularidad efectivamente, o porque nos ``vamos acercando a infinito". Dicho de otra forma, deberíamos ver cuándo una curva posee longitud total finita (acercándose a la singularidad) o cuándo una curva posee longitud total infinita (acercándose a ``infinito"). El problema con esta definición es que para métricas indefinidas - tal como es la métrica de un espacio-tiempo - cualquier curva se puede aproximar tanto como uno quiera a una curva de longitud total arbitrariamente chica. Por lo tanto, pareciera que la longitud total no sería una buena forma de indicar si un espacio-tiempo es singular. Sin embargo, podemos dar una definición análoga con un concepto similar al anterior pero que vale para métricas indefinidas también: la longitud afín de curvas geodésicas. De esta forma, entonces diremos que un espacio-tiempo es singular si hay una geodésica de parámetro afín finito a lo largo de la cual un invariante escalar diverge. De esta última definición se motiva, pues, el estudio de \textit{completitud geodésica}:
+
+\begin{definition}
+Una geodésica en un espacio-tiempo $(M,g_{ab})$ se dice \textbf{incompleta} si no es posible extenderla en un valor arbitrario de su parámetro afín.
+\end{definition}
+
+
+Esta definición de singularidad contempla lo que uno esperaría que pase a medida que un viajero se acerca a una singularidad: el viajero desaparecerá de nuestro espacio-tiempo en un tiempo finito. Sin embargo, hay que tener cierto cuidado con la definición de un espacio-tiempo singular ya que es posible hallar espacios-tiempos que son geodésicamente completos, pero que poseen una singularidad. Geroch \citep{1968AnPhy..48..526G} otorga un ejemplo de un espacio-tiempo geodésicamente completo pero que posee una curva temporal inextensible de aceleración acotada y longitud finita. Por lo tanto, la completitud geodésica no basta para garantizar que un espacio-tiempo es no singular, pero la incompletitud geodésica sí permite concluir la existencia de una singularidad.
+
+\begin{definition}
+Un espacio-tiempo $(M,g_{ab})$ que posea alguna geodésica temporal o nula incompleta será considerado singular.
+\end{definition}
+
+
+Cabe aclarar que en la definición previa se tienen en cuenta geodéscas temporales y nulas, y no espaciales, ya que las primeras tienen un significado físico inmediato: las partículas libremente gravitantes (o la luz) se mueven sobre geodésicas temporales (o nulas), y la incompletitud geodésica equivaldrá a decir que la existencia de dichas particulas se dio en un tiempo propio finito en el pasado, o que las mismas terminan en un tiempo propio finito en el futuro. La incompletitud de una geodésica espacial no posee un significado claro, ya que no se conoce nada que viaje sobre ella.
+
+
+A continuación daremos la forma en la que Hawking-Ellis concluyen la incompletitud geodésica para estudiar los Teoremas de Singularidades. Siguiendo con el ejemplo del campo electromagnético, podríamos pensar a una singularidad como los puntos donde la métrica no está definida. Si removemos aquéllos puntos donde la métrica no está definida, entonces ahora podríamos pensar que la variedad remanente representa a todo el espacio-tiempo, teniendo así una métrica definida en todos lados. Sin embargo, $(M,g_{ab})$ debe ser diferenciable en todos lados e \textit{inextensible}: $M$ se dice extensible sii existe $M'$ tal que $M$ es isométrica a algún subconjunto abierto de $M'$. Intuitivamente, que sea extensible quiere decir que es posible que haya puntos removidos artificialmente de la variedad: si por ejemplo removemos artificialmente el eje $x=0$ en Minkowski, nada impide que físicamente un observador atraviese dicha región removida y, por lo tanto, se podría extender dicha región a un espacio-tiempo ``sin agujeros" sin que ello conlleve a una patología. Al pedir que $(M,g_{ab})$ no pueda extenderse, nos aseguramos que no haya puntos removidos de la variedad.
+
+
+El problema es, pues, determinar cuándo algún punto ha sido removido o no de la variedad. En el caso de una métrica Riemanniana (es decir, con $g$ definido positivo) es posible definir una noción de distancia entre dos puntos en la variedad (es posible dar una \textit{estructura métrica} en la variedad). Se dice que $(M,g_{ab})$ es \textit{métricamente completo} si cada sucesión de Cauchy converge a un punto en $M$. El Teorema de Hopf-Rinow permite dar una equivalencia entre completitud métrica y \textit{completitud geodésica}: cada geodésica puede ser extendida en valores arbitrarios de su parámetro afín. Sin embargo, si la métrica es Lorentziana (tal como lo es en un espacio-tiempo) no es posible definir una estructura métrica en la variedad y por lo tanto solo se define la noción de completitud geodésica.
+
+Si hubiesemos consideramos el comportamiento de invariantes escalares de la curvatura nos encontramos con el problema de que puede suceder que los invariantes escalares no divergan, y que el espacio-tiempo posea ciertas patologías. Un ejemplo podría ser el espacio-tiempo de Taub-NUT en donde los invariantes escalares de la curvatura están acotados, pero el espacio-tiempo es geodésicamente incompleto \citep{2017JCAP...01..001O}.
+
+Una vez dada la definición de completitud geodésica, se puede ver en un ejemplo una forma más evidente de por qué se deben considerar espacios-tiempos que sean inextensibles: consideremos un espacio-tiempo plano sin el orígen, $(\mathbb{R}^4-\{0\},\eta_{ab})$. Dicho espacio posee geodésicas incompletas, pero admite una extensión a $(\mathbb{R}^4,\eta_{ab})$ por lo que se puede evitar dicha incompletitud. Al considerar espacios-tiempos que no admitan extensiones, excluímos este tipo de ``singularidades evitables", evitando así que completen geodésicas. De esta forma podemos definir un espacio-tiempo singular como aquéllos donde alguna geodésica (temporal o nula) es incompleta, al igual que la definición dada previamente.
+
+Ya sea mediante la forma de Geroch o la de Hawking-Ellis, en ambos casos queda en evidencia que la incompletitud geodésica permite concluir la existencia de una singularidad. En la siguiente sección enunciaremos y demostraremos los teoremas que formalizan esto, usando lo visto a lo largo de la tesis.
+
+
+
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%   Teoremas de Singularidades 
+
+    
+\section{Teoremas de singularidades} \label{seccion teo sing}
+
+Usando los resultados obtenidos a lo largo de la tesis, finalmente estamos en condiciones de formalizar y demostrar cuándo un espacio-tiempo es singular. Haremos la distintición a la hora de tratarse de una singularidad por incompletitud de geodésicas temporales (conocidas como ``singularidades cosmológicas") y singularidades por incompletitud de geodésicas nulas (``singularidades del tipo agujero negro o colapso gravitatorio"). 
+
+El siguiente teorema, que vale para espacios-tiempos globalmente hiperbólicos, se puede interpretar pensando que si en un instante de tiempo el universo se está expandiendo en todos lados, entonces el mismo debe haber comenzando en una singularidad inicial un tiempo finito en el pasado:  
+
+    
+\begin{theorem}
+Sea $(M,g_{ab})$ un espacio-tiempo globalmente hiperbólico que satisface $R_{ab}V^aV^b \geq 0$ para todo $V^a$ temporal (como sería el caso en que valgan las ecuaciones de Einstein y la SEC). Suponiendo que existe una hipersuperficie de Cauchy $\Sigma$ espacial y suave (o al menos $C^2$) tal que la traza de la curvatura extrínseca (para la congruencia de geodésicas normales orientadas al pasado) satisface $K\leq C < 0$ en todos lados, donde $C$ es una constante, entonces ninguna curva temporal orientada al pasado de $\Sigma$ puede tener longitud mayor que $3/|C|$. En particular, todas las geodésicas temporales orientadas al pasado son incompletas.
+\end{theorem}
+\begin{proof}
+Supongamos que existe una curva $\lambda$ temporal orientada al pasado con longitud mayor a $3/|C|$. Sea $p\in\lambda$ un punto que se encuentra a tiempo propio mayor a $3/|C|$ de $\Sigma$. Por el Teorema \ref{teo existencia curva maxima long} sabemos que existe una curva $\gamma$ de longitud máxima que une $p$ con $\Sigma$ y que tiene, además, longitud mayor a $3/|C|$. A su vez, sabemos que para que $\gamma$ alcance su máximo valor, debe ser una geodésica sin puntos congujados entre $\Sigma$ y $p$. Sin embargo, esto contradice la Proposición \ref{prop pto conjugado} que establece que $\gamma$ debe tener un punto conjugado entre $\Sigma$ y $p$. Luego, no es posible que tal $\lambda$ exista.   
+\end{proof}
+
+
+Hawking demostró \citep{Hawking} que se puede relajar la hipótesis de hiperbolicidad global, reemplazando dicha condición por una hipersuperficie de Cauchy espacial, suave, compacta, acronal y sin bordes, pero debilitando así la conclusión del Teorema.
+
+\begin{theorem}\label{temp fuertemente causal}
+Sea $(M,g_{ab})$ un espacio-tiempo fuertemente causal con $R_{ab}V^aV^b\geq0$ para todo vector temporal $V^a$ (como sería el caso en el que valgan las ecuaciones de Einstein y la SEC). Suponiendo que existe una hipersuperficie $S$ espacial, suave, compacta, acronal y sin bordes tal que la congruencia de geodésicas normales temporales orientadas al pasado de $S$ se tiene $K<0$ en todo $S$, entonces al menos una geodésica temporal inextensible orientada al pasado que sale de $S$ posee longitud no mayor que $3/|C|$, donde $K\leq C<0$.
+\end{theorem}
+
+La debilidad en cuanto a la conclusión del Teorema previo recae en que se asegura la incompletitud de \textit{al menos} una geodésica, y no de \textit{todas}, tal como pasaba con el primer Teorema. 
+
+\begin{proof}
+Supongamos que todas las geodésicas temporales inextensibles orientadas al pasado que salen de $S$ tienen longitud mayor que $3/|C|$. Como el espacio-tiempo (int$[D(S)],g_{ab}$) es globalmente hiperbólico (Proposición 6.6.3 \citep{1975lsss.book.....H}), entonces se satisfacen las hipótesis del teorema anterior y por lo tanto todas las geodésicas temporales inextensibles orientadas al pasado que salen de $S$ deben salir de int$[D(S)]$. Como $H(S)$ es el borde de $D(S)$ todas las geodésicas deben intersecar $H^-(S)$ antes que su longitud sea mayor a $3/|C|$. Esto implica que $H^-(S)\neq \emptyset$. Probaremos que $H^-(S)$ es compacto y que esto lleva a una contradicción, venida por el hecho de suponer que existen geodésicas con longitudes mayores a $3/|C|$.
+
+Sea $p$ un punto en $H^-(S)$. Veamos que existe una geodésica que maximiza la distancia entre $S$ y $p$. Por lo dicho previamente, la longitud de cualquier curva causal de $S$ a $p\in H^-(S)$ está acotada superiormente por $3/|C|$, por lo que existe un supremo, $\tau_0$. Sea $\{\lambda_n\}$ una sucesión de curvas temporales de $S$ a $p$ tales que $\tau[\lambda_n]$ converge a $\tau_0$. Sea $\{q_n\}$ una sucesión de puntos tales $q_n\in\lambda_n$ converge a $p$, con $q_n\neq p$. Como $q_n\in I^+(p)$, entonces $q_n\in\text{int}[D^-(S)]$. Como este espacio es globalmente hiperbólico, entonces por el Teorema \ref{teo existencia curva maxima long} sabemos que existe una geodésica $\gamma_n$ que maximiza la distancia entre $S$ y $q_n$. Por construcción, debe ser
+
+\[\lim\limits_{n\to\infty} \tau[\gamma_n]=\tau_0\]
+
+Sea $r_n$ el punto de intersección entre $\gamma_n$ y $S$. Como $S$ es compacto (y además el espacio-tiempo es segundo contable) entonces existe un punto de acumulación $r$ de la sucesión $\{r_n\}$. Sea $\gamma$ la geodésica normal a $S$ que pasa por $r$. Por la dependencia continua de las geodésicas en sus puntos iniciales y en su vector tangente, $\gamma$ debe intersecar $H^-(S)$ en $p$ y, además,
+
+\[ \tau[\gamma]=\lim\limits_{n\to\infty} \tau[\gamma_n]=\tau_0 \]
+
+Por lo tanto, hemos encontrado la geodésica temporal ortogonal a $S$ que maximiza la longitud de $S$ a $p$. 
+
+Veamos ahora que $H^-(S)$ es compacto. Sea $\{p_n\}$ una suceción en $H^-(S)$ y veamos que existe un punto de acumulación $p\in H^-(S)$. Haremos un argumento análogo al previo. Sea $\{\bar\gamma_n\}$ una suceción de geodésicas temporales ortogonales a $S$ que maximizan la distancia de $S$ a $p_n$. Sea $\bar{r}_n$ el punto de intersección entre $\bar\gamma_n$ y $S$, y sea $\bar{r}$ el punto de acumulación de $\{\bar{r}_n\}$. Sea $\bar{\gamma}$ la geodésica ortogonal a $S$ que comienza en $\bar{r}$, y sea $p$ el punto de intersección entre $\bar{\gamma}$ y $H^-(S)$. El punto $p$ resulta, pues, un punto de acumulación de $\{p_n\}$. Luego, $H^-(S)$ es compacto.
+
+Sin embargo, como $S$ no posee borde, por el Teorema \ref{teo 8.3.5 Wald}, $H^-(S)$ contiene una geodésica nula inextensible al futuro. Pero como $(M,g_{ab})$ es fuertemente causal, por el Lema \ref{lema 8.2.1 Wald}, esto es imposible si $H^-(S)$ es compacto. Esta contradicción vino de suponer inicialmente que podíamos tener geodésicas con longitudes mayores que $3/|C|$, por lo que se concluye que existe al menos una geodésica temporal inextensible orientada a pasado con longitud no mayor a $3/|C|$.
+\end{proof}
+
+
+Los dos teoremas previos fueron formulados para incompletitud de geodésicas temporales, es decir, en un contexto \textit{cosmológico}. A continuación daremos los resultados en un contexto conocido como \textit{colapso gravitatorio}, es decir, incompletitud de geodésicas nulas.
+
+Comencemos definiendo el concepto de \textit{superficie atrapada}. Una superficie espacial, compacta, suave y 2-dimensional, $T$, tal que la expansión $\theta$ de las geodésicas nulas futuro directo ortogonales a $T$ que emanan de ella (entrantes y salientes) es negativo en todos lados, se dice que es una \textbf{superficie atrapada}. Una forma intuitiva de imaginarse una superficie atrapada podría ser en pensar a dicha superficie en un campo gravitatorio tan intenso que incluso las geodésicas salientes de la misma son atraídas de vuelta hacia la superficie y, por ende, tienden a converger antes de salir del horizonte. Un ejemplo conocido serían esferas dentro del agujero negro en Schwarszchild.
+
+En términos de superficies atrapadas se puede enunciar el siguiente teorema de singularidad:
+
+\begin{theorem}\label{sing nulas}
+Sea $(M,g_{ab})$ un espacio-tiempo globalmente hiperbólico y conexo, con una superficie de Cauchy no-compacta $\Sigma$. Supongamos que $R_{ab}k^ak^b\geq0$ para todo vector nulo $k^a$ (como sería el caso en el que se cumplan las Ec. de Einstein y la SEC) y que, además, $M$ contiene una superficie atrapada $T$. Sea $\theta_0<0$ el máximo valor de $\theta$ para las geodésicas (salientes y entrantes) ortogonales a $T$, entonces al menos una geodésica nula futuro directo inextensible ortogonal a $T$ tiene longitud afín no mayor que $2/|\theta_0|$.
+\end{theorem}
+
+El teorema anterior plantea que, bajo ciertas condiciones extras, una singularidad ocurre si se forma una superficie atrapada en cierta región del espacio-tiempo. A continuación daremos la demostración del mismo:
+
+\begin{proof}
+Supongamos que todas las geodésicas nulas futuro directo de $T$ tienen longitud afín mayor o igual que $2/|\theta_0|$. Definimos el mapa $f_+:T\cross[0,2/|\theta_0|]\rightarrow M$ como la función $f(q,a)$ que toma un punto $q\in T$ y una distancia $a$ y otorga el punto en $M$ que está a longitud afín $a$ sobre una geodésica nula saliente normal a $T$ que comienza en $q$. Análogamente se define $f_-$ para las geodésicas entrantes. Como $T\cross[0,2/|\theta_0|]$ es compacto y $f_{+,-}$ son continuas, entonces las imágenes de $f_+$ y $f_-$ y su unión 
+$$
+A=f_+\{T\cross[0,2/|\theta_0|]\} \cup f_-\{T\cross[0,2/|\theta_0|]\}
+$$
+también son compactas. Sin embargo, por la Proposición \ref{Prop 9.3.9 Wald} y el Teorema \ref{Teo 9.3.11 Wald}, $\dot{I}^+(T)$ es un subconjunto de $A$, y como $\dot{I}^+(T)$ es cerrado, luego $\dot{I}^+(T)$ es compacto.
+
+A continuación mostraremos que la compacticidad de $\dot{I}^+(T)$ contradice la existencia de una superficie de Cauchy no-compacta $\Sigma$. Según el Lema \ref{existencia camp vect temp no nulo}, elegimos un campo vectorial temporal suave $t^a\in M$. Como $\dot{I}^+(T)$ es acronal, cada curva de $t^a$ interseca $\dot{I}^+(T)$ al menos una vez, mientras que cada curva de $t^a$ interseca $\Sigma$ exactamente una vez. Definimos, pues, un mapa $\psi:\dot{I}^+(T)\rightarrow \Sigma$ que sigue la curva de $t^a$ que une $\dot{I}^+(T)$ con $\Sigma$. Sea $S\subset \Sigma$ la imágen de $\dot{I}^+(T)$ bajo la acción de $\psi$, $\psi[\dot{I}^+(T)]$, y sea a su vez $S$ la topología inducida por $\Sigma$. De esta forma, $\psi: \dot{I}^+(T)\rightarrow S$ resulta una homeomorfismo. Como $\dot{I}^+(T)$ es compacto, entonces también lo es $S$ y, por lo tanto, $S$ debe ser cerrada, vista como un subconjunto de $\Sigma$. Por otro lado, como $\dot{I}^+(T)$ es una variedad $C^0$ de dimensión 3 (Teorema 8.1.3 \citep{1984ucp..book.....W}), cada punto de $\dot{I}^+(T)$ tiene un entorno homeomorfo a una bola abierta en $\mathbb{R}^3$. A su vez, como $\psi$ es un homeomorfismo, la misma propiedad se satisface para $S$ y, por lo tanto, $S$ debe ser abierto pensandola como un subconjunto de $\Sigma$. Sin embargo, por el Teorema \ref{Teo 8.3.14 Wald}, como $M$ es conexa $\Sigma$ también debe serlo. De esta forma, como $\dot{I}^+(T)\neq \emptyset$, entonces debe ser $S=\Sigma$. Sin embargo esto es imposible ya que $S$ es compacto pero $\Sigma$ no lo es. 
+\end{proof}
+
+
+
+Al igual que antes, se puede relajar la condición de hiperbolicidad global y arribar a un resultado similar al anterior. A continuación, y para finalizar la sección, daremos un resultado (cuya demostración se puede ver en \citep{1975lsss.book.....H} sección 8.2) que generaliza los resultados vistos para geodésicas temporales y nulas. 
+
+\begin{theorem}\label{Teo sing gral}
+Sea un espacio-tiempo $(M,g_{ab})$ que satisface las siguientes condiciones:
+    \begin{enumerate}[{1)}]
+        \item $R_{ab}V^aV^b\geq0$ para todo vector temporal y nulo $V^a$
+        \item Se cumplen las condiciones genéricas temporales y nulas 
+        \item No existen curvas temporales cerradas  
+        \item Al menos una de las siguientes propiedades se cumplen:
+            \begin{enumerate}[{a)}]
+                \item $(M,g_{ab})$ posee un conjunto compacto, acronal y sin bordes 
+                \item $(M,g_{ab})$ posee una superficie atrapada
+                \item Existe un punto $p\in M$ tal que la expansión de las geodésicas nulas futuro (o pasado) directo que emanan de $p$ alcanza un valor negativo a lo largo de cada geodésica de la congruencia 
+            \end{enumerate}
+    \end{enumerate}
+Entonces $(M,g_{ab})$ contiene al menos una geodésica temporal o nula incompleta.
+\end{theorem}
+
+
+El Teorema \ref{Teo sing gral} posee ciertas hipótesis extras respecto de los Teoremas previos, pero a su vez posee una conclusión más débil ya que no establece qué geodésica es incompleta, si temporal o nula. A continuación, en la siguiente sección, mostraremos una forma de generalizar los resultados presentados recién para, luego, aplicarlos en un caso particular.
+
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%   Ecuación de Riccati
+
+\section{Ecuación de Riccati} 
+
+En esta sección y en la siguiente se siguen las discusiones de \citep{2011CQGra..28l5009F}, en donde en una primera instancia se analiza la existencia de soluciones de la ecuación de Riccati, para luego generalizar los Teoremas de Singularidad enunciados en la sección previa. Antes de analizar dichas soluciones veremos que se puede arribar a la ecuación de Riccati a partir de la Ec. de Raychaudhuri mostrada en la sección \ref{seccion eq Raychaudhuri}.
+
+En la sección \ref{seccion eq Raychaudhuri} hemos arribado a la Ec. de Raychaudhuri tanto para geodésicas temporales como para geodésicas nulas. Ambas ecuaciones se pueden resumir como
+
+\[ \frac{d\theta_\gamma}{d\tau}=-\frac{\theta_\gamma^2}{d}-\sigma_{ab}\sigma^{ab}-Ric(\gamma',\gamma') \]
+
+donde hemos considerado $\omega_{ab}=0$ (congruencia ortogonal) y denotamos $Ric(\gamma',\gamma')=R_{ab}\gamma'^a\gamma'^b$, con $\gamma:[0,\infty)\rightarrow M$ una geodésica de la congruencia y $\gamma'$ su vector tangente. A su vez, $d$ es la traza de la métrica espacial ($d=3$ en el caso de geodésicas temporales y $d=2$ para geodésicas nulas). De ahora en más se omitirá el subíndice $\theta_\gamma\equiv \theta$ dejando más amena su lectura. 
+
+Mediante el cambio de variables $z(\tau)=-(\theta+c)e^{-2c\tau/d}$ se puede escribir la Ec. de Raychaudhuri como
+
+$$
+\dot{z}(\tau)=\frac{z^2(\tau)}{q(\tau)} + p(\tau)
+$$
+
+en donde hemos definido $q(\tau)=de^{-2c\tau/d}$ y $p(\tau)=e^{-2c\tau/d}\left( \sigma_{ab}\sigma^{ab} + Ric(\gamma',\gamma')-\frac{c^2}{d}\right)$. De esta forma se llega a la ecuación de Riccati y, ahora, analizaremos las soluciones a la ecuación.
+
+
+
+\begin{lemma}\label{lema Riccati 1}
+Sea el problema de valores iniciales
+$$
+\dot{z}=\frac{z^2}{q} + p
+$$
+$$
+z(0)=z_0
+$$
+donde $q(t)$ y $p(t)$ son continuas en $[0,\infty)$ y $q(t)>0$ en $[0,\infty)$. Si
+\begin{align*}
+    \int\limits_0^\infty \frac{dt}{q(t)}=+\infty & & \liminf_{T\to +\infty}\int\limits_0^T p(t)dt>-z_0
+\end{align*}
+entonces $z(t)$ no tiene solución en $[0,\infty)$.
+\end{lemma}
+\begin{proof}
+Supongamos que existe una solución $z(t)$ en $[0,\infty)$. Por hipótesis, existe $t_1\geq 0$ tal que
+$$
+\int\limits_0^t p(t')dt'>-z_0
+$$
+para todo $t\in[t_1,\infty)$. Integrando la ecuación diferencial para $t\geq t_1$ se obtiene
+$$
+z(t)=\int\limits_0^t \frac{z^2(t')}{q(t')}dt' + \int\limits_0^t p(t')dt' + z_0 > \int\limits_0^t \frac{z^2(t')}{q(t')}dt'
+$$
+Si definimos $R(t)=\int\limits_0^t z^2(t')/q(t') dt'$, se puede ver que $R(t)$ es no negativa y cumple que 
+$$
+\dot{R}=\frac{z^2}{q}>\frac{R^2}{q}
+$$
+para $t\geq t_1$. En consecuencia, se deduce que $R(t)>0$ para todo $t>t_1$. Sea un $t_2>t_1$ fijo, entonces se tiene que 
+
+\begin{equation}\label{R(t)}
+    \frac{1}{R(t_2)}\geq \frac{1}{R(t_2)}-\frac{1}{R(t)}=\int\limits_{t_2}^t \frac{\dot{R}}{R^2}dt > \int\limits_{t_2}^t\frac{dt}{q}
+\end{equation}
+
+para $t>t_2$ ya que $R(t)>0$. Sin embargo, cuando $t\rightarrow\infty$, el RHS diverge y por ende también lo hace $1/R(t_2)$. Es decir, $R(t_2)=0$ lo cual es una contradicción ya que $R(t)>0$. 
+\end{proof}
+
+
+
+Aquí se debe entender por no existencia de solución al hecho de que la misma diverge en un tiempo finito, es decir: $z(t)\rightarrow +\infty$ cuando $t\rightarrow t_*<\infty$. Como corolario del resultado previo se sigue
+
+
+
+\begin{lemma}\label{lema Riccati 2}
+Sea el problema de valores iniciales
+$$
+\dot{z}=\frac{z^2}{q} + p
+$$
+$$
+z(0)=z_0
+$$
+donde $q(t)$ y $p(t)$ son continuas en $[0,\infty)$ y $q(t)>0$ en $[0,\infty)$. Si
+\begin{align*}
+    \int\limits_0^\infty \frac{dt}{q(t)}=+\infty & & \inf_{T\geq 0}\int\limits_0^T p(t)dt + z_0 = \alpha > 0 
+\end{align*}
+entonces no es posible hallar una solución de $z(t)$ en $[0,\tau]$ donde $\tau$ es la única solución de 
+$$
+\int\limits_0^\tau \frac{dt'}{q(t')}=\frac{2}{\alpha}
+$$
+\end{lemma}
+\begin{proof}
+Siguiendo la demostración anterior y usando que $z(t)\geq\alpha$ para todo $t\in[0,\infty)$, se tiene que
+$$
+R(t_2)\geq\alpha^2\int\limits_0^{t_2}\frac{dt'}{q(t')}
+$$
+para cualquier $t_2>0$, como se puede ver fácilmente de la definición de $R(t)$. A su vez, siguiendo la ecuación \ref{R(t)}, se obtiene
+
+$$
+\frac{1}{\alpha^2} > \left( \int\limits_0^{t_2} \frac{dt'}{q(t')}\right) \left(\int\limits_{t_2}^t \frac{dt'}{q(t')}\right)
+$$
+para todo $0<t_2\leq t$. Por el Teorema del Valor Intermedio sabemos que existe un $t_2$ tal que ambos factores en el RHS de la ecuación previa son iguales a $\frac{1}{2}\int\limits_0^t q(t')^{-1}dt'$, obteniendo así el resultando deseado.  
+\end{proof}
+
+En los Teoremas de Singularidades enunciados en la sección \ref{seccion teo sing} - en vistas de esta nueva forma de presentarlos - para el caso de congruencias de geodésicas temporales es $q(t)=n-1$, mientras que para el caso de geodésicas nulas resulta $q(t)=n-2$, en donde $n$ es la dimensión del espacio-tiempo. A su vez, el tiempo máximo en el cual $R(t)$ puede llegar a diverger resulta $\tau=2(n-1)/\alpha$ o $\tau=2(n-2)/\alpha$ para el caso de geodésicas temporalas y nulas respectivamente. 
+
+A su vez, relajando la condición sobre $p$ y fijando $q(t)=s=cte$, se puede obtener el siguiente resultado
+
+\begin{lemma}\label{lema Riccati 3}
+Sea el problema de valores iniciales 
+$$
+\dot{z}=\frac{z^2}{s} + r
+$$
+$$
+z(0)=z_0
+$$
+donde $r(t)$ es continua en $[0,\infty)$ y $s>0$. Si existe $c\geq 0$ tal que 
+$$
+\liminf_{T\to +\infty}\int\limits_0^T e^{-2ct/s}r(t)dt + z_0 - \frac{c}{2}>0
+$$
+entonces no es posible hallar una solución $z(t)$ en $[0,\infty)$ 
+\end{lemma}
+\begin{proof}
+Supongamos que existe una solución $z(t)$ en $[0,\infty)$. Entonces $y(t)=(z(t)-c)e^{-2ct/s}$ resuelve el sistema
+$$
+\dot{y}=\frac{y^2}{s e^{-2ct/s}}+e^{-2ct/s}(r(t)+c^2/s), \qquad y(0)=z_0-c
+$$
+
+en $[0,\infty)$. Renombrando los términos como $q(t)=s e^{-2ct/s}$ y $p(t)=e^{-2ct/s}(r(t)+c^2/s)$ entonces el sistema toma la misma
+forma que el primer lema. A su vez, es claro que $\int\limits_0^\infty dt/q(t)=\infty$. Por hipótesis 
+$$
+\liminf_{T\to +\infty}\int\limits_0^T e^{-2ct/s}(r(t)+c^2/2)dt\geq \liminf_{T\to +\infty}\int\limits_0^T e^{-2ct/s}r(t)dt + 
+\liminf_{T\to +\infty}\int\limits_0^T e^{-2ct/s}c^2/2dt
+$$
+$$
+=\frac{c}{2}+\liminf_{T\to +\infty}\int\limits_0^T e^{-2ct/s}r(t)dt > c-z_0=-y(0)
+$$
+y por lo tanto - por el primer lema - se sigue que el sistema no tiene solución en $[0,\infty)$ lo cual es una contradicción.
+\end{proof}
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%   Generalización de los Teoremas de Singularidades
+
+\section{Generalización de los Teoremas de singularidades} 
+
+
+
+
+Una vez expuesta la no existencia de soluciones a la ecuación de Riccati en la sección anterior, a continuación enunciaremos los Teoremas de Singularidades generalizados en el caso de geodésicas temporales y geodésicas nulas. Fewster-Galloway, \citep{2011CQGra..28l5009F}, generalizan los teoremas usando condiciones de energía pero promediadas. Esto permite ampliar el rango de aplicación de los teoremas, como por ejemplo un campo de Klein-Gordon con masa acoplado a las Ec. de Einstein el cual no satisface la SEC, o inclusive en QFT donde las condiciones de energía son incompatibles con la teoría \citep{1965NCim...36.1016E}. A su vez, la forma en la que presentan los Teoremas de Singularidades Fewster-Galloway permiten estudiar singularidades en teorías alternativas de Gravedad, tales como teorías $f(R)$ por ejemplo \citep{2016JCAP...05..023A}. 
+
+A continuación se enuncia el caso de geodésicas temporales, presentado en la literatura muchas veces también como el caso cosmológico:
+
+\begin{theorem}\label{teo sing gral cosmo}
+Sea $(M,g_{ab})$ un espacio-tiempo globalmente hiperbólico de dimensión $n=4$ y sea $S$ una superficie de Cauchy espacial, compacta y suave. Suponiendo que a lo largo de cada geodésica temporal futuro completo con tangente unitario $\gamma:[0,\infty)\rightarrow M$ ortogonal a $S$, existe $c\geq 0$ tal que 
+$$
+\liminf_{T\to \infty}\int\limits_0^T e^{-2ct/3}r(t)dt > \theta(p)+\frac{c}{2}
+$$
+donde $r(t)=Ric(\gamma'(t),\gamma'(t))=R_{ab}\gamma'^a(t)\gamma'^b(t)$, y $\theta(p)$ es la expansión de $S$ en $p=\gamma(0)$, entonces $(M,g_{ab})$ es geodésicamente (temporal) incompleta.
+\end{theorem}
+
+
+Hay que destacar que este último teorema plantea una singularidad a futuro, a diferencia de los teoremas enunciados en la sección \ref{seccion teo sing} que fueron enunciados para singularidades pasadas. Sin embargo, el teorema recién enunciado vale de forma análoga para el pasado. A su vez, vemos que este teorema no hace alusión a alguna condición de energía específica, sino que plantea una condición geométrica (tal como lo es la condición sobre el Ricci $R_{ab}X^aX^b$) que uno luego vía las Ec. de Einstein puede relacionarlas y obtener así una condición de energía. 
+
+\begin{proof}
+Sea $\gamma:[0,a)\rightarrow M$, con $a\in (0,\infty]$ una geodésica temporal futuro inextensible que emana ortogonalmente de $p\in S$ y que maximiza el tiempo propio. Consideremos la expansión $\theta=\theta(t)$, $t\in [0,a)$, la cual a lo largo de $\gamma$ satisface la ecuación de Raychaudhuri
+$$
+\frac{d\theta}{dt}=-\frac{\theta^2}{3}-Ric(\gamma',\gamma')-2\sigma^2
+$$
+Supongamos que $\gamma$ fuese completa (i.e: $a=\infty$) y veamos que esto lleva a una contradicción. Si tomamos $z=-\theta$, $z_0=-\theta(p)$, $r=Ric(\gamma',\gamma')+2\sigma^2$ y $s=3$ entonces la ecuación de Raychaudhuri previa satisface el Lema \ref{lema Riccati 3} junto con la condición para $r(t)$
+$$
+\liminf_{T\to +\infty}\int\limits_0^T e^{-2ct/3}r(t)dt - \theta(p) - \frac{c}{2}>0
+$$
+A su vez, del Lema \ref{lema Riccati 3} sabemos que no existe solución en $[0,\infty)$, es decir que $\theta$ diverge en un tiempo finito a lo largo de la geodésica y, luego, $\gamma$ posee un punto conjugado a $p$ lo cual contradice la hipótesis de que $\gamma$ maximiza el tiempo propio.
+\end{proof}
+
+
+A continuación daremos el teorema generalizado para el caso de geodésicas nulas.
+
+
+\begin{theorem}
+Sea $(M,g_{ab})$ un espacio-tiempo de dimensión $n=4$ con una superficie de Cauchy no-compacta $S$, y sea $\Sigma$ una superficie atrapada con expansión $\theta$. Supongamos que a lo largo de cada geodésica nula futuro completa parametrizada afín $\eta:[0,\infty)\rightarrow M$ ortogonal a $\Sigma$ existe $c\geq 0$ tal que 
+$$
+\liminf_{T\to \infty}\int\limits_0^T e^{-2ct/2}r(t)dt > \theta(p) + \frac{c}{2}
+$$
+donde $p=\eta(0)$ y $r(t)=Ric(\eta'(t),\eta'(t))=R_{ab}\eta'^a(t)\eta'^b(t)$, entonces $(M,g_{ab})$ es geodésicamente (nulo) incompleto.
+\end{theorem}
+\begin{proof}
+La demostración es análoga a la del teorema anterior considerando ahora que se cumple la ecuación de Raychaudhuri pero para la expansión ``\textit{hateada}" $\hat{\theta}\equiv\theta$, en la superficie $T_\perp$ definida en la sección \ref{geodesica nulas subsec}. Para una demostración en detalle referirse a \citep{2011CQGra..28l5009F} Teorema 5.2.
+\end{proof}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%   Una aplicación al modelo inflacionario de Higgs
+
+
+\section{Una aplicación al modelo inflacionario de Higgs}\label{Higgs}
+
+
+A continuación daremos un ejemplo de los teoremas recién expuestos, aplicado a un modelo inflacionario de Higgs siguiendo lo discutido en \citep{2009PhRvD..79f3531G}. En este modelo, el lagrangiano de partículas propuesto por Glashow, Weinberg y Salam (GWS) \citep{1961NucPh..22..579G,1967PhRvL..19.1264W,Salam} se modifica introduciendo un acoplamiento mínimo entre la curvatura y el campo de Higgs $H$. El lagrangiano de GSW contiene cuatro contribuciones a saber: la parte fermiónica $(F)$, con la energía cinética de los fermiones y sus interacciones con los bosones de gauge; la parte de los bosones de gauge $(G)$, que incluye su energía cinética y los términos de fijado de gauge; la parte de ruptura espontánea de la simetría (SSB), donde está el potencial del Higgs y su energía cinética; y la parte de Yukawa $(Y)$, con las interacciones Higgs-fermión. El lagrangiano viene explícitamente dado por
+
+
+\begin{equation}\label{GWS}
+\mathcal{L}_{SM}=\mathcal{L}_{F}+\mathcal{L}_{G}+\mathcal{L}_{SSB}+\mathcal{L}_{Y}
+\end{equation}
+
+
+donde se observan las cuatro contribuciones nombradas previamente y denotamos (por sus siglas en inglés) $\mathcal{L}_{SM}$ al lagrangiano del Modelo Estándar. Cabe destacar que la métrica que aparece en la acción no está dada por Minkowski sino por un espacio curvo, como podría ser el caso de la métrica de Friedman, Robertson y Walker (FRW). Sin embargo, es importante que se mantengan las propiedades del lagrangiano del espacio plano cuando se trabaja aún en un espacio curvo, tales como pueden ser el principio de covariancia, localidad, invarianca de gauge y otras simetrías conservadas. El número de posibles términos en el lagrangiano no está acotado y se deben pedir ciertas restricciones. Una posible restricción sería pedir renormalización y simplicidad. Con esto en mente - y con el requerimiento de no introducir nuevos grados de libertad - se obtiene un lagrangiano no-mínimo del SM de partículas junto con gravedad:
+
+
+\begin{equation}
+\mathcal{L}_{SMG}=\mathcal{L}_{SM}+\mathcal{L}_{HG}
+\label{rbf4}
+\end{equation}
+
+donde $SMG$ hace referencia al SM en presencia de gravedad, y $HG$ denota la parte de interacción Higgs-gravedad. Explícitamente, el segundo término se escribe como
+
+\begin{equation}
+S_{HG}=\int d^4x \sqrt{-g}\bigg\{ \frac{M^2_P}{2}R + \xi H^{\dag} HR\bigg\}
+\end{equation}
+
+donde $M_P=\sqrt{8\pi G}$ es la masa de Planck reducida, $R$ es el escalar de Ricci, $H$ es el campo de Higgs y $\xi$ es la constante de acoplamiento no-mínima.
+
+Como muestran \citep{2008PhLB..659..703B}, el parámetro $\xi$ está relacionado con el autoacoplamiento del Higgs, $\lambda$, mediante $\xi \approx 49000 \sqrt{\lambda}$. En el gauge unitario, $H=h/\sqrt{2}$ donde $h$ es el campo escalar de Higgs (de esta forma, por ejemplo, una autointeracción cuártica se podría escribir como $\frac{\lambda}{4}h^4$) y entonces el término de HG de la acción se puede escribir como
+
+
+\begin{equation}
+S_{HG}+S_{SSB} \supset \int d^{4}x \sqrt{-g} \left[ f(h) R- \frac{1}{2} g^{\mu \nu} \partial _{\mu}h \partial_{\nu} h-U(h) \right]
+\label{rbf5}
+\end{equation}
+
+
+
+Notemos que esta acción está escrita en el llamado frame de Jordan \citep{2014PhRvD..90j3516P} donde hemos agrupado los términos acoplados al escalar de Ricci como $f(h)=(M^{2}_{P}+\xi h^{2})/2$, y el potencial del Higgs es el clásico potencial del SM: $U(h)=\frac{\lambda}{4}(h^{2}-v^{2})^{2}$, con el valor de expectación del vacío (\textit{vev}) de $v=246$ GeV.
+
+La idea a continuación será obtener una acción con acople mínimo a la gravedad y deshacerse de los términos extra de forma tal que el término del escalar de Ricci quede únicamente como $\frac{M^{2}}{2} R$, con $M$ alguna constante con unidades de masa. Para ello, es sabido que es puede pasar del frame de Jordan al llamado frame de Einstein mediante una transformación conforme \citep{2012AIPC.1471..103F}. Lo que estamos diciendo es que se denomina frame de Jordan al sistema original, mientras que al sistema conforme se lo denomina frame de Einstein. Para ello, consideremos una transformación conforme del tipo
+
+
+\begin{equation}
+g_{\mu \nu} \rightarrow \widetilde{g}_{\mu \nu}= \Omega^{2}g_{\mu \nu}
+\label{rbf7}
+\end{equation}
+
+
+siendo entonces det$(g_{\mu \nu})=det(\widetilde{g}_{\mu \nu})/\Omega ^{8}$ y por lo tanto $\sqrt{-g}=\sqrt{-\widetilde{g}}/\Omega ^{4}$.
+
+
+Los términos del lagrangiano de la ecuación (\ref{rbf5}) se reescriben entonces como
+
+
+\begin{eqnarray}\label{relacioneseinteinframe}
+\sqrt{-g} f(h) R &\rightarrow& \sqrt{-\widetilde{g}} \frac{f(h)}{\Omega ^{2} } \left( \widetilde{R}+3\widetilde{g}^{\mu \nu}  \widetilde{\nabla}_{\mu}\widetilde{\nabla}_{\nu} ln \Omega ^{2} -\frac{3}{2} \widetilde{g}^{\mu \nu} \widetilde{\nabla}_{\mu} ln \Omega ^{2}  \widetilde{\nabla}_{\nu} ln \Omega ^{2} \right)\\
+\sqrt{-g} g^{\mu \nu} \partial _{\mu}h \partial _{\nu}h &\rightarrow& \frac{\sqrt{\widetilde{g}}}{\Omega ^{2}} \widetilde{\partial}_{\mu}h \widetilde{\partial}_{\nu}h,\\
+\sqrt{-g} U(h) &\rightarrow& \sqrt{-\widetilde{g}} \frac{U(h)}{\Omega^{4}}
+\end{eqnarray}
+
+
+donde usamos que los elementos con tilde se encuentran en el frame de Einstein y donde $\widetilde{\partial}^{\mu}$ es la derivada en el frame de Jordan cuyos índices suben y bajan con la métrica de Einstein: $\widetilde{\partial}^{\mu}=\widetilde{g}^{\mu \nu} \partial _{\nu}$.
+
+Teniendo en cuenta esta transformación de los elementos, podemos escribir la ecuación (\ref{rbf5}) en el frame de Einstein como
+
+
+$$
+S_{HG}^{E}+S_{SSB}^{E}  \supset
+$$
+\begin{equation}\label{rbf8}
+  \int d^{4} x \sqrt{-\widetilde{g}}\left\{ \frac{f(h)}{\Omega^{2}}\left[ \widetilde{R}+3\widetilde{g}^{\mu \nu} \widetilde{\nabla}_{\mu}\widetilde{\nabla}_{\nu} ln \Omega^{2}-\frac{3}{2} \widetilde{g}^{\mu \nu} \widetilde{\nabla}_{\mu} ln \Omega^{2} \widetilde{\nabla}_{\nu} ln \Omega ^{2}\right] -\frac{\widetilde{\partial}_{\mu}h \widetilde{\partial} ^{\mu} h}{2\Omega^{2}}-\frac{1}{\Omega^{4}} U(h)\right\}
+\end{equation}
+   
+
+
+
+
+y por lo tanto para tener el acoplamiento mínimo debemos pedir que $f(h)/\Omega ^{2} \equiv M_{P}^{2}/2$, lo que implica que
+
+
+\begin{equation}
+\Omega ^{2} (h)=1+\frac{\xi h^{2}}{M_{p}^{2}}
+\label{rbf9}
+\end{equation}
+
+
+Notemos que en la ecuación (\ref{relacioneseinteinframe}), el segundo término es una derivada total que no afecta la acción y, por lo tanto, podemos desecharlo. A su vez, el tercer término puede ser reescrito en función de las derivadas parciales de forma tal que contribuya al término cinético del Higgs. De esta forma, la ecuación (\ref{rbf8}) se puede reescribir como
+
+
+\begin{equation}
+S_{HG}^{E}+S_{SSB}^{E}\supset \int d^{4} x \sqrt{-\widetilde{g}} \left( \widetilde{R} \frac{M_{P}^{2}}{2}-\frac{1}{2} \left[ \frac{\Omega ^{2}+6 \xi^{2} h^{2}/M_{p}^{2}}{\Omega^{4}} \right] \widetilde{g}^{\mu \nu} \partial_{\mu}h \partial_{\nu}h-\frac{1}{\Omega^{4}}U(h) \right)
+\label{rbf10}
+\end{equation}
+
+
+
+De ahora en más obviaremos el tilde dado que se trabajará únicamente en el frame de Einstein, dejando así más amena la notación. Definiremos el campo $\chi (h)$ de forma tal que el término cinético del Higgs sea un término cinético canónico, usando que $\partial _{\mu}\chi=\frac{d \chi}{d h} \partial _{\mu} h$. De esta forma, resulta entonces
+
+
+
+\begin{equation}
+\frac{d \chi}{dh}=\sqrt{\frac{\Omega ^{2}+6 \xi^{2} h^{2}/M_{p}^{2}}{\Omega^{4}}}=\sqrt{\frac{1+\xi(1+6\xi)h^{2}/M_{P}^{2}}{(1+\xi h^2/M_P^2)^2}}
+\label{rbf11}
+\end{equation}
+
+
+en donde en la segunda igualdad hemos usado la ecuación (\ref{rbf9}). La acción reescrita en función del nuevo campo $\chi$ en lugar del $h$, con acople gravitatorio mínimo y término cinético canónico, se puede escribir entonces como
+
+\begin{equation}
+S_{HG}^{E}+S^{E}_{SSB} \supset \int d^{4}x \sqrt{g} \left[ \frac{M_{p}^{2}}{2} R-\frac{1}{2} g^{\mu \nu} \partial_{\mu} \chi \partial_{\nu} \chi -V(\chi)\right]
+\label{rbf12}
+\end{equation}
+
+con el nuevo potencial $V$ escrito en términos de $\chi$,
+
+
+\begin{equation}
+V(\chi)=\frac{U(h(\chi))}{\Omega ^{4}}
+\label{rbf13}
+\end{equation}
+
+Una expresión explícita para el nuevo campo $\chi$ como función de $h$ se puede obtener integrando la ecuación (\ref{rbf11}). La solución resulta
+
+
+\begin{equation}
+\frac{\sqrt{\xi}}{M_{P}^{2}}\chi (h)=\sqrt{1+6\xi} sinh ^{-1} (\sqrt{1+6\xi}u)-\sqrt{6\xi} sinh ^{-1} \left( \sqrt{6\xi} \frac{u}{\sqrt{1+u^{2}}} \right)
+\label{rbf14}
+\end{equation}
+
+
+con $u=\sqrt{\xi}h/M_{P}$. Como $\xi \gg 1$, entonces podemos aproximar $1+6\xi \approx 6\xi$. Además, podemos usar la siguiente igualdad: $sinh^{-1}x= ln(x+\sqrt{x^{2}+1})$ para $x$ no divergente (en este caso, $h$). De esta forma, la ecuación (\ref{rbf14}) se reduce a
+
+
+\begin{equation}
+\frac{\sqrt{\xi}}{M_{p}^{2}} \chi (h) \approx \sqrt{6 \xi} ln(1+u^{2})^{1/2}
+\label{rbf15}
+\end{equation}
+
+
+Definiendo $\alpha=\sqrt{2/3}$ y $\kappa=M_{P}^{-1}$, podemos reescribir entonces
+
+
+\begin{equation}
+\Omega ^{2}=e^{\alpha \kappa \chi}
+\label{rbf16}
+\end{equation}
+
+
+El potencial del Higgs para el nuevo campo es entonces:
+
+
+\begin{equation}
+V(\chi)=\frac{U(h)}{\Omega^4}=\frac{\lambda M_{p}^{4}}{4 \xi^{2}} \left[ e^{\alpha \kappa \chi}-\left( 1+\xi \frac{v^{2}}{M_{p}^{2}} \right) \right]^{2} e^{-2 \alpha \kappa \chi}
+\label{rbf17}
+\end{equation}
+
+
+Dado que $v \ll M_{P}$, entonces $1+\xi \frac{v^{2}}{M_{P}^{2}} \approx 1$ (es decir, podemos olvidarnos del \textit{vev} en la evolución durante inflación) y entonces el potencial queda como
+
+
+
+
+\begin{equation}
+V(\chi)=\frac{\lambda M_{p}^{4}}{4 \xi^{2}}(1-e^{-\alpha \kappa \chi})^{2}
+\label{rbf18}
+\end{equation}
+
+
+Si bien la aproximación (\ref{rbf18}) para el potencial $V(\chi)$ es una buena aproximación para la región donde $\chi > 0$, para $\chi < 0$ falla. Esto se puede ver a partir de lo siguiente: originalmente, $\frac{\xi h^{2}}{M_{P}^{2}}=\Omega ^{2}-1>0$, dado que el LHS es positivo. A su vez, usando que $\Omega ^{2}=e^{\alpha \kappa \chi}$ - ecuación (\ref{rbf16}) - tendríamos que $\frac{\xi h^{2}}{M_{P}^{2}}=e^{\alpha \kappa \chi} (1-e^{-\alpha \kappa \chi})$, que se hace menor que cero si $\chi<0$. Sin embargo, si reemplazamos $\chi \rightarrow|\chi|$, entonces se obtiene un resultado correcto que aproxima bien al potencial en el rango de interés. Esto es
+
+
+\begin{equation}
+V(\chi)=\frac{\lambda M_{p}^{4}}{4 \xi^{2}}(1-e^{-\alpha \kappa |\chi|})^{2}
+\label{rbf20}
+\end{equation}
+
+Veremos a continuación que precisamente este potencial impide que podamos aplicar los Teoremas de Singularidad generalizados de la sección anterior, sin tener en cuenta ciertas salvedades. Sin embargo, el punto crucial para poder aplicar dichos teoremas, se debe a que el potencial se halla acotado:
+
+
+$$
+0\leq V\leq\frac{\lambda M_{p}^{4}}{4 \xi^{2}}
+$$
+
+
+A partir de las Ec. de Einstein, obtenemos que 
+
+$$
+R_{ab}-\frac{1}{2}g_{ab}R=8\pi T_{ab}
+$$
+
+donde el tensor de energía-momento viene dado por \citep{2011CQGra..28l5009F}
+
+$$
+T_{ab}=\nabla_a \chi \nabla_b \chi-\frac{1}{2}g_{ab}(\nabla^c\chi \nabla_c\chi+V(\chi))
+$$
+
+Si consideramos una geodésica temporal $\gamma$ de tangente unitario, entonces su contracción con el Ricci viene dado por
+
+$$
+r(t)=Ric(\gamma',\gamma')=8\pi\bigg((\nabla_\gamma \chi)^2-\frac{V(\chi)}{n-2}\bigg)
+$$
+
+Podemos ver que esta función no necesariamente satisface la SEC debido al término del potencial y, por lo tanto, no estamos en condiciones de poder aplicar los teoremas previos. Sin embargo, dado que el potencial se halla acotado superiormente, tenemos que se satisface la siguiente desigualdad
+
+$$
+-\frac{c}{2}+\int_0^T e^{-2ct/(n-1)}r(t)dt>-\frac{c}{2}-\frac{K^2}{2c}
+$$
+
+para todo $c$ y $T$, siendo $K=\sqrt{8\pi V_{max}(n-1)/(n-2)}$. El término de la derecha se maximiza cuando $c=K$ y, luego, por el Teorema \ref{teo sing gral cosmo}, si $\theta<-K$ entonces el universo resultante es geodésicamente incompleto. 
+
+

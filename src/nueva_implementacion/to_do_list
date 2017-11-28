@@ -1,8 +1,9 @@
 to do list:
 - leer tesis de Noe en /tesis de otras personas   y empezar a diagramar tesis
 - leer user guide de OpenFOAM y empezar a escribir tesis, hay tips muy buenos
-- leer la tesis de la holandesa que esta en papers biblio, parece muy importante (tiene un modelo nuevo)
+- leer la tesis de la holandesa que esta en papers google scholar, parece muy importante (tiene un modelo nuevo)
 - comparar con OpenFOAM
+- implementar Larsen model de la tesis de la holandesa (ya tengo resumen hecho)
 - probar =! metodos de superposición de estela
   . leer engineering models for merging wakes in wind farm optimization applications
   . reproducir figura 4 del paper "limitations to the validity .." (dos turbinas alineadas)
@@ -15,3 +16,11 @@ to do list:
 - comparar potencia con modelo cambiando dinamicamente el c_T y sin el cambio dinamico de c_T
 - forma en la que estoy calculando la potencia??
 - terminar de correr test_profile_mio.py para obtener un orden de montecarlo N optimo
+
+- hacer corrida larga de test_profile_mio.py
+
+PAPERS QUE ME TENGO QUE BAJAR SI O SI DE LA BIBLIOGRAFIA DE MASTER THESIS:
+-[10]
+-[13]
+
+LIMIPIAR ESTA TO DO LIST JAJ 
