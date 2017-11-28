@@ -38,7 +38,7 @@ z_0 = 0.01
 
 parque_de_turbinas = Parque_de_turbinas([turbina_1, turbina_2, turbina_3], z_0)
 
-iters_i = 80
+iters_i = 100
 iters_j = len(parque_de_turbinas.turbinas)
 p_turbina = np.zeros([iters_i, iters_j])
 p_parque = np.zeros(iters_i)
@@ -49,16 +49,17 @@ p_media_por_turbina = np.zeros(iters_j)
 modulo = np.zeros([iters_i, iters_j])
 rms = np.zeros(iters_j)
 N_arreglo = []
-iters_exp = 7
+iters_exp = 13
 error_relativo = np.zeros([iters_exp, iters_j])
 p_media = np.zeros(iters_j)
+numerador = np.zeros([iters_i,iters_j])
 
 for exponente in range(iters_exp):
-    N = 10**(exponente + 1)
+    N = 2**(exponente + 1)
     N_arreglo.append(N)
     print 'N = ',N
     for i in range(iters_i):
-        calcular_u_en_coord(gaussiana, coord, parque_de_turbinas, u_inf, N)
+        calcular_u_en_coord(gaussiana, 'largest', coord, parque_de_turbinas, u_inf, N)
         # # ahora quiero calcular la potencia extraida por el parque
         for j in range(iters_j):
             turbina = parque_de_turbinas.turbinas[j]
@@ -67,6 +68,9 @@ for exponente in range(iters_exp):
             # print 'Potencia de {}'.format(turbina)
             # print turbina.potencia
             p_turbina[i,j] = turbina.potencia
+            print 'iteracion =', i
+            print "turbina =", j
+            print 'potencia =', turbina.potencia
             # print '*'*40
             # print 'Potencia de todo el Parque'
             # print parque_de_turbinas.potencia
@@ -74,10 +78,19 @@ for exponente in range(iters_exp):
             # parque_de_turbinas.potencia = 0
             # print '\n'
             p_media[j] = np.mean(p_turbina[:,j])
-            rms[j] = np.sqrt(np.mean(np.square(p_turbina[:, j])))
-            error_relativo[exponente, j] = rms[j] / p_media[j]
+            # rms[j] = np.sqrt(np.mean(np.square(p_turbina[:, j])))
+            # error_relativo[exponente, j] = rms[j] / p_media[j]
+            numerador[i, j] = np.abs(p_turbina[i, j] - p_media[j])
+            print 'p_media =', p_media[j]
+            print 'np.abs(p_turbina[i, j] - p_media[j]) =', np.abs(p_turbina[i, j] - p_media[j])
+            print 'numerador[i,j] =', numerador[i, j]
+            error_relativo[exponente, j] = np.sum(numerador[:,j])/iters_i
 
-plt.plot(N_arreglo, error_relativo[:,0], 'x')
+plt.plot(N_arreglo, error_relativo[:,0], label='turbina 0')
+plt.plot(N_arreglo, error_relativo[:,1], label='turbina 1')
+plt.plot(N_arreglo, error_relativo[:,2], label='turbina 2')
+plt.legend()
+plt.grid()
 plt.show()
 
 
