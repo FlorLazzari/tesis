@@ -1,0 +1,14 @@
+% Energia Eólica
+
+El potencial eólico de la Argentina es uno de los mayores del mundo. Actualmente la
+participación de esta fuente de energı́a en el mercado eléctrico nacional es baja, pero se
+espera que en los próximos años aumente considerablemente. Debido a esta expectativa, se
+necesitan herramientas que faciliten la incorporación de mayores cantidades de energı́a de
+esta fuente en el mercado eléctrico nacional.
+
+La energía eólica es una forma de generación eléctrica renovable que ayuda a disminuir las emisiones de gases de efecto invernadero al reemplazar fuentes de energía a base de combustibles fósiles. Debido a la naturaleza variable del recurso eólico, la capacidad de pronosticar la velocidad del viento en el futuro es valiosa.
+El viento es suficientemente estable y predecible a escala anual, aunque presenta variaciones significativas a escalas de tiempo menores. El pronóstico de producción de energía permite prever posibles variaciones en la generación, posibilitando una mejor gestión de la red eléctrica. Además, el modelado del flujo resulta de utilidad para la prospección e instalación de futuros proyectos.
+
+El objetivo último de este proyecto es sentar las bases al desarrollo de modelos operativos
+de pronóstico de potencia eólica y de modelado del flujo atmosférico en parques eólicos.
+
