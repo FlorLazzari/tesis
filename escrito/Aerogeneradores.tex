@@ -186,6 +186,7 @@ The credit for having recognised this principle is owed to Albert Betz. Between 
 Although Betz’s "momentum theory”, which assumes an energy converter working without losses in a frictionless airflow, contains simplifications, its results are quite usable for performing rough calculations in practical engineering. But its true significance is founded in the fact that it provides a common physical basis for the understanding and operation of wind energy converters of various designs. For this reason, I will study a summarised mathematical derivation of the elementary "momentum theory” by Betz. 
 
 Betz’s Elementary Momentum Theory
+
 The kinetic energy of an air mass $m$ moving at a velocity $v$ can be expressed as:
 $E = \frac{1}{2}mv^2$
 Considering a certain cross-sectional area $A$, through which the air passes at velocity $v$, the volume $\dot{V̇}$ flowing through during a certain time unit, the so-called volume flow, is:
@@ -203,7 +204,257 @@ $P = \rho A_{\infty} {v_{\infty}}^3 − \rho A_W {v_W}^3 = \rho A_{\infty} {v_{\
 Maintaining the mass flow (continuity equation) requires that:
 $\rho v_{\infty} A_{\infty} = \rho v_{W} A_{W}$
 Thus,
-$P = \frac{1}{2}$
+$P = \frac{1}{2}\rho v_{\infty}A_{\infty}({v_{\infty}}^2-{v_W}^2)$
+or 
+$P = \frac{1}{2}\dot{m}({v_{\infty}}^2-{v_W}^2)$
+
+From this equation it follows that, in purely formal terms, power would have to be at its maximum when $v_W$ is zero, namely when the air is brought to a complete standstill by the converter. However, this result does not make sense physically. If the outflow velocity $v_W$ behind the converter is zero, then the inflow velocity before the converter must also become zero, implying that there would be no more flow through the converter at all. As could be expected, a physically meaningful result consists in a certain numerical ratio of $\frac{v_{W}}{v_{\infty}}$ where the extractable power reaches its maximum.
+This requires another equation expressing the mechanical power of the converter. Using the law of conservation of momentum, the force which the air exerts on the converter can be expressed as:
+$F = \dot{m}(v_{\infty} - v_W)$
+
+According to the principle of action equals reaction, this force, the thrust, must be counteracted by an equal force exerted by the converter on the airflow. The thrust, so to speak, pushes the air mass at air velocity $v_d$ , present in the plane of flow of the converter. The power required for this is:
+
+$P = F v_d = \dot{m}(v_{\infty} - v_W) v_d$
+
+Thus, the mechanical power extracted from the air flow can be derived from the energy or power difference before and after the converter, on the one hand, and, on the other hand, from the thrust and the flow velocity. Equating these two expressions yields the relationship for the flow velocity $v_d$:
+
+$\frac{1}{2}\dot{m} (v_{\infty} - v_W) = \dot{m} (v_{\infty} - v_W) v_d$
+$v_d = \frac{1}{2} (v_{\infty} - v_W)$
+
+Thus the flow velocity through the converter is equal to the arithmetic mean of $v_{\infty}$ and $v_W$:
+
+$v_d = \frac{v_{\infty} + v_W}{2}$
+
+The mass flow thus becomes:
+
+$\dot{m} = \rho A v_d = \frac{1}{2} \rho A (v_{\infty} - v_W)$
+
+The mechanical power output of the converter can be expressed as:
+
+$P = \frac{1}{4} \rho A ({v_{\infty}}^2 - {v_W}^2) (v_{\infty} + v_W)$
+
+In order to provide a reference for this power output, it is compared with the power of the free-air stream which flows through the same cross-sectional area A, without mechanical power being extracted from it. This power was:
+
+$P_0 = \frac{1}{2}\rho {v_{\infty}}^3 A$
+
+The ratio between the mechanical power extracted by the converter and that of the undisturbed air stream is called the $power$ $coefficient$ c_P:
+
+$c_P = \frac{P}{P_0} = \frac{\frac{1}{4} \rho A ({v_{\infty}}^2 - {v_W}^2)(v_{\infty} + v_W)}{\frac{1}{2}\rho A {v_{\infty}}^3}$
+
+After some re-arrangement, the power coefficient can be specified directly as a function of the velocity ratio $\frac{v_W}{v_{\infty}}$:
+
+$c_P = \frac{P}{P_0} = \frac{1}{2} |1-(\frac{v_W}{v_{\infty}})^2| |1+\frac{v_W}{v_{\infty}}|$
+
+The power coefficient, i. e. the ratio of the extractable mechanical power to the power contained in the air stream, therefore, now only depends on the ratio of the air velocities before and after the converter. If this interrelationship is plotted graphically — naturally, an analytical solution can also be found easily — it can be seen that the power coefficient reaches a maximum at a certain velocity ratio (Fig. 4.2).
+
+With $\frac{v_W}{v_{\infty}} = \frac{1}{3}$, the maximum ideal power coefficient c_P becomes
+
+$c_P = \frac{16}{27} = 0.593$
+
+Betz was the first to derive this important value and it is, therefore, frequently called the $Betz$ $factor$. 
+
+Knowing that the maximum, ideal power coefficient is reached at $\frac{v_W}{v_{\infty}} = \frac{1}{3}$ , the flow velocity $v_d$
+
+$v_d = \frac{2}{3} v_{\infty}$
+ 
+and the required reduced velocity v 2 behind the converter can be calculated: 
+ 
+$v_W = \frac{1}{3} v_{\infty}$
+ 
+Fig. 4.3 shows the flow conditions through the wind energy converter once again, in greater detail. In addition to the flow lines, the variations of the associated flow velocity and of the static pressure are indicated. When approaching the converter plane the air is retarded, it flows through and is then slowed down further to a minimum value behind the turbine. The flow lines show a widening of the stream tube to a maximum diameter at the point of lowest air velocity. Approaching the turbine, the static pressure increases, and then jumps to a lower value, to level out again at the ambient pressure behind the converter due to pressure equalisation. The flow velocity then also increases again to its initial value far behind the converter and the widening of the stream tube disappears.
+
+It is worthwhile to recall that these basic relationships were derived for an ideal, frictionless flow, and that the result was obviously derived without having a close look at the wind energy converter. In real cases, the power coefficient will always be smaller than the ideal Betz value. The essential findings derived from the momentum theory can be summarised in words as follows:
+– The mechanical power which can be extracted from a free-stream airflow by an energ converter increases with the third power of the wind velocity.
+– The power increases linearly with the cross-sectional area of the converter traversed; it thus increases with the square of its diameter.
+– Even with an ideal airflow and lossless conversion, the ratio of extractable mechanical work to the power contained in the wind is limited to a value of 0,593. Hence, only about $60\%$ of the wind energy of a certain cross-section can be converted into mechanical power.
+– When the ideal power coefficient achieves its maximum value $c_P = 0.593$, the wind velocity in the plane of flow of the converter amounts to two thirds of the undisturbed wind velocity and is reduced to one third behind the converter.
+ 
+Wind Energy Converters Using Aerodynamic Drag or Lift
+
+The momentum theory by Betz indicates the physically based, ideal limit value for the extraction of mechanical power from a free-stream airflow without considering the design of the energy converter. However, the power which can be achieved under real conditions cannot be independent of the characteristics of the energy converter.
+
+The first fundamental difference which considerably influences the actual power depends on which aerodynamic forces are utilised for producing mechanical power. All bodies exposed to an airflow experience an aerodynamic force the components of which are defined as aerodynamic drag in the direction of flow, and as aerodynamic lift at a right angle to the direction of flow. The real power coefficients obtained vary greatly in dependence
+on whether aerodynamic drag or aerodynamic lift is used.
+ 
+Drag devices
+The simplest type of wind energy conversion can be achieved by means of pure drag surfaces (Fig. 4.4). The air impinges on the surface $A$ with velocity $v$, the power capture $P$ of which can be calculated from the aerodynamic drag $D$, the area $A$ and the velocity $v_b$ with which the blade moves:  
+
+$P = D v_r$
+
+The relative velocity $v_r = v − v_b$ which effectively impinges on the drag area is decisive for its aerodynamic drag. Using the common aerodynamic drag coefficient $c_D$, the aerodynamic drag can be expressed as:
+
+$D = c_D \frac{\rho}{2} (v -v_r)^2 F$
+
+The resultant power is
+
+$P = \frac{\rho}{2}c_D (v -v_r)^2 A v_r$
+
+If power is expressed again in terms of the power contained in the free-stream airflow, the following power coefficient is obtained:
+
+$c_P = \frac{P}{P_0} = \frac{\frac{\rho}{2} c_D A (v-v_r)^2 v_r}{\frac{\rho}{2} v^3 A}$
+
+Analogously to the approach described before, it can be shown that $c_P$ reaches a maximum value with a velocity ratio of $\frac{v_b}{v} = \frac{1}{3}$. The maximum value is then
+
+$c_{P}^{max} = \frac{4}{27}c_D$
+
+The order of magnitude of the result becomes clear if it is taken into consideration that the aerodynamic drag coefficient of a concave surface curved against the wind direction can hardly exceed a value of 1.3. Thus, the maximum power coefficient of a pure drag-type rotor becomes:
+
+$c_P^{max} \sim 0.2$
+
+It thus achieves only one third of Betz’s ideal $c_P$ value of 0.593. It must be pointed out that, strictly speaking, this derivation only applies to a translatory motion of the drag surface. Fig. 4.4 shows a rotating motion, in order to provide a more obvious relationship with the wind rotor.
+
+Rotors using aerodynamic lift
+If the rotor blade shape permits utilisation of aerodynamic lift, much higher power coefficients can be achieved. Analogously to the conditions existing in the case of an aircraft airfoil, utilisation of aerodynamic lift considerably increases the efficiency (Fig. 4.5).
+
+All modern wind rotor types are designed for utilising this effect and the type best suited for this purpose is the propeller type with a horizontal rotational axis (Fig. 4.6). The wind velocity $v$ is vectorially combined with the peripheral velocity u of the rotor blade. When the rotor blade is rotating, this is the peripheral velocity at a blade cross-section at a certain distance from the axis of rotation. Together with the airfoil chord the resultant free-stream velocity v r forms the aerodynamic angle of attack. The aerodynamic force created is resolved into a component in the direction of the free-stream velocity, the drag $D$, and a component perpendicular to the free-stream velocity, the lift $L$. The lift force $L$, in turn, can be resolved into a component $L_{torque}$ in the plane of rotation of the rotor, and a second component perpendicular to its plane of rotation. The tangential component $L_{torque}$ constitutes the driving torque of the rotor, whereas $L_{thrust}$ is responsible for the rotor thrust.
+
+Modern airfoils developed for aircraft wings and which also found application in wind rotors, have an extremely favourable lift-to-drag ratio ($E$). This ratio can reach values of up to 200. This fact alone shows qualitatively how much more effective the utilisation of aerodynamic lift as a driving force must be. At this stage, however, it is no longer possible to calculate the achievable power coefficients of lift-type rotors quantitatively with the aid of  elementary physical relationships alone. More sophisticated theoretical modelling concepts are now required.
+
+Rotor Aerodynamics
+
+The rotor is the first element in the chain of functional elements of a wind turbine. Its aerodynamic and dynamic properties, therefore, have a decisive influence on the entire system in many respects. The capability of the rotor to convert a maximum proportion of the wind energy flowing through its swept area into mechanical energy is obviously the direct result of its aerodynamic properties which, in turn, largely determine the overall efficiency of the energy conversion in the wind turbine. As in any other regenerative power
+generation system, it is this efficiency of the energy collector which is of prime importance with regard to the overall economics of the system.
+
+Less obvious, but just as important, are the aerodynamic — and dynamic — properties of the rotor with respect to its capability to convert the fluctuating power input provided by the wind into uniform torque whilst, at the same time, keeping the unavoidable dynamic loads on the system as low as possible. The magnitude of the load problems imposed on the downstream mechanical and electrical elements will depend on how well the above requirements are met by the rotor. The control system of the wind turbine is another aspect to be considered when looking at the aerodynamic properties. Poor torque characteristics or critical flow separation characteristics of the rotor blades can be a severe handicap for the operational control of the unit and the control system must, therefore, be adapted to the aerodynamic qualities of the rotor.
+
+These aspects illustrate the importance of rotor aerodynamics to the entire system. It would not be possible to achieve an overall understanding of the operation of a wind turbine without at least some knowledge of the aerodynamic characteristics of the rotor and its most important parameters. Moreover, to a certain extent, the rotor of a wind turbine is the wind-turbine-specific element of the system and hence must be designed and constructed without any prior examples from other fields of technology to which one could refer.
+The aim is to provide illustrate the interrelationship between the essential design parameters of the rotor and its properties as an actuator disc,
+i. e. an energy converter.
+
+Mathematical Models and Calculations
+
+The aerodynamic design of wind turbine rotors requires more than knowledge of the elementary physical laws of energy conversion. The designer faces the problem of finding the relationship between the actual shape of the rotor, e. g. the number of rotor blades or the airfoil of its blades, and its aerodynamic properties.+
+
+The design process is carried out iteratively, in practice. In the beginning, there is the concept of a rotor which promises to have certain desired properties. A calculation is then carried out for this configuration and checked to see the extent to which the expected result is actually obtained.As a rule, the results will not be completely satisfactory in the first instance but the mathematical/physical model provides an insight into how the given parameters of the rotor design have affected the end result. This provides an opportunity for improving the design by applying the appropriate corrections.
+
+Betz’s simple momentum theory is based on the modelling of a two-dimensional flow through the actuator disc. The airflow is slowed down and the flow lines are deflected only in one plane (Fig. 5.1). In reality, however, a rotating converter, a rotor, will additionally impart a rotating motion, a spin, to the rotor wake. To maintain the angular momentum, the spin in the wake must be opposite to the torque of the rotor.
+
+The energy contained in this spin reduces the useful proportion of the total energy content of the air stream at the cost of the extractable mechanical energy so that, in the extended momentum theory, taking into consideration the rotating wake, the power coefficient of the turbine must be smaller than the value according to Betz (Fig. 5.2). Moreover, the power coefficient now becomes dependent on the ratio between the energy components from the rotating motion and the translatorial motion of the air stream. This ratio is determined by the tangential velocity of the rotor blades in relation to the undisturbed axial airflow, the wind velocity and is called the tip speed ratio $\lambda$, commonly referenced to the tangential velocity of the rotor blade tip.
+
+
+Tip speed ratio $\lambda = \frac{u}{v} = \frac{\text{velocity of the rotor blade tip}}{\text{speed of wind}}$
+
+A fundamental element of the power curve of a rotor is that the power coefficient is a function of the tip speed ratio.
+
+The theory that finds the interrelationship between the actual shape of the rotor and its aerodynamic properties is called the $blade$ $element$ $theory$.
+
+In this theory, the upwind conditions and aerodynamic forces acting on blade elements rotating at a distance $r$ from the rotor axis are determined. To simplify matters, it is assumed that the aerodynamic forces, moving in concentric strips, do not interfere with one another (Fig. 5.3). The blade element is formed by the local rotor blade chord (aerodynamic airfoil) and the radial extent of the element $dr$.
+
+The airfoil cross-section at radius $r$ is set at a local blade pitch angle $\theta$ with respect to the rotor plane of rotation (Fig. 5.4). The axial free stream velocity $v_a$ in the rotor plane and the tangential speed $u$ at the radius of the blade cross-section combine to form a resultant flow velocity $v_r$ . Together with the airfoil chord line, it forms the local aerodynamic angle of attack $\alpha$. The difference between the aerodynamic angle of attack $\alpha$ and the blade pitch angle $\theta$ should be noted: the angle of attack is an aerodynamic parameter and the blade pitch angle is a design parameter.
+
+Linking the relationships of fluid mechanics for the momentum of the axial flow and of the radial flow components of the rotating wake with the formulations for the aerodynamic forces at the blade element allows the flow conditions at the blade element to be determined so that the local aerodynamic lift and drag coefficients can be read off from the polar airfoil
+curves (s. Chapter 5.3.4).
+
+The calculation of the balance of forces includes not only the pure airfoil drag but also other drag components which derive from the spatial flow around the rotor blade. In particular, the flow around the blade tip, a result of the pressure difference between the top and the underside of the blade, produces the so-called $free$ $tip$ $vortices$. The resultant drag is called induced drag, a function of the local lift coefficient and the aspect ratio (‘slenderness’) of the blades. The higher the aspect ratio, i. e. the more slender the blades, the lower the induced drag. These blade tip losses are introduced as additional drag components, as are the hub losses which are the result of vortices in the wake of the flow around the hub. They are derived from a complex vortex model of the rotor flow (Fig. 5.5). Several semi-empirical approaches for these vortex losses have been described in the literature.
+
+With its calculation of the local aerodynamic lift and drag coefficients, the blade element theory provides the distribution of aerodynamic forces over the length of the blade. This is usually divided into two components: one in the plane of rotation of the rotor — the tangential force distribution, and one at right angles to it — the thrust distribution (Fig. 5.6). Integrating the tangential force distribution over the rotor radius provides the driving torque of the rotor and, with the rotational speed of the rotor, the rotor power or power coefficient, respectively. Integrating the thrust distribution yields the total rotor thrust for instance to the tower. The blade element thus provides both the rotor power and the steady-state aerodynamic loading for a given blade geometry.
+
+Taking the rotor power characteristic, i. e. the variation of the power coefficient as a function of the tip speed ratio, as an example, the approximation of the theoretical models to reality can be illustrated retrospectively (Fig. 5.7). Referred to the power rating of the air stream, the simple momentum theory by Betz provides the ideal constant power coefficient of 0.593 which is independent of the tip speed ratio. Taking into consideration the angular momentum in the rotor wake shows that the power coefficient becomes a function of the tip speed ratio. It is only when the tip speed ratios become infinitely high that the power coefficient approaches Betz’s ideal value. Introducing the aerodynamic forces acting on the rotor blades, and particularly the aerodynamic drag, further reduces the power coefficient; in addition, the power coefficient now exhibits an optimum value at a certain tip speed ratio.
+
+The aerodynamic rotor theory based on the momentum theory and on the blade element theory, yields the real rotor power curve with good approximation. Nevertheless it should be kept in mind that the momentum theory as well as the blade element model include several simplifications which limit their validity to a disc shaped wind energy converter. Sometimes the momentum theory is therefore called disc actuator theory. 
+
+Aerodynamic Power Control
+
+At high wind speeds, the power captured from the wind by the rotor far exceeds the limits set by the design strength of the rotor structure. This is especially true for large wind turbines as the safety margins of the strength limits of the components become narrower with increasing turbine size. In addition, the power output of the rotor is limited by the maximum permissible power of the generator. Fig. 5.12 shows the extent to which the power input of the rotor increases when it is not subject to intervention by a control system.
+
+Apart from limiting rotor power at high wind speeds, there is the problem of maintaining rotor speed at a constant value or within predetermined limits. Speed limitation becomes a question of survival when, for example during a grid outage, the generator torque is suddenly lost. %% no entiendo! 
+In such a case, rotor speed would increase extremely rapidly and would certainly lead to the destruction of the turbine unless countermeasures were taken immediately. The rotor of a wind turbine must, therefore, have an aerodynamically effective means for limiting its power and its rotational speed.
+
+Basically, the driving aerodynamic forces can be reduced by influencing the aerodynamic angle of attack, by reducing the projected swept area of the rotor, or by changing the effective free-stream velocity at the rotor blades. Since the wind speed cannot be influenced, the effective free-stream velocity at the rotor blades only changes with the rotor speed. The rotor speed can, therefore, be used as a correcting variable for controlling power, provided the wind turbine permits variable-speed operation. However, the power range which can be controlled by varying the rotor speed is very limited so that changing the rotor speed can only be considered as a supplementary option. Reducing the aerodynamically effective rotor swept area, i. e. turning the rotor out of the wind (furling), is only practicable with very small rotors.
+
+- Power Control by Rotor Blade Pitching
+- Passive Stall Control with Fixed Blade Pitch
+- Active Stall Control
+- Turning the Rotor out of the Wind
+
+The Rotor Wake
+
+Consideration of rotor aerodynamics must also include the aerodynamic state of the flow
+behind the rotor. The wind turbines in a wind farm are so close together that the downwind
+turbines are affected by the wake of the upwind turbines. This interaction has a number of
+consequences which can be of considerable significance:
+– The reduced mean flow velocity in the wake of the rotor reduces the energy output of
+the subsequent wind turbines.
+– The turbulence in the rotor wake, which is unavoidably increased, also increases the
+turbulence loading on the downwind turbines, with corresponding consequences for
+the fatigue strength of these turbines. On the other hand, their steady-state load level is
+reduced due to the decrease in the mean upwind velocity.
+– Under poor conditions, the influence of the rotor wake can affect the blade pitch angle
+control of the relevant turbines in an undesirable way.
+The treatment of the rotor wake firstly requires the conception of a physical-mathematical
+model for calculating the wake of a single rotor. In a wind farm, this calculated wake is
+then superimposed in a suitable manner on the wake of the other turbines.
+The mathematical modelling of the rotor wake has in recent years been increasingly
+refined in several steps and in numerous individual contributions. The first useable model
+was published in 1977 by Lissaman in connection with his work on the development of
+the blade element theory and of the momentum theory [10]. Lissaman based his work
+on his rotor model (blade element theory) and calculated the velocity profiles behind the
+rotor by using empirical values obtained from wind tunnel measurements. This resulted
+in a semi-empirical calculation method which provides useful results. Lissaman also devel-
+oped a qualitative concept of the development of the shape of the wake behind the rotor
+(Fig. 5.27).
+The area close to the rotor, its core area, is determined by the process of pressure
+equalisation with the ambient air immediately behind the rotor and by the vortex wakes
+resulting from the flow around the rotor blades. The pressure compensation causes the
+rotor wake to widen. The point of minimum speed in the centre of the wake occurs at a
+distance of between one and two rotor diameters behind the rotor.
+In the transition region, considerable turbulence is generated in the boundary layer of
+the rotor wake and becomes mixed with the turbulence and higher wind velocity of the
+surrounding airflow. As the distance becomes greater, the air speed rises more and more
+and the vortices generated by the rotor blades largely disappear.
+Farther away in the wake in the far region, at a distance of about five rotor diameters,
+the velocity profile of the wake develops into a Gaußian distribution. The reduction in
+speed deficiency in the wake is large determined by the intensity of the turbulence in the
+surrounding air.
+The achievement of a qualitative understanding of the flow conditions in the rotor wake
+also provided the basis for the development of more sophisticated models for calculating
+the wake. In 1988, Ainslie presented a model which is based on the numeric solution of
+the Navier Stokes equations for the turbulent boundary layer and thus already closely ap-
+proaches the physical situation given in the wake [12]. The influence of the surrounding
+turbulence was introduced by Ainslie with an analytical formulation for the viscosity, i. e.
+the shearing forces transferred by the turbulence.A similar model was developed by Crespo
+with the special aim of determining the additional turbulence generated in the rotor wake
+[13] and he introduced a more accurate model of dissipation in the turbulent flow for this
+purpose.
+These mathematical models were confirmed and improved upon with numerous mea-
+surements made on wind turbines. The measurements which were taken of the rotor wake
+of a small wind turbine and compared with the results of Ainslie’s model are used as an
+example [11] (Fig. 5.28).
+The theoretical treatment of the rotor wake allows some important insights to be gained:
+The thrust coefficient of the rotor has a significant influence on the loss of impulse behind
+the rotor and thus on the extent of the wake. The rotor wake changes with the operating
+state of the turbine (tip speed ratio, blade pitch angle etc.). Rotors with fixed blades generate
+a further, increasing shearing force in the full-load range (s. Fig. 5.27) and the rotor wake
+is correspondingly prominent.
+The wake area far from the rotor, from about five rotor diameters, is mainly shaped by
+the surrounding turbulence. The greater the intensity of the turbulence in the surrounding
+air, the faster the lack of speed in the wake is equalized.
+Considerable turbulence is generated in the wake itself. In the case of downwind tur-
+bines, this combines with the surrounding air turbulence. The intensity of the superim-
+posed turbulence amounts to about 130 to 150 % of the surrounding value. This effect may
+be of significance with respect to the fatigue strength of the turbines affected (s. Chapter
+16.4.3).
+The maximum deceleration in the centre of the rotor wake with respect to the sur-
+rounding wind velocity can be seen in Fig. 5.28, for example. It is:
+– approx. 60 % at a distance from the rotor of 2 rotor diameters,
+– approx. 30 % at a distance from the rotor of 4 diameters, and
+– approx. 20 % at a distance from the rotor of 6 diameters.
+These numerical values for the flow retardation cannot be unconditionally generalized. The
+thrust coefficient and the surrounding turbulence play a decisive role. The above example
+applies to a stall-controlled turbine so that the measured values would lie within the top
+range of the bandwidth.
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
