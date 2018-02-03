@@ -1,19 +1,17 @@
 from __future__ import division
 # coding=utf-8
 
-from Modelo_2 import Modelo
-from Gaussiana_2 import Gaussiana
+from Modelo import Modelo
+from Gaussiana import Gaussiana
 from Parque_de_turbinas import Parque_de_turbinas
 from Turbina_Paper import Turbina_Paper
-from Turbina_2 import Turbina
-from U import U
 from Coord import Coord
 import numpy as np
 from numpy import exp
 from Estela import Estela
 from decimal import Decimal
 from U_inf import U_inf
-from calcular_u_en_coord_2 import calcular_u_en_coord
+from calcular_u_en_coord import calcular_u_en_coord
 
 import numpy as np
 import matplotlib.pyplot as plt
@@ -144,4 +142,5 @@ plt.plot(y, data_prueba_ambas_rss_indep/u_inf.coord_hub, 'go', label= 'Superposi
 plt.plot(y, data_prueba_ambas_largest_indep/u_inf.coord_hub, 'ko', label= 'Superposicion largest')
 
 plt.legend()
+plt.grid()
 plt.show()

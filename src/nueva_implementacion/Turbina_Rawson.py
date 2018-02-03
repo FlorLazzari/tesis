@@ -1,11 +1,10 @@
 from __future__ import division
+import numpy as np
 # coding=utf-8
 
-import numpy as np
-from Turbina_2 import Turbina
-from scipy import interpolate
-import matplotlib.pyplot as plt
 
+from Turbina import Turbina
+from scipy import interpolate
 
 class Turbina_Rawson(Turbina):
 

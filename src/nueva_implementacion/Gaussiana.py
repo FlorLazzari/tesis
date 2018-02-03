@@ -1,11 +1,8 @@
 from __future__ import division
 # coding=utf-8
 
-from Modelo_2 import Modelo
-import numpy as np
+from Modelo import Modelo
 from numpy import exp
-
-
 
 class Gaussiana(Modelo):
 

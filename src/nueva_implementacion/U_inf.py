@@ -8,8 +8,6 @@ class U_inf(object):
         if self.perfil == 'log':
             from math import log
             self.coord = self.coord_hub * (log(self.coord.z / z_0) / log(z_h / z_0))
-                
-
 
 
 # prueba

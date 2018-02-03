@@ -1,8 +1,8 @@
 from __future__ import division
+import numpy as np
 # coding=utf-8
 
-from Modelo_2 import Modelo
-import numpy as np
+from Modelo import Modelo
 
 # Jensen used:
 # k_wake = 0.1

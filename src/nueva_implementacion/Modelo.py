@@ -3,7 +3,7 @@ class Modelo(object):
     def __init__(self):
         pass
 
-    def evaluar_deficit_normalizado(self, coord, c_T):
+    def evaluar_deficit_normalizado(self, turbina, coord_selec):
         pass
 
     # def play_cart(self, coordenadas, c_T):

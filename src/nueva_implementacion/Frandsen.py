@@ -1,14 +1,13 @@
-# coding=utf-8
 from __future__ import division
-
-from Modelo_2 import Modelo
 import numpy as np
 from numpy import abs
+# coding=utf-8
+
+from Modelo import Modelo
 
 #k_wake = 0.1						# proposed by Jensen
 # k_wake_on_shore = 0.075			#suggested in the literature
 #k_wake_off_shore = 0.04 and 0.05	#suggested in the literature
-
 
 class Frandsen(Modelo):
 
