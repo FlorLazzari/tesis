@@ -49,6 +49,7 @@ def calcular_u_en_coord(modelo_deficit, metodo_superposicion, coord, parque_de_t
         turbina_selec.calcular_P(estela_sobre_turbina_selec, coord_random_adentro_disco, parque_de_turbinas.z_0, u_inf, N)
 
         # print turbina_selec.c_T
+        # print 'turbina seleccionada = ', turbina_selec
         # print 'c_T de TURBINA SELECCIONADA = ',turbina_selec.c_T
         # from decimal import Decimal
         # print 'potencia generada por TURBINA SELECCIONADA = %.2e' % Decimal(turbina_selec.potencia)

@@ -1,7 +1,6 @@
-# coding=utf-8
 from __future__ import division
-
 import numpy as np
+# coding=utf-8
 
 # es la estela sobre un disco
 class Estela(object):
@@ -12,8 +11,8 @@ class Estela(object):
         self.mergeada = None
 
     """
-    Utilizo los tres métodos de superposición de estelas que utiliza el paper
-    'Limitations to the validity of singlw wake superposition in wind
+    Utilizo los tres metodos de superposicion de estelas que utiliza el paper
+    'Limitations to the validity of single wake superposition in wind
     farm yield assessment'
     """
 
@@ -22,9 +21,10 @@ class Estela(object):
         self.mergeada = np.zeros(self.cantidad_coords_adentro_disco)
 
         if (metodo=='linear'):
-
+            print 'self.arreglo = ',self.arreglo
             for i in range(self.cantidad_coords_adentro_disco):
                 for j in range(self.cantidad_turbinas_izquierda):
+                    # print 'self.arreglo[i + self.cantidad_coords_adentro_disco*j] = ',self.arreglo[i + self.cantidad_coords_adentro_disco*j]
                     self.mergeada[i] += self.arreglo[i + self.cantidad_coords_adentro_disco*j]
 
         elif (metodo=='rss'):
@@ -46,18 +46,18 @@ class Estela(object):
 
 
 
-# test
-cant_coords_adentro_disco =  5
-cant_turbinas_izquierda = 3
-arreglo = np.array([3,3,3,3,3,1,1,1,1,1,2,2,2,2,2])
-estela_1 = Estela(arreglo, cant_coords_adentro_disco, cant_turbinas_izquierda)
-estela_1.merge('linear')
-print estela_1.mergeada
-
-estela_2 = Estela(arreglo, cant_coords_adentro_disco, cant_turbinas_izquierda)
-estela_2.merge('rss')
-print estela_2.mergeada
-
-estela_3 = Estela(arreglo, cant_coords_adentro_disco, cant_turbinas_izquierda)
-estela_3.merge('largest')
-print estela_3.mergeada
+# # test
+# cant_coords_adentro_disco =  5
+# cant_turbinas_izquierda = 3
+# arreglo = np.array([3,3,3,3,3,1,1,1,1,1,2,2,2,2,2])
+# estela_1 = Estela(arreglo, cant_coords_adentro_disco, cant_turbinas_izquierda)
+# estela_1.merge('linear')
+# print estela_1.mergeada
+#
+# estela_2 = Estela(arreglo, cant_coords_adentro_disco, cant_turbinas_izquierda)
+# estela_2.merge('rss')
+# print estela_2.mergeada
+#
+# estela_3 = Estela(arreglo, cant_coords_adentro_disco, cant_turbinas_izquierda)
+# estela_3.merge('largest')
+# print estela_3.mergeada

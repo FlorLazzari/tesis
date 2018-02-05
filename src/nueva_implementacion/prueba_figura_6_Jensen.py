@@ -16,29 +16,24 @@ jensen = Jensen()
 u_inf = U_inf()
 u_inf.coord_hub = 2.2
 u_inf.perfil = 'log'
-N = 100
+N = 1000
 
 turbina_0 = Turbina_Paper(Coord(np.array([0,0,0.125])))
 # z_0 de la superficie
 z_0 = 0.00003
 parque_de_turbinas = Parque_de_turbinas([turbina_0], z_0)
 
-coordenadas = []
 # recordar que el range funciona de la siguiente forma [)
 x = np.arange(0, 20*(turbina_0.d_0), 0.1)
 y_0 = 0
-z = np.arange(0, 20*(turbina_0.d_0), 0.1)
-
-for i in x:
-    for j in z:
-        coordenadas.append(Coord(np.array([i, y_0, j])))
+z = np.arange(0, 2*(turbina_0.d_0), 0.05)
 
 X, Z = np.meshgrid(x, z)
 
-data_prueba = np.zeros([X.shape[0], X.shape[1]])
+data_prueba = np.zeros([len(z), len(x)])
 
-for i in range(X.shape[0]):
-    for j in range(X.shape[1]):
+for i in range(len(x)):
+    for j in range(len(z)):
         coord = Coord(np.array([x[i], y_0, z[j]]))
         if coord.z != 0:
             data_prueba[j,i] = calcular_u_en_coord(jensen, 'linear', coord, parque_de_turbinas, u_inf, N)

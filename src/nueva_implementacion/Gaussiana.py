@@ -8,9 +8,15 @@ class Gaussiana(Modelo):
 
     def __init__(self):
         super(Gaussiana, self).__init__()
-        # por ahora los datos estan hardcodeados, habria que calcularlos correctamente del fit del CFD
+        # por ahora los datos estan hardcodeados con los parametros del paper, habria que calcularlos correctamente del fit del CFD
         self.k_estrella = 0.023
         self.epsilon = 0.219
+
+        # cambio estos valores a dedo porque la 'c' me esta quedando muy grande
+        # self.k_estrella = 0.09
+        # self.epsilon = 0.219
+
+
 
     def evaluar_deficit_normalizado(self, turbina, coord_selec):
         sigma_n = self.k_estrella * ((coord_selec.x-turbina.coord.x)/turbina.d_0) + self.epsilon
