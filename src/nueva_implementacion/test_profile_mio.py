@@ -1,20 +1,14 @@
 from __future__ import division
-# coding=utf-8
-
-from Modelo_2 import Modelo
-from Gaussiana_2 import Gaussiana
-from Parque_de_turbinas import Parque_de_turbinas
-from Turbina_Marca import Turbina_Marca
-from Turbina_2 import Turbina
-from U import U
-from Coord import Coord
 import numpy as np
 import matplotlib.pyplot as plt
-from numpy import exp
+# coding=utf-8
+
+from Gaussiana import Gaussiana   # Gaussiana pertenece a la clase Modelo
+from Parque_de_turbinas import Parque_de_turbinas
+from Coord import Coord
 from Estela import Estela
-from decimal import Decimal
 from U_inf import U_inf
-from calcular_u_en_coord_2 import calcular_u_en_coord
+from calcular_u_en_coord import calcular_u_en_coord
 
 # test:
 from Turbina_Rawson import Turbina_Rawson

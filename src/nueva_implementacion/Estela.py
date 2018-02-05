@@ -46,18 +46,18 @@ class Estela(object):
 
 
 
-# # test
-# cant_coords_adentro_disco =  5
-# cant_turbinas_izquierda = 3
-# arreglo = np.array([3,3,3,3,3,1,1,1,1,1,2,2,2,2,2])
-# estela_1 = Estela(arreglo, cant_coords_adentro_disco, cant_turbinas_izquierda)
-# estela_1.merge('linear')
-# print estela_1.mergeada
-#
-# estela_2 = Estela(arreglo, cant_coords_adentro_disco, cant_turbinas_izquierda)
-# estela_2.merge('rss')
-# print estela_2.mergeada
-#
-# estela_3 = Estela(arreglo, cant_coords_adentro_disco, cant_turbinas_izquierda)
-# estela_3.merge('largest')
-# print estela_3.mergeada
+# test
+cant_coords_adentro_disco =  5
+cant_turbinas_izquierda = 3
+arreglo = np.array([3,3,3,3,3,1,1,1,1,1,2,2,2,2,2])
+estela_1 = Estela(arreglo, cant_coords_adentro_disco, cant_turbinas_izquierda)
+estela_1.merge('linear')
+print estela_1.mergeada
+
+estela_2 = Estela(arreglo, cant_coords_adentro_disco, cant_turbinas_izquierda)
+estela_2.merge('rss')
+print estela_2.mergeada
+
+estela_3 = Estela(arreglo, cant_coords_adentro_disco, cant_turbinas_izquierda)
+estela_3.merge('largest')
+print estela_3.mergeada

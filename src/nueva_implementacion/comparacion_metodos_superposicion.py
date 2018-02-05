@@ -1,20 +1,15 @@
 from __future__ import division
+import numpy as np
+import matplotlib.pyplot as plt
 # coding=utf-8
 
-from Modelo import Modelo
 from Gaussiana import Gaussiana
 from Parque_de_turbinas import Parque_de_turbinas
 from Turbina_Paper import Turbina_Paper
 from Coord import Coord
-import numpy as np
-from numpy import exp
 from Estela import Estela
-from decimal import Decimal
 from U_inf import U_inf
 from calcular_u_en_coord import calcular_u_en_coord
-
-import numpy as np
-import matplotlib.pyplot as plt
 
 """
 Tenemos dos turbinas alineadas separadas por 8D
@@ -82,10 +77,10 @@ for i in range(len(y)):
     coord = Coord(np.array([x_0, y[i], z_o]))
     data_prueba_segunda[i] = calcular_u_en_coord(gaussiana, 'linear', coord, parque_de_turbinas_segunda_indep, u_inf, 2000)
 
-# plt.plot(y, data_prueba_primera/u_inf.coord_hub, label='Single rotor at 16D')
-# plt.plot(y, data_prueba_segunda/u_inf.coord_hub, label='Single rotor at 8D')
-# plt.legend()
-# plt.show()
+plt.plot(y, data_prueba_primera/u_inf.coord_hub, label='Single rotor at 16D')
+plt.plot(y, data_prueba_segunda/u_inf.coord_hub, label='Single rotor at 8D')
+plt.legend()
+plt.show()
 
 # 3)
 # calculo el deficit generado por ambas (a 16D de la primera turbina) utilizando
