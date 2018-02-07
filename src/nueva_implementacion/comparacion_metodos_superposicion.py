@@ -126,3 +126,5 @@ plt.plot(y, data_prueba_ambas_largest/u_inf.coord_hub, 'k', label= 'Superposicio
 plt.legend()
 plt.grid()
 plt.show()
+
+# faltaria comparar con la superposicion de OpenFOAM

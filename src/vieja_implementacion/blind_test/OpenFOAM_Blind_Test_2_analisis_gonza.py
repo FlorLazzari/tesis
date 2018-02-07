@@ -47,7 +47,7 @@ deficit_dividido_U_inf_OpenFOAM[:] = [1 - (U[i]/U_inf) for i in range(largo)]
 
 # busco el indice de coordenada_x donde "x=1" por primera vez en el vector
 indices_x_1 = indexar(coordenada_x, 1)
-print 
+print
 
 # grafico la coordenada x para tener una idea de la forma que tiene
 x_y = {"x_1" : np.arange(largo), "y_1" : coordenada_x}
