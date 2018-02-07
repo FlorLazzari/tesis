@@ -44,8 +44,8 @@ class Estela(object):
                         grupo[j] = self.arreglo[i + self.cantidad_coords_adentro_disco*j]
                     self.mergeada[i] = np.max(grupo)
 
-
-
+#
+#
 # # test
 # cant_coords_adentro_disco =  5
 # cant_turbinas_izquierda = 3

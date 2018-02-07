@@ -55,19 +55,11 @@ for i in range(len(y)):
 # plt.plot(y, data_prueba_primera)
 # plt.show()
 
-# calculo el deficit para la segunda turbina independiente a 8D
+# calculo el deficit para la segunda turbina independiente (ubicada en x = 8D) a 16D
 
+parque_de_turbinas_segunda_indep = Parque_de_turbinas([turbina_1], z_0)
+x_0 = 16*D
 
-# problemas! esto deberia ser lo mismo que cambiar la turbina_0 por turbina_1 y
-# tomar el x_0 como 16D, por que dan resultados distintos?
-
-# parque_de_turbinas_segunda_indep = Parque_de_turbinas([turbina_1], z_0)
-# x_0 = 16*D
-
-
-parque_de_turbinas_segunda_indep = Parque_de_turbinas([turbina_0], z_0)
-
-x_0 = 8*D
 y = np.arange(-1.2*D, 1.2*D, 0.01)
 z_o = turbina_0.coord.z
 
@@ -77,10 +69,10 @@ for i in range(len(y)):
     coord = Coord(np.array([x_0, y[i], z_o]))
     data_prueba_segunda[i] = calcular_u_en_coord(gaussiana, 'linear', coord, parque_de_turbinas_segunda_indep, u_inf, 2000)
 
-plt.plot(y, data_prueba_primera/u_inf.coord_hub, label='Single rotor at 16D')
-plt.plot(y, data_prueba_segunda/u_inf.coord_hub, label='Single rotor at 8D')
-plt.legend()
-plt.show()
+# plt.plot(y, data_prueba_primera/u_inf.coord_hub, label='Single rotor at 16D')
+# plt.plot(y, data_prueba_segunda/u_inf.coord_hub, label='Single rotor at 8D')
+# plt.legend()
+# plt.show()
 
 # 3)
 # calculo el deficit generado por ambas (a 16D de la primera turbina) utilizando
