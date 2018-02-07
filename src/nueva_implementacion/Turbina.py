@@ -46,25 +46,27 @@ class Turbina(object):
         # N: [int]
             # numero de coordenadas random que utilizamos para hacer el montecarlo
 
+# problemas! el c_T esta dando mayor a 1
+
         if self.c_T is None:
             u_adentro_disco = []
             i = 0
             for coord in coord_random_adentro_disco:
                 u_inf.coord = coord
-                print 'u_inf.coord.x = ',u_inf.coord.x
-                print 'u_inf.coord.y = ',u_inf.coord.y
-                print 'u_inf.coord.z = ',u_inf.coord.z
+                # print 'u_inf.coord.x = ',u_inf.coord.x
+                # print 'u_inf.coord.y = ',u_inf.coord.y
+                # print 'u_inf.coord.z = ',u_inf.coord.z
                 u_inf.perfil_flujo_base(self.coord.z, z_0)
-                print 'u_inf = ', u_inf.coord
-                print 'i = ',i
-                print 'estela.mergeada[i] = ', estela.mergeada[i]
+                # print 'u_inf = ', u_inf.coord
+                # print 'i = ',i
+                # print 'estela.mergeada[i] = ', estela.mergeada[i]
                 u = u_inf.coord * (1 - estela.mergeada[i])
-                print 'u = ', u
+                # print 'u = ', u
                 i += 1
                 u_adentro_disco = np.append(u_adentro_disco, u)
-                print 'u_adentro_disco = ',u_adentro_disco
+                # print 'u_adentro_disco = ',u_adentro_disco
             u_adentro_disco2 = u_adentro_disco**2
-            print 'u_adentro_disco2 = ',u_adentro_disco2
+            # print 'u_adentro_disco2 = ',u_adentro_disco2
             count = sum(u_adentro_disco2)
             u_medio_disco = np.mean(u_adentro_disco)
             c_T_tab = self.c_T_tabulado(u_medio_disco)
@@ -73,7 +75,7 @@ class Turbina(object):
             T_turbina = c_T_tab * integral_u2   # lo dividi por (0.5 * rho) porque luego dividire por eso
             T_disponible = (u_medio_disco)**2 * (np.pi*(self.d_0/2)**2)     # lo dividi por (0.5 * rho) porque luego multiplicare por eso
             self.c_T = T_turbina / T_disponible
-            print ('c_T calculado:', self.c_T)
+            # print ('c_T calculado:', self.c_T)
             # print ('c_T_tab:', c_T_tab)
 
 

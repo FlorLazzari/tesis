@@ -123,11 +123,6 @@ plt.plot(y, data_prueba_segunda/u_inf.coord_hub, 'rx', label='Single rotor at 8D
 plt.plot(y, data_prueba_ambas_linear/u_inf.coord_hub, 'c', label= 'Superposicion lineal')
 plt.plot(y, data_prueba_ambas_rss/u_inf.coord_hub, 'g', label= 'Superposicion rss')
 plt.plot(y, data_prueba_ambas_largest/u_inf.coord_hub, 'k', label= 'Superposicion largest')
-
-plt.plot(y, data_prueba_ambas_linear_indep/u_inf.coord_hub, 'co', label= 'Superposicion lineal')
-plt.plot(y, data_prueba_ambas_rss_indep/u_inf.coord_hub, 'go', label= 'Superposicion rss')
-plt.plot(y, data_prueba_ambas_largest_indep/u_inf.coord_hub, 'ko', label= 'Superposicion largest')
-
 plt.legend()
 plt.grid()
 plt.show()
