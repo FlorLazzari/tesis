@@ -65,9 +65,9 @@ x = np.arange(0, 22*D, 22)
 y = np.arange(-1*D, 1*D, 2.5)
 z_0 = turbina_0.coord.z
 
-X, Z = np.meshgrid(x, z)
+X, Y = np.meshgrid(x, y)
 
-data_prueba = np.zeros([len(z), len(x)])
+data_prueba = np.zeros([len(y), len(x)])
 
 for i in range(len(x)):
     for j in range(len(y)):
@@ -76,8 +76,8 @@ for i in range(len(x)):
             data_prueba[j,i] = calcular_u_en_coord(gaussiana, 'linear', coord, parque_de_turbinas, u_inf, N)
             # print ('data_prueba[i,j]', i, j, data_prueba[i,j])
 
-plt.contour(X,Z,data_prueba, linewidths=0.5, colors='k')
-plt.contourf(X,Z,data_prueba, cmap=plt.cm.jet)
+plt.contour(X,Y,data_prueba, linewidths=0.5, colors='k')
+plt.contourf(X,Y,data_prueba, cmap=plt.cm.jet)
 ax = plt.gca()
 ax.set_xticks([0, 3.5*D, 7*D, 10.5*D, 14*D, 18.5*D, 22*D])
 ax.set_yticks([0, 1*(turbina_0.d_0), 2*(turbina_0.d_0)])
