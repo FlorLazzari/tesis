@@ -21,7 +21,6 @@ class Estela(object):
         self.mergeada = np.zeros(self.cantidad_coords_adentro_disco)
 
         if (metodo=='linear'):
-            print 'self.arreglo = ',self.arreglo
             for i in range(self.cantidad_coords_adentro_disco):
                 for j in range(self.cantidad_turbinas_izquierda):
                     # print 'self.arreglo[i + self.cantidad_coords_adentro_disco*j] = ',self.arreglo[i + self.cantidad_coords_adentro_disco*j]

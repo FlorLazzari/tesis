@@ -14,11 +14,11 @@ from calcular_u_en_coord import calcular_u_en_coord
 
 gaussiana = Gaussiana()
 u_inf = U_inf()
-u_inf.coord_hub = 7
+u_inf.coord_hub = 8
 u_inf.perfil = 'log'
-N = 10
+N = 100
 
-turbina_0 = Turbina_Rawson(Coord(np.array([0,0,120]))) # chequear altura del hub
+turbina_0 = Turbina_Rawson(Coord(np.array([0,0,80]))) # chequear altura del hub
 D = turbina_0.d_0
 
 # z_0 de la superficie
@@ -29,22 +29,17 @@ parque_de_turbinas = Parque_de_turbinas([turbina_0], z_0)
 ################################################################################
 # grafico (X,Z)
 
-coordenadas = []
 # recordar que el range funciona de la siguiente forma [)
 x = np.arange(0, 22*D, 22)
 y_0 = 0
-z = np.arange(0, 22*D, 22)
-
-for i in x:
-    for j in z:
-        coordenadas.append(Coord(np.array([i, y_0, j])))
+z = np.arange(0, 2*D, 1.5)
 
 X, Z = np.meshgrid(x, z)
 
-data_prueba = np.zeros([X.shape[0], X.shape[1]])
+data_prueba = np.zeros([len(z), len(x)])
 
-for i in range(X.shape[0]):
-    for j in range(X.shape[1]):
+for i in range(len(x)):
+    for j in range(len(z)):
         coord = Coord(np.array([x[i], y_0, z[j]]))
         if coord.z != 0:
             data_prueba[j,i] = calcular_u_en_coord(gaussiana, 'linear', coord, parque_de_turbinas, u_inf, N)
@@ -65,22 +60,17 @@ plt.show()
 ################################################################################
 # grafico (X,Y)
 
-coordenadas = []
 # recordar que el range funciona de la siguiente forma [)
 x = np.arange(0, 22*D, 22)
-y = np.arange(-11*D, 11*D, 22)
+y = np.arange(-1*D, 1*D, 2.5)
 z_0 = turbina_0.coord.z
-
-for i in x:
-    for j in y:
-        coordenadas.append(Coord(np.array([i, j, z_0])))
 
 X, Z = np.meshgrid(x, z)
 
-data_prueba = np.zeros([X.shape[0], X.shape[1]])
+data_prueba = np.zeros([len(z), len(x)])
 
-for i in range(X.shape[0]):
-    for j in range(X.shape[1]):
+for i in range(len(x)):
+    for j in range(len(y)):
         coord = Coord(np.array([x[i], y[i], z_0]))
         if coord.z != 0:
             data_prueba[j,i] = calcular_u_en_coord(gaussiana, 'linear', coord, parque_de_turbinas, u_inf, N)

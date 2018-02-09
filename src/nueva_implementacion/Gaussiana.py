@@ -12,11 +12,9 @@ class Gaussiana(Modelo):
         self.k_estrella = 0.023
         self.epsilon = 0.219
 
-        # cambio estos valores a dedo porque la 'c' me esta quedando muy grande
-        # self.k_estrella = 0.09
-        # self.epsilon = 0.219
-
-
+        # cambio estos valores con el ajuste del OpenFOAM:
+        # self.k_estrella = 167
+        # self.epsilon = 32
 
     def evaluar_deficit_normalizado(self, turbina, coord_selec):
         sigma_n = self.k_estrella * ((coord_selec.x-turbina.coord.x)/turbina.d_0) + self.epsilon

@@ -14,7 +14,7 @@ from calcular_u_en_coord import calcular_u_en_coord
 
 gaussiana = Gaussiana()
 u_inf = U_inf()
-u_inf.coord_hub = 7
+u_inf.coord_hub = 8
 u_inf.perfil = 'log'
 N = 50
 
