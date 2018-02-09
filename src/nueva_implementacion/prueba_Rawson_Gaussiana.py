@@ -71,7 +71,7 @@ data_prueba = np.zeros([len(z), len(x)])
 
 for i in range(len(x)):
     for j in range(len(y)):
-        coord = Coord(np.array([x[i], y[i], z_0]))
+        coord = Coord(np.array([x[i], y[j], z_0]))
         if coord.z != 0:
             data_prueba[j,i] = calcular_u_en_coord(gaussiana, 'linear', coord, parque_de_turbinas, u_inf, N)
             # print ('data_prueba[i,j]', i, j, data_prueba[i,j])
@@ -82,7 +82,7 @@ ax = plt.gca()
 ax.set_xticks([0, 3.5*D, 7*D, 10.5*D, 14*D, 18.5*D, 22*D])
 ax.set_yticks([0, 1*(turbina_0.d_0), 2*(turbina_0.d_0)])
 ax.set_xlim([0, 22*D])
-ax.set_ylim([-7*D, 7*D])
+ax.set_ylim([-1*D, 1*D])
 plt.colorbar()
 plt.show()
 
