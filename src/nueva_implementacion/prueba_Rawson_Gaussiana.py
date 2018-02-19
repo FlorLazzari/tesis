@@ -77,7 +77,7 @@ parque_de_turbinas = Parque_de_turbinas([turbina_0], z_0)
 #
 # # recordar que el range funciona de la siguiente forma [)
 # x = np.arange(0, 22*D, 22)
-# y = np.arange(-1*D, 1*D, 2.5)
+# y = np.arange(-5*D, 5*D, 2.5)
 # z_0 = turbina_0.coord.z
 #
 # X, Y = np.meshgrid(x, y)
@@ -97,7 +97,7 @@ parque_de_turbinas = Parque_de_turbinas([turbina_0], z_0)
 # ax.set_xticks([0, 3.5*D, 7*D, 10.5*D, 14*D, 18.5*D, 22*D])
 # ax.set_yticks([0, 1*(turbina_0.d_0), 2*(turbina_0.d_0)])
 # ax.set_xlim([0, 22*D])
-# ax.set_ylim([-1*D, 1*D])
+# ax.set_ylim([-5*D, 5*D])
 # plt.colorbar()
 # plt.show()
 #
@@ -111,7 +111,7 @@ parque_de_turbinas = Parque_de_turbinas([turbina_0], z_0)
 x_0 = 5 * D
 
 z_0 = turbina_0.coord.z
-y = np.arange(-1*D, 1*D, 2.5)
+y = np.arange(-5*D, 5*D, 2.5)
 
 data_prueba = np.zeros(len(y))
 
@@ -151,99 +151,99 @@ plt.plot(coordenada_y, u_OpenFOAM, label='OpenFOAM')
 plt.legend()
 plt.show()
 
-# # comparo OpenFOAM con modelo reducido en un grafico de curva
-#
-# x_0 = 10 * D
-#
-# z_0 = turbina_0.coord.z
-# y = np.arange(-1*D, 1*D, 2.5)
-#
-# data_prueba = np.zeros(len(y))
-#
-# for i in range(len(y)):
-#     coord = Coord(np.array([x_0, y[i], z_0]))
-#     if coord.z != 0:
-#         data_prueba[i] = calcular_u_en_coord(gaussiana, 'linear', coord, parque_de_turbinas, u_inf, N)
-#         # print ('data_prueba[i,j]', i, j, data_prueba[i,j])
-#
-# # comparo con los datos
-# datos = np.loadtxt("lineY-10d_U.csv", delimiter = ',', skiprows=1)
-#
-# largo = datos.shape[0]
-# ancho =  datos.shape[1]
-#
-# coordenada_y = np.zeros((largo))
-# U_x = np.zeros((largo))
-# U_y = np.zeros((largo))
-# U_z = np.zeros((largo))
-#
-# for i in range(largo):
-#     coordenada_y[i] = datos[i, 0]
-#     U_x[i] = datos[i, 1]
-#     U_y[i] = datos[i, 2]
-#     U_z[i] = datos[i, 3]
-#
-# u_OpenFOAM = np.zeros((largo))
-# # calculo U:
-# u_OpenFOAM[:] = [((U_x[i])**2 + (U_y[i])**2 + (U_z[i])**2)**0.5 for i in range(largo)]
-#
-# # centro la coordenada_y:
-# coordenada_y = coordenada_y - np.mean(coordenada_y)
-#
-# plt.figure()
-# plt.plot(y, data_prueba, label= 'Modelo Reducido (Gaussiana)')
-# plt.plot(coordenada_y, u_OpenFOAM, label='OpenFOAM')
-# plt.legend()
-# plt.show()
-#
-#
-# # comparo OpenFOAM con modelo reducido en un grafico de curva
-#
-# x_0 = 20 * D
-#
-# z_0 = turbina_0.coord.z
-# y = np.arange(-1*D, 1*D, 2.5)
-#
-# data_prueba = np.zeros(len(y))
-#
-# for i in range(len(y)):
-#     coord = Coord(np.array([x_0, y[i], z_0]))
-#     if coord.z != 0:
-#         data_prueba[i] = calcular_u_en_coord(gaussiana, 'linear', coord, parque_de_turbinas, u_inf, N)
-#         # print ('data_prueba[i,j]', i, j, data_prueba[i,j])
-#
-# # comparo con los datos
-# datos = np.loadtxt("lineY-20d_U.csv", delimiter = ',', skiprows=1)
-#
-# largo = datos.shape[0]
-# ancho =  datos.shape[1]
-#
-# coordenada_y = np.zeros((largo))
-# U_x = np.zeros((largo))
-# U_y = np.zeros((largo))
-# U_z = np.zeros((largo))
-#
-# for i in range(largo):
-#     coordenada_y[i] = datos[i, 0]
-#     U_x[i] = datos[i, 1]
-#     U_y[i] = datos[i, 2]
-#     U_z[i] = datos[i, 3]
-#
-# u_OpenFOAM = np.zeros((largo))
-# # calculo U:
-# u_OpenFOAM[:] = [((U_x[i])**2 + (U_y[i])**2 + (U_z[i])**2)**0.5 for i in range(largo)]
-#
-# # centro la coordenada_y:
-# coordenada_y = coordenada_y - np.mean(coordenada_y)
-#
-# plt.figure()
-# plt.plot(y, data_prueba, label= 'Modelo Reducido (Gaussiana)')
-# plt.plot(coordenada_y, u_OpenFOAM, label='OpenFOAM')
-# plt.legend()
-# plt.show()
-#
-#
-#
-#
-# # faltaria calcular potencia
-# print "potencia = ",turbina_0.potencia
+# comparo OpenFOAM con modelo reducido en un grafico de curva
+
+x_0 = 10 * D
+
+z_0 = turbina_0.coord.z
+y = np.arange(-5*D, 5*D, 2.5)
+
+data_prueba = np.zeros(len(y))
+
+for i in range(len(y)):
+    coord = Coord(np.array([x_0, y[i], z_0]))
+    if coord.z != 0:
+        data_prueba[i] = calcular_u_en_coord(gaussiana, 'linear', coord, parque_de_turbinas, u_inf, N)
+        # print ('data_prueba[i,j]', i, j, data_prueba[i,j])
+
+# comparo con los datos
+datos = np.loadtxt("lineY-10d_U.csv", delimiter = ',', skiprows=1)
+
+largo = datos.shape[0]
+ancho =  datos.shape[1]
+
+coordenada_y = np.zeros((largo))
+U_x = np.zeros((largo))
+U_y = np.zeros((largo))
+U_z = np.zeros((largo))
+
+for i in range(largo):
+    coordenada_y[i] = datos[i, 0]
+    U_x[i] = datos[i, 1]
+    U_y[i] = datos[i, 2]
+    U_z[i] = datos[i, 3]
+
+u_OpenFOAM = np.zeros((largo))
+# calculo U:
+u_OpenFOAM[:] = [((U_x[i])**2 + (U_y[i])**2 + (U_z[i])**2)**0.5 for i in range(largo)]
+
+# centro la coordenada_y:
+coordenada_y = coordenada_y - np.mean(coordenada_y)
+
+plt.figure()
+plt.plot(y, data_prueba, label= 'Modelo Reducido (Gaussiana)')
+plt.plot(coordenada_y, u_OpenFOAM, label='OpenFOAM')
+plt.legend()
+plt.show()
+
+
+# comparo OpenFOAM con modelo reducido en un grafico de curva
+
+x_0 = 20 * D
+
+z_0 = turbina_0.coord.z
+y = np.arange(-5*D, 5*D, 2.5)
+
+data_prueba = np.zeros(len(y))
+
+for i in range(len(y)):
+    coord = Coord(np.array([x_0, y[i], z_0]))
+    if coord.z != 0:
+        data_prueba[i] = calcular_u_en_coord(gaussiana, 'linear', coord, parque_de_turbinas, u_inf, N)
+        # print ('data_prueba[i,j]', i, j, data_prueba[i,j])
+
+# comparo con los datos
+datos = np.loadtxt("lineY-20d_U.csv", delimiter = ',', skiprows=1)
+
+largo = datos.shape[0]
+ancho =  datos.shape[1]
+
+coordenada_y = np.zeros((largo))
+U_x = np.zeros((largo))
+U_y = np.zeros((largo))
+U_z = np.zeros((largo))
+
+for i in range(largo):
+    coordenada_y[i] = datos[i, 0]
+    U_x[i] = datos[i, 1]
+    U_y[i] = datos[i, 2]
+    U_z[i] = datos[i, 3]
+
+u_OpenFOAM = np.zeros((largo))
+# calculo U:
+u_OpenFOAM[:] = [((U_x[i])**2 + (U_y[i])**2 + (U_z[i])**2)**0.5 for i in range(largo)]
+
+# centro la coordenada_y:
+coordenada_y = coordenada_y - np.mean(coordenada_y)
+
+plt.figure()
+plt.plot(y, data_prueba, label= 'Modelo Reducido (Gaussiana)')
+plt.plot(coordenada_y, u_OpenFOAM, label='OpenFOAM')
+plt.legend()
+plt.show()
+
+
+
+
+# faltaria calcular potencia
+print "potencia = ",turbina_0.potencia

@@ -76,7 +76,7 @@ class Turbina(object):
             T_disponible = (u_medio_disco)**2 * (np.pi*(self.d_0/2)**2)     # lo dividi por (0.5 * rho) porque luego multiplicare por eso
             self.c_T = T_turbina / T_disponible
 
-            self.c_T = 6180
+            # self.c_T = 6180
 
             # print ('c_T calculado:', self.c_T)
             # print ('c_T_tab:', c_T_tab)

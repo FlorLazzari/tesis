@@ -351,8 +351,8 @@ sigmas_continuo = np.linspace(min(sigmas), max(sigmas), 100)
 fit = funcion(sigmas_continuo, coeff[0])
 curva_c_T_a_mano = funcion(sigmas_continuo, 0.8)
 
-sigma_n =  32.0
-c = 0.504414014776
+# sigma_n =  32.0
+# c = 0.504414014776
 
 
 plt.figure()
@@ -360,7 +360,7 @@ plt.title('Ajuste')
 plt.plot(sigmas, A, 'x', label='datos')
 plt.plot(sigmas_continuo, fit, label= r'$1 - (1-(c_T/(8*(sigma_n^2))))^0.5$ con $c_T = {:.2f}$'.format(coeff[0]))
 plt.plot(sigmas_continuo, curva_c_T_a_mano, label=r'$1 - (1-(c_T/(8*(sigma_n^2))))^0.5$ con $c_T = 0.8')
-plt.plot(sigma_n, c, 'x')
+# plt.plot(sigma_n, c, 'x')
 plt.ylabel(r'$A$')
 plt.xlabel(r'$\sigma$')
 plt.legend()
