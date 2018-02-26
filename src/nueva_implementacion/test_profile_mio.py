@@ -77,6 +77,10 @@ for exponente in range(iters_exp):
             p_media[j] = np.mean(p_turbina[:,j])
             # rms[j] = np.sqrt(np.mean(np.square(p_turbina[:, j])))
             # error_relativo[exponente, j] = rms[j] / p_media[j]
+
+            # ACA HAY ALGO QUE HABRIA QUE CAMBIAR:
+            # en general se toma la diferencia cuadratico, no simplemente la diferencia
+
             numerador[i, j] = np.abs(p_turbina[i, j] - p_media[j])
             # print 'p_media =', p_media[j]
             # print 'np.abs(p_turbina[i, j] - p_media[j]) =', np.abs(p_turbina[i, j] - p_media[j])
