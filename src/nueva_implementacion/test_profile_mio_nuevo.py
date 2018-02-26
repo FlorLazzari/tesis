@@ -10,6 +10,26 @@ from Estela import Estela
 from U_inf import U_inf
 from calcular_u_en_coord import calcular_u_en_coord
 
+"""
+A continuacion tengo los siguientes problemas:
+
+    -'AttributeError: max must be larger than min in range parameter.' --> esto me parece que
+    esta apareciendo porque en p_turbina hay nans, falta ver: por que aparecen los nans y
+    como evitarlos o en caso de no poder evitarlos como borrarlos del array
+
+    -para evaluar correctamente el tiempo de procesamiento hay que comentar las lineas del Histograma,
+    por que esta pasando esto?
+
+Cosas a tener en cuenta:
+
+Cada Histograma muestra la distribucion de p_turbina para un dado orden de
+montecarlo N (solo se estudio para la turbina 0 por simplicidad, faltaria estudiar el resto de las turbinas)
+
+El SEM relativo esta dando demasiado bajo, faltaria verificar que esto es consistente con la forma del Histograma
+
+"""
+
+
 # test:
 from Turbina_Rawson import Turbina_Rawson
 from U_inf import U_inf
@@ -30,7 +50,7 @@ z_0 = 0.01
 
 parque_de_turbinas = Parque_de_turbinas([turbina_1, turbina_2, turbina_3], z_0)
 
-iters_i = 500
+iters_i = 50
 iters_j = len(parque_de_turbinas.turbinas)
 p_turbina = np.zeros([iters_i, iters_j])
 p_parque = np.zeros(iters_i)
@@ -39,10 +59,10 @@ p_media_por_turbina = np.zeros(iters_j)
 # modulo = np.zeros([iters_i, iters_j])
 # rms = np.zeros(iters_j)
 N_arreglo = []
-iters_exp = 8
+iters_exp = 5
 error_relativo = np.zeros([iters_exp, iters_j])
 p_media = np.zeros(iters_j)
-numerador = np.zeros([iters_i,iters_j])
+numerador = np.zeros(iters_j)
 
 import time
 tiempo_procesamiento = np.zeros([iters_i, iters_exp])
@@ -61,37 +81,32 @@ for exponente in range(iters_exp):
         for j in range(iters_j):
             turbina = parque_de_turbinas.turbinas[j]
             parque_de_turbinas.potencia += turbina.potencia
-            # print '-'*40
-            # print 'Potencia de {}'.format(turbina)
-            # print turbina.potencia
             p_turbina[i,j] = turbina.potencia
-            # print 'iteracion =', i
-            # print "turbina =", j
-            # print 'potencia =', turbina.potencia
-            # print '*'*40
-            # print 'Potencia de todo el Parque'
-            # print parque_de_turbinas.potencia
-            # p_parque[i] = parque_de_turbinas.potencia
-            # parque_de_turbinas.potencia = 0
-            # print '\n'
             p_media[j] = np.mean(p_turbina[:,j])
-            # rms[j] = np.sqrt(np.mean(np.square(p_turbina[:, j])))
-            # error_relativo[exponente, j] = rms[j] / p_media[j]
-            numerador[i, j] = np.abs(p_turbina[i, j] - p_media[j])
-            # print 'p_media =', p_media[j]
-            # print 'np.abs(p_turbina[i, j] - p_media[j]) =', np.abs(p_turbina[i, j] - p_media[j])
-            # print 'numerador[i,j] =', numerador[i, j]
-            error_relativo[exponente, j] = np.sum(numerador[:,j])/iters_i
+            numerador[j] = np.std(p_turbina[:,j])/np.sqrt(iters_i)
+            # error_relativo[exponente, j] = numerador[j]/p_media[j]
+            error_relativo[exponente, j] = numerador[j]/p_media[j]
+
     tiempo_procesamiento_medio[exponente] = np.mean(tiempo_procesamiento[:, exponente])
 
-plt.title('Error relativo para distintos N', fontsize=15)
+    plt.title('Histograma de distribucion de potencia para turbina {}'.format(0), fontsize=15)
+    plt.hist(p_turbina[:, 0], normed=True)
+    # plt.xlim([1200, 1600])
+    plt.xlim([0, 1600])
+    # plt.xlabel('Tiempo[s]', fontsize=15)
+    # plt.ylabel('SEM', fontsize=15)
+    plt.grid()
+    plt.show()
+
+
+plt.title('SEM para distintos N', fontsize=15)
 plt.plot(N_arreglo, error_relativo[:,0], label='turbina 0')
 plt.plot(N_arreglo, error_relativo[:,1], label='turbina 1')
 plt.plot(N_arreglo, error_relativo[:,2], label='turbina 2')
 plt.plot(N_arreglo, np.ones(len(N_arreglo)), '--')
 plt.xticks(N_arreglo)
 plt.xlabel('N', fontsize=15)
-plt.ylabel('Error Relativo', fontsize=15)
+plt.ylabel('SEM', fontsize=15)
 plt.legend()
 plt.grid()
 plt.show()
@@ -105,12 +120,13 @@ plt.grid()
 plt.show()
 
 
-plt.title('Error relativo en funcion del Tiempo de procesamiento', fontsize=15)
+plt.title('SEM en funcion del Tiempo de procesamiento', fontsize=15)
 plt.plot(tiempo_procesamiento_medio, error_relativo[:,0], 'x')
 plt.xlabel('Tiempo[s]', fontsize=15)
-plt.ylabel('Error Relativo', fontsize=15)
+plt.ylabel('SEM', fontsize=15)
 plt.grid()
 plt.show()
+
 
 
 
