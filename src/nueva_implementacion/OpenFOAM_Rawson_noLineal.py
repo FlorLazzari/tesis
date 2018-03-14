@@ -10,7 +10,7 @@ A continuacion se grafica:
     1) El deficit a la altura del hub para una turbina en x = {2.5, 3.75, 5, 6.25, 7.5, 8.75, 10, 11.25, 12.5, 13.75, 15, 16.25, 17.5, 18.75, 20} D
     (Para cada grafico se recortaron los datos de modo de poder ajustar una gaussiana correctamente)
     Y el ajuste de los graficos anteriores con su fiteo gaussiano asociado
-    2) El ajuste lineal de las sigmas de las gaussianas obtenidas con el fit
+    2) El ajuste noLineal de las sigmas de las gaussianas obtenidas con el fit
     de modo de obtener k y epsilon para el metodo Gaussiana
     3) El ajuste de A (amplitud) vs sigma con la funcion: 1 - (1-(c_T/(8*(sigma_n**2))))**(0.5)
     del cual se obtiene el c_T adecuado segun el modelo de Porte -Agel
@@ -28,7 +28,7 @@ U_inf = 8
 def gauss(x, A, mu, sigma):
     return A*np.exp(-(x-mu)**2/(2.*sigma**2))
 
-x_array = [2.5, 3.75, 5, 6.25, 7.5, 8.75, 10, 11.25, 12.5, 13.75, 15]#, 16.25, 17.5, 18.75, 20]
+x_array = [2.5, 3.75, 5, 6.25, 7.5, 8.75, 10, 11.25, 12.5, 13.75, 15, 16.25, 17.5, 18.75, 20]
 
 # x_array = [2.5, 5, 10, 20]
 
@@ -110,26 +110,26 @@ for distancia in x_array:
     A_array.append(coeff[0])
 
 # 2)
-def linear(x, a, b):
-    return (a*x) + b
+def noLinear(x, a, b):
+    return a/(-x) + b
     # d_0 = 90     # esto es unicamente para las turbinas de Rawson
     # return ((a*x)/d_0) + b
 
-p0= [1, 30]
+p0= [1, 0]
 
 sigma_array = np.abs(sigma_array)
 
-coeff, var_matrix = curve_fit(linear, x_array, sigma_array, p0)
+coeff, var_matrix = curve_fit(noLinear, x_array, sigma_array, p0)
 
-k_linear = coeff[0]
-epsilon_linear = coeff[1]
+k_noLinear = coeff[0]
+epsilon_noLinear = coeff[1]
 
-fit_linear = linear(np.array(x_array), k_linear, epsilon_linear)
+fit_noLinear = noLinear(np.array(x_array), k_noLinear, epsilon_noLinear)
 
 plt.figure()
 plt.title(r'Ajuste lineal ')
 plt.plot(x_array, sigma_array, 'x', label='datos')
-plt.plot(x_array, fit_linear, label= r'$\sigma = k \cdot (x/d_0) + \epsilon$ con $k = {:.4f}$ y $\epsilon = {:.4f}$'.format(coeff[0], coeff[1]))
+plt.plot(x_array, fit_noLinear, label= r'$\sigma = k \cdot (x/d_0) + \epsilon$ con $k = {:.4f}$ y $\epsilon = {:.4f}$'.format(coeff[0], coeff[1]))
 plt.ylabel(r'$\sigma$')
 plt.xlabel(r'$x/D$')
 plt.legend()
@@ -197,12 +197,12 @@ plt.show()
 
 # 5)
 
-fit_completo = linear(np.array(x_array), k_completo, epsilon_completo)
+fit_completo = noLinear(np.array(x_array), k_completo, epsilon_completo)
 
 plt.figure()
 plt.title(r'Ajuste lineal ')
 plt.plot(x_array, sigma_array, 'x', label='datos')
-plt.plot(x_array, fit_linear, label= r'$\sigma = k \cdot (x/d_0) + \epsilon$ con $k = {:.4f}$ y $\epsilon = {:.4f}$'.format(k_linear, epsilon_linear))
+plt.plot(x_array, fit_noLinear, label= r'$\sigma = k \cdot (x/d_0) + \epsilon$ con $k = {:.4f}$ y $\epsilon = {:.4f}$'.format(k_noLinear, epsilon_noLinear))
 plt.plot(x_array, fit_completo, label= r'$\sigma = k \cdot (x/d_0) + \epsilon$ con $k = {:.4f}$ y $\epsilon = {:.4f}$'.format(k_completo, epsilon_completo))
 plt.ylabel(r'$\sigma$')
 plt.xlabel(r'$x/D$')
