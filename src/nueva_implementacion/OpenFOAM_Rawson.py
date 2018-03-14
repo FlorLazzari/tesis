@@ -71,8 +71,6 @@ for distancia in x_array:
     idx_i = idx[0]
     idx_f = idx[-1]
 
-    print(0.05*max(deficit_normalizado))
-
     deficit_viejo = deficit_normalizado
     coordenada_vieja = coordenada_y_norm
 

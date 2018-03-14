@@ -1,5 +1,6 @@
 from __future__ import division
 import numpy as np
+import pandas as pd
 import matplotlib.pyplot as plt
 # coding=utf-8
 
@@ -16,6 +17,9 @@ A continuacion tengo los siguientes problemas:
     -'AttributeError: max must be larger than min in range parameter.' --> esto me parece que
     esta apareciendo porque en p_turbina hay nans, falta ver: por que aparecen los nans y
     como evitarlos o en caso de no poder evitarlos como borrarlos del array
+
+        * Como solucion provisoria lo que estoy haciendo es borrando los nans del array
+        con dropna() de pandas
 
     -para evaluar correctamente el tiempo de procesamiento hay que comentar las lineas del Histograma,
     por que esta pasando esto?
@@ -50,7 +54,7 @@ z_0 = 0.01
 
 parque_de_turbinas = Parque_de_turbinas([turbina_1, turbina_2, turbina_3], z_0)
 
-iters_i = 50
+iters_i = 150
 iters_j = len(parque_de_turbinas.turbinas)
 p_turbina = np.zeros([iters_i, iters_j])
 p_parque = np.zeros(iters_i)
@@ -59,10 +63,10 @@ p_media_por_turbina = np.zeros(iters_j)
 # modulo = np.zeros([iters_i, iters_j])
 # rms = np.zeros(iters_j)
 N_arreglo = []
-iters_exp = 5
-error_relativo = np.zeros([iters_exp, iters_j])
+iters_exp = 9
+SEM_relativo = np.zeros([iters_exp, iters_j])
 p_media = np.zeros(iters_j)
-numerador = np.zeros(iters_j)
+SEM = np.zeros([iters_exp, iters_j])
 
 import time
 tiempo_procesamiento = np.zeros([iters_i, iters_exp])
@@ -83,26 +87,42 @@ for exponente in range(iters_exp):
             parque_de_turbinas.potencia += turbina.potencia
             p_turbina[i,j] = turbina.potencia
             p_media[j] = np.mean(p_turbina[:,j])
-            numerador[j] = np.std(p_turbina[:,j])/np.sqrt(iters_i)
+            SEM[exponente, j] = np.std(p_turbina[:,j])/np.sqrt(iters_i)
             # error_relativo[exponente, j] = numerador[j]/p_media[j]
-            error_relativo[exponente, j] = numerador[j]/p_media[j]
+            SEM_relativo[exponente, j] = SEM[exponente, j]/p_media[j]
 
     tiempo_procesamiento_medio[exponente] = np.mean(tiempo_procesamiento[:, exponente])
 
+    # NaN's are not handled well by the hist function of matplotlib
+    serie = pd.Series(p_turbina[:, 0])
+    fig, ax = plt.subplots()
+    ax.hist(serie.dropna())#, alpha=0.9)
     plt.title('Histograma de distribucion de potencia para turbina {}'.format(0), fontsize=15)
-    plt.hist(p_turbina[:, 0], normed=True)
-    # plt.xlim([1200, 1600])
-    plt.xlim([0, 1600])
+    # plt.hist(p_turbina[:, 0], normed=True)
+    plt.xlim([1150, 1550])
+    plt.ylim([0, 40])
     # plt.xlabel('Tiempo[s]', fontsize=15)
     # plt.ylabel('SEM', fontsize=15)
     plt.grid()
     plt.show()
 
 
+plt.title('SEM relativo para distintos N', fontsize=15)
+plt.plot(N_arreglo, SEM_relativo[:,0], label='turbina 0')
+plt.plot(N_arreglo, SEM_relativo[:,1], label='turbina 1')
+plt.plot(N_arreglo, SEM_relativo[:,2], label='turbina 2')
+plt.plot(N_arreglo, np.ones(len(N_arreglo)), '--')
+plt.xticks(N_arreglo)
+plt.xlabel('N', fontsize=15)
+plt.ylabel('SEM/media', fontsize=15)
+plt.legend()
+plt.grid()
+plt.show()
+
 plt.title('SEM para distintos N', fontsize=15)
-plt.plot(N_arreglo, error_relativo[:,0], label='turbina 0')
-plt.plot(N_arreglo, error_relativo[:,1], label='turbina 1')
-plt.plot(N_arreglo, error_relativo[:,2], label='turbina 2')
+plt.plot(N_arreglo, SEM[:,0], label='turbina 0')
+plt.plot(N_arreglo, SEM[:,1], label='turbina 1')
+plt.plot(N_arreglo, SEM[:,2], label='turbina 2')
 plt.plot(N_arreglo, np.ones(len(N_arreglo)), '--')
 plt.xticks(N_arreglo)
 plt.xlabel('N', fontsize=15)
@@ -110,6 +130,7 @@ plt.ylabel('SEM', fontsize=15)
 plt.legend()
 plt.grid()
 plt.show()
+
 
 plt.title('Tiempo de procesamiento para distintos N', fontsize=15)
 plt.plot(N_arreglo, tiempo_procesamiento_medio, 'x')
@@ -121,7 +142,7 @@ plt.show()
 
 
 plt.title('SEM en funcion del Tiempo de procesamiento', fontsize=15)
-plt.plot(tiempo_procesamiento_medio, error_relativo[:,0], 'x')
+plt.plot(tiempo_procesamiento_medio, SEM[:,0], 'x')
 plt.xlabel('Tiempo[s]', fontsize=15)
 plt.ylabel('SEM', fontsize=15)
 plt.grid()
