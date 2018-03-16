@@ -108,7 +108,7 @@ z_0 = turbina_0.coord.z
 for distancia in x_array:
 
     x_0 = distancia * D
-    y = np.linspace(-distancia*D, distancia*D, 500)
+    y = np.linspace(-1.5*D, 1.5*D, 500)
 
     data_prueba = np.zeros(len(y))
 

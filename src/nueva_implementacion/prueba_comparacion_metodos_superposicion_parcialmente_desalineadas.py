@@ -12,7 +12,7 @@ from U_inf import U_inf
 from calcular_u_en_coord import calcular_u_en_coord
 
 """
-Tenemos dos turbinas alineadas separadas por 8D
+Tenemos dos turbinas parcialmente desalineadas (1D en y) separadas por 8D en z
 A continuacion se grafica:
     1) El deficit a la altura del hub para dos turbinas alineadas a 16D por
     atras de la primera (8D del segundo) usando CFD (OpenFOAM).
@@ -30,7 +30,7 @@ u_inf.perfil = 'log'
 turbina_0 = Turbina_Paper(Coord(np.array([0,0,0.125])))
 D = turbina_0.d_0
 
-turbina_1 = Turbina_Paper(Coord(np.array([8*D,0,0.125])))
+turbina_1 = Turbina_Paper(Coord(np.array([8*D,1*D,0.125])))
 # z_0 de la superficie
 z_0 = 0.00003
 
@@ -41,7 +41,7 @@ z_0 = 0.00003
 parque_de_turbinas_primera_indep = Parque_de_turbinas([turbina_0], z_0)
 
 x_0 = 16*D
-y = np.arange(-1.2*D, 1.2*D, 0.01)
+y = np.arange(-1.2*D, 2.2*D, 0.01)
 z_o = turbina_0.coord.z
 
 data_prueba_primera = np.zeros(len(y))
@@ -60,7 +60,7 @@ for i in range(len(y)):
 parque_de_turbinas_segunda_indep = Parque_de_turbinas([turbina_1], z_0)
 x_0 = 16*D
 
-y = np.arange(-1.2*D, 1.2*D, 0.01)
+y = np.arange(-1.2*D, 2.2*D, 0.01)
 z_o = turbina_0.coord.z
 
 data_prueba_segunda = np.zeros(len(y))
@@ -81,8 +81,8 @@ for i in range(len(y)):
 parque_de_turbinas_ambas = Parque_de_turbinas([turbina_0, turbina_1], z_0)
 
 x_0 = 16*D
-y = np.arange(-1.2*D, 1.2*D, 0.01)
-z_o = turbina_0.coord.z
+y = np.arange(-1.2*D, 2.2*D, 0.01)
+sz_o = turbina_0.coord.z
 
 data_prueba_ambas_linear = np.zeros(len(y))
 
@@ -117,14 +117,16 @@ data_prueba_ambas_rss_indep = ((np.array(data_prueba_primera))**2 + (np.array(da
 data_prueba_ambas_largest_indep = np.max([data_prueba_primera, data_prueba_segunda], axis=0)
 
 
-plt.title('Perfil de velocidad normalizada detras de dos turbinas alineadas')
-plt.plot(y, data_prueba_primera/u_inf.coord_hub, 'bx',label='Single rotor at 16D')
-plt.plot(y, data_prueba_segunda/u_inf.coord_hub, 'rx', label='Single rotor at 8D')
-plt.plot(y, data_prueba_ambas_linear/u_inf.coord_hub, 'c', label= 'Superposicion lineal')
-plt.plot(y, data_prueba_ambas_rss/u_inf.coord_hub, 'g', label= 'Superposicion rss')
-plt.plot(y, data_prueba_ambas_largest/u_inf.coord_hub, 'k', label= 'Superposicion largest')
+plt.title('Perfil de velocidad normalizada detras de dos turbinas parcialmente desalineadas')
+plt.plot(y/D, data_prueba_primera/u_inf.coord_hub, 'bx',label='Single rotor at 16D')
+plt.plot(y/D, data_prueba_segunda/u_inf.coord_hub, 'rx', label='Single rotor at 8D')
+plt.plot(y/D, data_prueba_ambas_linear/u_inf.coord_hub, 'c', label= 'Superposicion lineal')
+plt.plot(y/D, data_prueba_ambas_rss/u_inf.coord_hub, 'g', label= 'Superposicion rss')
+plt.plot(y/D, data_prueba_ambas_largest/u_inf.coord_hub, 'k', label= 'Superposicion largest')
 plt.legend()
 plt.grid()
+plt.xlabel(r'$y/d$')
+plt.ylabel(r'$U/U_{\infty}$')
 plt.show()
 
 # faltaria comparar con la superposicion de OpenFOAM

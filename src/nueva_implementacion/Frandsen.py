@@ -22,7 +22,7 @@ class Frandsen(Modelo):
         a_w = np.pi * (d_w / 2)**2
         d_0 =(beta**0.5) * turbina.d_0
         a_0 = np.pi * (d_0 / 2)**2
-        if (abs(coord_selec.y) <= (d_w / 2)) & (abs(coord_selec.z - turbina.coord.z) <= (d_w / 2)):
+        if (abs(coord_selec.y - turbina.coord.y) <= (d_w / 2)) & (abs(coord_selec.z - turbina.coord.z) <= (d_w / 2)):
             return 0.5 * (1 - (1 - (2*turbina.c_T) * (a_0/a_w) )**0.5)
         else:
             return 0

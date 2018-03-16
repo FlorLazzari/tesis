@@ -24,14 +24,14 @@ u_inf = U_inf()
 u_inf.coord_hub = 2.2
 u_inf.perfil = 'log'
 # N = 1000
-N = 100
+N = 1000
 
 turbina_0 = Turbina_Paper(Coord(np.array([0,0,0.125])))
 # z_0 de la superficie
 z_0 = 0.00003
 parque_de_turbinas = Parque_de_turbinas([turbina_0], z_0)
 
-# 2) corte X,Z
+# 1) corte X,Z
 # recordar que el range funciona de la siguiente forma [)
 x = np.arange(0, 20*(turbina_0.d_0)+0.01, 0.01)
 y_0 = 0
@@ -49,7 +49,6 @@ for i in range(len(x)):
             # print ('data_prueba[i,j]', i, j, data_prueba[i,j])
 
 contornos = [1.0, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 1.9, 2.0, 2.1, 2.2, 2.3, 2.4, 2.5]
-
 plt.contour(X,Z,data_prueba, contornos, linewidths=0.5, colors='k')
 plt.contourf(X,Z,data_prueba, contornos, cmap=plt.cm.jet)
 plt.colorbar(ticks=[1, 1.5, 2, 2.5])
@@ -77,11 +76,9 @@ for i in range(len(x)):
             data_prueba[j,i] = calcular_u_en_coord(larsen, 'linear', coord, parque_de_turbinas, u_inf, N)
             # print ('data_prueba[i,j]', i, j, data_prueba[i,j])
 
-# estoy cambiando la escala, escucho opiniones al respecto de esto
-contornos = [1.0, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 1.9, 2.0, 2.1, 2.2]#, 2.3, 2.4, 2.5]
-
-plt.contour(X,Y,data_prueba, contornos, linewidths=0.5, colors='k')
-plt.contourf(X,Y,data_prueba, contornos, cmap=plt.cm.jet)
+contornos = [1.0, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 1.9, 2.0, 2.1, 2.2, 2.3, 2.4, 2.5]
+plt.contour(X, Y, data_prueba, contornos, linewidths=0.5, colors='k')
+plt.contourf(X, Y, data_prueba, contornos, cmap=plt.cm.jet)
 plt.colorbar(ticks=[1, 1.5, 2, 2.5])
 ax = plt.gca()
 ax.set_xticks([0, 4*(turbina_0.d_0), 8*(turbina_0.d_0), 12*(turbina_0.d_0), 16*(turbina_0.d_0), 20*(turbina_0.d_0)])
