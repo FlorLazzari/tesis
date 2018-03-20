@@ -10,12 +10,12 @@ class Gaussiana(Modelo):
         super(Gaussiana, self).__init__()
         # por ahora los datos estan hardcodeados con los PARAMETROS DEL PAPER, habria
         # que calcularlos correctamente del fit del CFD
-        self.k_estrella = 0.023
-        self.epsilon = 0.219
+        # self.k_estrella = 0.023
+        # self.epsilon = 0.219
 
         # cambio estos valores con el ajuste del OpenFOAM:
-        # self.k_estrella = 0.0297
-        # self.epsilon = 0.3281
+        self.k_estrella = 0.0297
+        self.epsilon = 0.3281
 
     def evaluar_deficit_normalizado(self, turbina, coord_selec):
         sigma_n = self.k_estrella * ((coord_selec.x-turbina.coord.x)/turbina.d_0) + self.epsilon

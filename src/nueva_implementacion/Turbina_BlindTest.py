@@ -19,16 +19,9 @@ class Turbina_BlindTest(Turbina):
         # lo tanto voy a estudiar unicamente velocity defect para TSR = 6 (10 m/s)
 
         # c_T correspondiente a U = 10
-        c_Tnew = 0.85   ####???? lo chante a ojimetro del grafico del paper BlindTest
+        c_Tnew = 0.8   ####???? lo chante a ojimetro del grafico del paper BlindTest
         return c_Tnew
 
     def P_tabulado(self, U):
         Pnew = 0 ###??????
         return Pnew
-
-
-# at 3 downstream positions, measured from the plane of the rotor:
-#
-# - x/d = 1
-# - x/d = 3
-# - x/d = 5
