@@ -141,8 +141,8 @@ plt.show()
 
 
 plt.title(r'Modulo de la derivada numerica de $\sigma$ en funcion del tiempo de procesamiento', fontsize=15)
-plt.plot(tiempo_procesamiento_medio[+1:], abs_dsigma_dN, 'x')
-plt.xlabel('Tiempo[s]', fontsize=15)
-plt.ylabel(r'$|\frac{d\sigma}{dN}|$', fontsize=15)
+plt.plot(abs_dsigma_dN, tiempo_procesamiento_medio[+1:], 'x')
+plt.xlabel(r'$|\frac{d\sigma}{dN}|$', fontsize=15)
+plt.ylabel('Tiempo[s]', fontsize=15)
 plt.grid()
 plt.show()
