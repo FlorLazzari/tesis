@@ -82,7 +82,7 @@ parque_de_turbinas_ambas = Parque_de_turbinas([turbina_0, turbina_1], z_0)
 
 x_0 = 16*D
 y = np.arange(-1.2*D, 2.2*D, 0.01)
-sz_o = turbina_0.coord.z
+z_o = turbina_0.coord.z
 
 data_prueba_ambas_linear = np.zeros(len(y))
 
@@ -111,10 +111,6 @@ for i in range(len(y)):
 
 ################################################################################
 
-# sumo linealmente
-data_prueba_ambas_linear_indep = data_prueba_primera + data_prueba_segunda
-data_prueba_ambas_rss_indep = ((np.array(data_prueba_primera))**2 + (np.array(data_prueba_segunda))**2)**0.5
-data_prueba_ambas_largest_indep = np.max([data_prueba_primera, data_prueba_segunda], axis=0)
 
 
 plt.title('Perfil de velocidad normalizada detras de dos turbinas parcialmente desalineadas')
