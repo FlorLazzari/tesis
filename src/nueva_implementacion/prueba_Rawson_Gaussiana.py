@@ -119,7 +119,7 @@ for distancia in x_array:
             # print ('data_prueba[i,j]', i, j, data_prueba[i,j])
 
     # comparo con los datos
-    datos = np.loadtxt("lineY-{}d_U_masnuevo.csv".format(distancia), delimiter = ',', skiprows=1)
+    datos = np.loadtxt("lineY-{}d_U.csv".format(distancia), delimiter = ',', skiprows=1)
 
     largo = datos.shape[0]
     ancho =  datos.shape[1]

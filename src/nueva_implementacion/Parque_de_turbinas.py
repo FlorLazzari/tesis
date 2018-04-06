@@ -1,4 +1,5 @@
 from __future__ import division
+import numpy as np
 # coding=utf-8
 
 class Parque_de_turbinas(object):
@@ -28,6 +29,16 @@ class Parque_de_turbinas(object):
     def inicializar_parque(self, u_inf):
         self.ordenar_turbinas_de_izquierda_a_derecha()
         # self.turbinas[0].c_T = self.calcular_c_T_primer_turbina(u_inf)
+
+    def rotar(self, theta):
+        theta_rad = (np.pi/180) * theta
+        R = np.matrix([[np.cos(theta_rad), -np.sin(theta_rad)], [np.sin(theta_rad), np.cos(theta_rad)]])
+        for turbina in self.turbinas:
+            vector_coord = np.array([turbina.coord.x, turbina.coord.y])
+
+            turbina.coord.x = np.dot(R, turbina.coord.x)
+            turbina.coord.y = np.dot(R, turbina.coord.y)
+
 
 
 ## test:

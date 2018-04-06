@@ -152,8 +152,6 @@ class Turbina(object):
 
 
     def calcular_P(self, estela, coord_random_adentro_disco, z_0, u_inf, N):
-        # esta bien calcularlo asi?
-        # estaria bueno ya pasarle el vector con 'u' para no calcular de nuevo exactamente lo mismo
 
         u_adentro_disco = []
         i = 0
