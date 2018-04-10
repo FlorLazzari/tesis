@@ -24,7 +24,7 @@ u_inf = U_inf()
 u_inf.coord_hub = 2.2
 u_inf.perfil = 'log'
 # N = 1000
-N = 1000
+N = 150
 
 turbina_0 = Turbina_Paper(Coord(np.array([0,0,0.125])))
 # z_0 de la superficie

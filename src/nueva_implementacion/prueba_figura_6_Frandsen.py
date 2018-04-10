@@ -16,7 +16,7 @@ frandsen = Frandsen()
 u_inf = U_inf()
 u_inf.coord_hub = 2.2
 u_inf.perfil = 'log'
-N = 1000
+N = 150
 
 turbina_0 = Turbina_Paper(Coord(np.array([0,0,0.125])))
 # z_0 de la superficie
@@ -65,7 +65,7 @@ for i in range(len(x)):
     for j in range(len(Y)):
         coord = Coord(np.array([x[i], y[j], z_0]))
         if coord.z != 0:
-            data_prueba[j,i] = calcular_u_en_coord(gaussiana, 'linear', coord, parque_de_turbinas, u_inf, N)
+            data_prueba[j,i] = calcular_u_en_coord(frandsen, 'linear', coord, parque_de_turbinas, u_inf, N)
             # print ('data_prueba[i,j]', i, j, data_prueba[i,j])
 
 # estoy cambiando la escala, escucho opiniones al respecto de esto

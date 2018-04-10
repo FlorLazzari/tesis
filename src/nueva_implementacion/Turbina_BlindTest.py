@@ -15,11 +15,8 @@ class Turbina_BlindTest(Turbina):
 
     def c_T_tabulado(self, U):
 
-        # a mi me importa el comportamiento del molino bajo condiciones normales, por
-        # lo tanto voy a estudiar unicamente velocity defect para TSR = 6 (10 m/s)
-
-        # c_T correspondiente a U = 10
-        c_Tnew = 0.8   ####???? lo chante a ojimetro del grafico del paper BlindTest
+        U_tabulado = 10
+        c_Tnew = 0.8
         return c_Tnew
 
     def P_tabulado(self, U):

@@ -117,7 +117,7 @@ data_prueba_ambas_rss_indep = ((np.array(data_prueba_primera))**2 + (np.array(da
 data_prueba_ambas_largest_indep = np.max([data_prueba_primera, data_prueba_segunda], axis=0)
 
 
-plt.title('Perfil de velocidad normalizada detras de dos turbinas parcialmente desalineadas')
+plt.title('Perfil de velocidad normalizada detras de dos turbinas desalineadas')
 plt.plot(y/D, data_prueba_primera/u_inf.coord_hub, 'bx',label='Single rotor at 16D')
 plt.plot(y/D, data_prueba_segunda/u_inf.coord_hub, 'rx', label='Single rotor at 8D')
 plt.plot(y/D, data_prueba_ambas_linear/u_inf.coord_hub, 'c', label= 'Superposicion lineal')

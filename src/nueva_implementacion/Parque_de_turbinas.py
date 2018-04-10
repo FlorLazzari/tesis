@@ -35,10 +35,31 @@ class Parque_de_turbinas(object):
         R = np.matrix([[np.cos(theta_rad), -np.sin(theta_rad)], [np.sin(theta_rad), np.cos(theta_rad)]])
         for turbina in self.turbinas:
             vector_coord = np.array([turbina.coord.x, turbina.coord.y])
+            vector_coord_rotado = np.dot(R, vector_coord)
+            turbina.coord.x = vector_coord_rotado.getA1()[0]
+            turbina.coord.y = vector_coord_rotado.getA1()[1]
 
-            turbina.coord.x = np.dot(R, turbina.coord.x)
-            turbina.coord.y = np.dot(R, turbina.coord.y)
-
+# # test rotar
+#
+# from Turbina_Marca import Turbina_Marca
+# import numpy as np
+# from Coord import Coord
+#
+# turbina_0 = Turbina_Marca(Coord(np.array([0,0,10])))
+# turbina_1 = Turbina_Marca(Coord(np.array([20,0,10])))
+# turbina_2 = Turbina_Marca(Coord(np.array([40,0,10])))
+# parque_de_turbinas = Parque_de_turbinas([turbina_0, turbina_1, turbina_2], 0.1)
+#
+# print turbina_0.coord.x, turbina_0.coord.y, turbina_0.coord.z
+# print turbina_1.coord.x, turbina_1.coord.y, turbina_1.coord.z
+# print turbina_2.coord.x, turbina_2.coord.y, turbina_2.coord.z
+#
+# print 'ROTO'
+# parque_de_turbinas.rotar(90)
+#
+# print turbina_0.coord.x, turbina_0.coord.y, turbina_0.coord.z
+# print turbina_1.coord.x, turbina_1.coord.y, turbina_1.coord.z
+# print turbina_2.coord.x, turbina_2.coord.y, turbina_2.coord.z
 
 
 ## test:

@@ -10,7 +10,8 @@ from Jensen import Jensen
 from Frandsen import Frandsen
 from Larsen import Larsen
 from Parque_de_turbinas import Parque_de_turbinas
-from Turbina_BlindTest import Turbina_BlindTest
+from Turbina_BlindTest_3_TSR4 import Turbina_BlindTest_3_TSR4
+from Turbina_BlindTest_3_TSR6 import Turbina_BlindTest_3_TSR6
 from Coord import Coord
 from Estela import Estela
 from U_inf import U_inf
@@ -58,9 +59,9 @@ u_inf.coord_hub = 10 # es parametro del BlindTest
 u_inf.perfil = 'cte'   # por ser un tunel de viento
 N = 100
 
-turbina_0 = Turbina_BlindTest(Coord(np.array([0,-0.2, 0.817])))
+turbina_0 = Turbina_BlindTest_3_TSR6(Coord(np.array([0,-0.2, 0.817])))
 D = turbina_0.d_0
-turbina_1 = Turbina_BlindTest(Coord(np.array([3*D,0.2,0.817])))
+turbina_1 = Turbina_BlindTest_3_TSR4(Coord(np.array([3*D,0.2,0.817])))
 
 # z_0 de la superficie
 z_0 = 0.1 #?????
