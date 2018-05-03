@@ -7,11 +7,11 @@ import matplotlib.pyplot as plt
 from Turbina import Turbina
 from scipy import interpolate
 
-class Turbina_BlindTest_3_TSR4(Turbina):
+class Turbina_BlindTest_3_TSR4_75(Turbina):
 
     def __init__(self, coord):
         d_0 = 0.894
-        super(Turbina_BlindTest_3_TSR4, self).__init__(d_0, coord)
+        super(Turbina_BlindTest_3_TSR4_75, self).__init__(d_0, coord)
 
     def c_T_tabulado(self, U):
 

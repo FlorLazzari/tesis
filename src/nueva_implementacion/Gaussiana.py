@@ -14,12 +14,16 @@ class Gaussiana(Modelo):
         # self.epsilon = 0.219
 
         # cambio estos valores con el ajuste del OpenFOAM Rawson:
-        self.k_estrella = 0.0297
-        self.epsilon = 0.3281
+        # self.k_estrella = 0.0297
+        # self.epsilon = 0.3281
 
-        # cambio estos valores con el ajuste del OpenFOAM BlindTest:
-        # self.k_estrella = -0.0016
-        # self.epsilon = 0.4082
+        # cambio estos valores con el ajuste del OpenFOAM BlindTest usando gaussiana:
+        self.k_estrella = -0.0016
+        self.epsilon = 0.4082
+
+        # cambio estos valores con el ajuste del OpenFOAM BlindTest usando ajuste de Altura:
+        # self.k_estrella = -0.023
+        # self.epsilon = 0.5353
 
     def evaluar_deficit_normalizado(self, turbina, coord_selec):
         sigma_n = self.k_estrella * ((coord_selec.x-turbina.coord.x)/turbina.d_0) + self.epsilon

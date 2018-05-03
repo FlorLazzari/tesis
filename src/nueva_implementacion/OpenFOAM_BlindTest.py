@@ -31,6 +31,7 @@ def gauss(x, A, mu, sigma):
 x_array = [1, 3, 5]#, 16.25, 17.5, 18.75, 20]
 
 sigma_array = []
+sigmaAltura_array = []
 A_array = []
 
 # diametro de la turbina
@@ -39,7 +40,7 @@ D = 0.894
 for distancia in x_array:
 
 
-    datos = np.loadtxt("XD{}.csv".format(distancia), delimiter = ',', skiprows=1)
+    datos = np.loadtxt("BT1_{}.csv".format(distancia), delimiter = ',', skiprows=1)
 
     largo = datos.shape[0]
     ancho =  datos.shape[1]
@@ -49,25 +50,57 @@ for distancia in x_array:
 
 
     for i in range(largo):
-        y_norm_OpenFOAM[i] = datos[i, 8]/D
-        u_OpenFOAM[i] = datos[i, 4]
+        y_norm_OpenFOAM[i] = datos[i, 0]/D
+        u_OpenFOAM[i] = datos[i, 1]
 
     y_norm_OpenFOAM = y_norm_OpenFOAM - np.mean(y_norm_OpenFOAM)
     deficit_normalizado_OpenFOAM = 1 - u_OpenFOAM/U_inf
 
+
+    # calculo sigma de una forma nueva, teniendo en cuenta la atura de los datos de OpenFOAM
+
+    maximo = deficit_normalizado_OpenFOAM[50]
+    altura_dosSigma = maximo*0.5753   # altura a la cual tenemos una campana con ancho igual a dos sigmas
+
+    print maximo
+    print altura_dosSigma
+
+    idx = np.where(deficit_normalizado_OpenFOAM[7:-7] > altura_dosSigma)
+
+    print deficit_normalizado_OpenFOAM[7:-7]
+
+    print idx[0]
+
+    idx_iSigma = idx[0][0]+7
+    idx_fSigma = idx[0][-1]+7
+
+    print idx_iSigma
+    print idx_fSigma
+
+    yiSigma = y_norm_OpenFOAM[idx_iSigma]
+    yfSigma = y_norm_OpenFOAM[idx_fSigma]
+
+    deficit_iSigma = deficit_normalizado_OpenFOAM[idx_iSigma]
+    deficit_fSigma = deficit_normalizado_OpenFOAM[idx_fSigma]
+
+    dosSigma_altura = abs(yiSigma) + abs(yfSigma)
+    sigma_altura = dosSigma_altura/2
+
+    sigmaAltura_array.append(sigma_altura)
+
     # recorto donde tiene sentido que la modele como una gaussiana
-    idx = np.where(deficit_normalizado_OpenFOAM > 0)
-    idx2 = np.diff(idx[0])
-    idx3 = np.where(abs(idx2)>10)
+    # idx = np.where(deficit_normalizado_OpenFOAM > 0)
+    # idx2 = np.diff(idx[0])
+    # idx3 = np.where(abs(idx2)>10)
+    #
+    # idx_i = idx[0][idx3[0][0]+1]
+    # idx_f = idx[0][idx3[0][1]]
+    #
+    # deficit_viejo = deficit_normalizado_OpenFOAM
+    # coordenada_vieja = y_norm_OpenFOAM
 
-    idx_i = idx[0][idx3[0][0]+1]
-    idx_f = idx[0][idx3[0][1]]
-
-    deficit_viejo = deficit_normalizado_OpenFOAM
-    coordenada_vieja = y_norm_OpenFOAM
-
-    deficit_normalizado_OpenFOAM = deficit_normalizado_OpenFOAM[idx_i:idx_f]
-    y_norm_OpenFOAM = y_norm_OpenFOAM[idx_i:idx_f]
+    # deficit_normalizado_OpenFOAM = deficit_normalizado_OpenFOAM[idx_i:idx_f]
+    # y_norm_OpenFOAM = y_norm_OpenFOAM[idx_i:idx_f]
 
 
     n = len(y_norm_OpenFOAM)                          #the number of data
@@ -75,7 +108,7 @@ for distancia in x_array:
     sigma = np.sqrt(sum(deficit_normalizado_OpenFOAM*(y_norm_OpenFOAM-mean)**2)/n)        #note this correction
 
     # p0 is the initial guess for the fitting coefficients (A, mu and sigma above)
-    p0 = [0.12, mean, sigma]
+    p0 = [0, mean, sigma]
 
     coeff, var_matrix = curve_fit(gauss, y_norm_OpenFOAM, deficit_normalizado_OpenFOAM, p0=p0)
 
@@ -88,9 +121,11 @@ for distancia in x_array:
 
     plt.figure()
     plt.title('x = {}D'.format(distancia))
-    plt.plot(deficit_normalizado_OpenFOAM, label='Test data')
-    plt.plot(fit, label='Fitted data')
-    plt.ylim([-0.05, 0.4])
+    plt.plot(deficit_normalizado_OpenFOAM, 'x', label='Test data')
+    plt.plot(fit, 'x', label='Fitted data')
+    plt.plot(idx_iSigma, deficit_iSigma, 'o')
+    plt.plot(idx_fSigma, deficit_fSigma, 'o')
+    # plt.ylim([-0.05, 0.4])
     plt.legend()
     plt.show()
 
@@ -105,8 +140,18 @@ for distancia in x_array:
 
     # Finally, lets get the fitting parameters, i.e. the standard deviation:
 
+
+
     sigma_array.append(coeff[2])
     A_array.append(coeff[0])
+
+plt.plot(sigma_array, label='vieja')
+plt.plot(sigmaAltura_array, label='nueva')
+plt.legend()
+plt.show()
+
+# quiero ver como quedan los coeficientes con la nueva forma de calcular el sigma:
+# sigma_array = sigmaAltura_array
 
 # 2)
 def linear(x, a, b):

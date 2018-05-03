@@ -118,7 +118,7 @@ for distancia in x_array:
 
     # comparo con OpenFOAM
 
-    datos = np.loadtxt("XD{}.csv".format(distancia), delimiter = ',', skiprows=1)
+    datos = np.loadtxt("BT1_{}.csv".format(distancia), delimiter = ',', skiprows=1)
 
     largo = datos.shape[0]
     ancho =  datos.shape[1]
@@ -128,8 +128,8 @@ for distancia in x_array:
 
 
     for i in range(largo):
-        y_norm_OpenFOAM[i] = datos[i, 8]/D
-        u_OpenFOAM[i] = datos[i, 4]
+        y_norm_OpenFOAM[i] = datos[i, 0]/D
+        u_OpenFOAM[i] = datos[i, 1]
 
     plt.plot(y_norm_OpenFOAM - np.mean(y_norm_OpenFOAM), 1 - u_OpenFOAM/u_inf.coord_hub, label='OpenFOAM')
     plt.xlabel('y/D')
