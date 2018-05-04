@@ -11,7 +11,7 @@ class Turbina_BlindTest(Turbina):
 
     def __init__(self, coord):
         # d_0 = 0.894
-        d_0 = 0.88
+        d_0 = 0.894
         super(Turbina_BlindTest, self).__init__(d_0, coord)
 
     def c_T_tabulado(self, U):

@@ -40,7 +40,7 @@ N = 1000
 # casos medidos (elegi unicamente estas mediciones ya que son las que se ven
 # menos interferidas por las otras turbinas):
 # 4.7D : entre turbina 7 y 8
-# 5.7 : entre turbina 8 y 9
+# 5.7D : entre turbina 8 y 9
 # arreglo_distancia = [4.7, 5.7]
 
 distancia = 4.7

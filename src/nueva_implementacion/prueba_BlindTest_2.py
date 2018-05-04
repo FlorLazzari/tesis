@@ -61,8 +61,9 @@ u_inf.perfil = 'cte'   # por ser un tunel de viento
 N = 100
 
 turbina_0 = Turbina_BlindTest_2_TSR6(Coord(np.array([0,0,0.817])))
-D = turbina_0.d_0
+D = 0.894
 turbina_1 = Turbina_BlindTest_2_TSR4(Coord(np.array([3*D,0,0.817])))
+
 
 # z_0 de la superficie
 z_0 = 0.1 #?????

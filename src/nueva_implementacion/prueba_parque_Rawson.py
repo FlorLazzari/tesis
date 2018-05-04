@@ -15,19 +15,15 @@ from calcular_u_en_coord import calcular_u_en_coord
 """
 A continuacion se corre el modelo Gaussiana para el parque Rawson.
 Se grafican:
-    1) El campo de viento en el plano (X,Y) para todo el parque
-    2) La potencia en funcion de la ubicacion (X,Y)
+    1) La potencia en funcion de la ubicacion (numero de turbina de label)
+    2) El campo de viento en el plano (X,Y) para todo el parque
 """
-
-# faltaria crear una matriz de rotacion que opere sobre las coordenadas de ubicacion de turbinas
-# de forma que rote a las coordenadas y siempre el U_inf entre por la cara izquierda del cuadrado que contiene
-# a las turbinas
 
 gaussiana = Gaussiana()
 u_inf = U_inf()
-u_inf.coord_hub = 7
+u_inf.coord_hub = 8.1
 u_inf.perfil = 'log'
-N = 2
+N = 100
 
 z_hub = 80
 turbina_0 = Turbina_Rawson(Coord(np.array([0,0,z_hub])))
@@ -76,37 +72,97 @@ turbina_40 = Turbina_Rawson(Coord(np.array([3562.9,1629.4,z_hub])))
 turbina_41 = Turbina_Rawson(Coord(np.array([3785.2,1931.9,z_hub])))
 turbina_42 = Turbina_Rawson(Coord(np.array([3947.6,2337.7,z_hub])))
 
+turbinas_list = [turbina_0, turbina_1, turbina_2, turbina_3, turbina_4, turbina_5,
+turbina_6, turbina_7, turbina_8, turbina_9, turbina_10, turbina_11,
+turbina_12, turbina_13, turbina_14, turbina_15, turbina_16, turbina_17,
+turbina_18, turbina_19, turbina_20, turbina_21, turbina_22, turbina_23,
+turbina_24, turbina_25, turbina_26, turbina_27, turbina_28, turbina_29,
+turbina_30, turbina_31, turbina_32, turbina_33, turbina_34, turbina_35,
+turbina_36, turbina_37, turbina_38, turbina_39, turbina_40, turbina_41,
+turbina_42]
 
 # z_0 de la superficie
 z_0 = 0.1
-parque_de_turbinas = Parque_de_turbinas([turbina_0, turbina_1, turbina_2, turbina_3, turbina_4, turbina_5,
-                                         turbina_6, turbina_7, turbina_8, turbina_9, turbina_10, turbina_11,
-                                         turbina_12, turbina_13, turbina_14, turbina_15, turbina_16, turbina_17,
-                                         turbina_18, turbina_19, turbina_20, turbina_21, turbina_22, turbina_23,
-                                         turbina_24, turbina_25, turbina_26, turbina_27, turbina_28, turbina_29,
-                                         turbina_30, turbina_31, turbina_32, turbina_33, turbina_34, turbina_35,
-                                         turbina_36, turbina_37, turbina_38, turbina_39, turbina_40, turbina_41,
-                                         turbina_42], z_0)
+parque_de_turbinas = Parque_de_turbinas(turbinas_list, z_0)
 
 ################################################################################
+
+# grafico potencia en funcion de la ubicacion (numero de turbina de label)
+
+x_o = 4200
+y_o = 3000
+z_o = z_hub
+
+coord = Coord(np.array([x_o, y_o, z_o]))
+
+potencia_de_cada_turbina = []
+
+data_prueba = calcular_u_en_coord(gaussiana, 'largest', coord, parque_de_turbinas, u_inf, N)
+
+for turbina in turbinas_list:
+    potencia_de_cada_turbina.append(float(turbina.potencia))
+    # import pdb; pdb.set_trace()
+
+plt.figure()
+plt.plot(np.arange(0, 43), potencia_de_cada_turbina, '-x')
+plt.xticks(np.arange(0, 43, 5))
+plt.ylim([0, 1200])
+plt.grid()
+plt.show()
+
+# no me gusta que esten numeradas de 0 a 42, en el mapita estan de 1 a 43...
+# pero gonza uso esa numeracion en el grafico
+# habria que cambiar el grafico de gonza y el mio con: np.arange(1, 44)
+
+X = []
+Y = []
+
+for turbina in turbinas_list:
+    X.append(turbina.coord.x)
+    Y.append(turbina.coord.y)
+
+plt.figure()
+cm = plt.cm.get_cmap('coolwarm')
+sc = plt.scatter(X, Y, c=potencia_de_cada_turbina, s=120,marker='v', cmap=cm)
+plt.clim(min(potencia_de_cada_turbina),max(potencia_de_cada_turbina))
+plt.colorbar(sc)
+plt.grid()
+plt.show()
+
+# diferencias con respecto al grafico de gonza:
+# hay una turbina (la 30 en el mapa, que numera desde 1)
+# que genera mucha mas potencia con lo cual "los colores quedan muy distintos"
+# pero me parece que la potencia relativa no me esta dando tan mal.
+# habria que sacar esa turbina 30 del grafico de gonza para ver si "los colores
+# me quedan mas parecidos"  
+
+
+
+
+
+
+
+
+
+
 # grafico (X,Y)
 
 # recordar que el range funciona de la siguiente forma [)
-x = np.arange(-300, 4000, 22)
-y = np.arange(-1500, 2500, 22)
-z_o = turbina_0.coord.z
-
-X, Y = np.meshgrid(x, y)
-
-data_prueba = np.zeros([len(y), len(x)])
-
-for i in range(len(x)):
-    for j in range(len(y)):
-        coord = Coord(np.array([x[i], y[j], z_o]))
-        if coord.z != 0:
-            # print "entre en loop"
-            data_prueba[j,i] = calcular_u_en_coord(gaussiana, 'linear', coord, parque_de_turbinas, u_inf, N)
-            # print ('data_prueba[i,j]', i, j, data_prueba[i,j])
+# x = np.arange(-300, 4000, 22)
+# y = np.arange(-1500, 2500, 22)
+# z_o = turbina_0.coord.z
+#
+# X, Y = np.meshgrid(x, y)
+#
+# data_prueba = np.zeros([len(y), len(x)])
+#
+# for i in range(len(x)):
+#     for j in range(len(y)):
+#         coord = Coord(np.array([x[i], y[j], z_o]))
+#         if coord.z != 0:
+#             # print "entre en loop"
+#             data_prueba[j,i] = calcular_u_en_coord(gaussiana, 'linear', coord, parque_de_turbinas, u_inf, N)
+#             # print ('data_prueba[i,j]', i, j, data_prueba[i,j])
 
 # plt.contour(X,Y,data_prueba, linewidths=0.5, colors='k')
 # plt.contourf(X,Y,data_prueba, cmap=plt.cm.jet)

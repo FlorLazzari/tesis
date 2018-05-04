@@ -10,7 +10,7 @@ from scipy import interpolate
 class Turbina_BlindTest_2_TSR6(Turbina):
 
     def __init__(self, coord):
-        d_0 = 0.894
+        d_0 = 0.944
         super(Turbina_BlindTest_2_TSR6, self).__init__(d_0, coord)
 
     def c_T_tabulado(self, U):

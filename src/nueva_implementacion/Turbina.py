@@ -51,6 +51,7 @@ class Turbina(object):
         if self.c_T is None:
             u_adentro_disco = []
             i = 0
+
             for coord in coord_random_adentro_disco:
                 u_inf.coord = coord
                 # print 'u_inf.coord.x = ',u_inf.coord.x
@@ -75,6 +76,8 @@ class Turbina(object):
             T_turbina = c_T_tab * integral_u2   # lo dividi por (0.5 * rho) porque luego dividire por eso
             T_disponible = (u_medio_disco)**2 * (np.pi*(self.d_0/2)**2)     # lo dividi por (0.5 * rho) porque luego multiplicare por eso
             self.c_T = T_turbina / T_disponible
+
+
 
             # print ('c_T calculado:', self.c_T)
             # print ('c_T_tab:', c_T_tab)

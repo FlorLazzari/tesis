@@ -39,6 +39,10 @@ class Parque_de_turbinas(object):
             turbina.coord.x = vector_coord_rotado.getA1()[0]
             turbina.coord.y = vector_coord_rotado.getA1()[1]
 
+
+
+
+
 # # test rotar
 #
 # from Turbina_Marca import Turbina_Marca

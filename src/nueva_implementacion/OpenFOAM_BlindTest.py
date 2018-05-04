@@ -28,8 +28,7 @@ U_inf = 10
 def gauss(x, A, mu, sigma):
     return A*np.exp(-(x-mu)**2/(2.*sigma**2))
 
-x_array = [1, 3, 5]#, 16.25, 17.5, 18.75, 20]
-
+x_array = [1, 2, 3, 4, 5, 6, 7]
 sigma_array = []
 sigmaAltura_array = []
 A_array = []
@@ -151,7 +150,7 @@ plt.legend()
 plt.show()
 
 # quiero ver como quedan los coeficientes con la nueva forma de calcular el sigma:
-# sigma_array = sigmaAltura_array
+sigma_array = sigmaAltura_array
 
 # 2)
 def linear(x, a, b):
