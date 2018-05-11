@@ -29,6 +29,8 @@ z_hub = 80
 turbina_0 = Turbina_Rawson(Coord(np.array([0,0,z_hub])))
 D = turbina_0.d_0
 
+# cosa clave para cambiar!!!! altura de las turbinas (gonza me mando mail con eso)
+
 turbina_1 = Turbina_Rawson(Coord(np.array([-204.9,286.1,z_hub])))
 turbina_2 = Turbina_Rawson(Coord(np.array([41.9,565.7,z_hub])))
 turbina_3 = Turbina_Rawson(Coord(np.array([8.1,870,z_hub])))
@@ -134,7 +136,7 @@ plt.show()
 # que genera mucha mas potencia con lo cual "los colores quedan muy distintos"
 # pero me parece que la potencia relativa no me esta dando tan mal.
 # habria que sacar esa turbina 30 del grafico de gonza para ver si "los colores
-# me quedan mas parecidos"  
+# me quedan mas parecidos"
 
 
 
