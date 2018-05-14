@@ -1,0 +1,100 @@
+The Rotor Wake
+
+% MASTER THESIS
+A medida que el aire fluye a través de una turbina eólica y se extrae energía de ella, algunas de las propiedades del flujo cambian: el aire se desacelera y la intensidad de la turbulencia aumenta.
+La región del flujo detrás de una turbina donde estas propiedades cambian se llama "estela de una turbina eólica".
+Como regla general, los efectos de estela pueden despreciarse cuando las turbinas están espaciadas a más de 10 diámetros de rotor.
+Sin embargo, como las turbinas se agrupan en grandes parques eólicos, el espacio entre las turbinas generalmente es más pequeño.
+Esto puede deberse a que las características del viento son muy favorables en ciertos sectores de un sitio, pero a menudo es una perspectiva de costos:
+menor espaciamiento equivale al uso de menor cantidad de tierra o área marítima y menor costo de instalación (por ejemplo, del cableado).
+
+Because of these smaller spacings the turbines will influence each other through the wake effects: the reduction in wind speed in the wake mainly affects the performance of the downstream wind turbines, while the increased turbulence level affects the loading on the turbines and as such influences the fatigue life. It is thus important to be able to evaluate these wake effects.
+
+Debido a esta reducción en el espaciamientos, las turbinas se perturbarán mutuamente a través de los efectos de estela: el decrecimiento de la velocidad del viento en la estela afecta principalmente el rendimiento de las turbinas eólicas, mientras que el aumento de la turbulencia afecta la fatiga de las turbinas y por lo tanto, su vida útil.
+Por estos motivos, es importante poder evaluar estos efectos de estela.
+
+Wind turbine wakes are generally divided in the near wake, where the influence of the separate
+rotor blades can be distinguished, and the far wake. Although the naming may imply other-
+wise, there is a gradual transition from one to the other, not an abrupt one. Different studies
+suggest different lengths for the near wake, ranging from one to a maximum of several rotor
+diameters. In recent years quite some research has been done on modeling the near wake.
+Typical models describing the near wake are the asymptotic acceleration potential method
+(see Van Bussel [4]), vortex wake models and generalized actuator disc models. While some
+of these methods have been applied to study the flow through several wind turbines, they are
+computationally too intensive to use for general wind farm calculations. Because the goal of
+this study is to clearly to focus on wind farm situations, the main focus will be on the far
+wake models. In this chapter both velocity deficit and wake added turbulence models will be
+described (including all models available in WindPRO), but it is certainly not exhaustive.
+
+
+
+The main tools GE uses to assess the wake effects are the commer-
+cially available software packages Wind Atlas Analysis and Application Program (WAsP)
+and WindPRO
+
+Only limited validation studies have been published by Energi- og
+Miljødata (EMD), the creator of WindPRO, and therefor they do not recommend using any
+of the new models. A more detailed validation of these models is thus requested.
+
+different wake models to predict the velocity deficit
+
+
+
+
+
+% Wind Turbine - Fundamentals, Technologies, Application
+
+El estado aerodinámico del flujo detrás del rotor debe ser tenido en cuenta ya que las turbinas en un parque eólico están tan cerca unas de otras que las turbinas
+en la dirección contraria al viento se ven afectadas por la estela de las turbinas aguas arriba.
+
+% hay que profundizar estos conceptos con cosas que puedo sacar de los papers, esto me parece una explicacion muy vaga
+Existen modelos físicos que estudian la estela generada por el rotor.
+En un parque eólico, esta estela calculada se superpone de manera adecuada con la estela de las otras turbinas.
+
+Esta interacción tiene una serie de consecuencias de considerable importancia:
+- Se reduce la velocidad del flujo medio en la estela del rotor de modo que la producción de energía de las turbinas eólicas subsiguientes se ve reducida.
+- La turbulencia se incrementa en la estela del rotor, lo que hace que la fatiga sobre las turbinas aguas abajo aumente.
+
+El modelado matemático de la estela del rotor se ha refinado en los últimos años en varios pasos y en numerosas contribuciones individuales.
+
+
+%The first useable model was published in 1977 by Lissaman in connection with his work on the development of the blade element theory and of the momentum theory. Lissaman based his work on his rotor model (blade element theory) and calculated the velocity profiles behind the rotor by using empirical values obtained from wind tunnel measurements.
+This resulted in a semi-empirical calculation method which provides useful results.
+Lissaman also developed a qualitative concept of the development of the shape of the wake behind the rotor (Fig. 5.27).
+
+The area close to the rotor, its core area, is determined by the process of pressure equalisation with the ambient air immediately behind the rotor and by the vortex wakes resulting from the
+flow around the rotor blades. The pressure compensation causes the rotor wake to widen. The point of minimum speed in the centre of the wake occurs at a distance of between one and two rotor
+diameters behind the rotor.
+
+In the transition region, considerable turbulence is generated in the boundary layer of the rotor wake and becomes mixed with the turbulence and higher wind velocity of the surrounding airflow.
+As the distance becomes greater, the air speed rises more and more and the vortices generated by the rotor blades largely disappear.
+
+Farther away in the wake is the far region, at a distance of about five rotor diameters, the velocity profile of the wake develops into a Gaussian distribution.
+The reduction in speed deficit in the wake is large determined by the turbulence in the surrounding air.
+
+The achievement of a qualitative understanding of the flow conditions in the rotor wake also provided the basis for the development of more sophisticated models for calculating the wake. In 1988, Ainslie presented a model which is based on the numeric solution of the Navier Stokes equations for the turbulent boundary layer and thus already closely approaches the physical situation given in the wake. The influence of the surrounding turbulence was introduced by Ainslie with an analytical formulation for the viscosity, i. e.
+the shearing forces transferred by the turbulence. A similar model was developed by Crespo with the special aim of determining the additional turbulence generated in the rotor wake [13] and he introduced a more accurate model of dissipation in the turbulent flow for this
+purpose.
+
+These mathematical models were confirmed and improved upon with numerous measurements made on wind turbines. The measurements which were taken of the rotor wake of a small wind turbine and compared with the results of Ainslie’s model are used as an example [11] (Fig. 5.28).
+
+The theoretical treatment of the rotor wake allows some important insights to be gained: The thrust coefficient of the rotor has a significant influence on the loss of impulse behind the rotor and thus on the extent of the wake. The rotor wake changes with the operating state of the turbine (tip speed ratio, blade pitch angle etc.). Rotors with fixed blades generate a further, increasing shearing force in the full-load range (s. Fig. 5.27) and the rotor wake is correspondingly prominent.
+
+The wake area far from the rotor, from about five rotor diameters, is mainly shaped by the surrounding turbulence. The greater the intensity of the turbulence in the surrounding air, the faster the lack of speed in the wake is equalized.
+
+Considerable turbulence is generated in the wake itself. In the case of downwind turbines, this combines with the surrounding air turbulence. The intensity of the superimposed turbulence amounts to about 130 to 150 $\%$ of the surrounding value. This effect may be of significance with respect to the fatigue strength of the turbines affected.
+
+The maximum deceleration in the centre of the rotor wake with respect to the surrounding wind velocity can be seen in Fig. 5.28, for example. It is:
+
+– approx. 60 $\%$ at a distance from the rotor of 2 rotor diameters,
+– approx. 30 $\%$ at a distance from the rotor of 4 diameters, and
+– approx. 20 $\%$ at a distance from the rotor of 6 diameters.
+
+These numerical values for the flow retardation cannot be unconditionally generalized. The thrust coefficient and the surrounding turbulence play a decisive role. The above example applies to a stall-controlled turbine so that the measured values would lie within the top range of the bandwidth.
+
+
+
+The aerodynamic behaviour of a wind turbine is modeled by the use of an $actuator$ $disc$. The actuator disc induces a velocity variation which must be superimposed on the free-stream velocity.
+% Assuming that the affected mass of air remains separate from the rest of the air, a boundary surface can be drawn containing the affected air mass and this boundary can be extended forming a long stream-tube of circular cross section.
+The air within the stream-tube slows down, but does not become compressed, making the cross-sectional area expand. As the air passes through the rotor disc, there is a drop in static pressure such that, on leaving, the air is below the atmospheric pressure level. The air then proceeds downstream with reduced speed and static pressure – this region of the flow is called the $wake$.
+The rise in static pressure is at the expense of the kinetic energy and so causes a further slowing down of the wind. Thus, between the far upstream and far wake conditions, no change in static pressure exists but there is a reduction in kinetic energy.

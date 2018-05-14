@@ -1,0 +1,84 @@
+En otras palabras, la estela que se produce detrás de una turbina puede ser representada con distinto nivel de detalle, dependiendo de la exactitud requerida se utilizan diferentes recursos computaciones.
+
+
+
+%MASTER THESIS
+Furthermore a tool is under development at GE that can assist in finding the optimal layout
+for a wind farm depending on the objective function that is chosen by the user. This can
+for instance be minimum cost or maximum park efficiency. In any case should be tool check
+whether all turbines within a proposed layout will remain within their design envelope. The
+tool should thus at least be capable to calculate the wake losses and turbulence intensity at
+the proposed positions. As such an optimization tool generally uses a lot of iterations, fast
+models are required to perform these calculations. Suitable wake models have to be selected
+and validated to perform these calculations.
+
+Kinematic wake models use only the momentum equation to model the velocity deficit of the
+wake behind a turbine. The wake descriptions do not consider the initial expansion region
+of the wake. They also do not cover the change in turbulence intensity in the wake behind
+a turbine, so they have to be coupled with a turbulence model if values of the turbulence
+intensity in the wakes and throughout the wind farm are desired.
+
+Jensen model
+One of the oldest wake models is the model by N.O. Jensen (referred to from now as the
+Jensen model). It is quite a simple wake model, assuming a linearly expanding wake with a
+velocity deficit that is only dependent of the distance behind the rotor, see figure 2-1. This
+figure shows the wake at a horizontal plane through the hub of a GE1.5sl having a rotor
+diameter D modeled with the Jensen model . The wake diameter is given by
+
+% Porte Agel paper
+As many wind turbines in wind farms
+have to operate in the wakes of upwind turbines, they are exposed
+to incoming wind velocities that are smaller than those under
+unperturbed (unwaked) conditions. As a result, turbine wakes are
+responsible for important power losses in wind farms [1e3].
+Extensive analytical, numerical and experimental efforts have been
+carried out to better understand and predict turbine wake flows.
+Although numerical and experimental techniques have become
+increasingly sophisticated and accurate in recent years, simple
+analytical models are still useful tools to predict wind-turbine wake
+flows and their effect on power production. They are widely used
+due to their simplicity and low computational cost [4]. Various
+analytical investigations have been conducted on wind-turbine
+wakes (e.g., [5e7]). One of the pioneering analytical wake models
+is the one proposed by Jensen [8], which assumes a top-hat shape
+for the velocity deficit in the wake
+
+
+
+En otras palabras, la estela que se produce detrás de una turbina puede ser representada con distinto nivel de detalle, dependiendo de la exactitud requerida se utilizan diferentes recursos computaciones.
+
+
+Los modelos reducidos de turbinas son la alternativa para ahorrar recursos computacionales.
+En dichos modelos se substituyen las aspas por fuerzas volumétricas con efecto equivalente
+actuando sobre el fluido. Se han propuesto diversos modelos de este tipo, que se diferencian
+en el grado de descripción del rotor, a mayor detalle mayor costo computacional. En esta tesis
+se utilizará el Actuador Discal (AD), en el que las fuerzas se distribuyen de manera constante
+sobre el área que barren las aspas del rotor (Sanderse, 2009). Estas fuerzas representan el
+efecto del rotor promediada en el tiempo.
+
+Los modelos de estelas de turbinas eólicas utilizan simplificaciones para caracterizarlas
+de manera de evitar la resolución de las ecuaciones diferenciales de la fluidodinámica. Las
+simplificaciones introducidas implican una pérdida de precisión pero una importante reducción
+del costo computacional.
+
+Estos modelos en general tienen validez en lo que se denomina estela
+lejana de la turbina que la produce y generalmente se utilizan para generar las condiciones de
+entrada a turbinas que se encuentran aguas abajo.
+
+Por otro lado,
+Si bien este tipo de estrategia tiene un alto desempeño
+debido a su formulación, también tiene los problemas inherentes a los 2 primeros enfoques;
+por ejemplo, el alto costo computacional que exigen los MNPT para obtener resultados con
+alta resolución horizontal y temporal. Estos sistemas combinados están siendo utilizad
+
+\begin{posterbox}[name=computational_methods,column=0,below=wake, above=bottom]{Computational Methods}
+
+\begin{itemize}
+\item $Direct$ $Numerical$ $Simulation$ $(DNS)$: N–S equations are numerically solved. The whole range of spatial and temporal scales of the turbulence must be resolved in the computational mesh.
+\end{itemize}
+
+\begin{itemize}
+\item $Turbulence$ $Models$: a model is constructed to predict the effects of turbulence. The governing equations of the flow are averaged (RANS) in order to focus on large-scale and non-fluctuating features. \begin{itemize}
+\item $Large$ $Eddy$ $Simulation$: ignors the smallest length scales, which are the most computationally expensive to resolve, via low-pass filtering of the Navier–Stokes equations, removing small-scale information from the solution.
+\end{itemize}
+\end{itemize}
