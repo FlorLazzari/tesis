@@ -1,0 +1,288 @@
+﻿\chapter{Estructura Causal}\label{estructura causal}
+
+
+A continuación expondremos las definiciones y propiedades sobre la estructura causal del espacio tiempo, siguiendo como referencia a \citep{1984ucp..book.....W,1975lsss.book.....H,Penrose}
+
+
+
+
+%%%%%%%%%   Conos de luz 
+
+
+\section{Conos de luz}
+
+Un concepto ya conocido de Relatividad Especial es el llamado \textbf{cono de luz}. Formalmente, dado un espacio-tiempo $(M,g_{ab})$, definiremos el cono de luz en un punto $p\in M$ según
+
+\begin{definition}
+El conjunto de los vectores nulos en $T_p(M)$ definen un doble cono centrado en $p$, llamado cono de luz en p, que separa los vectores temporales de los espaciales.
+\end{definition}
+
+En términos del cono de luz podremos hablar sobre un \textit{futuro} y/o un \textit{pasado} en el espacio-tiempo en cuestión. Para ello deberemos hablar sobre la \textit{orientabilidad temporal}:
+
+\begin{definition}
+Un espacio-tiempo se dice temporalmente orientable si es posible definir de manera continua y suave en todo punto sobre $M$, una mitad del cono de luz como futuro (o pasado). Esto es, si se puede definir de manera suave una división de los vectores temporales y de los vectores espaciales orientados al futuro y al pasado. 
+\end{definition}
+
+Un vector temporal o nulo que se encuentra en la mitad del cono de luz futuro se lo denomina un vector \textbf{futuro directo} (análogo para \textit{pasado directo}). A su vez, diremos que una orientación temporal es suave si para cada $p\in M$ existe un campo vectorial suave, $T$, en un entorno $U$ de $p$, tal que $T(q)$ está contenido en una mitad del cono de luz para cada $q\in U$. En términos del campo vectorial $T$ se puede definir la orientabilidad temporal según
+
+
+\begin{lemma}\label{existencia camp vect temp no nulo}
+Un espacio-tiempo $(M,g_{ab})$ es temporalmente orientable sii existe un campo vectorial $T$ en $M$ temporal, suave, y que nunca se anula.
+\end{lemma}
+\begin{proof}
+Empecemos demostrando la vuelta: Supongamos que $T$ existe, entonces se asigna a cada punto $p$ el cono que contiene a $T(p)$. De esa forma se obtiene una orientación temporal. Para demostrar la ida usaremos que $M$ es paracompacta y por lo tanto admite la existencia de una partición de la unidad. Llamaremos $\tau$ a la orientación temporal suave; por lo dicho anteriormente, cada punto $p\in M$ posee un entorno $U$ en el cual está definido un campo temporal suave, $T_U$, tal que $T_U(q)\in \tau(q)$ para  cada $q\in U$. Sea $\{f_i\}_{i\in I}$ la partición de la unidad subordinada a un cubrimiento $\{U_i\}$. Cada $supp(f_i)\subseteq U_i$ y las funciones $f_i$ son no negativas; los conos de luz son convexos y por lo tanto el campo $T=\sum\limits_{i\in I}f_iT_{U_i}$ es temporal y suave.
+\end{proof}
+
+Espacios-tiempos no orientables temporalmente traen aparejados el hecho de no poder definir consistentemente la noción de \textit{avanzar} o \textit{retroceder} en el tiempo. Estas patologías no serán tenidas en cuenta y, de ahora en más, se considerarán que los espacios-tiempos son orientables temporalmente como parte de su definición.
+
+Cabe destacar que a pesar de que un espacio-tiempo, $M$, no sea temporalmente orientable, siempre existe un espacio-tiempo, $M'$, que es un doble cubrimiento de $M$, que sí lo es \citep{Penrose}.
+
+
+
+
+
+
+%%%%%%%%%   Curvas causales
+
+    
+\section{Curvas causales}%\label{magnitud}
+
+En la sección \ref{vectores} se ha dado una definición de \textit{curva}, visto como un mapa diferenciable de un abierto de $\mathbb{R}$ a $M$. A continuación se darán definiciones análogas, vistas más en detalle y observando el carácter causal de las mismas.
+
+\begin{definition}
+Un camino en $M$ es un mapa continuo $\mu:\Sigma \rightarrow M$ donde $\Sigma$ es un subconjunto conexo de $\mathbb{R}$ que contiene más de un punto. Se dice \textit{suave} si $\mu$ es suave, con derivada no nula. Una \textbf{curva} se define como la imágen de un camino, y se dice suave si su camino lo es. 
+\end{definition}
+
+
+La definición previa es análoga a la dada en \ref{vectores}, habiendo definido previamente la idea de \textit{camino}. A continuación definiremos y veremos la estructura causal de dichas curvas.
+
+\begin{definition}
+Un camino suave se dice temporal si su vector tangente es temporal en cada punto. Si dicho vector tangente está orientado a futuro en cada punto, se dice que el camino está orientado a futuro. Una curva es temporal si es la imágen de un camino temporal, y es orientada a futuro si el camino lo es. 
+\end{definition}
+
+Análogamente se define la orientación al pasado. A su vez, se puede hablar en general de \textbf{curvas causales}:
+
+\begin{definition}
+Un camino suave se dice causal si su vector tangente es temporal o nulo en cada punto, y una curva se dice causal si es la imágen de un camino causal.
+\end{definition}
+
+\begin{definition}
+Sea $\mu:\Sigma \rightarrow M$ un camino y sean $a=inf(\Sigma)$ y $b=sup(\Sigma)$ (admitiendo que $a=-\infty$ y $b=\infty$), entonces $x\in M$ es un \textit{punto final} de $\mu$ (o de su correspondiente curva) si para toda sucesión $\{u_i\}\subseteq \Sigma$, $u_i\rightarrow a$ implica $\mu(u_i)\rightarrow x$ o bien $u_i\rightarrow b$ implica $\mu(u_i)\rightarrow x$. Si $\mu$ es un camino temporal o causal orientado a futuro, entonces en el primer caso se dice que $x$ es un \textit{punto final pasado}, mientras que en el segundo caso se dice que $x$ es un \textit{punto final futuro}.
+\end{definition}
+
+Tal como se dijo en la sección \ref{vectores}, se utilizará de ahora en más el término \textit{curva} para referirse tanto al camino como a la imágen del mismo. 
+
+Es posible que algunas curvas temporales o causales no resulten como tal en sus puntos finales. Es por esto - y por otros posibles casos patológicos \citep{Penrose} - que se impone que, en caso de poseerlos, todas las curvas temporales o causales contengan por definición a sus puntos finales. De esta forma, si una curva posee ambos puntos finales, entonces $\Sigma$ resulta un intervalo cerrado. Además, en base a los puntos finales, se dirá que:
+
+\begin{definition}
+Una curva sin punto final futuro se debe extender indefinidamente hacia el futuro. Dicha curva se llama \textit{futuro inextensible}. Análogamente, si una curva no posee punto final pasado se dice \textit{pasado inextensible}. Una curva que posee ambos puntos finales se dice que es \textit{extensible}.
+\end{definition}
+
+Aquí se debe entender \textit{extensible} o \textit{inextensible} por el hecho de que se puede agregar, o no, otra curva que salga desde el punto final en cuestión.
+
+\begin{definition}
+Se define el \textit{futuro cronológico} de un punto $p\in M$ como el conjunto 
+\[ I^+(p)=\{q\in M \mid \exists \lambda \hspace{0.1cm} \text{una curva temporal orientada a futuro que une $p$ y $q$\}} \]
+\end{definition}
+
+Análogamente se define el \textit{pasado cronológico} $I^-(p)$. En general $p\notin I^+(p)$  salvo que haya una curva temporal cerrada tal que empiece
+y termine en $p$. A su vez, se puede probar que $I^+(p)$ es abierto para todo $p\in M$ y que $I^+(p)=I^+[I^+(p)]$ (\citep{Penrose} Proposición 2.8 y 2.12). Más en general se define el futuro cronológico de un conjunto $S\subseteq M$ como
+
+\[I^+(S)=\bigcup\limits_{p\in S} I^+(p)\]
+
+Definición análoga se sigue para $I^-(S)$. Si en vez de considerar curvas temporales se consideran curvas causales, se definen los siguientes conjuntos:
+
+\begin{definition}
+\textit{Futuro causal} de un punto $p\in M$ como el conjunto 
+\[ J^+(p)=\{q\in M \mid \exists \lambda \hspace{0.1cm} \text{una curva causal orientada a futuro que une $p$ y $q$\}} \]
+\end{definition}
+
+Análogamente se definen el \textit{pasado causal} para un punto $p$, $J^-(p)$, y $J^{\pm}(S)$ para un cojunto $S$. A diferencia de lo que sucedía con curvas temporales donde $I^+(p)$ resulta siempre abierto, es posible que $J^+(p)$ no resulte siempre cerrado. Un ejemplo de esto se puede ver si a Minkowski se le remueve un punto sobre una geodésica nula \citep{Penrose}. Un resultado que relaciona los futuros cronológicos y causales de un punto -que vale para un superficie también- se enuncia a continuación (sin demostración):
+
+\begin{lemma}
+Si $q\in J^+(p)-I^+(p)$ entonces cualquier curva causal que conecta $p$ con $q$ debe ser una geodésica nula
+\end{lemma}
+
+Cabe destacar que una geodésica en una variedad Lorentziana no puede cambiar de temporal a espacial o nula, ya que su norma permanece constante.
+
+Otro resultado imporante (cuya demostración se puede ver en \citep{1984ucp..book.....W} Lema 8.1.4) que será usado más adelante es el siguiente:
+
+\begin{lemma}\label{existencia curva timelike}
+Sea $\lambda$ una curva causal inextensible orientada al pasado pasando a través de un punto $p\in M$, entonces a través de cualquier punto $q\in I^+(p)$ existe una curva temporal inextensible orientada al pasado, $\gamma$, tal que $\gamma\in I^+(\lambda)$. 
+\end{lemma}
+
+
+
+Una curva $\lambda$ se dice una \textit{curva temporal futuro directo} si para cada punto $p\in \lambda$, el vector tangente es un vector temporal futuro directo. A su vez, una curva $\lambda$ se dice una \textit{curva causal futuro directo} si para cada punto $p\in \lambda$, el vector tangente es un vector temporal o nulo futuro directo (definiciones análogas se aplican para curvas temporales/causales pasado directo). Cabe destacar que si el vector tangente de una curva temporal (futuro directo) se anula en un punto, entonces dicha curva no se considera temporal. A su vez, en una curva causal (futuro directo) el vector tangente sí se puede anular. Para finalizar la sección daremos un resultado que será de utilidad para secciones posteriores, cuya demostración se puede hallar en Lema 6.2.1 \citep{1975lsss.book.....H}:
+
+\begin{lemma}\label{existencia curva limite}
+Sea $\{\lambda_n\}$ una sucesión de curvas causales inextensibles al futuro que tienen un punto límite $p$. Entonces existe una curva causal inextensible al futuro $\lambda$ que pasa a través de $p$ que es una curva límite de $\{\lambda_n\}$.
+\end{lemma}
+
+
+
+
+
+
+
+
+
+%%%%%%%%%   Condiciones de causalidad
+
+    
+\section{Condiciones de causalidad}%\label{magnitud}
+
+En esta sección expondremos ciertas definiciones y resultados que se consideran físicamente deseables para un espacio-tiempo, evitando así ciertas paradojas (por ejemplo, si se admiten curvas temporales cerradas entonces un viajero que viaja sobre ella podría volver al punto de partida inclusive antes de haber salido).
+
+\begin{definition}
+Un espacio-tiempo se dice \textit{cronológico} si no posee curvas temporales cerradas, y se dice \textit{causal} si no posee curvas causales cerradas.
+\end{definition}
+
+Una forma alternativa de la definición previa es decir que el espacio-tiempo es cronológico (o causal) si para todo $p\in M$, $p\notin I^+(p)$ (o $p\notin J^+(p)$). Un resutado importante que relaciona la estructura causal de una curva con el espacio-tiempo se enuncia a continuación
+
+\begin{lemma}
+Un espacio-tiempo $(M,g_{ab})$ compacto no es cronológico.
+\end{lemma}
+\begin{proof}
+% $M$ puede ser cubierto por la unión de abiertos de la forma $I^+(p)$ con $p\in M$. Como $M$ es compacto entonces se puede recubrir con finitos $I^+(p_i)$ para algunos $p_1...p_n$. Si $p_i\in I^+(p_j)$, con $i\neq j$, entonces $I^+(p_i) \subset I^+(p_j)$ y por lo tanto podemos suponer que los $I^+(p_i)$ que recubren $M$ son tales que $p_i\in I^+(p_i)$ para todo i. Luego, no puede cumplirse la condición cronológica.
+$M$ puede ser cubierto por la unión de abiertos de la forma $I^+(p)$ con $p\in M$. Si la condición cronológica se satisface en el punto $p$,  entonces $p\notin I^+(p)$. Por lo tanto, si la condición cronológica se cumple en cada punto de $M$, luego $M$ no puede ser recubierto por finitos subconjuntos de la forma $I^+(p)$.
+\end{proof}
+
+La importancia del lema previo recae en el hecho de que ahora en más consideraremos espacios-tiempos no compactos evitando así la violación cronológica. A su vez, puede pasar que un espacio-tiempo sea no causal pero sí cronológico en algún punto $q\in M$. En este caso, debe existir una geodésica nula cerrada que pase a través de $q$.
+
+Sin embargo, puede pasar que a pesar de no poseer curvas temporales cerradas, un espacio-tiempo puede tener curvas que son casi cerradas, i.e: que vuelvan arbitrariamente cerca de su punto inicial. Frente a perturbaciones de la métrica puede suceder que se viole la condición de causalidad, lo cual no es un resultado físicamente deseable. Es por este motivo que se debe extender la condición de causalidad más allá de la noción previa:
+
+\begin{definition}
+Un espacio-tiempo $(M,g_{ab})$ se dice \textbf{fuertemente causal} si para todo punto $p\in M$ y para todo entorno $U$ de $p$, existe un entorno $V$ de $p$ con $V\subset U$ y tal que ninguna curva causal interseca a $V$ más de una vez.
+\end{definition}
+
+Un lema que se sigue para un espacio-tiempo fuertemente causal es el siguiente
+
+\begin{lemma}\label{lema 8.2.1 Wald}
+Sea $(M,g_{ab})$ un espacio-tiempo fuertemente causal y sea $K\subset M$ un compacto, entonces cualquier curva causal, $\lambda$, confinada en $K$ debe poseer puntos futuros y pasados finales en $K$.  
+\end{lemma}
+\begin{proof}
+Sea $\lambda:(-\infty,\infty)\rightarrow K$ una curva causal y sea $\{t_i\}$ una sucesión tal que $\lim\limits_{i\rightarrow +\infty}t_i=+\infty$. Sea a su vez $p_i=\lambda(t_i)$. Como $K$ es compacto entonces por el Teorema \ref{B-W} existe un punto de acumulación $p\in K$. Supongamos que $\exists O$, un entorno abierto de $p$, tal que no existe ningún $t_0 \in \mathbb{R}$ para el cual $\lambda(t)\in O$ $\forall t\geq t_0$. Luego, para cada entorno abierto $V\subset O$, $\lambda$ interseca $V$ más de una vez ya que infinitos términos de la suceción $\lambda(t_i)$ están en $V$, pero $\lambda(t)$ nunca permanece en $V$. Esto contradice la hipótesis de fuertemente causal en $p$, y por lo tanto $p$ es un punto final futuro de $\lambda$. Análogamente se prueba que un punto final pasado $q\in K$ debe existir.
+\end{proof}
+
+Sin embargo, puede seguir sucediendo que se viole la condición de causalidad frente a modificaciones en la métrica, aún habiendo impuesto que el espacio-tiempo sea fuertemente causal. Por esta razón se debe imponer algo aún más fuerte, y es la noción de establemente causal. Primero definiremos $\tilde{g}_{ab}=g_{ab}-t_at_b$ donde $t^a$ es un campo vectorial temporal y $g_{ab}$ es la métrica del espacio-tiempo. Habiendo definido esto, se procede a definir un espacio-tiempo establemente causal como
+
+\begin{definition}
+Un espacio-tiempo $(M,g_{ab})$ se dice \textbf{establemente causal} si existe un campo vectorial temporal continuo y que nunca se anula, $t^a$, tal que $(M,\tilde{g}_{ab})$ no posee curvas temporales cerradas.
+\end{definition}
+
+La noción de establemente causal posee una idea geométrica muy clara: uno puede ``abrir" los conos de luz ligeramente en cualquier punto sin que ello produzca curvas temporales cerradas. Por ``abrir" los conos de luz se entiende lo siguiente: sea $t^a$ un vector temporal respecto de la métrica $g_{ab}$. Para todo vector $X$ vale que $\tilde{g}_{ab}X^aX^b=g_{ab}X^aX^b-(X^at_a)^2$. Si $X^at_a=0$ entonces $X$ debe ser espacial y por lo tanto todo vector temporal o nulo de $g_{ab}$ es un vector temporal de $\tilde{g}_{ab}$.
+
+Para espacios-tiempos establemente causales se puede definir una noción global del tiempo, tal como se enuncia en el siguiente teorema (para su demostración referirse a \citep{1984ucp..book.....W} Teorema 8.2.2)
+
+\begin{theorem}
+Un espacio-tiempo $(M,g_{ab})$ es establemente causal si y solo si existe una función diferenciable $f$ en $M$ tal que $\nabla^af$ es un campo vectorial temporal pasado directo. Una función que cumple esto se dice que es una función global del tiempo.
+\end{theorem}
+
+
+Para finalizar la sección se enunciará un lema que prueba que efectivamente la condición de establemente causal es más fuerte que la condición de fuertemente causal:
+
+\begin{lemma}
+Establemente causal implica fuertemente causal.
+\end{lemma}
+\begin{proof}
+Sea $f$ una función global del tiempo en $M$. Dados $p\in M$ y $O\subset M$ un entorno abierto de $p$, es posible elegir un entorno abierto $V\subset O$ de $p$ tal que el valor límite de $f$ para toda curva causal futuro directo que sale de $V$ sea mayor que el valor límite de $f$ a la entrada de $V$. Luego, como $f$ crece a lo largo de toda curva causal futuro directo, no es posible que una curva causal entre nuevamente en $V$.
+\end{proof}
+
+
+
+
+    
+    
+%%%%%%%%%   Hiperbolicidad global
+
+\section{Hiperbolicidad global}%\label{Clasificacion_espectral}
+
+Un concepto importante que será de suma importancia para los Teoremas de Singularidades y que se usará a lo largo de la tesis es el de \textit{hiperbolicidad global}. Previamente daremos ciertas definiciones y resultados para luego formalizar el concepto.
+
+\begin{definition}
+Un conjunto $S\subseteq M$ se dice \textit{acronal} si dados $p,q\in S$ no existe una curva temporal que los una.
+\end{definition}
+
+Notemos que la definición previa equivale a decir que $I^+(S)\cap S=\emptyset$.
+
+\begin{definition}
+El \textit{borde} de un conjunto acronal cerrado $S\subseteq M$ son los puntos $p\in S$ tales que todo entorno $O$ de $p$ contiene un punto $q\in I^+(p)$, un punto $r\in I^-(p)$ y una curva temporal que une $r$ y $q$ pero que no interseca a $S$. 
+\end{definition}
+
+Un teorema imporante (para su demostración referirse a Teorema 8.3.1 de \citep{1984ucp..book.....W}) que ayudará a entender el concepto de hiperbolicidad global es el siguiente:
+
+\begin{theorem}\label{C0}
+Sea $S\subseteq M$ un conjunto cerrado, acronal y sin borde, entonces $S$ es una subvariedad $C^0$ de dimensión $3$ inmersa en $M$. 
+\end{theorem}
+
+
+\begin{definition}
+Dado un conjunto cerrado y acronal $S\subseteq M$, se define el \textit{dominio futuro de dependencia} de $S$ como 
+\[ D^+(S)=\{p\in M \mid \text{Toda curva causal inextensible al pasado que pasa por $p$ interseca a $S$\}} \]
+\end{definition}
+
+Definición análoga se sigue para el \textit{dominio pasado de dependencia} de $S$: $D^-(S)$. El \textit{dominio de dependencia} (completo) de $S$ se define como 
+
+\[ D(S)=D^+(S)\cup D^-(S) \]
+
+Habiendo definido conjuntos acronales, se sigue una definición de suma importancia para la tesis:
+
+\begin{definition}
+Un conjunto cerrado y acronal, $\Sigma$, tal que $D(\Sigma)=M$ se dice que es una \textbf{superficie de Cauchy}.
+\end{definition}
+
+Como una superficie de Cauchy, $\Sigma$, es acronal, se sigue que la misma no tiene borde. Luego, por el Teorema \ref{C0}, $\Sigma$ resulta una subvariedad $C^0$ inmersa en $M$. Por este motivo se suele pensar a $\Sigma$ como un \textit{instante de tiempo} del universo. 
+
+Una vez hechas las definiciones y los resultados previos, podremos definir -ahora sí- un espacio-tiempo globalmente hiperbólico:
+
+\begin{definition}
+Un espacio-tiempo $(M,g_{ab})$ se dice \textbf{globalmente hiperbólico} si posee una superficie de Cauchy.
+\end{definition}
+
+La idea intuitiva de un espacio-tiempo globalmente hiperbólico es la siguiente: si pensamos a $\Sigma$ como un instante de tiempo, entonces a partir de las condiciones iniciales en ese instante de tiempo $\Sigma$, se podrá predecir (a futuro y a pasado) la historia del universo. Esto quiere decir que si un espacio-tiempo no es globalmente hiperbólico, entonces aún conociendo completamente las condiciones en el instante $\Sigma$, no se podrá determinar la historia del universo. De ahora en más se considerarán espacio-tiempos globalmente hiperbólicos (cabe aclarar que aún considerando espacio-tiempos no globalmente hiperbólicos, se puede probar que los teoremas que requieren dicha condición aún siguen valiendo pero para ciertas regiones de una superficie acronal cerrada $S$ \citep{1984ucp..book.....W}). Una definición alternativa que dan \citep{1975lsss.book.....H} y que otorga otro punto de vista es el siguiente: Dado un conjunto $N$, se dice globalmente hiperbólico si la condición de fuertemente causal se cumple en $N$ y si para cualquier par de puntos $p,q\in N$, $J^+(p) \cap J^-(q)$ es compacto y está contenido en $N$. De esta forma, podemos pensar que la definición equivale a decir que $J^+(p) \cap J^-(q)$ no contiene puntos en el ``borde" del espacio-tiempo, i.e: en infinito o en una singularidad.
+
+A continuación se enuncian ciertos resultados de interés para espacio-tiempos globalmente hiperbólicos
+
+\begin{proposition}\label{interseccion lambda}
+Sean $\Sigma$ una superficie de Cauchy y $\lambda$ una curva causal inextensible, entonces $\lambda$ interseca a $\Sigma$, $I^+(\Sigma)$ e $I^-(\Sigma)$.
+\end{proposition}
+\begin{proof}
+Iremos por el absurdo: Supongamos que $\lambda$ no interseca $I^+(\Sigma)$. Por el Lema \ref{existencia curva timelike} podemos encontrar una curva temporal inextensible orientada al pasado $\gamma \subset I^+(\lambda) \subset I^+[\Sigma\cap I^+(\Sigma)]=I^+(\Sigma)$. Si extendemos $\gamma$ indefinidamente hacia el futuro, aún así no intersecará $\Sigma$ ya que de lo contrario $\Sigma$ no sería acronal. Como toda curva causal inextensible interseca $\Sigma$, entonces no puede existir tal $\gamma$ y por lo tanto $\lambda$ debe estar en $I^-(\Sigma)$. Análogamente se prueba para $I^+(\Sigma)$.
+\end{proof}
+
+\begin{lemma}
+Sea $(M,g_{ab})$ un espacio-tiempo globalmente hiperbólico, entonces $(M,g_{ab})$ es fuertemente causal.
+\end{lemma}
+\begin{proof}
+En un espacio-tiempo globalmente hiperbólico con superficie de Cauchy $\Sigma$ se tiene que $M=I^-(\Sigma) \cup \Sigma \cup I^+(\Sigma)$. Iremos por el absurdo. Supongamos que no se cumple la condición de fuertemente causal en un punto $p\in I^+(\Sigma)$. Podemos encontrar un entorno convexo $U$ de $p$, contenido en $I^+(\Sigma)$, y una familia de conjuntos abiertos $\{O_n\}$ tales que $O_n\subset U$ convergen a $p$ y que para cada $n$ podemos encontrar una curva temporal futuro directo, $\lambda_n$, que empieza en $O_n$, sale de $U$, y vuelve a $O_n$. Como $p$ es punto límite de $\lambda_n$ entonces existe una curva límite, $\lambda$, que pasa a través de $p$ (Lema 8.1.5 \citep{1984ucp..book.....W}). A pesar de que $\lambda_n$ es extensible, $\lambda$ es inextensible ó, de lo contrario, cerrada (en cuyo caso se puede hacer inextensible haciendo que de infinitas vueltas). Como ningún $\lambda_n$ puede entrar en $I^-(\Sigma)$ -ya que sino se violaría la acronalidad de $\Sigma$ - $\lambda$ tampoco puede entrar en $I^-(\Sigma)$. Sin embargo, esto contradice la Proposición \ref{interseccion lambda} y por lo tanto no se puede violar la condición de fuertemente causal en $p\in I^+(\Sigma)$. Razonamientos análogos se siguen para las demostraciones de $p\in I^-(\Sigma)$ y $p\in \Sigma$.
+\end{proof}
+
+
+Más aún, el siguiente resultado (cuya demostración se puede encontrar en \citep{1984ucp..book.....W} Teorema 8.3.14) refuerza el anterior.
+ 
+\begin{theorem}\label{Teo 8.3.14 Wald}
+Sea $(M,g_{ab})$ un espacio-tiempo globalmente hiperbólico, entonces $(M,g_{ab})$ es establemente causal. Más aún, se puede definir una función global del tiempo, $f$, tal que cada superficie de $f$ constante es una supeficie de Cauchy. De esta forma, $M$ se puede foliar por superficies de Cauchy y la topología de $M$ es la de $\mathbb{R}\times\Sigma$, donde $\Sigma$ es alguna superficie de Cauchy.
+\end{theorem}
+
+Para finalizar el capítulo daremos ciertas definiciones sobre algunos conceptos muy importantes a la hora de estudiar los teoremas de singularidades.
+
+\begin{definition}
+Sea $S$ un conjunto cerrado y acronal. Se define el \textit{horizonte de Cauchy futuro} de $S$ como 
+\[ H^+(S)=\overline{D^+(S)}-I^-[D^+(S)] \]
+\end{definition}
+
+donde $\overline{D^+(S)}$ es la clausura de $D^+(S)$. Análogamente se define $H^-(S)$. El \textbf{horizonte de Cauchy} (completo) se define como
+
+\[ H(S)=H^-(S) \cup H^+(S) \]
+
+La idea intuitiva de los horizontes de Cauchy es que otorgan una noción sobre cuán cercana (o no) está una superficie a ser una superficie de Cauchy.
+
+Uno de los resultados importantes que cumplen los horizontes de Cauchy (sin demostración; ver \citep{1984ucp..book.....W} Teorema 8.3.5) es el siguiente:
+
+\begin{theorem}\label{teo 8.3.5 Wald}
+Todo punto $p\in H^+(S)$ está contenido en una geodésica nula contenida totalmente en $H^+(S)$, que es bien pasado inextensible o bien tiene un punto final pasado en el borde de $S$.
+\end{theorem}
+
+
+    

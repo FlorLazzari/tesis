@@ -1,0 +1,577 @@
+% Tesis
+% Tı́tulo: Simulación computacional de estelas en parques eólicos
+
+% Poster
+El objetivo del proyecto en el que se enmarca esta tesis es el desarrollo de herramientas
+computacionales que permitan modelar el flujo en el entorno de las turbinas eólicas, dando
+lugar a modelos de pronóstico de potencia eólica en parques eólicos. Se analizarán distintas
+combinaciones de métodos que permitan contar con un abanico de opciones de variado costo
+computacional de acuerdo con las necesidades operativas de cada caso.
+
+desarrollar modelos de orden redu-
+cido de estelas de turbinas eólicas a un bajo costo computacional. Se modelará el efecto de
+las turbinas sobre el flujo atmosférico mediante modelos que representan la aerodinámica en
+el entorno cercano a las turbinas. Además, se analizará la forma de representar la interacción
+de las estelas de varias turbinas.
+
+El objeto final será construir un código en Python
+
+La estela que se produce detrás de una turbina puede ser representada con distinto nivel de
+detalle, dependiendo de la precisión requerida se utilizan diferentes recursos computaciones.
+La alternativa para ahorrar recursos computacionales es utilizar los modelos reducidos de
+turbinas, en los cuales se substituyen las aspas por fuerzas volumétricas con efecto equivalente
+actuando sobre el fluido. Se han propuesto diversos modelos de este tipo, que se diferencian
+en el grado de descripción del rotor, a mayor detalle mayor costo computacional. En esta tesis
+se utilizará el Actuador Discal (AD), en el que las fuerzas se distribuyen de manera constante
+sobre el área que barren las aspas del rotor (Sanderse, 2009). Estas fuerzas representan el
+efecto del rotor promediada en el tiempo.
+
+Los modelos de estelas de turbinas eólicas utilizan simplificaciones para caracterizarlas
+de manera de evitar la resolución de las ecuaciones diferenciales de la fluidodinámica. Las
+2simplificaciones introducidas implican una pérdida de precisión pero una importante reducción
+del costo computacional.
+
+Estos modelos en general tienen validez en lo que se denomina estela
+lejana de la turbina que la produce y generalmente se utilizan para generar las condiciones de
+entrada a turbinas que se encuentran aguas abajo.
+
+Estos modelos en general tienen validez en lo que se denomina estela
+lejana de la turbina que la produce y generalmente se utilizan para generar las condiciones de
+entrada a turbinas que se encuentran aguas abajo.
+
+Validación de los resultados. En primer lugar se recurrirá a resultados analı́ticos
+publicados en la literatura para verificar la solución provista por los modelos. Luego
+se contrastarán los resultados con los casos de prueba obtenidos mediante simulaciones
+realizadas utilizando los métodos NWP y fluidodinámica computacional (CFD), en los
+cuales se encuentran trabajando otros integrantes del grupo. Finalmente, los modelos
+estudiados se compararán con ensayos a escala en túnel de viento y datos de parques
+eólicos reales en Argentina.
+
+compromiso entre la precisión
+necesaria y el costo computacional.
+
+%%%%%%
+
+El potencial eólico de la Argentina es uno de los mayores del mundo. Actualmente la
+participación de esta fuente de energı́a en el mercado eléctrico nacional es baja, pero se
+espera que en los próximos años aumente considerablemente. Debido a esta expectativa, se
+necesitan herramientas que faciliten la incorporación de mayores cantidades de energı́a de
+esta fuente en el mercado eléctrico nacional.
+
+El objetivo último de este proyecto es sentar las bases al desarrollo de modelos operativos
+de pronóstico de potencia eólica y de modelado del flujo atmosférico en parques eólicos.
+
+No se dispone de una solución general para este conjunto de ecuaciones, y salvo ciertos tipos de flujo y situaciones muy concretas no es posible hallar una solución analítica; por lo que en muchas ocasiones es preciso recurrir al análisis numérico para determinar una solución aproximada. A la rama de la mecánica de fluidos que se ocupa de la obtención de estas soluciones mediante métodos numéricos se la denomina dinámica de fluidos computacional 
+
+\begin{posterbox}[name=summary,column=0,row=0]{Summary}
+
+Simple analytical wake models are validated to predict the wind velocity distribution downwind of a wind turbine. The most common analytical models are based on inaccurate assumptions considering a top-hat shape for the velocity deficit. An alternative model is derived assuming a Gaussian distribution for the velocity deficit in the wake. These models are implemented and the results are compared to wind-tunnel measured data of wind turbine wakes. In general, it is found that the velocity deficit in the wake predicted by the Gaussian analytical model is in better agreement with the measurements than the top-hat models.
+
+% faltaria comparar con Computational Fluid Dynamics (CFD) ?
+
+\end{posterbox}
+
+\begin{posterbox}[name=wind_energy,span=2,column=1,row=0]{Wind Energy}
+
+
+\begin{wrapfigure}{l}{0.5\textwidth}
+  \begin{center}
+    \includegraphics[width=7cm, height=4cm]{potencial_eolico_mundial}
+  \end{center}
+\end{wrapfigure}
+
+%El objetivo del proyecto en el que se enmarca esta tesis es el desarrollo de herramientas
+%computacionales que permitan modelar el flujo en el entorno de las turbinas eólicas, dando
+%lugar a modelos de pronóstico de potencia eólica en parques eólicos. Se analizarán distintas
+%combinaciones de métodos que permitan contar con un abanico de opciones de variado costo
+%computacional de acuerdo con las necesidades operativas de cada caso.
+
+Wind energy is a form of renewable electricity generation that helps to reduce greenhouse gas emissions. 
+Because of the variable nature of the wind resource, the ability to forecast wind speed some time ahead is valuable. The wind is sufficiently stable and predictable on an annual scale, although it presents significant variations at smaller timescales. The forecast of energy production allows to foresee possible variations in generation, making possible a better management of the electric network. In addition, flow modeling is useful for prospecting and installation of future projects.
+
+%La energía eólica es una forma de generación eléctrica renovable que ayuda a disminuir las emisiones de gases de efecto invernadero al reemplazar fuentes de energía a base de combustibles fósiles. 
+%El viento es suficientemente estable y predecible a escala anual, aunque presenta variaciones significativas a escalas de tiempo menores. El pronóstico de producción de energía permite prever posibles variaciones en la generación, posibilitando una mejor gestión de la red eléctrica. Además, el modelado del flujo resulta de utilidad para la prospección e instalación de futuros proyectos.
+
+
+\end{posterbox}
+
+
+\begin{posterbox}[name=wake,column=0,row=0, below=summary]{Wake}
+
+A wind turbine is a device for extracting kinetic energy from the wind, its aerodynamic behaviour is modeled by the use of an $actuator$ $disc$. The actuator disc induces a velocity variation which must be superimposed on the free-stream velocity.
+% Assuming that the affected mass of air remains separate from the rest of the air, a boundary surface can be drawn containing the affected air mass and this boundary can be extended forming a long stream-tube of circular cross section.
+The air within the stream-tube slows down, but does not become compressed, making the cross-sectional area expand. As the air passes through the rotor disc, there is a drop in static pressure such that, on leaving, the air is below the atmospheric pressure level. The air then proceeds downstream with reduced speed and static pressure – this region of the flow is called the $wake$.
+The rise in static pressure is at the expense of the kinetic energy and so causes a further slowing down of the wind. Thus, between the far upstream and far wake conditions, no change in static pressure exists but there is a reduction in kinetic energy.
+
+\begin{center}
+  \includegraphics[width=6cm, height=4cm]{stream_tube.jpg}
+  \label{fig:figlabel}
+\end{center}
+
+% \begin{itemize}
+% \item $\infty$: far upstream, $d$: at disc, $w$: far wake
+% \end{itemize}
+
+\end{posterbox}
+
+\begin{posterbox}[name=computational_methods,column=0,below=wake, above=bottom]{Computational Methods}
+
+\begin{itemize}
+\item $Direct$ $Numerical$ $Simulation$ $(DNS)$: N–S equations are numerically solved. The whole range of spatial and temporal scales of the turbulence must be resolved in the computational mesh. 
+\end{itemize} 
+
+\begin{itemize}
+\item $Turbulence$ $Models$: a model is constructed to predict the effects of turbulence. The governing equations of the flow are averaged (RANS) in order to focus on large-scale and non-fluctuating features. \begin{itemize}
+\item $Large$ $Eddy$ $Simulation$: ignors the smallest length scales, which are the most computationally expensive to resolve, via low-pass filtering of the Navier–Stokes equations, removing small-scale information from the solution.
+\end{itemize}
+\end{itemize} 
+
+
+\begin{itemize}
+\item $Analytical$ $Models$: a model is derived by applying conservation of mass and momentum and assuming a specific distribution for the velocity of the fluid.
+
+\end{itemize}
+
+
+%Al modelar la estela de una turbina, la alternativa para ahorrar recursos computacionales es utilizar modelos reducidos, en los cuales se sustituyen las aspas por fuerzas volumétricas con efecto equivalente. 
+
+\end{posterbox}
+
+
+\begin{posterbox}[name=comparing_methods,column=1,below=wind_energy]{Comparing Methods}
+
+Depending on the accuracy required in the study of a fluid, different computational methods are chosen. 
+
+A DNS requires a number of mesh points $N$ satisfying $N^{3}\geq \mathrm {Re} ^{2.25}$, where $Re$ is the Reynolds number. Hence, the memory storage requirement in a DNS grows very fast with $Re$. For $Re$ encountered in most industrial applications, the computational resources required by a DNS exceed the capacity of the most powerful computers currently available.
+
+For the simulation of practical engineering systems with complex geometry or flow configurations, LES has become increasingly sophisticated and accurate in recent years. It is cheaper than DNS but it still requires huge processing time.
+
+When modelling wind farms to make power forecasting, it is important to reduce the time taken to run the simulation. This is the reason why simple analytical models are useful tools to predict wind-turbine wake flows. They are widely used due to their simplicity and low computational cost.
+
+
+\begin{center}
+  \includegraphics[width=6cm, height=3cm]{potencial_eolico_mundial}
+  \label{fig:figlabel}
+\end{center}
+
+
+\end{posterbox}
+
+
+\begin{posterbox}[name=analytical_models,column=1,below=comparing_methods,above=bottom]{Analytical Models}
+
+%Se han propuesto diversos modelos de orden reducido para el estudio de la estela de una turbina. 
+
+The pioneering analytical wake models were the ones proposed by $Jensen$ and $Frandsen$, they were presented more than 30 years ago, yet they continue to be a standard tool in commercial software packages. Both models assume a top-hat shape for the velocity deficit in the wake. They claimed that it gives an estimate of the energy content rather than describing the velocity field accurately. Nevertheless, note that the energy available in the wind varies as the cube of the wind speed and, therefore, an improper evaluation of velocity field in a wind farm can lead to large errors in the prediction of the energy output.
+
+
+A new model was derived by Porté-Agel, applying conservation of mass and momentum and assuming a Gaussian distribution for the velocity deficit in the wake.
+
+\end{posterbox}
+
+
+
+\begin{posterbox}[name=equations,column=2,below=wind_energy]{Equations}
+\begin{itemize}
+\item Jensen
+\begin{equation*}
+\frac{\Delta U}{U_{\infty}} = \frac{1 - \sqrt{1 - C_T}}{(1 + \frac{2 k_{wake} x}{d_0})^2}
+\end{equation*}
+\end{itemize}
+\begin{itemize}
+\item Frandsen
+\begin{equation*}
+\frac{\Delta U}{U_{\infty}} = \frac{1}{2} - \frac{1}{2}\sqrt{1 - 2 \frac{A_0}{A_W(x)}C_T}
+\end{equation*}
+\end{itemize}
+\begin{itemize}
+\item Porté-Agel
+\begin{equation*}
+\frac{\Delta U}{U_{\infty}} = C(x) exp\Bigg\{\frac{-1}{2(\frac{k^*x}{d_0} + \epsilon)^2}\bigg( \bigg( \frac{r(x,y)}{d_0}\bigg)^2\Bigg\}
+\end{equation*}
+\end{itemize}
+Profiles of the mean velocity (top) and velocity deficit (bottom) downwind of a wind turbine obtained by assuming: (left) a top-hat and (right) a Gaussian distribution for the velocity deficit.
+\begin{center}
+  \includegraphics[width=6cm, height=4cm]{models.jpg}
+  \label{fig:figlabel}
+\end{center}
+\end{posterbox}
+
+
+
+
+\begin{posterbox}[name=implementation,column=2,below=equations, above=bottom]{Implementation}
+
+The three analytical models where implemented in python. 
+\begin{center}
+  \includegraphics[width=7cm, height=7.5cm]{grafico_J_F_G_medido.jpg}
+  \label{fig:figlabel}
+\end{center}
+
+\end{posterbox}
+
+Contours of streamwise velocity (m/s): from top to bottom, Jensen, Frandsen, Porté-Agel and wind-tunnel measurements.The results show that Porté-Agel 
+
+The comparison with the high-resolution wind-tunnel measurements shows that the velocity profiles obtained with the proposed model are in acceptable agreement with the experiments
+In contrast, the
+top-hat models, as expected, generally underestimate the velocity
+deficit at the center of the wake and overestimate it near the edge
+of the wake.
+
+
+\end{poster}
+\end{document}
+
+
+
+
+% Plan de Tesis
+Marco
+A nivel mundial, la eólica ocupa un lugar destacado dentro de las energı́as renovables.
+En 2015, fue la principal fuente de nueva capacidad generadora de electricidad en Europa y
+Estados Unidos, y la segunda más importante en China (Sawin et al., 2016).
+La generación de energı́a eólica difiere de otras formas convencionales de generación debido
+a la naturaleza cuasiestocástica del viento. Dada la complejidad de los fenómenos a estudiar, es
+dificil realizar experimentos fı́sicos, por lo que se utiliza simulación computacional para realizar
+la experimentación en forma numérica. Las herramientas para el pronóstico de producción
+de energı́a eólica reducen el riesgo de incertidumbre y permiten un mejor planeamiento e
+integración de la energı́a eólica dentro del sistema eléctrico nacional. Además, el modelado
+del flujo resulta de utilidad para la prospección e instalación de futuros proyectos.
+La interacción de las turbinas eólicas con su entorno es un problema donde aparecen
+diversas escalas espaciales en el flujo. La escala sinóptica es la que modula el problema, pero
+también tienen una influencia importante los fenómenos que ocurren a escala local debido a la
+topografı́a del terreno y el efecto de las turbinas mismas, donde aparecen escalas en un rango
+que varı́a entre su tamaño caracterı́stico hasta las escalas turbulentas más pequeñas. Una
+de las caracterı́sticas más desafiantes de la generación eólica, comparada con otras fuentes
+convencionales, es su dependencia con la variabilidad del viento. Esto sucede en todas las
+escalas temporales, pero hay dos que resultan más relevantes. Las escalas en el orden de los
+milisegundos a segundos resultan relevantes para el sistema de control de la turbina, mientras
+que para la inserción de la eólica en la red eléctrica resultan importantes los fenómenos que
+ocurren en escalas temporales del orden de minutos a dı́as (Giebel et al., 2011). Analizar la
+interacción de un grupo de turbinas entre si y con su entorno implica considerar todos los
+fenómenos que ocurren en este rango de escalas. Esto evidencia la complejidad del problema,
+que cubre rangos temporales y espaciales que barren más de 6 órdenes de magnitud.
+El objetivo del proyecto en el que se enmarca esta tesis es el desarrollo de herramientas
+computacionales que permitan modelar el flujo en el entorno de las turbinas eólicas, dando
+lugar a modelos de pronóstico de potencia eólica en parques eólicos. Se analizarán distintas
+combinaciones de métodos que permitan contar con un abanico de opciones de variado costo
+computacional de acuerdo con las necesidades operativas de cada caso.
+Objetivos
+La tesis de licenciatura de Florencia Lazzari apunta a desarrollar modelos de orden redu-
+cido de estelas de turbinas eólicas a un bajo costo computacional. Se modelará el efecto de
+las turbinas sobre el flujo atmosférico mediante modelos que representan la aerodinámica en
+el entorno cercano a las turbinas. Además, se analizará la forma de representar la interacción
+de las estelas de varias turbinas.
+El objeto final será construir un código en Python que tome como dato de entrada las
+variables estregadas por el y obtenga como resultado el campo de velocidades del fluido aguas
+abajo de las turbinas. De esta forma será posible analizar situaciones de funcionamiento en
+un parque real.
+La estela que se produce detrás de una turbina puede ser representada con distinto nivel de
+detalle, dependiendo de la precisión requerida se utilizan diferentes recursos computaciones.
+La alternativa para ahorrar recursos computacionales es utilizar los modelos reducidos de
+turbinas, en los cuales se substituyen las aspas por fuerzas volumétricas con efecto equivalente
+actuando sobre el fluido. Se han propuesto diversos modelos de este tipo, que se diferencian
+en el grado de descripción del rotor, a mayor detalle mayor costo computacional. En esta tesis
+se utilizará el Actuador Discal (AD), en el que las fuerzas se distribuyen de manera constante
+sobre el área que barren las aspas del rotor (Sanderse, 2009). Estas fuerzas representan el
+efecto del rotor promediada en el tiempo.
+Los modelos de estelas de turbinas eólicas utilizan simplificaciones para caracterizarlas
+de manera de evitar la resolución de las ecuaciones diferenciales de la fluidodinámica. Las
+simplificaciones introducidas implican una pérdida de precisión pero una importante reducción
+del costo computacional. Estos modelos en general tienen validez en lo que se denomina estela
+lejana de la turbina que la produce y generalmente se utilizan para generar las condiciones de
+entrada a turbinas que se encuentran aguas abajo. Los modelos de estelas pueden ser estáticos,
+cuando consideran una situación estacionaria de viento, o dinámicos, cuando la dirección e
+intensidad del viento son variables. Se han propuesto diferentes modelos de estelas a lo largo
+del tiempo. Jensen (1983) fue el pionero, con un modelo estático que tomaba a la estela
+como un déficit constante en el campo de velocidades a partir de argumentos de conservación
+de masa. Más adelante Frandsen et al. (2006) propuso una mejora al modelo de estela al
+incorporar como hipótesis la conservación de momento. Dentro de los modelos más recientes
+encontramos el de Bastankhah y Porté-Agel (2014), en el cual a las hipótesis anteriores se
+le agrega que el déficit sea, en lugar de constante, Gaussiano (lo cual es evidente tanto en
+mediciones de tunel de viento como en simulaciones computacionales más complejas). Por
+otro lado, existen también modelos que estudian el serpenteo de la estela, como el de Larsen
+et al. (2008). En base a estos modelos la estudiante deberá escribir un código que haga el
+cálculo para analizar el comportamiento de las estelas.
+
+Metodologı́a
+Las tareas a desarrollar incluyen:
+1. Revisión Bibliográfica y actualización del estado del arte.
+2. Desarrollos de interfases con modelos de pronóstico numérico (NWP) para la
+obtención de las condiciones iniciales y de borde del flujo externo de los casos a simular.
+3. Implementación de modelos de estelas. Se implementarán distintos modelos pro-
+puestos en la literatura cientı́fica, y se evaluarán desde el punto de vista de su capacidad
+descriptiva, su costo computacional y su capacidad de acoplamiento con modelos NWP.
+Se espera que estos modelos puedan proveer una solución rápida, de bajo costo compu-
+tacional y cualitativamente aceptable para determinadas aplicaciones.
+4. Análisis de esquemas de representación de la interacción entre distintas es-
+telas. Uno de los puntos cruciales al utilizar estos modelos simplificados de estelas de
+turbinas es cómo representar la interacción de las estelas entre sı́ y con obstáculos como
+la superficie terrestre. Se replicarán distintas metodologı́as propuestas en la literatura.
+5. Validación de los resultados. En primer lugar se recurrirá a resultados analı́ticos
+publicados en la literatura para verificar la solución provista por los modelos. Luego
+se contrastarán los resultados con los casos de prueba obtenidos mediante simulaciones
+realizadas utilizando los métodos NWP y fluidodinámica computacional (CFD), en los
+cuales se encuentran trabajando otros integrantes del grupo. Finalmente, los modelos
+estudiados se compararán con ensayos a escala en túnel de viento y datos de parques
+eólicos reales en Argentina.
+
+
+% PICT 2016
+El potencial eólico de la Argentina es uno de los mayores del mundo. Actualmente la
+participación de esta fuente de energı́a en el mercado eléctrico nacional es baja, pero se
+espera que en los próximos años aumente considerablemente. Debido a esta expectativa, se
+necesitan herramientas que faciliten la incorporación de mayores cantidades de energı́a de
+esta fuente en el mercado eléctrico nacional.
+Dada la complejidad del fenómeno, que básicamente cubre rangos temporales y espaciales
+que barren más de 6 órdenes de magnitud, la solución óptima asociada a la simulación del
+flujo atmosférico en torno a un conjunto de turbinas eólicas y el cálculo de la energı́a generada
+dependerá de los distintos problemas a estudiar e implicará un compromiso entre la precisión
+necesaria y el costo computacional. En este sentido se propone estudiar y desarrollar modelos
+de variada complejidad para el estudio multiescala del flujo atmosférico en torno a las turbinas
+de los parques eólicos. Las técnicas a utilizar comprenden métodos basados en:
+pronóstico numérico del tiempo,
+resolución numérica de las ecuaciones diferenciales de la fluidodinámica,
+modelado simplificado de las estelas de las turbinas,
+utilización de modelos de orden reducido de la aerodinámica de turbinas, y
+simulación multicomponente estructural, mecánica y eléctrica de las turbinas
+las cuales se combinarán de acuerdo al grado de precisión necesario y el costo computacional
+aceptable. Los modelos estudiados se compararán con ensayos a escala en túnel de viento y
+datos de parques eólicos reales.
+1El objetivo último de este proyecto es sentar las bases al desarrollo de modelos operativos
+de pronóstico de potencia eólica y de modelado del flujo atmosférico en parques eólicos. Estos
+modelos podrán ser transferidos a los distintos actores del sector de acuerdo a sus necesidades
+y capacidades.
+
+Los objetivos especı́ficos de este proyecto se pueden condensar en el desarrollo de herra-
+mientas computacionales que permitan modelar el flujo en el entorno de las turbinas eólicas,
+considerando las interacciones de las turbinas entre sı́ y con su entorno. Dada la complejidad
+del problema, se analizarán distintas combinaciones de métodos que permitan contar con un
+abanico de opciones de variado costo computacional de acuerdo con las necesidades operativas
+de cada caso. En todos los casos los modelos serán ajustados a las caracterı́sticas regionales
+del recurso. Se estudiarán las caracterı́sticas locales del flujo atmosférico en las regiones de
+interés eólico a fin de configurar los modelos.
+
+Se trabajará
+con el código de software libre de volúmenes finitos OpenFOAM. Este software cuenta
+con amplias funcionalidades para el computo en entornos de alto desempeño y, además,
+con algunas implementaciones elementales de modelos reducidos de turbinas eólicas que
+servirán de base para la integración de los mismos.
+
+Se estudiarán diversos modelos que representan el comporta-
+miento de las estelas de manera simplificada. Se implementarán los modelos de manera
+que puedan ser ejecutados en entornos de computación de alto desempeño de forma aco-
+plada con los desarrollos de los demás objetivos de este proyecto. Además, se analizará
+la forma de representar la interacción de las estelas de varias turbinas e incluirla en los
+modelos.
+
+Se
+modelará el efecto de las turbinas sobre el flujo atmosférico, mediante modelos de redu-
+cidos que representan la aerodinámica en el entorno cercano a las turbinas, de manera
+de incluir dicho efecto en los modelos estudiados en los objetivos anteriores. Se evaluará
+la sensibilidad de dichos modelos a las condiciones de implementación.
+
+Los modelos a estudiar y desarrollar serán validados contra experimentos fı́sicos realizados
+en túneles de viento y/o resultados de mediciones en parques eólicos reales en los casos que
+ello sea posible. Para esto se diseñarán experimentos numéricos y fı́sicos que permitan esta
+validación.
+
+
+Relevancia del problema.
+A nivel mundial, la eólica ocupa un lugar destacado dentro de las energı́as renovables, ya
+que su recurso es abundante, limpio y tiene menor costo de producción que otras energı́as.
+En 2015, fue la principal fuente de nueva capacidad generadora de electricidad en Europa y
+Estados Unidos, y la segunda más importante en China. A nivel mundial, se añadió un récord
+de 63 GW, sumando un total aproximado de 433 GW (Sawin et al., 2016).
+A nivel nacional, la región patagónica se encuentra entre las mejores ubicaciones, en las
+cuales el recurso del viento es extenso y considerado de buena calidad debido a su alta inten-
+sidad y persistencia. También existen en el paı́s otros sitios, por ejemplo el litoral marı́timo
+de la Provincia de Buenos Aires, donde el recurso, sin ser tan descomunal, presenta mejores
+condiciones que otros lugares en el mundo donde la eólica tiene un gran desarrollo. Actual-
+mente la participación de esta fuente en el mercado eléctrico nacional es baja, alcanzando el
+1,8 % de la producción de energı́a eléctrica con una potencia instalada de alrededor de 190
+MW 1 , pero se espera que en los próximos años aumente considerablemente. La Ley Nacional
+N ◦ 26190 y su modificatoria N ◦ 27191, sobre el régimen nacional de fomento para el uso de
+fuentes renovables destinadas a la producción de energı́a eléctrica, establece como objetivo
+para el año 2025 lograr una contribución de las fuentes renovables de energı́a hasta alcanzar
+el veinte por ciento (20 %) del consumo de energı́a eléctrica nacional. Además, la temática re-
+lacionada con la generación de energı́a eólica se halla incluida en el Plan Nacional de Ciencia,
+Tecnologı́a e Innovación Productiva “Argentina Innovadora 2020” entre los temas estratégicos
+definidos para la presente convocatoria dentro del sector energı́a e industria lo cual destaca
+la importancia de la misma en el futuro cercano.
+La generación de energı́a eólica difiere de otras formas convencionales de generación debido
+a la naturaleza cuasiestocástica del viento. Las herramientas para el pronóstico de producción
+de energı́a eólica optimizan el despacho y asignación de las otras centrales mejorando la
+rentabilidad de la operación del sistema en forma integrada. La capacidad de pronosticar de
+manera más precisa la producción eólica reduce el riesgo de incertidumbre y permite un mejor
+planeamiento e integración de la energı́a eólica dentro del sistema eléctrico nacional (Foley
+et al., 2012). La capacidad de predecir la producción eólica en un futuro cercano (hasta 12hs)
+resulta de gran interés para los operadores del mercado eléctrico, ya que este conocimiento
+permite optimizar las distintas opciones de generación disponibles para cubrir la demanda
+energética de la forma más económica, eficiente y segura. Para las compañı́as operadoras
+de parques eólicos también resulta de interés el pronóstico a plazos mayores (2-3 dı́as) ya
+que permite programar operaciones de mantenimiento maximizando el beneficio percibido
+por la venta de energı́a. Por otro lado, el modelado del flujo en instalaciones de diversas
+caracterı́sticas (número y ubicación de turbinas) para una dada ubicación geográfica con
+determinadas caracterı́sticas climáticas, resulta de utilidad para la prospección e instalación
+de futuros proyectos ayudando en la toma de decisiones relevantes. Todos estos casos presentan
+necesidades diferentes en cuanto a la precisión aceptable y el tiempo disponible para obtener
+una solución.
+La interacción de las turbinas eólicas con su entorno es un problema donde aparecen
+diversas escalas espaciales en el flujo. La escala sinóptica es la que modula el problema, pero
+también tienen una influencia importante los fenómenos que ocurren a escala local debido a la
+topografı́a del terreno y el efecto de las turbinas mismas, donde aparecen escalas en un rango
+que varı́a entre su tamaño caracterı́stico hasta las escalas turbulentas más pequeñas. Una
+de las caracterı́sticas más desafiantes de la generación eólica, comparada con otras fuentes
+convencionales, es su dependencia con la variabilidad del viento. Esto sucede en todas las
+escalas temporales, pero hay dos que resultan más relevantes. Las escalas en el orden de los
+milisegundos a segundos resultan relevantes para el sistema de control de la turbina, mientras
+que para la inserción de la eólica en la red eléctrica resultan importantes los fenómenos que
+ocurren en escalas temporales del orden de minutos a dı́as (Giebel et al., 2011), como se
+detalló más arriba. Analizar la interacción de un grupo de turbinas entre si y con su entorno
+implica considerar todos los fenómenos que ocurren en este rango de escalas. Esto evidencia la
+complejidad del problema, que básicamente cubre rangos temporales y espaciales que barren
+más de 6 órdenes de magnitud.
+Las estelas turbulentas producidas por las turbinas eólicas pueden impactar significati-
+vamente en la dinámica del flujo, tanto dentro de los parques eólicos como aguas abajo de
+los mismos. Básicamente el problema consiste en analizar como las estelas de las turbinas
+precedentes afectan a las turbinas con las que interactúan y el entorno. Para ello aparecen
+diferentes opciones a explorar, con modelos de diversa complejidad que se enfocan a las dis-
+tintas escalas y, por lo tanto, son capaces de capturar determinados fenómenos y otros no. A
+continuación se resumen los antecedentes de los enfoques utilizados en las diversas escalas del
+problema.
+
+La otra opción para modelar el flujo en los parques eólicos más allá de los NWP, son los
+modelos de simulación de las ecuaciones diferenciales de la fluidodinámica (Computational
+Fluid Dynamics - CFD)(Deiorio y Murray, 2010). Los modelos CFD son muy útiles para des-
+cribir el flujo en terrenos complejos, pero en general no resuelven la ecuación de temperatura.
+Estos modelos son capaces de simular las respuestas no lineales del viento a terrenos escar-
+pados, tales como la separación de flujo y la recirculación. También son capaces de simular
+de forma directa los cambios de rugosidad y los obstáculos. Con respecto al tipo de resolu-
+ción, se pueden abordar problemas estacionarios o transitorios. Debido a las condiciones del
+problema, el flujo será tı́picamente turbulento lo que hace que su simulación conlleve un gran
+costo computacional, por lo que se utilizan modelos de turbulencia, como RANS (Reynolds
+Averaged Navier-Stokes), LES (Large Eddy Simulation) y DES (Detached Eddy Simulation),
+para representar el comportamiento de las escalas menores (Sanderse, 2009). Una de las he-
+rramientas de simulación CDF disponibles, es el código de software libre, basado en esquemas
+de volúmenes finitos OpenFOAM 5 .
+Para analizar la estela que se produce detrás de la turbina, ésta debe ser representada
+con un cierto nivel de detalle, lo cual conlleva un problema de recursos computacionales.
+Por ejemplo, es posible realizar un modelo 3D de alta resolución de las aspas y el fluido
+(Bazilevs et al., 2011a,b), pero esto requiere un gran costo computacional que serı́a prohibitivo
+en la simulación de parque eólicos completos (Martı́nez, 2013). La alternativa para ahorrar
+recursos computacionales es utilizar los modelos reducidos de turbinas en códigos CFD y
+NWP, en los cuales se substituyen las aspas por fuerzas volumétricas con efecto equivalente
+actuando sobre el fluido. Se han propuesto tres modelos de este tipo, que se diferencian en el
+grado de descripción del rotor, a mayor detalle mayor costo computacional. En el Actuador
+Discal (AD) las fuerzas se distribuyen de manera constante sobre el área que barren las
+aspas del rotor (Sanderse, 2009). Estas fuerzas representan el efecto del rotor promediada en
+el tiempo. El Actuador Lineal (AL), desarrollado por Sørensen y Shen (2002), consiste en
+fuerzas volumétricas distribuidas a los largo de tres lı́neas rotantes, las cuales representan las
+palas. Esto le permite al Actuador Lineal a resolver el flujo transitorio alrededor de cada pala
+individual. En el Actuador Superficial (AS) se reemplaza la lı́nea por una superficie plana con
+la forma de la proyección del aspas sobre el plano vertical (Shen et al., 2007). Las diferencias
+descriptivas de los tres modelos puede verse en Keck (2012). En la última versión del software
+OpenFOAM cuenta con una implementación del AD.
+Los modelos de estelas de turbinas eólicas utilizan simplificaciones para caracterizar las
+estelas de manera de evitar la resolución de las ecuaciones diferenciales de la fluidodinámica.
+Las simplificaciones introducidas implican una pérdida de precisión pero una importante
+reducción del costo computacional. Estos modelos, en general tienen validez en lo que se
+denomina estela lejana de la turbina que la produce y generalmente se utilizan para generar
+las condiciones de entrada a turbinas que se encuentran aguas abajo. Los modelos de estelas
+pueden ser estáticos, cuando consideran una situación estacionaria de viento, o dinámicos,
+cuando la dirección e intensidad del viento son variables. Se han propuesto diferentes modelos
+de estelas a lo largo del tiempo tanto del tipo estático, empezando por el clásico de Jensen
+(1983) hasta los más modernos propuestos por Frandsen et al. (2006) y Bastankhah y Porté-
+Agel (2014) como mejoras del primero, como también del tipo dinámico, más cercanos en el
+tiempo, por ejemplo los propuestos por Larsen et al. (2008) y Werle (2016).
+Los primeros modelos simplificados que se utilizaron para modelar la aerodinámica en
+las aspas de turbinas eólicas fueron heredados del estudio de hélices propulsoras (Glauert,
+1926, 1935). Estos métodos de interferencia están basados en formulaciones integrales de las
+ecuaciones de la fluidodinámica en la forma de leyes de conservación. La combinación de la
+ecuación de conservación del momentum en un volumen de control que encierra a la turbina
+y la denominada teorı́a del elemento de aspa, da lugar al método de la Teorı́a del Momen-
+tum del Elemento de Aspa (Blade Element Momentum - BEM) ampliamente utilizado en
+el modelado de turbinas de eje horizontal (Manwell et al., 2002; Burton et al., 2001). Este
+modelo aerodinámico de orden reducido presenta la ventaja de representar aceptablemente
+bien la aerodinámica de las turbinas con un costo computacional mı́nimo ya que resulta ser
+un modelo algebraico. A pesar de su antigüedad este método sigue recibiendo gran interés
+por parte de investigadores que proponen modificaciones a fin de mejorar su comportamiento.
+Lanzafame y Messina (2007) estudiaron diferentes representaciones de los coeficientes aero-
+dinámicos y su efecto al ser aplicados al BEM. Lanzafame y Messina (2012) presentan una
+forma de incluir el efecto del bombeo centrı́fugo en el BEM modificando el coeficiente de
+sustentación. Madsen et al. (2007) proponen modificaciones al BEM a partir de comparar
+resultados de otros modelos aerodinámicos. Dai et al. (2011) presentaron un modelo dynamic
+stall de Leishman-Beddoes (Leishman y Beddoes, 1986) modificado en combinación con el
+BEM. Vaz et al. (2011) presentaron un modelo basado en la teorı́a del BEM para turbinas de
+eje horizontal tomando en cuenta la influencia de la estela.
+
+Construcción de la hipótesis y justificación general de la meto-
+dologı́a de trabajo.
+La consideración de los detalles locales especı́ficos del flujo en la capa lı́mite atmosférica
+es crı́tico para realizar las predicciones de viento a corto plazo necesarias para pronosticar
+la potencia eólica generada. De lo expuesto se deduce que es imprescindible trabajar en la
+modelización de la interacción en escalas que van desde la circulación sinóptica en la región
+donde se ubican los parques, considerando las caracterı́sticas atmosféricas locales, hasta el
+flujo alrededor de las turbinas y, de ser posible, incorporar la dinámica del comportamiento
+de las mismas.
+Dada la complejidad de los fenómenos a estudiar, es imposible realizar experimentos fı́si-
+cos, salvo para situaciones puntuales generalmente asociadas a problemas simplificados, por
+lo que la única opción realizable es utilizar simulación computacional para realizar la expe-
+rimentación en forma numérica. Dada la gran cantidad de grados de libertad necesarios, una
+simulación realista utilizando los modelos descriptos en los puntos mencionados anteriormen-
+te deberá llevarse a cabo en sistemas de cómputo en paralelo, en máquinas multiprocesador
+o multinúcleo con memoria tanto distribuida como compartida, donde el problema pueda
+dividirse en varias unidades de procesamiento. Algunos de los modelos a utilizar cuentan
+con implementaciones en estos entornos, particularmente WRF y OpenFOAM, por lo que el
+acoplamiento con otros métodos deberá realizarse bajo este paradigma. Además, los modelos
+que deban ser concebidos desde el inicio, también serán desarrollados bajo este paradigma.
+
+La tesis
+de licenciatura de Florencia Lazzari, apunta a desarrollar modelos reducidos de estelas de tur-
+binas eólicas.
+
+
+4.
+Análisis de modelos de orden reducido de la aerodinámica de turbinas:
+Mediante el uso de modelos de orden reducido que representan la aerodinámica en el
+entorno cercano a las turbinas, se puede modelar el efecto de las turbinas sobre el flujo
+atmosférico de manera de incluir dicho efecto en los modelos estudiados en los objetivos
+1, 2 y 3. En todos los casos, las instancias que representen la aerodinámica de las turbinas
+deberán ser capaces de reportar la potencia instantánea generada por cada turbina. Las tareas
+a desarrollar incluyen:
+4.1 Revisión Bibliográfica sobre las distintos modelos reducidos de turbinas eólicas com-
+plementando la bibliografı́a mencionada en el estado del arte del proyecto.
+4.2 Desarrollo de modelos de orden reducido que representen la aerodinámica de las
+turbinas con diversa complejidad y capacidad descriptiva. Se implementarán los modelos
+seleccionados en base a la tarea 4.1 de manera que puedan ser acoplados con los modelos
+NWP, CFD o los modelos de estelas. En este caso se respectará al máximo la estructura
+de los códigos NWp y CFD de manera de deteriorar lo menos posible la eficiencia de
+ejecución de los mismos. Se deberá tener especial cuidado pensando principalmente en
+la ejecución en entornos de alto desempeño.
+4.3 Validación de las implementaciones de los modelos con casos simplificados que per-
+mitan verificar su desempeño. En este caso se recurrirá a resultados analı́ticos publicados
+en la literatura para verificar la solución provista por los modelos.
+4.4 Evaluación de la sensibilidad de los modelos a la velocidad de referencia del flujo
+y a las regiones de aplicación de las fuerzas equivalentes. Todos los modelos reducidos
+propuestos en la literatura necesitan como dato de entrada, además de las caracterı́sticas
+de las turbinas reales, la velocidad del fluido. Este dato debe ser obtenido de los modelos
+externos: NWP, CFD o los modelos de estelas. En esta tarea se evaluará los efectos de
+tomar este dato de distintas ubicaciones respecto del área de la turbina representada.
+Esto implicará considerar distintos puntos, y distintas ponderaciones de los valores en
+los mismos, en las grillas de los modelos NWP y CFD. Los modelos de estelas al proveer
+soluciones aproximadas analı́ticas permiten tomar este dato en una región contı́nua
+del espacio que envuelve a las turbinas. Por otro lado, la forma de ubicar las fuerzas
+equivalentes que afectan el flujo en los modelos NWP y CFD también será responsable
+de distintos resultados en las simulaciones. Esto también será estudiado mediante un
+análisis de sensibilidad.
+4.5 Incorporación de modelos reducidos a los métodos anteriores. Esta tarea es el
+complemento desde el punto de vista de este objetivo de las tareas 1.4, 2.3 y 3.6. En esta
+tarea representa la adecuación de la formulación de los distintos modelos reducidos de
+turbinas en los tres tipos de modelos detallados en los respectivos objetivos. Una visión
+integrada de este esfuerzo permitirá trasladar las experiencias del trabajo con un tipo
+de modelo a los demás.
+4.6 Interfase con otros modelos. Los resultados de estas modelos reducidos podrán ser
+utilizadas como condiciones de entrada para los modelos estudiados en el objetivos 5.
+Para ello será necesario generar una metodologı́a de comunicación en tiempo de ejecución
+que funcione como interfase de los modelos.
