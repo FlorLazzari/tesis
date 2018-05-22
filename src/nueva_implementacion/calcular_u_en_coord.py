@@ -10,7 +10,7 @@ from Estela import Estela
 
 def calcular_u_en_coord(modelo_deficit, metodo_superposicion, coord, parque_de_turbinas, u_inf, N):
 
-    parque_de_turbinas.inicializar_parque(u_inf.coord_hub)
+    parque_de_turbinas.inicializar_parque(u_inf.coord_mast)
     turbinas_a_la_izquierda_de_coord = parque_de_turbinas.turbinas_a_la_izquierda_de_una_coord(coord)
     deficit_normalizado_en_coord = []
 
@@ -32,9 +32,11 @@ def calcular_u_en_coord(modelo_deficit, metodo_superposicion, coord, parque_de_t
             turbinas_a_la_izquierda_de_turbina_selec = [turbina_virtual]
         arreglo_deficit = []
 
+        print 'TURBINA SELECCIONADA = ',turbina_selec.coord.x
 
         for turbina in turbinas_a_la_izquierda_de_turbina_selec:
 
+            print 'TURBINA A LA IZQUIERDA DE SELEC = ',turbina.coord.x
             # print 'coordenadas de TURBINA:'
             # print 'x =', turbina.coord.x, ', y = ', turbina.coord.y, ', z =', turbina.coord.y
             # ahora calculo la estela de turbina sobre turbina_selec
@@ -51,9 +53,9 @@ def calcular_u_en_coord(modelo_deficit, metodo_superposicion, coord, parque_de_t
 
 
         estela_sobre_turbina_selec.merge(metodo_superposicion)
-        turbina_selec.calcular_c_T(estela_sobre_turbina_selec, coord_random_adentro_disco, parque_de_turbinas.z_0, u_inf, N)
+        turbina_selec.calcular_c_T(estela_sobre_turbina_selec, coord_random_adentro_disco, parque_de_turbinas.z_0, parque_de_turbinas.z_mast, u_inf, N)
         # turbina_selec.calcular_c_P(estela_sobre_turbina_selec, coord_random_adentro_disco, parque_de_turbinas.z_0, u_inf, N)
-        turbina_selec.calcular_P(estela_sobre_turbina_selec, coord_random_adentro_disco, parque_de_turbinas.z_0, u_inf, N)
+        turbina_selec.calcular_P(estela_sobre_turbina_selec, coord_random_adentro_disco, parque_de_turbinas.z_0, parque_de_turbinas.z_mast, u_inf, N)
 
         # print turbina_selec.c_T
         # print 'turbina seleccionada = ', turbina_selec
@@ -70,7 +72,7 @@ def calcular_u_en_coord(modelo_deficit, metodo_superposicion, coord, parque_de_t
     # tome a la primer turbina como la altura donde se mide la u_inf (en principio
     # no tiene mucha relevancia ya que las turbinas tienen todas la misma altura,
     # en caso de hacer un parque con otra topologia entonces habria que pensar bien esto)
-    u_inf.perfil_flujo_base(parque_de_turbinas.turbinas[0].coord.z, parque_de_turbinas.z_0)
+    u_inf.perfil_flujo_base(parque_de_turbinas.z_mast, parque_de_turbinas.z_0)
     u = u_inf.coord * (1 - estela_sobre_coord.mergeada[0])
 
     # print '************************************************************************'

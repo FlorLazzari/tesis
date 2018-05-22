@@ -1,13 +1,15 @@
+
 from __future__ import division
 import numpy as np
 # coding=utf-8
 
 class Parque_de_turbinas(object):
 
-    def __init__(self, turbinas, z_0):
+    def __init__(self, turbinas, z_0, z_mast):
         self.turbinas = turbinas
         self.z_0 = z_0
         self.potencia = 0
+        self.z_mast = z_mast
 
     def ordenar_turbinas_de_izquierda_a_derecha(self):
         turbinas_ordenadas = []
