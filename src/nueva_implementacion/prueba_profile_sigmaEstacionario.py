@@ -55,7 +55,9 @@ turbina_3 = Turbina_Rawson(Coord(np.array([d_0*14,0,z_h])))
 
 z_0 = 0.01
 
-parque_de_turbinas = Parque_de_turbinas([turbina_1, turbina_2, turbina_3], z_0)
+z_mast = z_h
+
+parque_de_turbinas = Parque_de_turbinas([turbina_1, turbina_2, turbina_3], z_0, z_mast)
 
 iters_corrida = 100
 iters_turbina = len(parque_de_turbinas.turbinas)

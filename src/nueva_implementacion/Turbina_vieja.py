@@ -77,6 +77,47 @@ class Turbina(object):
             T_disponible = (u_medio_disco)**2 * (np.pi*(self.d_0/2)**2)     # lo dividi por (0.5 * rho) porque luego multiplicare por eso
             self.c_T = T_turbina / T_disponible
 
+
+
+            # print ('c_T calculado:', self.c_T)
+            # print ('c_T_tab:', c_T_tab)
+
+
+# #prueba calcular_c_T:
+#
+# from U_inf import U_inf
+# from Coord import Coord
+# import numpy as np
+# from Estela import Estela
+#
+# coord_random_1 = Coord(np.array([0,80,1]))
+# coord_random_2 = Coord(np.array([0,80,80]))
+# coord_random_3 = Coord(np.array([0,80,120]))
+# coord_random_adentro_disco = [coord_random_1, coord_random_2, coord_random_3]
+# cantidad_coords_adentro_disco = len(coord_random_adentro_disco)
+#
+# arreglo_estela = [0.1, 0.2, 0.3, 1, 2, 3]
+# cantidad_turbinas_izquierda_de_selec = 2
+#
+# u_hub = 7
+# z_0 = 0.01
+#
+# estela = Estela(arreglo_estela, cantidad_coords_adentro_disco, cantidad_turbinas_izquierda_de_selec)
+#
+# estela.calcular_c_T(estela, coord_random_adentro_disco, z_0, u_inf, N):
+#
+#
+# u_inf = U_inf()
+#
+# from U import U
+# u = U()
+# d_0 = 60
+# coord = Coord(np.array([0, 0, 80]))
+#
+# turbina = Turbina(d_0, coord)
+#
+# turbina.calcular_c_T(estela, coord_random_adentro_disco, u_hub, z_0, u_inf, 4)
+
     def calcular_c_P(self, estela, coord_random_adentro_disco, z_0, z_mast, u_inf, N):
 
         # estela: [element of class Estela]
@@ -115,9 +156,6 @@ class Turbina(object):
 
     def calcular_P(self, estela, coord_random_adentro_disco, z_0, z_mast, u_inf, N):
 
-        self.calcular_c_P(estela, coord_random_adentro_disco, z_0, z_mast, u_inf, N)
-
-        rho = 1.225  # densidad del aire
         u_adentro_disco = []
         i = 0
         for coord in coord_random_adentro_disco:
@@ -127,39 +165,4 @@ class Turbina(object):
             i += 1
             u_adentro_disco = np.append(u_adentro_disco, u)
         u_medio_disco = np.mean(u_adentro_disco)
-        self.potencia = (10**-3) * self.c_P * 0.5 * rho * (u_medio_disco)**3 * ((self.d_0)*0.5)**2 * np.pi
-
-# #prueba calcular_c_T:
-#
-# from U_inf import U_inf
-# from Coord import Coord
-# import numpy as np
-# from Estela import Estela
-#
-# coord_random_1 = Coord(np.array([0,80,1]))
-# coord_random_2 = Coord(np.array([0,80,80]))
-# coord_random_3 = Coord(np.array([0,80,120]))
-# coord_random_adentro_disco = [coord_random_1, coord_random_2, coord_random_3]
-# cantidad_coords_adentro_disco = len(coord_random_adentro_disco)
-#
-# arreglo_estela = [0.1, 0.2, 0.3, 1, 2, 3]
-# cantidad_turbinas_izquierda_de_selec = 2
-#
-# u_hub = 7
-# z_0 = 0.01
-#
-# estela = Estela(arreglo_estela, cantidad_coords_adentro_disco, cantidad_turbinas_izquierda_de_selec)
-#
-# estela.calcular_c_T(estela, coord_random_adentro_disco, z_0, u_inf, N):
-#
-#
-# u_inf = U_inf()
-#
-# from U import U
-# u = U()
-# d_0 = 60
-# coord = Coord(np.array([0, 0, 80]))
-#
-# turbina = Turbina(d_0, coord)
-#
-# turbina.calcular_c_T(estela, coord_random_adentro_disco, u_hub, z_0, u_inf, 4)
+        self.potencia = self.P_tabulado(u_medio_disco)

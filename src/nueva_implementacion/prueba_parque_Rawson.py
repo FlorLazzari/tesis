@@ -100,7 +100,7 @@ coord = Coord(np.array([x_o, y_o, z_o]))
 
 potencia_de_cada_turbina = []
 
-data_prueba = calcular_u_en_coord(gaussiana, 'largest', coord, parque_de_turbinas, u_inf, N)
+data_prueba = calcular_u_en_coord(gaussiana, 'rss', coord, parque_de_turbinas, u_inf, N)
 
 for turbina in turbinas_list:
     potencia_de_cada_turbina.append(float(turbina.potencia))

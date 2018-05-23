@@ -32,11 +32,8 @@ def calcular_u_en_coord(modelo_deficit, metodo_superposicion, coord, parque_de_t
             turbinas_a_la_izquierda_de_turbina_selec = [turbina_virtual]
         arreglo_deficit = []
 
-        print 'TURBINA SELECCIONADA = ',turbina_selec.coord.x
-
         for turbina in turbinas_a_la_izquierda_de_turbina_selec:
 
-            print 'TURBINA A LA IZQUIERDA DE SELEC = ',turbina.coord.x
             # print 'coordenadas de TURBINA:'
             # print 'x =', turbina.coord.x, ', y = ', turbina.coord.y, ', z =', turbina.coord.y
             # ahora calculo la estela de turbina sobre turbina_selec
