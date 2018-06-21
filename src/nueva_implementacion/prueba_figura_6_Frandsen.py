@@ -14,14 +14,18 @@ from calcular_u_en_coord import calcular_u_en_coord
 
 frandsen = Frandsen()
 u_inf = U_inf()
-u_inf.coord_hub = 2.2
+u_inf.coord_mast = 2.2
 u_inf.perfil = 'log'
-N = 150
+# N = 1000
+N = 50
 
-turbina_0 = Turbina_Paper(Coord(np.array([0,0,0.125])))
+z_mast = 0.125
+
+turbina_0 = Turbina_Paper(Coord(np.array([0,0,z_mast])))
+
 # z_0 de la superficie
 z_0 = 0.00003
-parque_de_turbinas = Parque_de_turbinas([turbina_0], z_0)
+parque_de_turbinas = Parque_de_turbinas([turbina_0], z_0, z_mast)
 
 # recordar que el range funciona de la siguiente forma [)
 x = np.arange(0, 20*(turbina_0.d_0)+0.1, 0.1)

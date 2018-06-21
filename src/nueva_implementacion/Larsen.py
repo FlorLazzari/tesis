@@ -12,12 +12,13 @@ class Larsen(Modelo):
     def evaluar_deficit_normalizado(self, turbina, coord_selec):
 
         # ambient streamwise turbulence intensity:
-        Ia = 0.07
+        Ia = 0.1
         D_eff = turbina.d_0 * ( (1 + (1 - turbina.c_T)**0.5 ) / (2 * (1 - turbina.c_T)*0.5 ) )**0.5
         R_nb = max(1.08 * turbina.d_0, 1.08 * turbina.d_0 + 21.7 * turbina.d_0 * (Ia - 0.05))
         R_95 = 0.5 * (R_nb + min(turbina.coord.z, R_nb))
         x_0 = (9.5 * turbina.d_0) / (((2 * R_95) / D_eff)**3 - 1)
         c_T_A = turbina.c_T * pi * (turbina.d_0/2)**2
+        # import pdb; pdb.set_trace()
         C1 = (D_eff / 2)**(5/2) * (105 / (2*pi))**(-1/2) * (c_T_A * x_0)**(-5/6)
         dist = coord_selec.x-x_0
         radio_W = (35 / (2*pi))**(1/5) * (3 * C1**2)**(1/5) * (c_T_A * dist)**(1/3)

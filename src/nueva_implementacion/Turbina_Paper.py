@@ -24,9 +24,9 @@ class Turbina_Paper(Turbina):
         # plt.show()
         return c_T_tabulado
 
-    def P_tabulado(self, U):
+    def c_P_tabulado(self, U):
         U_tabulado = np.arange(4, 26)
 
         # este valor es cualquier cosa!! lo invente, habria que ver del paper el c_P
-        P_tabulado = 0.42
-        return P_tabulado
+        c_P_tabulado = 0
+        return c_P_tabulado
