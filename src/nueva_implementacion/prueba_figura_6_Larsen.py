@@ -21,17 +21,16 @@ A continuacion se busco replicar la figura 6 del paper de M. Bastankhah, F. Port
 
 larsen = Larsen()
 u_inf = U_inf()
-u_inf.coord_mast = 10
+u_inf.coord_mast = 2.2
 u_inf.perfil = 'log'
 # N = 1000
 N = 50
 
-z_mast = 80
+z_mast = 0.125
 
 turbina_0 = Turbina_Paper(Coord(np.array([0,0,z_mast])))
-
 # z_0 de la superficie
-z_0 = 0.03
+z_0 = 0.00003
 parque_de_turbinas = Parque_de_turbinas([turbina_0], z_0, z_mast)
 
 # 1) corte X,Z
@@ -51,10 +50,12 @@ for i in range(len(x)):
             data_prueba[j,i] = calcular_u_en_coord(larsen, 'linear', coord, parque_de_turbinas, u_inf, N)
             # print ('data_prueba[i,j]', i, j, data_prueba[i,j])
 
-contornos = [1.0, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 1.9, 2.0, 2.1, 2.2, 2.3, 2.4, 2.5]
+contornos = np.linspace(0, 2.4, 25)
+
+# contornos = [1.0, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 1.9, 2.0, 2.1, 2.2, 2.3, 2.4, 2.5]
 plt.contour(X,Z,data_prueba, contornos, linewidths=0.5, colors='k')
-plt.contourf(X,Z,data_prueba, contornos, cmap=plt.cm.jet)
-plt.colorbar(ticks=[1, 1.5, 2, 2.5])
+plt.contourf(X,Z,data_prueba,  contornos, cmap=plt.cm.jet)
+plt.colorbar(ticks=[1, 1.5, 2, 2.2])
 ax = plt.gca()
 ax.set_xticks([0, 4*(turbina_0.d_0), 8*(turbina_0.d_0), 12*(turbina_0.d_0), 16*(turbina_0.d_0), 20*(turbina_0.d_0)])
 ax.set_yticks([0, 1*(turbina_0.d_0), 2*(turbina_0.d_0)])
@@ -64,8 +65,8 @@ plt.show()
 
 # 2) corte X,Y
 # recordar que el range funciona de la siguiente forma [)
-x = np.arange(0, 27*(turbina_0.d_0)+0.01, 0.01)
-y = np.arange(-2*(turbina_0.d_0), 2*(turbina_0.d_0)+0.01, 0.01)
+x = np.arange(0, 28*(turbina_0.d_0)+0.01, 0.01)
+y = np.arange(-1*(turbina_0.d_0), 1*(turbina_0.d_0)+0.01, 0.01)
 z_0 = turbina_0.coord.z
 
 X, Y = np.meshgrid(x, y)
@@ -79,15 +80,17 @@ for i in range(len(x)):
             data_prueba[j,i] = calcular_u_en_coord(larsen, 'linear', coord, parque_de_turbinas, u_inf, N)
             # print ('data_prueba[i,j]', i, j, data_prueba[i,j])
 
-contornos = [1.0, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 1.9, 2.0, 2.1, 2.2]# 2.3, 2.4, 2.5]
-plt.contour(X, Y, data_prueba, linewidths=0.5, colors='k')
-plt.contourf(X, Y, data_prueba, cmap=plt.cm.jet)
-plt.colorbar(ticks=[1, 1.5, 2, 2.5])
+contornos = np.linspace(0, 2.2, 25)
+
+# contornos = [1.0, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 1.9, 2.0, 2.1, 2.2]# 2.3, 2.4, 2.5]
+plt.contour(X, Y, data_prueba, contornos, linewidths=0.5, colors='k')
+plt.contourf(X, Y, data_prueba, contornos, cmap=plt.cm.jet)
+plt.colorbar(ticks=[1, 1.5, 2, 2.2])
 ax = plt.gca()
 ax.set_xticks([0, 4*(turbina_0.d_0), 8*(turbina_0.d_0), 12*(turbina_0.d_0), 16*(turbina_0.d_0), 20*(turbina_0.d_0)])
 ax.set_yticks([0, 1*(turbina_0.d_0), 2*(turbina_0.d_0)])
 ax.set_xlim([0, 27*(turbina_0.d_0)])
-ax.set_ylim([-2*(turbina_0.d_0), 2*(turbina_0.d_0)])
+ax.set_ylim([-1*(turbina_0.d_0), 1*(turbina_0.d_0)])
 plt.show()
 
 

@@ -15,7 +15,7 @@ class Jensen(Modelo):
 
     def __init__(self):
         super(Jensen, self).__init__()        # self.case = case + self.turbina = turbina
-        self.k_wake = 0.1
+        self.k_wake = 0.075
 
     def evaluar_deficit_normalizado(self, turbina, coord_selec):
         r_w = (turbina.d_0/2) + self.k_wake * coord_selec.x

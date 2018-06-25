@@ -17,7 +17,7 @@ u_inf = U_inf()
 u_inf.coord_mast = 2.2
 u_inf.perfil = 'log'
 # N = 1000
-N = 50
+N = 100
 
 z_mast = 0.125
 
@@ -57,8 +57,8 @@ plt.show()
 
 # 2) corte X,Y
 # recordar que el range funciona de la siguiente forma [)
-x = np.arange(0, 27*(turbina_0.d_0)+0.01, 0.01)
-y = np.arange(-2*(turbina_0.d_0), 2*(turbina_0.d_0)+0.01, 0.01)
+x = np.arange(0, 32*(turbina_0.d_0)+0.01, 0.01)
+y = np.arange(-1*(turbina_0.d_0), 1*(turbina_0.d_0)+0.01, 0.01)
 z_0 = turbina_0.coord.z
 
 X, Y = np.meshgrid(x, y)
@@ -73,16 +73,17 @@ for i in range(len(x)):
             # print ('data_prueba[i,j]', i, j, data_prueba[i,j])
 
 # estoy cambiando la escala, escucho opiniones al respecto de esto
-contornos = [1.0, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 1.9, 2.0, 2.1, 2.2]#, 2.3, 2.4, 2.5]
+# contornos = [1.0, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 1.9, 2.0, 2.1, 2.2]#, 2.3, 2.4, 2.5]
+contornos = np.linspace(1, 2.2, 20)
 
 plt.contour(X,Y,data_prueba, contornos, linewidths=0.5, colors='k')
 plt.contourf(X,Y,data_prueba, contornos, cmap=plt.cm.jet)
-plt.colorbar(ticks=[1, 1.5, 2, 2.5])
+plt.colorbar(ticks=[1, 2.2])
 ax = plt.gca()
-ax.set_xticks([0, 4*(turbina_0.d_0), 8*(turbina_0.d_0), 12*(turbina_0.d_0), 16*(turbina_0.d_0), 20*(turbina_0.d_0)])
-ax.set_yticks([0, 1*(turbina_0.d_0), 2*(turbina_0.d_0)])
-ax.set_xlim([0, 27*(turbina_0.d_0)])
-ax.set_ylim([-2*(turbina_0.d_0), 2*(turbina_0.d_0)])
+ax.set_xticks([0, 2*(turbina_0.d_0), 4*(turbina_0.d_0), 8*(turbina_0.d_0), 12*(turbina_0.d_0), 16*(turbina_0.d_0), 20*(turbina_0.d_0), 24*(turbina_0.d_0), 28*(turbina_0.d_0), 32*(turbina_0.d_0)])
+ax.set_yticks([-1*(turbina_0.d_0), 0, 1*(turbina_0.d_0)])
+ax.set_xlim([0, 32*(turbina_0.d_0)])
+ax.set_ylim([-1*(turbina_0.d_0), 1*(turbina_0.d_0)])
 plt.show()
 
 

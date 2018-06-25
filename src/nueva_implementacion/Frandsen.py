@@ -18,7 +18,7 @@ class Frandsen(Modelo):
     def evaluar_deficit_normalizado(self, turbina, coord_selec):
         # coord deben ser no normalizadas (np.array)
         beta = 0.5 * ((1+((1 - turbina.c_T)**0.5))/((1 - turbina.c_T)**0.5))
-        d_w = ((beta + 10 * self.k_wake * (coord_selec.x/turbina.d_0))**0.5)*turbina.d_0
+        d_w = ((beta + 0.7 * (coord_selec.x/turbina.d_0))**0.5)*turbina.d_0
         a_w = np.pi * (d_w / 2)**2
         d_0 =(beta**0.5) * turbina.d_0
         a_0 = np.pi * (d_0 / 2)**2
