@@ -127,7 +127,8 @@ class Turbina(object):
         # N: [int]
             # numero de coordenadas random que utilizamos para hacer el montecarlo
 
-        u_adentro_disco = []
+        PROBLEMAS ACA!!!
+        u_adentro_disco = np.array()
         i = 0
         for coord in coord_random_adentro_disco:
             u_inf.coord = coord
@@ -135,7 +136,10 @@ class Turbina(object):
             u = u_inf.coord * (1 - estela.mergeada[i])
             i += 1
             u_adentro_disco = np.append(u_adentro_disco, u)
-        u_adentro_disco3 = u_adentro_disco**3
+        # try:
+        #     u_adentro_disco3 = u_adentro_disco**3
+        # except:
+        #     import pdb; pdb.set_trace()
         count = sum(u_adentro_disco3)
         u_medio_disco = np.mean(u_adentro_disco)
         c_P_tab = self.c_P_tabulado(u_medio_disco)

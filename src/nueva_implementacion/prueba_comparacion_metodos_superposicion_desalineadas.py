@@ -24,7 +24,7 @@ A continuacion se grafica:
 
 gaussiana = Gaussiana()
 u_inf = U_inf()
-u_inf.coord_hub = 2.8
+u_inf.coord_mast = 2.2
 u_inf.perfil = 'log'
 
 turbina_0 = Turbina_Paper(Coord(np.array([0,0,0.125])))
@@ -34,11 +34,12 @@ turbina_1 = Turbina_Paper(Coord(np.array([8*D,1.75*D,0.125])))
 # z_0 de la superficie
 z_0 = 0.00003
 
+z_mast = 0.125
 
 # 2)
 # calculo el deficit a 16D para la primera turbina independiente
 
-parque_de_turbinas_primera_indep = Parque_de_turbinas([turbina_0], z_0)
+parque_de_turbinas_primera_indep = Parque_de_turbinas([turbina_0], z_0, z_mast)
 
 x_0 = 16*D
 y = np.arange(-1.2*D, 2.8*D, 0.01)
@@ -48,7 +49,7 @@ data_prueba_primera = np.zeros(len(y))
 
 for i in range(len(y)):
     coord = Coord(np.array([x_0, y[i], z_o]))
-    data_prueba_primera[i] = calcular_u_en_coord(gaussiana, 'linear', coord, parque_de_turbinas_primera_indep, u_inf, 2000)
+    data_prueba_primera[i] = calcular_u_en_coord(gaussiana, 'linear', coord, parque_de_turbinas_primera_indep, u_inf, 200)
 
 # en este caso el metodo_superposicion = 'linear' pero podria ser cualquier cosa ya que hay unicamente una estela, no hay interaccion
 
@@ -57,7 +58,7 @@ for i in range(len(y)):
 
 # calculo el deficit para la segunda turbina independiente (ubicada en x = 8D) a 16D
 
-parque_de_turbinas_segunda_indep = Parque_de_turbinas([turbina_1], z_0)
+parque_de_turbinas_segunda_indep = Parque_de_turbinas([turbina_1], z_0, z_mast)
 x_0 = 16*D
 
 y = np.arange(-1.2*D, 2.8*D, 0.01)
@@ -67,7 +68,7 @@ data_prueba_segunda = np.zeros(len(y))
 
 for i in range(len(y)):
     coord = Coord(np.array([x_0, y[i], z_o]))
-    data_prueba_segunda[i] = calcular_u_en_coord(gaussiana, 'linear', coord, parque_de_turbinas_segunda_indep, u_inf, 2000)
+    data_prueba_segunda[i] = calcular_u_en_coord(gaussiana, 'linear', coord, parque_de_turbinas_segunda_indep, u_inf, 200)
 
 # plt.plot(y, data_prueba_primera/u_inf.coord_hub, label='Single rotor at 16D')
 # plt.plot(y, data_prueba_segunda/u_inf.coord_hub, label='Single rotor at 8D')
@@ -78,7 +79,7 @@ for i in range(len(y)):
 # calculo el deficit generado por ambas (a 16D de la primera turbina) utilizando
 # el metodo de superposicion 'linear'
 
-parque_de_turbinas_ambas = Parque_de_turbinas([turbina_0, turbina_1], z_0)
+parque_de_turbinas_ambas = Parque_de_turbinas([turbina_0, turbina_1], z_0, z_mast)
 
 x_0 = 16*D
 y = np.arange(-1.2*D, 2.8*D, 0.01)
@@ -88,7 +89,7 @@ data_prueba_ambas_linear = np.zeros(len(y))
 
 for i in range(len(y)):
     coord = Coord(np.array([x_0, y[i], z_o]))
-    data_prueba_ambas_linear[i] = calcular_u_en_coord(gaussiana, 'linear', coord, parque_de_turbinas_ambas, u_inf, 2000)
+    data_prueba_ambas_linear[i] = calcular_u_en_coord(gaussiana, 'linear', coord, parque_de_turbinas_ambas, u_inf, 200)
 
 # calculo el deficit generado por ambas (a 16D de la primera turbina) utilizando
 # el metodo de superposicion 'rss'
@@ -97,7 +98,7 @@ data_prueba_ambas_rss = np.zeros(len(y))
 
 for i in range(len(y)):
     coord = Coord(np.array([x_0, y[i], z_o]))
-    data_prueba_ambas_rss[i] = calcular_u_en_coord(gaussiana, 'rss', coord, parque_de_turbinas_ambas, u_inf, 2000)
+    data_prueba_ambas_rss[i] = calcular_u_en_coord(gaussiana, 'rss', coord, parque_de_turbinas_ambas, u_inf, 200)
 
 # calculo el deficit generado por ambas (a 16D de la primera turbina) utilizando
 # el metodo de superposicion 'largest'
@@ -106,7 +107,7 @@ data_prueba_ambas_largest = np.zeros(len(y))
 
 for i in range(len(y)):
     coord = Coord(np.array([x_0, y[i], z_o]))
-    data_prueba_ambas_largest[i] = calcular_u_en_coord(gaussiana, 'largest', coord, parque_de_turbinas_ambas, u_inf, 2000)
+    data_prueba_ambas_largest[i] = calcular_u_en_coord(gaussiana, 'largest', coord, parque_de_turbinas_ambas, u_inf, 200)
 
 
 ################################################################################
@@ -117,16 +118,16 @@ data_prueba_ambas_rss_indep = ((np.array(data_prueba_primera))**2 + (np.array(da
 data_prueba_ambas_largest_indep = np.max([data_prueba_primera, data_prueba_segunda], axis=0)
 
 
-plt.title('Perfil de velocidad normalizada detras de dos turbinas desalineadas')
-plt.plot(y/D, data_prueba_primera/u_inf.coord_hub, 'bx',label='Single rotor at 16D')
-plt.plot(y/D, data_prueba_segunda/u_inf.coord_hub, 'rx', label='Single rotor at 8D')
-plt.plot(y/D, data_prueba_ambas_linear/u_inf.coord_hub, 'c', label= 'Superposicion lineal')
-plt.plot(y/D, data_prueba_ambas_rss/u_inf.coord_hub, 'g', label= 'Superposicion rss')
-plt.plot(y/D, data_prueba_ambas_largest/u_inf.coord_hub, 'k', label= 'Superposicion largest')
+# plt.title('Perfil de velocidad normalizada detras de dos turbinas desalineadas')
+plt.plot(y/D, data_prueba_primera/u_inf.coord_mast, 'bx',label='Single rotor at 16D')
+plt.plot(y/D, data_prueba_segunda/u_inf.coord_mast, 'rx', label='Single rotor at 8D')
+plt.plot(y/D, data_prueba_ambas_linear/u_inf.coord_mast, 'c', label= 'Superposicion lineal')
+plt.plot(y/D, data_prueba_ambas_rss/u_inf.coord_mast, 'g', label= 'Superposicion rss')
+plt.plot(y/D, data_prueba_ambas_largest/u_inf.coord_mast, 'k', label= 'Superposicion largest')
 plt.legend()
 plt.grid()
 plt.xlabel(r'$y/d$')
-plt.ylabel(r'$U/U_{\infty}$')
+plt.ylabel(r'$u/u_{\infty}$')
 plt.show()
 
 # faltaria comparar con la superposicion de OpenFOAM

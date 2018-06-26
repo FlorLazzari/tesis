@@ -42,7 +42,7 @@ from Turbina_Rawson import Turbina_Rawson
 from U_inf import U_inf
 gaussiana = Gaussiana()
 u_inf = U_inf()
-u_inf.coord_hub = 10
+u_inf.coord_mast = 10
 u_inf.perfil = 'log'
 coord = Coord(np.array([60*7*6, 0, 100]))
 
