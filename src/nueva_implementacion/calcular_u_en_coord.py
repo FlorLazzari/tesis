@@ -47,8 +47,6 @@ def calcular_u_en_coord(modelo_deficit, metodo_superposicion, coord, parque_de_t
         cantidad_coords_adentro_disco = len(coord_random_adentro_disco)
         estela_sobre_turbina_selec = Estela(arreglo_deficit, cantidad_coords_adentro_disco, cantidad_turbinas_izquierda_de_selec)
 
-
-
         estela_sobre_turbina_selec.merge(metodo_superposicion)
         turbina_selec.calcular_c_T(estela_sobre_turbina_selec, coord_random_adentro_disco, parque_de_turbinas.z_0, parque_de_turbinas.z_mast, u_inf, N)
         # turbina_selec.calcular_c_P(estela_sobre_turbina_selec, coord_random_adentro_disco, parque_de_turbinas.z_0, u_inf, N)

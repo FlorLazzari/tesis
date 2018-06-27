@@ -56,7 +56,7 @@ deficit_x_med = {'4': np.array([-0.2148791955518, -0.2176650604824, -0.212268487
 gaussiana = Gaussiana()
 
 u_inf = U_inf()
-u_inf.coord_hub = 10 # es parametro del BlindTest
+u_inf.coord_mast = 10 # es parametro del BlindTest
 u_inf.perfil = 'cte'   # por ser un tunel de viento
 N = 100
 
@@ -64,10 +64,11 @@ turbina_0 = Turbina_BlindTest_2_TSR6(Coord(np.array([0,0,0.817])))
 D = 0.894
 turbina_1 = Turbina_BlindTest_2_TSR4(Coord(np.array([3*D,0,0.817])))
 
+z_mast = 0.817
 
 # z_0 de la superficie
-z_0 = 0.1 #?????
-parque_de_turbinas = Parque_de_turbinas([turbina_0, turbina_1], z_0)
+z_0 = 0
+parque_de_turbinas = Parque_de_turbinas([turbina_0, turbina_1], z_0, z_mast)
 
 x_array = [4, 5.5, 7]
 y = np.linspace(-1.5*D, 1.5*D, 500)
@@ -88,8 +89,9 @@ for distancia in x_array:
             coord = Coord(np.array([x_o, y[i], z_o]))
             data_prueba[i] = calcular_u_en_coord(gaussiana, metodo_superposicion, coord, parque_de_turbinas, u_inf, N)
 
-        plt.plot(y_norm, 1 - data_prueba/u_inf.coord_hub, label= 'Metodo Superposicion ({})'.format(metodo_superposicion))
+        plt.plot(y_norm, 1 - data_prueba/u_inf.coord_mast, label= 'Metodo Superposicion ({})'.format(metodo_superposicion))
 
+        print data_prueba
     # comparo con las mediciocones
 
     plt.plot(y_norm_med["{}".format(distancia)]*0.5, deficit_x_med["{}".format(distancia)],'x',label='Mediciones')
@@ -110,7 +112,7 @@ for distancia in x_array:
         y_norm_OpenFOAM[i] = datos[i, 0]/D
         u_OpenFOAM[i] = datos[i, 1]
 
-    plt.plot(y_norm_OpenFOAM - np.mean(y_norm_OpenFOAM), 1 - u_OpenFOAM/u_inf.coord_hub, label='OpenFOAM')
+    plt.plot(y_norm_OpenFOAM - np.mean(y_norm_OpenFOAM), 1 - u_OpenFOAM/u_inf.coord_mast, label='OpenFOAM')
     plt.xlabel('y/D')
     plt.ylabel('1 - U/U_{ref}')
     plt.legend()

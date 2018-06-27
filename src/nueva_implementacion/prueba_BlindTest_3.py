@@ -56,7 +56,7 @@ deficit_x_med = {'4': 1 + (-1) * np.array([0.580333, 0.571525, 0.563397, 0.56418
 gaussiana = Gaussiana()
 
 u_inf = U_inf()
-u_inf.coord_hub = 10 # es parametro del BlindTest
+u_inf.coord_mast = 10 # es parametro del BlindTest
 u_inf.perfil = 'cte'   # por ser un tunel de viento
 N = 100
 
@@ -66,15 +66,16 @@ turbina_1 = Turbina_BlindTest_3_TSR4_75(Coord(np.array([3*D,0.2,0.817])))
 
 # z_0 de la superficie
 z_0 = 0.1 #?????
-parque_de_turbinas = Parque_de_turbinas([turbina_0, turbina_1], z_0)
+z_mast = 0.817
+parque_de_turbinas = Parque_de_turbinas([turbina_0, turbina_1], z_0, z_mast)
 
 x_array = [4, 6]
 y = np.linspace(-1.5*D, 1.5*D, 500)
 y_norm = y/D
 z_o = turbina_0.coord.z
 
-parque_de_turbinas_primera_indep = Parque_de_turbinas([turbina_0], z_0)
-parque_de_turbinas_segunda_indep = Parque_de_turbinas([turbina_1], z_0)
+parque_de_turbinas_primera_indep = Parque_de_turbinas([turbina_0], z_0, z_mast)
+parque_de_turbinas_segunda_indep = Parque_de_turbinas([turbina_1], z_0, z_mast)
 
 metodo_array = ['linear', 'rss', 'largest']
 
@@ -89,12 +90,12 @@ for distancia in x_array:
     for i in range(len(y)):
         coord = Coord(np.array([x_o, y[i], z_o]))
         data_prueba[i] = calcular_u_en_coord(gaussiana, 'linear', coord, parque_de_turbinas_primera_indep, u_inf, N)
-    plt.plot(y_norm, 1-data_prueba/u_inf.coord_hub, '.',label='Single rotor T1')
+    plt.plot(y_norm, 1-data_prueba/u_inf.coord_mast, '.',label='Single rotor T1')
 
     for i in range(len(y)):
         coord = Coord(np.array([x_o, y[i], z_o]))
         data_prueba[i] = calcular_u_en_coord(gaussiana, 'linear', coord, parque_de_turbinas_segunda_indep, u_inf, N)
-    plt.plot(y_norm, 1-data_prueba/u_inf.coord_hub, '.',label='Single rotor T2')
+    plt.plot(y_norm, 1-data_prueba/u_inf.coord_mast, '.',label='Single rotor T2')
 
 
     for metodo_superposicion in metodo_array:
@@ -102,7 +103,7 @@ for distancia in x_array:
         for i in range(len(y)):
             coord = Coord(np.array([x_o, y[i], z_o]))
             data_prueba[i] = calcular_u_en_coord(gaussiana, metodo_superposicion, coord, parque_de_turbinas, u_inf, N)
-        plt.plot(y_norm, 1-data_prueba/u_inf.coord_hub, label= 'Metodo Superposicion ({})'.format(metodo_superposicion))
+        plt.plot(y_norm, 1-data_prueba/u_inf.coord_mast, label= 'Metodo Superposicion ({})'.format(metodo_superposicion))
 
     # comparo con las mediciocones
 
@@ -124,7 +125,7 @@ for distancia in x_array:
         y_norm_OpenFOAM[i] = datos[i, 0]/D
         u_OpenFOAM[i] = datos[i, 1]
 
-    plt.plot(y_norm_OpenFOAM - np.mean(y_norm_OpenFOAM), 1 - u_OpenFOAM/u_inf.coord_hub, label='OpenFOAM')
+    plt.plot(y_norm_OpenFOAM - np.mean(y_norm_OpenFOAM), 1 - u_OpenFOAM/u_inf.coord_mast, label='OpenFOAM')
 
     plt.xlabel('y/D')
     plt.ylabel('U/U_{ref}')

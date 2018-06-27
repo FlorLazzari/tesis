@@ -80,8 +80,15 @@ import time
 tiempo_procesamiento = np.zeros([iters_corrida, iters_exp])
 tiempo_procesamiento_medio = np.zeros(iters_exp)
 
+# en primer lugar calculo el c_T con N = 100 y una vez que eso quedo bien seteado arranco con el resto de las corridas de prueba
+N = 1000
+calcular_u_en_coord(gaussiana, 'largest', coord, parque_de_turbinas, u_inf, N)
+
+def adjust_y_axis(x, pos):
+    return x / (len(mydata) * 1.0)
+
 for exponente in range(iters_exp):
-    N = 2**(exponente + 1)
+    N = 2**(exponente + 2)
     N_arreglo.append(N)
     print 'N = ',N
     for corrida in range(iters_corrida):
@@ -94,10 +101,13 @@ for exponente in range(iters_exp):
             turbina = parque_de_turbinas.turbinas[numero_turbina]
             p_turbina[corrida, numero_turbina] = turbina.potencia
 
-        norma_p[exponente, corrida] = (p_turbina[corrida, 0]**2 + p_turbina[corrida, 1]**2 + p_turbina[corrida, 2]**2)**0.5
+        # no entiendo por que la querria sumar en norma (lo entenderia si estuviera sumando cosas positivas y negativas o vectoriales).
+        # a mi me importa la potencia total del parque, con lo que a mi me interesa la suma total y punto, no?
+        # norma_p[exponente, corrida] = (p_turbina[corrida, 0]**2 + p_turbina[corrida, 1]**2 + p_turbina[corrida, 2]**2)**0.5
+        # norma_p[exponente, corrida] = ((norma_p[exponente, corrida])**0.5) #/ norma_p_media[exponente]
 
-        # norma_p_media[exponente] = np.mean(norma_p[exponente, :])
-        norma_p[exponente, corrida] = ((norma_p[exponente, corrida])**0.5) #/ norma_p_media[exponente]
+        # al final la variable se llama norma per es directamente la suma
+        norma_p[exponente, corrida] = (p_turbina[corrida, 0] + p_turbina[corrida, 1] + p_turbina[corrida, 2])
 
     sigma_norma_p[exponente] = np.std(norma_p[exponente, :])
 
@@ -106,45 +116,78 @@ for exponente in range(iters_exp):
     # NaN's are not handled well by the hist function of matplotlib
     serie = pd.Series(norma_p[exponente, :])
     fig, ax = plt.subplots()
-    ax.hist(serie.dropna(), bins = np.linspace(40, 52, 30))#, alpha=0.9)
-    plt.title('Histograma de distribucion de la norma de la potencia para N = {}'.format(N), fontsize=15)
-    plt.xlim([40, 52])
-    plt.ylim([0, 100])
-    plt.grid()
-    plt.show()
+    ax.hist(serie.dropna())
+
+    # ax.hist(serie.dropna(), bins = np.linspace(40, 52, 30))#, alpha=0.9)
+    # plt.title('Histograma de distribucion de la norma de la potencia para N = {}'.format(N), fontsize=15)
+    # plt.ylabel('Frecuencia', fontsize=16)
+    # plt.xlabel(r'Potencia Total', fontsize=16)
+    # plt.xlim([1500, 5000])
+    # plt.ylim([0, 30])
+    # plt.xticks(fontsize=16)
+    # plt.yticks(fontsize=16)
+    # plt.grid()
+    # plt.savefig('8histograma_{}'.format(N), dpi=300)
+    # plt.show()
+
 
 abs_dsigma_dN = np.abs(np.diff(sigma_norma_p) / np.diff(N_arreglo))
 
-plt.title(r'$\sigma$ de la norma de p para distintos N', fontsize=15)
+# plt.title(r'$\sigma$ de la norma de p para distintos N', fontsize=12)
 plt.plot(N_arreglo, sigma_norma_p, 'o')
 plt.xticks(N_arreglo)
-plt.xlabel('N', fontsize=15)
-plt.ylabel(r'$\sigma$', fontsize=15)
+plt.xlabel('N', fontsize=16)
+plt.ylabel(r'$\sigma$', fontsize=16)
 plt.legend()
 plt.grid()
+plt.xticks([32, 64, 128, 256, 512, 1024], rotation='vertical')
+plt.xticks(fontsize=14)
+plt.yticks(fontsize=16)
+plt.savefig('8std_vs_N', dpi=300)
 plt.show()
 
-plt.title(r'Modulo de la derivada numerica de $\sigma$', fontsize=15)
-plt.plot(N_arreglo[+1:], abs_dsigma_dN, 'o')
-plt.xticks(N_arreglo[+1:])
-plt.xlabel('N', fontsize=15)
-plt.ylabel(r'$|\frac{d\sigma}{dN}|$', fontsize=15)
-plt.legend()
-plt.grid()
-plt.show()
-
-plt.title('Tiempo de procesamiento para distintos N', fontsize=15)
-plt.plot(N_arreglo, tiempo_procesamiento_medio, 'x')
-plt.xlabel('N', fontsize=15)
+plt.semilogy(N_arreglo, sigma_norma_p, 'o')
 plt.xticks(N_arreglo)
-plt.ylabel('Tiempo[s]', fontsize=15)
+plt.xlabel('N', fontsize=16)
+plt.ylabel(r'$\sigma$', fontsize=16)
 plt.grid()
+plt.legend()
+plt.xticks([32, 64, 128, 256, 512, 1024], rotation='vertical')
+plt.xticks(fontsize=14)
+plt.yticks(fontsize=16)
+plt.savefig('8std_vs_N_LOG', dpi=300)
+plt.show()
+
+# plt.title('Tiempo de procesamiento para distintos N', fontsize=12)
+plt.plot(N_arreglo, tiempo_procesamiento_medio, 'x')
+plt.xlabel('N', fontsize=16)
+plt.xticks(N_arreglo)
+plt.ylabel('Tiempo[s]', fontsize=16)
+plt.grid()
+plt.xticks([32, 64, 128, 256, 512, 1024], rotation='vertical')
+plt.xticks(fontsize=14)
+plt.yticks(fontsize=16)
+plt.savefig('8tiempo_vs_N', dpi=300)
 plt.show()
 
 
-plt.title(r'Modulo de la derivada numerica de $\sigma$ en funcion del tiempo de procesamiento', fontsize=15)
+# plt.title(r'Modulo de la derivada numerica de $\sigma$ en funcion del tiempo de procesamiento', fontsize=12)
 plt.plot(tiempo_procesamiento_medio[+1:], abs_dsigma_dN, 'x')
-plt.ylabel(r'$|\frac{d\sigma}{dN}|$', fontsize=15)
-plt.xlabel('Tiempo[s]', fontsize=15)
+plt.ylabel(r'$|\frac{d\sigma}{dN}|$', fontsize=16)
+plt.xlabel('Tiempo[s]', fontsize=16)
 plt.grid()
+plt.xticks(fontsize=14)
+plt.yticks(fontsize=16)
+plt.savefig('8derivadaSTD_vs_tiempo', dpi=300)
+plt.show()
+
+
+plt.plot(N_arreglo[+1:], abs_dsigma_dN, 'x')
+plt.ylabel(r'$|\frac{d\sigma}{dN}|$', fontsize=16)
+plt.xlabel('N', fontsize=16)
+plt.grid()
+plt.xticks([32, 64, 128, 256, 512, 1024], rotation='vertical')
+plt.xticks(fontsize=14)
+plt.yticks(fontsize=16)
+plt.savefig('8derivadaSTD_vs_N', dpi=300)
 plt.show()

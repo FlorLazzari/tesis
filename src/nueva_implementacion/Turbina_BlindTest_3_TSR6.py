@@ -34,6 +34,12 @@ class Turbina_BlindTest_3_TSR6(Turbina):
     def P_tabulado(self, U):
         Pnew = 0 ###??????
         return Pnew
+
+    def c_P_tabulado(self, U):
+        c_Pnew = 0 ###??????
+        return c_Pnew
+
+
 #
 # coord = 0
 # U = 5.23941602338

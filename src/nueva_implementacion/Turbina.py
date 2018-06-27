@@ -58,7 +58,6 @@ class Turbina(object):
                 # print 'u_inf.coord.y = ',u_inf.coord.y
                 # print 'u_inf.coord.z = ',u_inf.coord.z
                 u_inf.perfil_flujo_base(z_mast, z_0)
-                # print 'u_inf = ', u_inf.coord
                 # print 'i = ',i
                 # print 'estela.mergeada[i] = ', estela.mergeada[i]
                 u = u_inf.coord * (1 - estela.mergeada[i])
@@ -76,6 +75,8 @@ class Turbina(object):
             T_turbina = c_T_tab * integral_u2   # lo dividi por (0.5 * rho) porque luego dividire por eso
             T_disponible = (u_medio_disco)**2 * (np.pi*(self.d_0/2)**2)     # lo dividi por (0.5 * rho) porque luego multiplicare por eso
             self.c_T = T_turbina / T_disponible
+            print self.c_T
+
 
     def calcular_c_P(self, estela, coord_random_adentro_disco, z_0, z_mast, u_inf, N):
 
@@ -127,8 +128,7 @@ class Turbina(object):
         # N: [int]
             # numero de coordenadas random que utilizamos para hacer el montecarlo
 
-        PROBLEMAS ACA!!!
-        u_adentro_disco = np.array()
+        u_adentro_disco = []
         i = 0
         for coord in coord_random_adentro_disco:
             u_inf.coord = coord
@@ -136,6 +136,7 @@ class Turbina(object):
             u = u_inf.coord * (1 - estela.mergeada[i])
             i += 1
             u_adentro_disco = np.append(u_adentro_disco, u)
+        u_adentro_disco3 = u_adentro_disco**3
         # try:
         #     u_adentro_disco3 = u_adentro_disco**3
         # except:
@@ -149,7 +150,6 @@ class Turbina(object):
         self.potencia = c_P_tab * integral_u3 * 0.5 * rho   # lo dividi por (0.5 * rho) porque luego dividire por eso
         P_disponible = (u_medio_disco)**3 * (np.pi*(self.d_0/2)**2)     # lo dividi por (0.5 * rho) porque luego multiplicare por eso
         self.c_P = self.potencia / (0.5 * rho * P_disponible)
-
         self.potencia = (10**-3) * self.c_P * 0.5 * rho * (u_medio_disco)**3 * ((self.d_0)*0.5)**2 * np.pi
 
 # #prueba calcular_c_T:
