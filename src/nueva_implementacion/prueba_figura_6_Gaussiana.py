@@ -50,12 +50,18 @@ X, Z = np.meshgrid(x, z)
 
 data_prueba = np.zeros([len(z), len(x)])
 
+import time
+
+
+tic = time.clock()
 for i in range(len(x)):
     for j in range(len(z)):
         coord = Coord(np.array([x[i], y_0, z[j]]))
         if coord.z != 0:
             data_prueba[j,i] = calcular_u_en_coord(gaussiana, 'linear', coord, parque_de_turbinas, u_inf, N)
+toc = time.clock()
             # print ('data_prueba[i,j]', i, j, data_prueba[i,j])
+tiempo_procesamiento = toc - tic
 
 # contornos = [1.0, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 1.9, 2.0, 2.1, 2.2, 2.3, 2.4, 2.5]
 

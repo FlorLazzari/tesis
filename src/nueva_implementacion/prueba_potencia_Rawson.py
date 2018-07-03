@@ -1,10 +1,13 @@
+# coding=utf-8
+
 from __future__ import division
 import numpy as np
 from numpy import exp
 import matplotlib.pyplot as plt
-# coding=utf-8
 
 from Gaussiana import Gaussiana   # Gaussiana pertenece a la clase Modelo
+from Frandsen import Frandsen
+from Jensen import Jensen
 from Parque_de_turbinas import Parque_de_turbinas
 from Turbina_Rawson import Turbina_Rawson
 from Coord import Coord
@@ -33,9 +36,11 @@ Entonces los casos que estudiaremos seran:
 
 gaussiana = Gaussiana()
 u_inf = U_inf()
-u_inf.coord_hub = 8
+u_inf.coord_mast = 8
 u_inf.perfil = 'log'
-N = 1000
+N = 300
+
+z_mast = 80
 
 # casos medidos (elegi unicamente estas mediciones ya que son las que se ven
 # menos interferidas por las otras turbinas):
@@ -43,66 +48,25 @@ N = 1000
 # 5.7D : entre turbina 8 y 9
 # arreglo_distancia = [4.7, 5.7]
 
-distancia = 4.7
 turbina_0 = Turbina_Rawson(Coord(np.array([0,0,80]))) # chequear altura del hub
+distancia = 4.7
 D = turbina_0.d_0
 turbina_1 = Turbina_Rawson(Coord(np.array([distancia*D,0,80]))) # chequear altura del hub
-
 # z_0 de la superficie
 z_0 = 0.1
-
-# 1)
-################################################################################
-# primero verifico que el resultado de potencia de razonable
-# Una turbina de Rawson
-
-parque_de_turbinas_0 = Parque_de_turbinas([turbina_0], z_0)
 
 x_o = 8*D
 y_o = 0
 z_o = 80
 
 coord = Coord(np.array([x_o, y_o, z_o]))
-data_prueba_0 = calcular_u_en_coord(gaussiana, 'linear', coord, parque_de_turbinas_0, u_inf, N)
 
-# print "potencia_0 SOLA = ",turbina_0.potencia
-
-# 2)
+# 1)
 ################################################################################
 # comparo OpenFOAM con modelo reducido
 # Dos turbinas de Rawson alineadas separadas por 4.7 diametros
 #    * calcular la relacion entre la potencia de la turbina_1/turbina_0 para
 #    distintas direcciones de viento, para esto hay que crear la matriz de rotacion
-
-
-parque_de_turbinas_1 = Parque_de_turbinas([turbina_0, turbina_1], z_0)
-
-data_prueba_1 = calcular_u_en_coord(gaussiana, 'linear', coord, parque_de_turbinas_1, u_inf, N)
-
-# print "potencia_0 DOS ALINEADAS = ",turbina_0.potencia
-# print "potencia_1 DOS ALINEADAS = ",turbina_1.potencia
-
-ratio = turbina_1.potencia/turbina_0.potencia
-
-precision_ang = 0.625
-angulos = np.arange(-30, 30 + precision_ang, precision_ang)
-ratio = []
-
-parque_de_turbinas = Parque_de_turbinas([turbina_0, turbina_1], z_0)
-parque_de_turbinas.rotar(-30)
-
-for theta in angulos:
-    data_prueba = calcular_u_en_coord(gaussiana, 'linear', coord, parque_de_turbinas, u_inf, N)
-    # potencia_0 = turbina_0.potencia
-    # potencia_1 = turbina_1.potencia
-    ratio = np.append(ratio, turbina_1.potencia/turbina_0.potencia)
-    parque_de_turbinas.rotar(precision_ang)
-
-plt.figure()
-plt.title('Cociente de potencias para dos turbinas separadas por {}D'.format(distancia))
-plt.plot(angulos, ratio, label = 'Modelo')
-plt.xlabel('angulo del viento [grados]')
-plt.ylabel(r'$P_1 / P_0$')
 
 # mediciones
 dir_medido = np.array([-313, -312, -311, -310, -309, -308, -307, -306, -305, -304, -303,
@@ -212,43 +176,84 @@ ratio_medido = np.array([ 1.00957297,  1.00581893,  0.99641991,  0.99784957,  1.
         1.02841429,  0.9989188 ,  1.0000993 ,  1.00225744,  0.99940107,
         0.99177978,  0.98849933,  0.98282495,  0.97263774,  0.97746164])
 
-plt.plot(dir_medido, ratio_medido, 'x', label = 'Mediciones')
-plt.xlim(-30,30)
-plt.ylim(0.2,1.2)
-plt.grid()
-plt.legend()
-plt.show()
-
-distancia = 5.7
-turbina_0 = Turbina_Rawson(Coord(np.array([0,0,80]))) # chequear altura del hub
-D = turbina_0.d_0
-turbina_1 = Turbina_Rawson(Coord(np.array([distancia*D,0,80]))) # chequear altura del hub
-
-x_o = 8*D
-y_o = 0
-z_o = 80
-
-coord = Coord(np.array([x_o, y_o, z_o]))
-
 precision_ang = 0.625
 angulos = np.arange(-30, 30 + precision_ang, precision_ang)
-ratio = []
 
-parque_de_turbinas = Parque_de_turbinas([turbina_0, turbina_1], z_0)
-parque_de_turbinas.rotar(-30)
+iters_estadistica = 100
 
-for theta in angulos:
-    data_prueba = calcular_u_en_coord(gaussiana, 'linear', coord, parque_de_turbinas, u_inf, N)
-    # potencia_0 = turbina_0.potencia
-    # potencia_1 = turbina_1.potencia
-    ratio = np.append(ratio, turbina_1.potencia/turbina_0.potencia)
-    parque_de_turbinas.rotar(precision_ang)
+metodo_array = ['linear', 'rss', 'largest']
+metodo_label = {'linear': 'Lineal', 'rss': 'Cuadratica', 'largest':'Dominante'}
 
-plt.figure()
-plt.title('Cociente de potencias para dos turbinas separadas por {}D'.format(distancia))
-plt.plot(angulos, ratio, label = 'Modelo')
-plt.xlabel('angulo del viento [grados]')
-plt.ylabel(r'$P_1 / P_0$')
+for metodo_superposicion in metodo_array:
+    turbina_0 = Turbina_Rawson(Coord(np.array([0,0,80]))) # chequear altura del hub
+    turbina_1 = Turbina_Rawson(Coord(np.array([distancia*D,0,80]))) # chequear altura del hub
+    parque_de_turbinas = Parque_de_turbinas([turbina_0, turbina_1], z_0, z_mast)
+    parque_de_turbinas.rotar(-30)
+    array_ratio = np.zeros(iters_estadistica)
+    sigma_ratio = []
+    ratio = []
+    for theta in angulos:
+        for i in range(iters_estadistica):
+            data_prueba = calcular_u_en_coord(gaussiana, metodo_superposicion, coord, parque_de_turbinas, u_inf, N)
+            array_ratio[i] = turbina_1.potencia/turbina_0.potencia
+        ratio = np.append(ratio, np.mean(array_ratio))
+        sigma_ratio = np.append(sigma_ratio, np.std(array_ratio))
+        parque_de_turbinas.rotar(precision_ang)
+
+    plt.figure(figsize=(10,10))
+    # plt.title('Cociente de potencias para dos turbinas separadas por {}D'.format(distancia))
+    plt.plot(angulos, ratio, label = u'Modelo analítico', linewidth=3)
+    plt.fill_between(angulos, ratio-sigma_ratio, ratio+sigma_ratio, alpha=0.3)
+    # plt.errorbar(angulos, ratio, yerr=sigma_ratio, marker='o', markersize=3, label='kdsjghkjng', zorder=0)
+    plt.xlabel(u'dirección[º]', fontsize=25)
+    plt.ylabel(r'$P_1 / P_0$', fontsize=30)
+    plt.plot(dir_medido, ratio_medido, 'o', label = 'Mediciones', markersize=10)
+    plt.xlim(-30,30)
+    plt.ylim(0.2,1.2)
+    plt.xticks(fontsize=22)
+    plt.yticks(fontsize=22)
+    plt.grid()
+    plt.legend(fontsize=16, loc= 'upper right')
+    plt.savefig('potencia_{}_{}'.format(metodo_label[metodo_superposicion], str(int(distancia))), dpi=300)
+
+frandsen = Frandsen()
+jensen = Jensen()
+
+modelo_array = [jensen, frandsen, gaussiana]
+modelo_label = {'Jensen': 'Jensen', 'Frandsen': 'Frandsen', 'Gaussiana':'Gaussiana'}
+
+
+for modelo_deficit in modelo_array:
+    turbina_0 = Turbina_Rawson(Coord(np.array([0,0,80]))) # chequear altura del hub
+    turbina_1 = Turbina_Rawson(Coord(np.array([distancia*D,0,80]))) # chequear altura del hub
+    parque_de_turbinas = Parque_de_turbinas([turbina_0, turbina_1], z_0, z_mast)
+    parque_de_turbinas.rotar(-30)
+    array_ratio = np.zeros(iters_estadistica)
+    sigma_ratio = []
+    ratio = []
+    for theta in angulos:
+        for i in range(iters_estadistica):
+            data_prueba = calcular_u_en_coord(modelo_deficit, 'linear', coord, parque_de_turbinas, u_inf, N)
+            array_ratio[i] = turbina_1.potencia/turbina_0.potencia
+        ratio = np.append(ratio, np.mean(array_ratio))
+        sigma_ratio = np.append(sigma_ratio, np.std(array_ratio))
+        parque_de_turbinas.rotar(precision_ang)
+
+    plt.figure(figsize=(10,10))
+    # plt.title('Cociente de potencias para dos turbinas separadas por {}D'.format(distancia))
+    plt.plot(angulos, ratio, label = u'Modelo analítico', linewidth=3)
+    plt.fill_between(angulos, ratio-sigma_ratio, ratio+sigma_ratio, alpha=0.3)
+    # plt.errorbar(angulos, ratio, yerr=sigma_ratio, marker='o', markersize=3, label='kdsjghkjng', zorder=0)
+    plt.xlabel(u'dirección[º]', fontsize=25)
+    plt.ylabel(r'$P_1 / P_0$', fontsize=30)
+    plt.plot(dir_medido, ratio_medido, 'o', label = 'Mediciones', markersize=10)
+    plt.xlim(-30,30)
+    plt.ylim(0.2,1.2)
+    plt.xticks(fontsize=22)
+    plt.yticks(fontsize=22)
+    plt.grid()
+    plt.legend(fontsize=16, loc= 'upper right')
+    plt.savefig('potencia_{}_{}'.format(modelo_label[type(modelo_deficit).__name__], str(int(distancia))), dpi=300)
 
 # mediciones
 dir_medido = np.array([-69, -68, -67, -66, -65, -64, -63, -62, -61, -60, -59, -58, -57,
@@ -354,12 +359,140 @@ ratio_medido = np.array([ 1.04495906,  1.04723209,  1.07741021,  1.09256663,  1.
         0.99965556,  1.01514587,  1.00745177,  1.00052376,  0.99005483,
         0.99077933,  1.00279319,  1.00781708,  1.00145123,  0.98746786])
 
-plt.plot(dir_medido, ratio_medido, 'x', label = 'Mediciones')
-plt.xlim(-30,30)
-plt.ylim(0.2,1.2)
-plt.grid()
-plt.legend()
-plt.show()
+#############################
+
+distancia = 5.7
+
+precision_ang = 0.625
+angulos = np.arange(-30, 30 + precision_ang, precision_ang)
+
+iters_estadistica = 100
+
+metodo_array = ['linear', 'rss', 'largest']
+metodo_label = {'linear': 'Lineal', 'rss': 'Cuadratica', 'largest':'Dominante'}
+
+for metodo_superposicion in metodo_array:
+    turbina_0 = Turbina_Rawson(Coord(np.array([0,0,80]))) # chequear altura del hub
+    turbina_1 = Turbina_Rawson(Coord(np.array([distancia*D,0,80]))) # chequear altura del hub
+    parque_de_turbinas = Parque_de_turbinas([turbina_0, turbina_1], z_0, z_mast)
+    parque_de_turbinas.rotar(-30)
+    array_ratio = np.zeros(iters_estadistica)
+    sigma_ratio = []
+    ratio = []
+    for theta in angulos:
+        for i in range(iters_estadistica):
+            data_prueba = calcular_u_en_coord(gaussiana, metodo_superposicion, coord, parque_de_turbinas, u_inf, N)
+            array_ratio[i] = turbina_1.potencia/turbina_0.potencia
+        ratio = np.append(ratio, np.mean(array_ratio))
+        sigma_ratio = np.append(sigma_ratio, np.std(array_ratio))
+        parque_de_turbinas.rotar(precision_ang)
+
+    plt.figure(figsize=(10,10))
+    # plt.title('Cociente de potencias para dos turbinas separadas por {}D'.format(distancia))
+    plt.plot(angulos, ratio, label = u'Modelo analítico', linewidth=3)
+    plt.fill_between(angulos, ratio-sigma_ratio, ratio+sigma_ratio, alpha=0.3)
+    # plt.errorbar(angulos, ratio, yerr=sigma_ratio, marker='o', markersize=3, label='kdsjghkjng', zorder=0)
+    plt.xlabel(u'dirección[º]', fontsize=25)
+    plt.ylabel(r'$P_1 / P_0$', fontsize=30)
+    plt.plot(dir_medido, ratio_medido, 'o', label = 'Mediciones', markersize=10)
+    plt.xlim(-30,30)
+    plt.ylim(0.2,1.2)
+    plt.xticks(fontsize=22)
+    plt.yticks(fontsize=22)
+    plt.grid()
+    plt.legend(fontsize=16, loc= 'upper right')
+    plt.savefig('potencia_{}_{}'.format(metodo_label[metodo_superposicion], str(int(distancia))), dpi=300)
+
+frandsen = Frandsen()
+jensen = Jensen()
+
+modelo_array = [jensen, frandsen, gaussiana]
+modelo_label = {'Jensen': 'Jensen', 'Frandsen': 'Frandsen', 'Gaussiana':'Gaussiana'}
+
+
+for modelo_deficit in modelo_array:
+    turbina_0 = Turbina_Rawson(Coord(np.array([0,0,80]))) # chequear altura del hub
+    turbina_1 = Turbina_Rawson(Coord(np.array([distancia*D,0,80]))) # chequear altura del hub
+    parque_de_turbinas = Parque_de_turbinas([turbina_0, turbina_1], z_0, z_mast)
+    parque_de_turbinas.rotar(-30)
+    array_ratio = np.zeros(iters_estadistica)
+    sigma_ratio = []
+    ratio = []
+    for theta in angulos:
+        for i in range(iters_estadistica):
+            data_prueba = calcular_u_en_coord(modelo_deficit, 'linear', coord, parque_de_turbinas, u_inf, N)
+            array_ratio[i] = turbina_1.potencia/turbina_0.potencia
+        ratio = np.append(ratio, np.mean(array_ratio))
+        sigma_ratio = np.append(sigma_ratio, np.std(array_ratio))
+        parque_de_turbinas.rotar(precision_ang)
+
+    plt.figure(figsize=(10,10))
+    # plt.title('Cociente de potencias para dos turbinas separadas por {}D'.format(distancia))
+    plt.plot(angulos, ratio, label = u'Modelo analítico', linewidth=3)
+    plt.fill_between(angulos, ratio-sigma_ratio, ratio+sigma_ratio, alpha=0.3)
+    # plt.errorbar(angulos, ratio, yerr=sigma_ratio, marker='o', markersize=3, label='kdsjghkjng', zorder=0)
+    plt.xlabel(u'dirección[º]', fontsize=25)
+    plt.ylabel(r'$P_1 / P_0$', fontsize=30)
+    plt.plot(dir_medido, ratio_medido, 'o', label = 'Mediciones', markersize=10)
+    plt.xlim(-30,30)
+    plt.ylim(0.2,1.2)
+    plt.xticks(fontsize=22)
+    plt.yticks(fontsize=22)
+    plt.grid()
+    plt.legend(fontsize=16, loc= 'upper right')
+    plt.savefig('potencia_{}_{}'.format(modelo_label[type(modelo_deficit).__name__], str(int(distancia))), dpi=300)
+
+
+
+
+
+
+#############
+
+
+#
+# turbina_0 = Turbina_Rawson(Coord(np.array([0,0,80]))) # chequear altura del hub
+# D = turbina_0.d_0
+# turbina_1 = Turbina_Rawson(Coord(np.array([distancia*D,0,80]))) # chequear altura del hub
+#
+# x_o = 8*D
+# y_o = 0
+# z_o = 80
+#
+# coord = Coord(np.array([x_o, y_o, z_o]))
+#
+# precision_ang = 0.625
+# angulos = np.arange(-30, 30 + precision_ang, precision_ang)
+# ratio = []
+#
+# parque_de_turbinas = Parque_de_turbinas([turbina_0, turbina_1], z_0, z_mast)
+# parque_de_turbinas.rotar(-30)
+#
+# for theta in angulos:
+#     data_prueba = calcular_u_en_coord(gaussiana, 'linear', coord, parque_de_turbinas, u_inf, N)
+#     # potencia_0 = turbina_0.potencia
+#     # potencia_1 = turbina_1.potencia
+#     ratio = np.append(ratio, turbina_1.potencia/turbina_0.potencia)
+#     parque_de_turbinas.rotar(precision_ang)
+#
+# plt.figure(figsize=(10,10))
+# # plt.title('Cociente de potencias para dos turbinas separadas por {}D'.format(distancia))
+# plt.plot(angulos, ratio, 'o', label = u'Modelo analítico', markersize=10)
+# plt.xticks(fontsize=22)
+# plt.yticks(fontsize=22)
+# plt.xlabel(u'dirección[º]')
+# plt.ylabel(r'$P_1 / P_0$')
+# plt.grid()
+# plt.legend()
+#
+#
+#
+# plt.plot(dir_medido, ratio_medido, 'o', label = 'Mediciones', markersize=10)
+# plt.xlim(-30,30)
+# plt.ylim(0.2,1.2)
+# plt.savefig('potencia_2', dpi=300)
+
+
 
 
 # # intente ajustar una gaussiana pero no pude

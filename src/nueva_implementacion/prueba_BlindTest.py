@@ -83,7 +83,7 @@ z_mast = 0.817
 u_inf = U_inf()
 u_inf.coord_mast = 10 # es parametro del BlindTest
 u_inf.perfil = 'cte'   # por ser un tunel de viento
-N = 100
+N = 300
 
 turbina_0 = Turbina_BlindTest(Coord(np.array([0,0,0.817])))
 D = turbina_0.d_0
@@ -132,12 +132,13 @@ for distancia in x_array:
         y_norm_OpenFOAM[i] = datos[i, 0]/D
         u_OpenFOAM[i] = datos[i, 1]
 
-    plt.plot(y_norm_OpenFOAM - np.mean(y_norm_OpenFOAM), 1 - u_OpenFOAM/u_inf.coord_mast, label='OpenFOAM (CFD)', linewidth= 3)
+    plt.plot(y_norm_OpenFOAM - np.mean(y_norm_OpenFOAM), 1 - u_OpenFOAM/u_inf.coord_mast, '--', label='OpenFOAM (CFD)', linewidth= 3)
     plt.xlabel(r'$y/d$', fontsize=30)
     plt.ylabel(r'$1 - u/u_{\infty}$', fontsize=30)
-    plt.legend(fontsize=19, loc= 'upper right')
+    plt.legend(fontsize=16, loc= 'upper right')
+    plt.xlim([-1.3,1.3])
     plt.xticks(fontsize=22)
     plt.yticks(fontsize=22)
     plt.grid()
-    plt.savefig('Blind_test_{}'.format(distancia), dpi=300)
+    plt.savefig('BlindTest_{}'.format(distancia), dpi=300)
     # plt.show()

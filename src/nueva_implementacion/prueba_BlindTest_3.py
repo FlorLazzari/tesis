@@ -1,9 +1,9 @@
+# coding=utf-8
 from __future__ import division
 import numpy as np
 from numpy import exp
 import matplotlib.pyplot as plt
 import itertools
-# coding=utf-8
 
 from Gaussiana import Gaussiana
 from Jensen import Jensen
@@ -58,7 +58,7 @@ gaussiana = Gaussiana()
 u_inf = U_inf()
 u_inf.coord_mast = 10 # es parametro del BlindTest
 u_inf.perfil = 'cte'   # por ser un tunel de viento
-N = 100
+N = 300
 
 turbina_0 = Turbina_BlindTest_3_TSR6(Coord(np.array([0,-0.2, 0.817])))
 D = 0.894
@@ -78,24 +78,25 @@ parque_de_turbinas_primera_indep = Parque_de_turbinas([turbina_0], z_0, z_mast)
 parque_de_turbinas_segunda_indep = Parque_de_turbinas([turbina_1], z_0, z_mast)
 
 metodo_array = ['linear', 'rss', 'largest']
+metodo_label = {'linear': 'Lineal', 'rss': u'Cuadrática', 'largest':'Dominante'}
 
 data_prueba = np.zeros(len(y))
 
 for distancia in x_array:
-    plt.figure()
-    plt.title('x = {}D'.format(distancia))
+    plt.figure(figsize=(10,10))
+    # plt.title('x = {}D'.format(distancia))
     x_o = distancia * D
 
 
     for i in range(len(y)):
         coord = Coord(np.array([x_o, y[i], z_o]))
         data_prueba[i] = calcular_u_en_coord(gaussiana, 'linear', coord, parque_de_turbinas_primera_indep, u_inf, N)
-    plt.plot(y_norm, 1-data_prueba/u_inf.coord_mast, '.',label='Single rotor T1')
+    # plt.plot(y_norm, 1-data_prueba/u_inf.coord_mast, '.',label='Single rotor T1', linewidth=3)
 
     for i in range(len(y)):
         coord = Coord(np.array([x_o, y[i], z_o]))
         data_prueba[i] = calcular_u_en_coord(gaussiana, 'linear', coord, parque_de_turbinas_segunda_indep, u_inf, N)
-    plt.plot(y_norm, 1-data_prueba/u_inf.coord_mast, '.',label='Single rotor T2')
+    # plt.plot(y_norm, 1-data_prueba/u_inf.coord_mast, '.',label='Single rotor T2', linewidth=3)
 
 
     for metodo_superposicion in metodo_array:
@@ -103,12 +104,12 @@ for distancia in x_array:
         for i in range(len(y)):
             coord = Coord(np.array([x_o, y[i], z_o]))
             data_prueba[i] = calcular_u_en_coord(gaussiana, metodo_superposicion, coord, parque_de_turbinas, u_inf, N)
-        plt.plot(y_norm, 1-data_prueba/u_inf.coord_mast, label= 'Metodo Superposicion ({})'.format(metodo_superposicion))
+        plt.plot(y_norm, 1-data_prueba/u_inf.coord_mast, label= u'{}'.format(metodo_label[metodo_superposicion]), linewidth=3)
 
     # comparo con las mediciocones
 
     # todavia no las tengo
-    plt.plot(y_norm_med["{}".format(distancia)]*0.5, deficit_x_med["{}".format(distancia)],'x',label='Mediciones')
+    plt.plot(y_norm_med["{}".format(distancia)]-np.mean(y_norm_med["{}".format(distancia)]), deficit_x_med["{}".format(distancia)],'o',label='Mediciones', markersize=10)
 
     # comparo con OpenFOAM
 
@@ -125,10 +126,13 @@ for distancia in x_array:
         y_norm_OpenFOAM[i] = datos[i, 0]/D
         u_OpenFOAM[i] = datos[i, 1]
 
-    plt.plot(y_norm_OpenFOAM - np.mean(y_norm_OpenFOAM), 1 - u_OpenFOAM/u_inf.coord_mast, label='OpenFOAM')
-
-    plt.xlabel('y/D')
-    plt.ylabel('U/U_{ref}')
-    plt.legend()
+    plt.plot(y_norm_OpenFOAM - np.mean(y_norm_OpenFOAM), 1 - u_OpenFOAM/u_inf.coord_mast, '--', label='OpenFOAM (CFD)', linewidth= 3)
+    plt.xlabel(r'$y/d$', fontsize=30)
+    plt.ylabel(r'$1 - u/u_{\infty}$', fontsize=30)
+    plt.legend(fontsize=16, loc= 'upper right')
+    plt.xlim([-1.3,1.3])
+    plt.ylim([-0.3, 1.4])
+    plt.xticks(fontsize=22)
+    plt.yticks(fontsize=22)
     plt.grid()
-    plt.show()
+    plt.savefig('BlindTest3_{}'.format(int(distancia)), dpi=300)

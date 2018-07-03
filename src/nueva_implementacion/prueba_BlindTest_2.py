@@ -1,9 +1,10 @@
+# coding=utf-8
+
 from __future__ import division
 import numpy as np
 from numpy import exp
 import matplotlib.pyplot as plt
 import itertools
-# coding=utf-8
 
 from Gaussiana import Gaussiana
 from Jensen import Jensen
@@ -76,10 +77,11 @@ y_norm = y/D
 z_o = turbina_0.coord.z
 
 metodo_array = ['linear', 'rss', 'largest']
+metodo_label = {'linear': 'Lineal', 'rss': u'Cuadrática', 'largest':'Dominante'}
 
 for distancia in x_array:
-    plt.figure()
-    plt.title('x = {}D'.format(distancia))
+    plt.figure(figsize=(10,10))
+    # plt.title('x = {}D'.format(distancia))
 
     for metodo_superposicion in metodo_array:
         x_o = distancia * D
@@ -89,12 +91,12 @@ for distancia in x_array:
             coord = Coord(np.array([x_o, y[i], z_o]))
             data_prueba[i] = calcular_u_en_coord(gaussiana, metodo_superposicion, coord, parque_de_turbinas, u_inf, N)
 
-        plt.plot(y_norm, 1 - data_prueba/u_inf.coord_mast, label= 'Metodo Superposicion ({})'.format(metodo_superposicion))
+        plt.plot(y_norm, 1 - data_prueba/u_inf.coord_mast, label= u'{}'.format(metodo_label[metodo_superposicion]), linewidth=3)
 
-        print data_prueba
+        # print data_prueba
     # comparo con las mediciocones
 
-    plt.plot(y_norm_med["{}".format(distancia)]*0.5, deficit_x_med["{}".format(distancia)],'x',label='Mediciones')
+    plt.plot(y_norm_med["{}".format(distancia)]*0.5, deficit_x_med["{}".format(distancia)],'o',label='Mediciones', markersize=10)
 
     # comparo con OpenFOAM
 
@@ -112,9 +114,13 @@ for distancia in x_array:
         y_norm_OpenFOAM[i] = datos[i, 0]/D
         u_OpenFOAM[i] = datos[i, 1]
 
-    plt.plot(y_norm_OpenFOAM - np.mean(y_norm_OpenFOAM), 1 - u_OpenFOAM/u_inf.coord_mast, label='OpenFOAM')
-    plt.xlabel('y/D')
-    plt.ylabel('1 - U/U_{ref}')
-    plt.legend()
+    plt.plot(y_norm_OpenFOAM - np.mean(y_norm_OpenFOAM), 1 - u_OpenFOAM/u_inf.coord_mast, '--', label='OpenFOAM (CFD)', linewidth= 3)
+    plt.xlabel(r'$y/d$', fontsize=30)
+    plt.ylabel(r'$1 - u/u_{\infty}$', fontsize=30)
+    plt.legend(fontsize=16, loc= 'upper right')
+    plt.xlim([-1.3,1.3])
+    plt.ylim([-0.3, 1])
+    plt.xticks(fontsize=22)
+    plt.yticks(fontsize=22)
     plt.grid()
-    plt.show()
+    plt.savefig('BlindTest2_{}'.format(int(distancia)), dpi=300)
