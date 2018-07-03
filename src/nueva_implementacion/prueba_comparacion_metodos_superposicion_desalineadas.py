@@ -1,7 +1,7 @@
+# coding=utf-8
 from __future__ import division
 import numpy as np
 import matplotlib.pyplot as plt
-# coding=utf-8
 
 from Gaussiana import Gaussiana
 from Parque_de_turbinas import Parque_de_turbinas
@@ -128,6 +128,21 @@ plt.legend()
 plt.grid()
 plt.xlabel(r'$y/d$')
 plt.ylabel(r'$u/u_{\infty}$')
+plt.show()
+
+plt.figure(figsize=(10,10))
+plt.plot(y/D, data_prueba_primera/u_inf.coord_mast, 'ob',label='Rotor libre (16d)', markersize= 10)
+plt.plot(y/D, data_prueba_segunda/u_inf.coord_mast, 'or', label='Rotor libre (8d)', markersize= 10)
+plt.plot(y/D, data_prueba_ambas_linear/u_inf.coord_mast, 'c', label= 'Lineal (16d)', linewidth= 3)
+plt.plot(y/D, data_prueba_ambas_rss/u_inf.coord_mast, 'g', label= u'Cuadrática (16d)', linewidth= 3)
+plt.plot(y/D, data_prueba_ambas_largest/u_inf.coord_mast, 'k', label= 'Dominante (16d)', linewidth= 3)
+plt.legend(fontsize=16, loc= 'lower left')
+plt.grid()
+plt.xticks(fontsize=20)
+plt.yticks(fontsize=20)
+plt.xlabel(r'$y/d$', fontsize=30)
+plt.ylabel(r'$u/u_{\infty}$', fontsize=30)
+plt.savefig('superposicion_desalineadas', dpi=300)
 plt.show()
 
 # faltaria comparar con la superposicion de OpenFOAM

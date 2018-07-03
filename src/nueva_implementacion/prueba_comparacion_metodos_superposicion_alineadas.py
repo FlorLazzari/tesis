@@ -1,3 +1,4 @@
+#coding: utf-8
 from __future__ import division
 import numpy as np
 import matplotlib.pyplot as plt
@@ -49,7 +50,7 @@ data_prueba_primera = np.zeros(len(y))
 
 for i in range(len(y)):
     coord = Coord(np.array([x_0, y[i], z_o]))
-    data_prueba_primera[i] = calcular_u_en_coord(gaussiana, 'linear', coord, parque_de_turbinas_primera_indep, u_inf, 200)
+    data_prueba_primera[i] = calcular_u_en_coord(gaussiana, 'linear', coord, parque_de_turbinas_primera_indep, u_inf, 300)
 
 # en este caso el metodo_superposicion = 'linear' pero podria ser cualquier cosa ya que hay unicamente una estela, no hay interaccion
 
@@ -68,7 +69,7 @@ data_prueba_segunda = np.zeros(len(y))
 
 for i in range(len(y)):
     coord = Coord(np.array([x_0, y[i], z_o]))
-    data_prueba_segunda[i] = calcular_u_en_coord(gaussiana, 'linear', coord, parque_de_turbinas_segunda_indep, u_inf, 200)
+    data_prueba_segunda[i] = calcular_u_en_coord(gaussiana, 'linear', coord, parque_de_turbinas_segunda_indep, u_inf, 300)
 
 # plt.plot(y, data_prueba_primera/u_inf.coord_hub, label='Single rotor at 16D')
 # plt.plot(y, data_prueba_segunda/u_inf.coord_hub, label='Single rotor at 8D')
@@ -89,7 +90,7 @@ data_prueba_ambas_linear = np.zeros(len(y))
 
 for i in range(len(y)):
     coord = Coord(np.array([x_0, y[i], z_o]))
-    data_prueba_ambas_linear[i] = calcular_u_en_coord(gaussiana, 'linear', coord, parque_de_turbinas_ambas, u_inf, 200)
+    data_prueba_ambas_linear[i] = calcular_u_en_coord(gaussiana, 'linear', coord, parque_de_turbinas_ambas, u_inf, 300)
 
 # calculo el deficit generado por ambas (a 16D de la primera turbina) utilizando
 # el metodo de superposicion 'rss'
@@ -98,7 +99,7 @@ data_prueba_ambas_rss = np.zeros(len(y))
 
 for i in range(len(y)):
     coord = Coord(np.array([x_0, y[i], z_o]))
-    data_prueba_ambas_rss[i] = calcular_u_en_coord(gaussiana, 'rss', coord, parque_de_turbinas_ambas, u_inf, 200)
+    data_prueba_ambas_rss[i] = calcular_u_en_coord(gaussiana, 'rss', coord, parque_de_turbinas_ambas, u_inf, 300)
 
 # calculo el deficit generado por ambas (a 16D de la primera turbina) utilizando
 # el metodo de superposicion 'largest'
@@ -107,7 +108,7 @@ data_prueba_ambas_largest = np.zeros(len(y))
 
 for i in range(len(y)):
     coord = Coord(np.array([x_0, y[i], z_o]))
-    data_prueba_ambas_largest[i] = calcular_u_en_coord(gaussiana, 'largest', coord, parque_de_turbinas_ambas, u_inf, 200)
+    data_prueba_ambas_largest[i] = calcular_u_en_coord(gaussiana, 'largest', coord, parque_de_turbinas_ambas, u_inf, 300)
 
 
 ################################################################################
@@ -119,15 +120,19 @@ data_prueba_ambas_largest_indep = np.max([data_prueba_primera, data_prueba_segun
 
 
 # plt.title('Perfil de velocidad normalizada detras de dos turbinas alineadas')
-plt.plot(y/D, data_prueba_primera/u_inf.coord_mast, 'bx',label='Single rotor at 16D')
-plt.plot(y/D, data_prueba_segunda/u_inf.coord_mast, 'rx', label='Single rotor at 8D')
-plt.plot(y/D, data_prueba_ambas_linear/u_inf.coord_mast, 'c', label= 'Superposicion lineal')
-plt.plot(y/D, data_prueba_ambas_rss/u_inf.coord_mast, 'g', label= 'Superposicion rss')
-plt.plot(y/D, data_prueba_ambas_largest/u_inf.coord_mast, 'k', label= 'Superposicion largest')
-plt.legend()
+plt.figure(figsize=(10,10))
+plt.plot(y/D, data_prueba_primera/u_inf.coord_mast, 'ob',label='Rotor libre (16d)', markersize= 10)
+plt.plot(y/D, data_prueba_segunda/u_inf.coord_mast, 'or', label='Rotor libre (8d)', markersize= 10)
+plt.plot(y/D, data_prueba_ambas_linear/u_inf.coord_mast, 'c', label= 'Lineal (16d)', linewidth= 3)
+plt.plot(y/D, data_prueba_ambas_rss/u_inf.coord_mast, 'g', label= u'Cuadrática (16d)', linewidth= 3)
+plt.plot(y/D, data_prueba_ambas_largest/u_inf.coord_mast, 'k', label= 'Dominante (16d)', linewidth= 3)
+plt.legend(fontsize=16, loc= 'lower right')
 plt.grid()
-plt.xlabel(r'$y/d$')
-plt.ylabel(r'$u/u_{\infty}$')
+plt.xticks(fontsize=20)
+plt.yticks(fontsize=20)
+plt.xlabel(r'$y/d$', fontsize=30)
+plt.ylabel(r'$u/u_{\infty}$', fontsize=30)
+plt.savefig('superposicion_alineadas', dpi=300)
 plt.show()
 
 

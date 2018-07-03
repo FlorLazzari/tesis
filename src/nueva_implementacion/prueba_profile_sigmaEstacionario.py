@@ -1,6 +1,6 @@
 from __future__ import division
 import numpy as np
-import pandas as pd
+# import pandas as pd
 import matplotlib.pyplot as plt
 # coding=utf-8
 
@@ -147,6 +147,23 @@ plt.xticks(fontsize=50)
 plt.yticks(fontsize=50)
 plt.savefig('8std_vs_N', dpi=300)
 # plt.show()
+
+
+
+figure = plt.figure(figsize=(25,30))
+plt.plot(N_arreglo, sigma_norma_p, 'ob--', markersize = 30)
+plt.xticks(N_arreglo)
+plt.xlabel('N', fontsize=60)
+plt.ylabel(r'$\sigma$', fontsize=70)
+plt.legend()
+plt.grid()
+plt.xticks([32, 64, 128, 256, 512, 1024], rotation='vertical')
+plt.xlim([0, 1050])
+plt.xticks(fontsize=50)
+plt.yticks(fontsize=50)
+figure.set_xscale('log', basex=2)
+plt.savefig('8std_vs_N_LOGARITMICO', dpi=300)
+plt.show()
 
 
 # plt.title('Tiempo de procesamiento para distintos N', fontsize=12)

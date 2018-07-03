@@ -1,9 +1,9 @@
+# coding=utf-8
 from __future__ import division
 import numpy as np
 from numpy import exp
 import matplotlib.pyplot as plt
 import itertools
-# coding=utf-8
 
 from Gaussiana import Gaussiana
 from Jensen import Jensen
@@ -76,11 +76,12 @@ gaussiana = Gaussiana()
 jensen = Jensen()
 frandsen = Frandsen()
 larsen = Larsen()
-modelos = [gaussiana, jensen, frandsen, larsen]
+modelos = [gaussiana, jensen, frandsen]
 
+z_mast = 0.817
 
 u_inf = U_inf()
-u_inf.coord_hub = 10 # es parametro del BlindTest
+u_inf.coord_mast = 10 # es parametro del BlindTest
 u_inf.perfil = 'cte'   # por ser un tunel de viento
 N = 100
 
@@ -89,7 +90,7 @@ D = turbina_0.d_0
 
 # z_0 de la superficie
 z_0 = 0.1 #?????
-parque_de_turbinas = Parque_de_turbinas([turbina_0], z_0)
+parque_de_turbinas = Parque_de_turbinas([turbina_0], z_0, z_mast)
 
 x_array = [1, 3, 5]
 y = np.linspace(-1.5*D, 1.5*D, 500)
@@ -97,8 +98,8 @@ y_norm = y/D
 z_o = turbina_0.coord.z
 
 for distancia in x_array:
-    plt.figure()
-    plt.title('x = {}D'.format(distancia))
+    plt.figure(figsize=(10,10))
+    # plt.title('x = {}D'.format(distancia))
 
 
     for modelo in modelos:
@@ -110,11 +111,11 @@ for distancia in x_array:
             coord = Coord(np.array([x_o, y[i], z_o]))
             data_prueba[i] = calcular_u_en_coord(modelo, 'linear', coord, parque_de_turbinas, u_inf, N)
 
-        plt.plot(y_norm, 1-data_prueba/u_inf.coord_hub, label= 'Modelo Reducido ({})'.format(type(modelo).__name__))
+        plt.plot(y_norm, 1-data_prueba/u_inf.coord_mast, label= u'{} (Modelo analítico)'.format(type(modelo).__name__),  linewidth=3)
 
     # comparo con las mediciocones
 
-    plt.plot(y_norm_med["{}".format(distancia)], deficit_x_med["{}".format(distancia)],'x',label='Mediciones')
+    plt.plot(y_norm_med["{}".format(distancia)], deficit_x_med["{}".format(distancia)],'o',label='Mediciones', markersize=10)
 
     # comparo con OpenFOAM
 
@@ -131,9 +132,12 @@ for distancia in x_array:
         y_norm_OpenFOAM[i] = datos[i, 0]/D
         u_OpenFOAM[i] = datos[i, 1]
 
-    plt.plot(y_norm_OpenFOAM - np.mean(y_norm_OpenFOAM), 1 - u_OpenFOAM/u_inf.coord_hub, label='OpenFOAM')
-    plt.xlabel('y/D')
-    plt.ylabel('1 - U/U_{ref}')
-    plt.legend()
+    plt.plot(y_norm_OpenFOAM - np.mean(y_norm_OpenFOAM), 1 - u_OpenFOAM/u_inf.coord_mast, label='OpenFOAM (CFD)', linewidth= 3)
+    plt.xlabel(r'$y/d$', fontsize=30)
+    plt.ylabel(r'$1 - u/u_{\infty}$', fontsize=30)
+    plt.legend(fontsize=19, loc= 'upper right')
+    plt.xticks(fontsize=22)
+    plt.yticks(fontsize=22)
     plt.grid()
-    plt.show()
+    plt.savefig('Blind_test_{}'.format(distancia), dpi=300)
+    # plt.show()

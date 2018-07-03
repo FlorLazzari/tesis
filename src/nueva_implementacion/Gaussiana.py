@@ -14,13 +14,13 @@ class Gaussiana(Modelo):
         # self.epsilon = 0.219
 
         # cambio estos valores con el ajuste del OpenFOAM Rawson:
-        self.k_estrella = 0.0297
-        self.epsilon = 0.3281
+        # self.k_estrella = 0.0297
+        # self.epsilon = 0.3281
 
         # cambio estos valores con el ajuste del OpenFOAM BlindTest usando gaussiana
         # (no es el ultimo ajuste, pero es el que mejor funciona) USAR ESTE:
-        # self.k_estrella = -0.0016
-        # self.epsilon = 0.4082
+        self.k_estrella = -0.0016
+        self.epsilon = 0.4082
 
         # cambio estos valores con el ajuste del OpenFOAM BlindTest usando ajuste de Altura:
         # self.k_estrella = -0.0198
