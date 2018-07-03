@@ -52,16 +52,20 @@ data_prueba = np.zeros([len(z), len(x)])
 
 import time
 
-
+tiempo_procesamiento = []
 tic = time.clock()
 for i in range(len(x)):
     for j in range(len(z)):
         coord = Coord(np.array([x[i], y_0, z[j]]))
         if coord.z != 0:
+            tic = time.clock()
             data_prueba[j,i] = calcular_u_en_coord(gaussiana, 'linear', coord, parque_de_turbinas, u_inf, N)
-toc = time.clock()
+            toc = time.clock()
             # print ('data_prueba[i,j]', i, j, data_prueba[i,j])
-tiempo_procesamiento = toc - tic
+            tiempo_procesamiento = np.append(tiempo_procesamiento, toc - tic)
+print 'len(tiempo_procesamiento) = ',len(tiempo_procesamiento)
+print 'np.mean(tiempo_procesamiento) = ', np.mean(tiempo_procesamiento)
+print 'np.std(tiempo_procesamiento) = ', np.std(tiempo_procesamiento)
 
 # contornos = [1.0, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 1.9, 2.0, 2.1, 2.2, 2.3, 2.4, 2.5]
 
