@@ -34,6 +34,14 @@ Entonces los casos que estudiaremos seran:
 
 """
 
+from scipy.stats import chisquare
+
+from scipy import interpolate
+def interpolar(x, y, nuevo_x):
+    tck = interpolate.splrep(x, y, s=0)
+    nuevo_y = interpolate.splev(nuevo_x, tck, der=0)
+    return nuevo_y
+
 gaussiana = Gaussiana()
 u_inf = U_inf()
 u_inf.coord_mast = 8
@@ -184,6 +192,9 @@ iters_estadistica = 100
 metodo_array = ['linear', 'rss', 'largest']
 metodo_label = {'linear': 'Lineal', 'rss': 'Cuadratica', 'largest':'Dominante'}
 
+chi_array = []
+p_array = []
+
 for metodo_superposicion in metodo_array:
     turbina_0 = Turbina_Rawson(Coord(np.array([0,0,80]))) # chequear altura del hub
     turbina_1 = Turbina_Rawson(Coord(np.array([distancia*D,0,80]))) # chequear altura del hub
@@ -199,6 +210,7 @@ for metodo_superposicion in metodo_array:
         ratio = np.append(ratio, np.mean(array_ratio))
         sigma_ratio = np.append(sigma_ratio, np.std(array_ratio))
         parque_de_turbinas.rotar(precision_ang)
+        print theta
 
     plt.figure(figsize=(10,10))
     # plt.title('Cociente de potencias para dos turbinas separadas por {}D'.format(distancia))
@@ -214,7 +226,15 @@ for metodo_superposicion in metodo_array:
     plt.yticks(fontsize=22)
     plt.grid()
     plt.legend(fontsize=16, loc= 'upper right')
+    ratio_interpolado_modelado = interpolar(angulos, ratio, dir_medido[283:344])
+    chi, p = chisquare(ratio_interpolado_modelado, f_exp=ratio_medido[283:344])
+    chi_array = np.append(chi_array, chi)
+    p_array = np.append(p_array, p)
     plt.savefig('potencia_{}_{}'.format(metodo_label[metodo_superposicion], str(int(distancia))), dpi=300)
+
+print 'chi_array = ',chi_array
+print 'p_array = ',p_array
+
 
 frandsen = Frandsen()
 jensen = Jensen()
@@ -253,7 +273,14 @@ for modelo_deficit in modelo_array:
     plt.yticks(fontsize=22)
     plt.grid()
     plt.legend(fontsize=16, loc= 'upper right')
+    ratio_interpolado_modelado = interpolar(angulos, ratio, dir_medido[283:344])
+    chi, p = chisquare(ratio_interpolado_modelado, f_exp=ratio_medido[283:344])
+    chi_array = np.append(chi_array, chi)
+    p_array = np.append(p_array, p)
     plt.savefig('potencia_{}_{}'.format(modelo_label[type(modelo_deficit).__name__], str(int(distancia))), dpi=300)
+
+print 'chi_array = ',chi_array
+print 'p_array = ',p_array
 
 # mediciones
 dir_medido = np.array([-69, -68, -67, -66, -65, -64, -63, -62, -61, -60, -59, -58, -57,
@@ -401,7 +428,16 @@ for metodo_superposicion in metodo_array:
     plt.yticks(fontsize=22)
     plt.grid()
     plt.legend(fontsize=16, loc= 'upper right')
+    ratio_interpolado_modelado = interpolar(angulos, ratio, dir_medido[283:344])
+    chi, p = chisquare(ratio_interpolado_modelado, f_exp=ratio_medido[283:344])
+    chi_array = np.append(chi_array, chi)
+    p_array = np.append(p_array, p)
     plt.savefig('potencia_{}_{}'.format(metodo_label[metodo_superposicion], str(int(distancia))), dpi=300)
+
+print 'chi_array = ',chi_array
+print 'p_array = ',p_array
+
+
 
 frandsen = Frandsen()
 jensen = Jensen()
@@ -440,9 +476,14 @@ for modelo_deficit in modelo_array:
     plt.yticks(fontsize=22)
     plt.grid()
     plt.legend(fontsize=16, loc= 'upper right')
+    ratio_interpolado_modelado = interpolar(angulos, ratio, dir_medido[283:344])
+    chi, p = chisquare(ratio_interpolado_modelado, f_exp=ratio_medido[283:344])
+    chi_array = np.append(chi_array, chi)
+    p_array = np.append(p_array, p)
     plt.savefig('potencia_{}_{}'.format(modelo_label[type(modelo_deficit).__name__], str(int(distancia))), dpi=300)
 
-
+print 'chi_array = ',chi_array
+print 'p_array = ',p_array
 
 
 

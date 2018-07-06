@@ -1,25 +1,8 @@
 to do list:
 
 RESULTADOS + CODING:
-- comparar con OpenFOAM
-- non-uniformly loaded actuator disk? lo utiliza el paper "2013_Wake_Modeling_Using_OpenFOAM", que es esto? cual usa gonza?
-- implementar Larsen model de la tesis de la holandesa (ya tengo resumen hecho)
-- probar =! metodos de superposición de estela
-  . leer engineering models for merging wakes in wind farm optimization applications
-  . reproducir figura 4 del paper "limitations to the validity .." (dos turbinas alineadas)
-     ** estoy tratando de reproducir este grafico pero no entiendo por que los metodos independientes no estan funcionando
-  . leer "master thesis: .." para entender lo de Ainslie que es lo que recomiendan en el paper "limitations .."
-- pronóstico de potencia (metodo c_P en turbina)
-- probar =! perfiles de viento (dia/noche)
-- elegir casos y probar =! visualizaciones
-- tiempo que tarda en correr para un parque? test_calcular.py corre un profiler, no entiendo como leer eso! tengo libro de markus sobre profilers en python
-- comparar potencia con modelo cambiando dinamicamente el c_T y sin el cambio dinamico de c_T
-- forma en la que estoy calculando la potencia??
-- terminar de correr test_profile_mio.py para obtener un orden de montecarlo N optimo
-- hacer corrida larga de test_profile_mio.py
 
 TESIS:
-- leer tesis de Noe en /tesis de otras personas   y empezar a diagramar tesis
 - leer user guide de OpenFOAM y empezar a escribir tesis, hay tips muy buenos
 - leer la tesis de la holandesa que esta en papers google scholar, parece muy importante (tiene un modelo nuevo)
 - PAPERS QUE ME TENGO QUE BAJAR SI O SI DE LA BIBLIOGRAFIA DE MASTER THESIS:
