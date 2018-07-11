@@ -82,13 +82,19 @@ ratio_medido = []
 
 tur_down = 7
 tur_up = 8
-centro = 320
+centro = 315
 
 medido = np.loadtxt('med_{}_{}_{}.csv'.format(tur_down, tur_up, centro), delimiter = ' ')
 
-angulos_medido = medido[0,290:351]
-ratio_medido = medido[1,290:351]
-std_medido = medido[2,290:351]
+# angulos_medido = medido[0,290:351]
+# ratio_medido = medido[1,290:351]
+# std_medido = medido[2,290:351]
+
+angulos_medido = medido[0,285:346]
+ratio_medido = medido[1,285:346]
+std_medido = medido[2,285:346]
+# import pdb; pdb.set_trace()
+
 
 precision_ang_medido = 1
 angulos_medido = angulos = np.arange(-30, 30 + precision_ang_medido, precision_ang_medido)
@@ -96,7 +102,7 @@ angulos_medido = angulos = np.arange(-30, 30 + precision_ang_medido, precision_a
 precision_ang = 1
 angulos = np.arange(-30, 30 + precision_ang, precision_ang)
 
-iters_estadistica = 200
+iters_estadistica = 100
 
 metodo_array = ['linear', 'rss', 'largest']
 metodo_label = {'linear': 'Lineal', 'rss': 'Cuadratica', 'largest':'Dominante'}
