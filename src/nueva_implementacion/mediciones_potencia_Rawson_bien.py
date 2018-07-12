@@ -86,11 +86,8 @@ centro = 315
 
 medido = np.loadtxt('med_{}_{}_{}.csv'.format(tur_down, tur_up, centro), delimiter = ' ')
 
-# angulos_medido = medido[0,290:351]
-# ratio_medido = medido[1,290:351]
-# std_medido = medido[2,290:351]
-
 angulos_medido = medido[0,285:346]
+# angulos_medido = np.linspace(-30+)
 ratio_medido = medido[1,285:346]
 std_medido = medido[2,285:346]
 # import pdb; pdb.set_trace()

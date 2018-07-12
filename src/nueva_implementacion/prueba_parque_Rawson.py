@@ -21,9 +21,9 @@ Se grafican:
 
 gaussiana = Gaussiana()
 u_inf = U_inf()
-u_inf.coord_mast = 8.1
+u_inf.coord_mast = 8.2
 u_inf.perfil = 'log'
-N = 1000
+N = 300
 
 z_hub = 80
 turbina_0 = Turbina_Rawson(Coord(np.array([0,0,z_hub])))

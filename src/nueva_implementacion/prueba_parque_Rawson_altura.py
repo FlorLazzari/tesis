@@ -21,57 +21,69 @@ Se grafican:
 
 gaussiana = Gaussiana()
 u_inf = U_inf()
-u_inf.coord_mast = 8.1
+u_inf.coord_mast = 8.2
 u_inf.perfil = 'log'
-N = 100
+N = 300
 
 z_ground = 154
 
-turbina_0 = Turbina_Rawson(Coord(np.array([0,0,260 - z_ground])))
-D = turbina_0.d_0
+D = 90
+a = 834.9
+b = 2225.2
 
-turbina_1 = Turbina_Rawson(Coord(np.array([-204.9,286.1,269 - z_ground])))
-turbina_2 = Turbina_Rawson(Coord(np.array([41.9,565.7,256 - z_ground])))
-turbina_3 = Turbina_Rawson(Coord(np.array([8.1,870,247 - z_ground])))
-turbina_4 = Turbina_Rawson(Coord(np.array([27.2,1195.9,241 - z_ground])))
-turbina_5 = Turbina_Rawson(Coord(np.array([-7,1527,236 - z_ground])))
-turbina_6 = Turbina_Rawson(Coord(np.array([190.3,1894.2,234 - z_ground])))
-turbina_7 = Turbina_Rawson(Coord(np.array([-78.8,2222.6,234 - z_ground])))
-turbina_8 = Turbina_Rawson(Coord(np.array([414.8,2380.9,233 - z_ground])))
-turbina_9 = Turbina_Rawson(Coord(np.array([602.4,86.7,253 - z_ground])))
-turbina_10 = Turbina_Rawson(Coord(np.array([795.1,386.7,253 - z_ground])))
-turbina_11 = Turbina_Rawson(Coord(np.array([965.4,676.2,246 - z_ground])))
-turbina_12 = Turbina_Rawson(Coord(np.array([1043.8,988.5,239 - z_ground])))
-turbina_13 = Turbina_Rawson(Coord(np.array([1202.3,1269,235 - z_ground])))
-turbina_14 = Turbina_Rawson(Coord(np.array([1313.8,1580.7,235 - z_ground])))
-turbina_15 = Turbina_Rawson(Coord(np.array([1362.8,1919.5,230 - z_ground])))
-turbina_16 = Turbina_Rawson(Coord(np.array([1424.8,2225.1,223 - z_ground])))
-turbina_17 = Turbina_Rawson(Coord(np.array([711.8,-766.6,255 - z_ground])))
-turbina_18 = Turbina_Rawson(Coord(np.array([1107.7,-503.6,250 - z_ground])))
-turbina_19 = Turbina_Rawson(Coord(np.array([1350.9,-206.8,246 - z_ground])))
-turbina_20 = Turbina_Rawson(Coord(np.array([1705.8,50.9,239 - z_ground])))
-turbina_21 = Turbina_Rawson(Coord(np.array([1949.7,315.4,241 - z_ground])))
-turbina_22 = Turbina_Rawson(Coord(np.array([2045.2,603.6,237 - z_ground])))
-turbina_23 = Turbina_Rawson(Coord(np.array([2256.4,890.3,234 - z_ground])))
-turbina_24 = Turbina_Rawson(Coord(np.array([2331.4,1210.7,229 - z_ground])))
-turbina_25 = Turbina_Rawson(Coord(np.array([2451,1517.1,226 - z_ground])))
-turbina_26 = Turbina_Rawson(Coord(np.array([2548.5,1800.4,224 - z_ground])))
-turbina_27 = Turbina_Rawson(Coord(np.array([2682.7,2068.3,223 - z_ground])))
-turbina_28 = Turbina_Rawson(Coord(np.array([2816.2,2348.8,220 - z_ground])))
-turbina_29 = Turbina_Rawson(Coord(np.array([1946.5,-1595.2,274 - z_ground])))
-turbina_30 = Turbina_Rawson(Coord(np.array([2201.9,-1358.8,269 - z_ground])))
-turbina_31 = Turbina_Rawson(Coord(np.array([2357.1,-1060.7,262 - z_ground])))
-turbina_32 = Turbina_Rawson(Coord(np.array([2500.9,-787.6,257 - z_ground])))
-turbina_33 = Turbina_Rawson(Coord(np.array([2650.9,-516.6,251 - z_ground])))
-turbina_34 = Turbina_Rawson(Coord(np.array([2802.7,-212.6,245 - z_ground])))
-turbina_35 = Turbina_Rawson(Coord(np.array([2909.2,102.8,241 - z_ground])))
-turbina_36 = Turbina_Rawson(Coord(np.array([2982.2,372.5,237 - z_ground])))
-turbina_37 = Turbina_Rawson(Coord(np.array([3173.6,690.7,230 - z_ground])))
-turbina_38 = Turbina_Rawson(Coord(np.array([3283.3,997.4,224 - z_ground])))
-turbina_39 = Turbina_Rawson(Coord(np.array([3432.1,1310.3,220 - z_ground])))
-turbina_40 = Turbina_Rawson(Coord(np.array([3562.9,1629.4,219 - z_ground])))
-turbina_41 = Turbina_Rawson(Coord(np.array([3785.2,1931.9,214 - z_ground])))
-turbina_42 = Turbina_Rawson(Coord(np.array([3947.6,2337.7,214 - z_ground])))
+def trasladar_x(x):
+    xNew = (x + a)/D
+    return xNew
+
+def trasladar_y(y):
+    yNew = (y + b)/D
+    return yNew
+
+
+turbina_0 = Turbina_Rawson(Coord(np.array([(0),(0),260 - z_ground])))
+
+turbina_1 = Turbina_Rawson(Coord(np.array([(-204.9),(286.1),269 - z_ground])))
+turbina_2 = Turbina_Rawson(Coord(np.array([(41.9),(565.7),256 - z_ground])))
+turbina_3 = Turbina_Rawson(Coord(np.array([(8.1),(870),247 - z_ground])))
+turbina_4 = Turbina_Rawson(Coord(np.array([(27.2),(1195.9),241 - z_ground])))
+turbina_5 = Turbina_Rawson(Coord(np.array([(-7),(1527),236 - z_ground])))
+turbina_6 = Turbina_Rawson(Coord(np.array([(190.3),(1894.2),234 - z_ground])))
+turbina_7 = Turbina_Rawson(Coord(np.array([(-78.8),(2222.6),234 - z_ground])))
+turbina_8 = Turbina_Rawson(Coord(np.array([(414.8),(2380.9),233 - z_ground])))
+turbina_9 = Turbina_Rawson(Coord(np.array([(602.4),(86.7),253 - z_ground])))
+turbina_10 = Turbina_Rawson(Coord(np.array([(795.1),(386.7),253 - z_ground])))
+turbina_11 = Turbina_Rawson(Coord(np.array([(965.4),(676.2),246 - z_ground])))
+turbina_12 = Turbina_Rawson(Coord(np.array([(1043.8),(988.5),239 - z_ground])))
+turbina_13 = Turbina_Rawson(Coord(np.array([(1202.3),(1269),235 - z_ground])))
+turbina_14 = Turbina_Rawson(Coord(np.array([(1313.8),(1580.7),235 - z_ground])))
+turbina_15 = Turbina_Rawson(Coord(np.array([(1362.8),(1919.5),230 - z_ground])))
+turbina_16 = Turbina_Rawson(Coord(np.array([(1424.8),(2225.1),223 - z_ground])))
+turbina_17 = Turbina_Rawson(Coord(np.array([(711.8),(-766.6),255 - z_ground])))
+turbina_18 = Turbina_Rawson(Coord(np.array([(1107.7),(-503.6),250 - z_ground])))
+turbina_19 = Turbina_Rawson(Coord(np.array([(1350.9),(-206.8),246 - z_ground])))
+turbina_20 = Turbina_Rawson(Coord(np.array([(1705.8),(50.9),239 - z_ground])))
+turbina_21 = Turbina_Rawson(Coord(np.array([(1949.7),(315.4),241 - z_ground])))
+turbina_22 = Turbina_Rawson(Coord(np.array([(2045.2),(603.6),237 - z_ground])))
+turbina_23 = Turbina_Rawson(Coord(np.array([(2256.4),(890.3),234 - z_ground])))
+turbina_24 = Turbina_Rawson(Coord(np.array([(2331.4),(1210.7),229 - z_ground])))
+turbina_25 = Turbina_Rawson(Coord(np.array([(2451),(1517.1),226 - z_ground])))
+turbina_26 = Turbina_Rawson(Coord(np.array([(2548.5),(1800.4),224 - z_ground])))
+turbina_27 = Turbina_Rawson(Coord(np.array([(2682.7),(2068.3),223 - z_ground])))
+turbina_28 = Turbina_Rawson(Coord(np.array([(2816.2),(2348.8),220 - z_ground])))
+turbina_29 = Turbina_Rawson(Coord(np.array([(1946.5),(-1595.2),274 - z_ground])))
+turbina_30 = Turbina_Rawson(Coord(np.array([(2201.9),(-1358.8),269 - z_ground])))
+turbina_31 = Turbina_Rawson(Coord(np.array([(2357.1),(-1060.7),262 - z_ground])))
+turbina_32 = Turbina_Rawson(Coord(np.array([(2500.9),(-787.6),257 - z_ground])))
+turbina_33 = Turbina_Rawson(Coord(np.array([(2650.9),(-516.6),251 - z_ground])))
+turbina_34 = Turbina_Rawson(Coord(np.array([(2802.7),(-212.6),245 - z_ground])))
+turbina_35 = Turbina_Rawson(Coord(np.array([(2909.2),(102.8),241 - z_ground])))
+turbina_36 = Turbina_Rawson(Coord(np.array([(2982.2),(372.5),237 - z_ground])))
+turbina_37 = Turbina_Rawson(Coord(np.array([(3173.6),(690.7),230 - z_ground])))
+turbina_38 = Turbina_Rawson(Coord(np.array([(3283.3),(997.4),224 - z_ground])))
+turbina_39 = Turbina_Rawson(Coord(np.array([(3432.1),(1310.3),220 - z_ground])))
+turbina_40 = Turbina_Rawson(Coord(np.array([(3562.9),(1629.4),219 - z_ground])))
+turbina_41 = Turbina_Rawson(Coord(np.array([(3785.2),(1931.9),214 - z_ground])))
+turbina_42 = Turbina_Rawson(Coord(np.array([(3947.6),(2337.7),214 - z_ground])))
 
 turbinas_list = [turbina_0, turbina_1, turbina_2, turbina_3, turbina_4, turbina_5,
 turbina_6, turbina_7, turbina_8, turbina_9, turbina_10, turbina_11,
@@ -103,12 +115,19 @@ data_prueba = calcular_u_en_coord(gaussiana, 'rss', coord, parque_de_turbinas, u
 
 for turbina in turbinas_list:
     potencia_de_cada_turbina.append(float(turbina.potencia))
-    # import pdb; pdb.set_trace()
+
+# potencia nominal cuando la turbina trabaja con un viento de 8.2 m/s
+potencia_mast = 949.027296358
+
+potencia_de_cada_turbina_normalizada = []
+
+for turbina in turbinas_list:
+    potencia_de_cada_turbina_normalizada.append(float(turbina.potencia)/potencia_mast)
 
 plt.figure()
 plt.plot(np.arange(0, 43), potencia_de_cada_turbina, '-x')
 plt.xticks(np.arange(0, 43, 5))
-plt.ylim([0, 1200])
+# plt.ylim([0, 1200])
 plt.grid()
 plt.show()
 
@@ -120,8 +139,10 @@ X = []
 Y = []
 
 for turbina in turbinas_list:
-    X.append(turbina.coord.x)
-    Y.append(turbina.coord.y)
+    X.append(trasladar_x(turbina.coord.x))
+    Y.append(trasladar_y(turbina.coord.y))
+
+print max(X)
 
 plt.figure()
 cm = plt.cm.get_cmap('coolwarm')
@@ -130,6 +151,25 @@ plt.clim(min(potencia_de_cada_turbina),max(potencia_de_cada_turbina))
 plt.colorbar(sc)
 plt.grid()
 plt.show()
+
+
+
+plt.figure()
+cm = plt.cm.get_cmap('bwr')
+sc = plt.scatter(X, Y, c=potencia_de_cada_turbina_normalizada, s=120,marker='v', edgecolor='black', linewidth='0.3', cmap=cm)
+plt.clim(0.5, 1.5)
+plt.xlabel(r'$x/d$', fontsize=20)
+plt.ylabel(r'$y/d$', fontsize=20)
+plt.xlim(0,60)
+plt.ylim(0,60)
+plt.xticks(fontsize=17)
+plt.yticks(fontsize=17)
+plt.colorbar(sc, ticks=[0.5, 1, 1.5]).set_label(label=r'$P_i / P_{ref}$', size=19, weight='bold')
+# plt.colorbar().set_label(label='a label',size=15,weight='bold')
+# plt.title(r'$P_i / P_{u_{mast}}$', fontsize=17)
+plt.grid()
+plt.savefig('Rawson_Potencia_Total', dpi = 300)
+
 
 # diferencias con respecto al grafico de gonza:
 # hay una turbina (la 30 en el mapa, que numera desde 1)
