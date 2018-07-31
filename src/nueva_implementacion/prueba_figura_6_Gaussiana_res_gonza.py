@@ -31,7 +31,7 @@ u_inf = U_inf()
 u_inf.coord_mast = 2.2
 u_inf.perfil = 'log'
 # N = 1000
-N = 50
+N = 300
 
 z_mast = 0.125
 
@@ -42,32 +42,39 @@ parque_de_turbinas = Parque_de_turbinas([turbina_0], z_0, z_mast)
 
 # 2) corte X,Z
 # recordar que el range funciona de la siguiente forma [)
-#gonza usa una resolucion de 140X35 aprox
+#gonza usa una resolucion de 140x35 aprox
 
 x = np.arange(0, 20*(turbina_0.d_0)+0.01, 0.01)
 y_0 = 0
 z = np.arange(0, 2*(turbina_0.d_0)+0.005, 0.005)
+
+print 'len(x)',len(x)
+print 'len(z)',len(z)
+
 
 X, Z = np.meshgrid(x, z)
 
 data_prueba = np.zeros([len(z), len(x)])
 
 import time
+array_tiempo_procesamiento = []
 
-tiempo_procesamiento = []
-tic = time.clock()
-for i in range(len(x)):
-    for j in range(len(z)):
-        coord = Coord(np.array([x[i], y_0, z[j]]))
-        if coord.z != 0:
-            tic = time.clock()
-            data_prueba[j,i] = calcular_u_en_coord(gaussiana, 'linear', coord, parque_de_turbinas, u_inf, N)
-            toc = time.clock()
-            # print ('data_prueba[i,j]', i, j, data_prueba[i,j])
-            tiempo_procesamiento = np.append(tiempo_procesamiento, toc - tic)
-print 'len(tiempo_procesamiento) = ',len(tiempo_procesamiento)
-print 'np.mean(tiempo_procesamiento) = ', np.mean(tiempo_procesamiento)
-print 'np.std(tiempo_procesamiento) = ', np.std(tiempo_procesamiento)
+for iter_corrida in range(10):
+    tiempo_procesamiento = 0
+    # tic = time.clock()
+    for i in range(len(x)):
+        for j in range(len(z)):
+            coord = Coord(np.array([x[i], y_0, z[j]]))
+            if coord.z != 0:
+                tic = time.clock()
+                data_prueba[j,i] = calcular_u_en_coord(gaussiana, 'linear', coord, parque_de_turbinas, u_inf, N)
+                toc = time.clock()
+                # print ('data_prueba[i,j]', i, j, data_prueba[i,j])
+                tiempo_procesamiento = tiempo_procesamiento + (toc - tic)
+    array_tiempo_procesamiento = np.append(array_tiempo_procesamiento, tiempo_procesamiento)
+print 'len(array_tiempo_procesamiento) = ',len(array_tiempo_procesamiento)
+print 'np.mean(array_tiempo_procesamiento) = ', np.mean(array_tiempo_procesamiento)
+print 'np.std(array_tiempo_procesamiento) = ', np.std(array_tiempo_procesamiento)
 
 # contornos = [1.0, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 1.9, 2.0, 2.1, 2.2, 2.3, 2.4, 2.5]
 
@@ -82,6 +89,7 @@ ax.set_yticks([0, 1*(turbina_0.d_0), 2*(turbina_0.d_0)])
 ax.set_xlim([0, 20*(turbina_0.d_0)])
 ax.set_ylim([0, 2*(turbina_0.d_0)])
 plt.show()
+print 'tiempo procesamiento =',tiempo_procesamiento
 
 # 2) corte X,Y
 # recordar que el range funciona de la siguiente forma [)
