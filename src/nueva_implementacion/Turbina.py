@@ -75,8 +75,8 @@ class Turbina(object):
             T_turbina = c_T_tab * integral_u2   # lo dividi por (0.5 * rho) porque luego dividire por eso
             T_disponible = (u_medio_disco)**2 * (np.pi*(self.d_0/2)**2)     # lo dividi por (0.5 * rho) porque luego multiplicare por eso
             self.c_T = T_turbina / T_disponible
-            print 'c_T loco = ',self.c_T
-            print 'c_T comun = ',c_T_tab
+            # print 'c_T loco = ',self.c_T
+            # print 'c_T comun = ',c_T_tab
 
 
     def calcular_c_P(self, estela, coord_random_adentro_disco, z_0, z_mast, u_inf, N):
