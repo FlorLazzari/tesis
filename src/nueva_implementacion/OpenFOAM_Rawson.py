@@ -28,9 +28,9 @@ U_inf = 8
 def gauss(x, A, mu, sigma):
     return A*np.exp(-(x-mu)**2/(2.*sigma**2))
 
-x_array = [2.5, 3.75, 5, 6.25, 7.5, 8.75, 10, 11.25, 12.5, 13.75, 15]#, 16.25, 17.5, 18.75, 20]
+x_array = [3.75, 5, 6.25, 7.5, 8.75, 10, 11.25, 12.5, 13.75, 15]#, 16.25, 17.5, 18.75, 20]
 
-# x_array = [2.5, 5, 10, 20]
+# x_array = [5, 10, 15]
 
 sigma_array = []
 A_array = []
@@ -96,13 +96,28 @@ for distancia in x_array:
     # Get the fitted curve
     fit = gauss(coordenada_vieja, A, mu, sigma)
 
-    plt.figure()
-    plt.title('x = {}D'.format(distancia))
-    plt.plot(coordenada_vieja, deficit_viejo, label='Test data')
-    plt.plot(coordenada_vieja, fit, label='Fitted data')
+    # plt.figure()
+    # plt.title('x = {}D'.format(distancia))
+    # plt.plot(coordenada_vieja, deficit_viejo, label='Test data')
+    # plt.plot(coordenada_vieja, fit, label='Fitted data')
+    # plt.ylim([-0.05, 0.4])
+    # plt.legend()
+    # plt.show()
+
+    plt.figure(figsize=(10,10))
+    plt.plot(coordenada_vieja-7, deficit_viejo, '--', label='OpenFOAM (CFD)', linewidth= 3)
+    plt.plot(coordenada_vieja-7, fit, label=r'Ajuste gaussiano: $\sigma$ = {0:.2f}'.format(abs(sigma)), linewidth= 3)
+    plt.xlabel(r'$y/d$', fontsize=30)
+    plt.ylabel(r'$1 - u/u_{\infty}$', fontsize=30)
+    plt.legend(fontsize=16, loc= 'upper right')
     plt.ylim([-0.05, 0.4])
-    plt.legend()
-    plt.show()
+    plt.xlim([5-7, 9-7])
+    plt.yticks([0, 0.2, 0.4] , fontsize=22)
+    plt.xticks([-2, -1, 0, 1, 2], fontsize=22)
+    plt.grid()
+    plt.legend(fontsize=22)
+    plt.savefig('ajuste_{}.pdf'.format(distancia))
+    # plt.show()
 
     # Finally, lets get the fitting parameters, i.e. the standard deviation:
 
@@ -126,14 +141,30 @@ epsilon_linear = coeff[1]
 
 fit_linear = linear(np.array(x_array), k_linear, epsilon_linear)
 
-plt.figure()
-plt.title(r'Ajuste lineal ')
-plt.plot(x_array, sigma_array, 'x', label='datos')
-plt.plot(x_array, fit_linear, label= r'$\sigma = k \cdot (x/d_0) + \epsilon$ con $k = {:.4f}$ y $\epsilon = {:.4f}$'.format(coeff[0], coeff[1]))
-plt.ylabel(r'$\sigma$')
-plt.xlabel(r'$x/D$')
-plt.legend()
-plt.show()
+# plt.figure()
+# plt.title(r'Ajuste lineal ')
+# plt.plot(x_array, sigma_array, 'x', label='datos')
+# plt.plot(x_array, fit_linear, label= r'$\sigma = k \cdot (x/d_0) + \epsilon$ con $k = {:.4f}$ y $\epsilon = {:.4f}$'.format(coeff[0], coeff[1]))
+# plt.ylabel(r'$\sigma$')
+# plt.xlabel(r'$x/D$')
+# plt.legend()
+# plt.show()
+
+plt.figure(figsize=(10,10))
+plt.plot(x_array, sigma_array,'o',label=r'$\sigma/d$ gaussiano', markersize=10)
+# plt.plot(x_array, fit_linear, label= r'$\sigma = k \cdot (x/d) + \epsilon$ con $k = {:.2f}$ y $\epsilon = {:.2f}$'.format(coeff[0], coeff[1]), linewidth= 3)
+plt.plot(x_array, fit_linear, label= r'Ajuste lineal: $k = {:.2f}$, $\epsilon = {:.2f}$'.format(coeff[0], coeff[1]), linewidth= 3)
+plt.xlabel(r'$x/d$', fontsize=30)
+plt.ylabel(r'$\sigma/d$', fontsize=40)
+plt.legend(fontsize=16, loc= 'upper left')
+plt.yticks(fontsize=22)
+plt.xticks(fontsize=22)
+plt.grid()
+plt.legend(fontsize=22)
+plt.savefig('ajuste_lineal.pdf')
+# plt.show()
+
+
 
 
 # 3)
@@ -162,7 +193,7 @@ plt.plot(sigmas_continuo, curva_c_T_a_mano, label=r'$1 - (1-(c_T/(8*(sigma_n^2))
 plt.ylabel(r'$A$')
 plt.xlabel(r'$\sigma$')
 plt.legend()
-plt.show()
+# plt.show()
 
 # 4)
 
@@ -192,7 +223,7 @@ plt.plot(x_array_continuo, fit, label= r'ajuste con $k = {:.4f}$ y $\epsilon = {
 plt.ylabel(r'$A$')
 plt.xlabel(r'$x/d$')
 plt.legend()
-plt.show()
+# plt.show()
 
 
 # 5)
@@ -207,4 +238,4 @@ plt.plot(x_array, fit_completo, label= r'$\sigma = k \cdot (x/d_0) + \epsilon$ c
 plt.ylabel(r'$\sigma$')
 plt.xlabel(r'$x/D$')
 plt.legend()
-plt.show()
+# plt.show()
