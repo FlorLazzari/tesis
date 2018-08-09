@@ -124,12 +124,12 @@ potencia_de_cada_turbina_normalizada = []
 for turbina in turbinas_list:
     potencia_de_cada_turbina_normalizada.append(float(turbina.potencia)/potencia_mast)
 
-plt.figure()
-plt.plot(np.arange(0, 43), potencia_de_cada_turbina, '-x')
-plt.xticks(np.arange(0, 43, 5))
-# plt.ylim([0, 1200])
-plt.grid()
-plt.show()
+# plt.figure()
+# plt.plot(np.arange(0, 43), potencia_de_cada_turbina, '-x')
+# plt.xticks(np.arange(0, 43, 5))
+# # plt.ylim([0, 1200])
+# plt.grid()
+# plt.show()
 
 # no me gusta que esten numeradas de 0 a 42, en el mapita estan de 1 a 43...
 # pero gonza uso esa numeracion en el grafico
@@ -144,19 +144,19 @@ for turbina in turbinas_list:
 
 print max(X)
 
-plt.figure()
-cm = plt.cm.get_cmap('coolwarm')
-sc = plt.scatter(X, Y, c=potencia_de_cada_turbina, s=120,marker='v', cmap=cm)
-plt.clim(min(potencia_de_cada_turbina),max(potencia_de_cada_turbina))
-plt.colorbar(sc)
-plt.grid()
-plt.show()
+# plt.figure()
+# cm = plt.cm.get_cmap('coolwarm')
+# sc = plt.scatter(X, Y, c=potencia_de_cada_turbina, s=120,marker='v', cmap=cm)
+# plt.clim(min(potencia_de_cada_turbina),max(potencia_de_cada_turbina))
+# plt.colorbar(sc)
+# plt.grid()
+# plt.show()
 
 
 
-plt.figure()
+plt.figure(figsize=(10,10))
 cm = plt.cm.get_cmap('bwr')
-sc = plt.scatter(X, Y, c=potencia_de_cada_turbina_normalizada, s=120,marker='v', edgecolor='black', linewidth='0.3', cmap=cm)
+sc = plt.scatter(X, Y, c=potencia_de_cada_turbina_normalizada, s=120,marker='v', edgecolor='black', linewidth='0.5', cmap=cm)
 plt.clim(0.5, 1.5)
 plt.xlabel(r'$x/d$', fontsize=20)
 plt.ylabel(r'$y/d$', fontsize=20)
@@ -164,11 +164,13 @@ plt.xlim(0,60)
 plt.ylim(0,60)
 plt.xticks(fontsize=17)
 plt.yticks(fontsize=17)
-plt.colorbar(sc, ticks=[0.5, 1, 1.5]).set_label(label=r'$P_i / P_{ref}$', size=19, weight='bold')
+plt.colorbar(sc, ticks=[0.5, 1, 1.5]).set_label(label=r'$P_{turbina} / P_{ref}$', size=19, weight='bold')
 # plt.colorbar().set_label(label='a label',size=15,weight='bold')
 # plt.title(r'$P_i / P_{u_{mast}}$', fontsize=17)
 plt.grid()
-plt.savefig('Rawson_Potencia_Total', dpi = 300)
+plt.savefig('Rawson_Potencia_Total.pdf')
+plt.show()
+
 
 
 # diferencias con respecto al grafico de gonza:
