@@ -240,7 +240,7 @@ tablaOk = rawsonDatos(archivo)
 #ploteo el deficit medido
 tur_down=6
 tur_up=9
-centro=25 #la direccion donde se produce el maximo deficil
+centro=27 #la direccion donde se produce el maximo deficil
 DirAd_Medido, deffMean_Medido, deffstd_Medido = deficitMedido(tablaOk,tur_down,tur_up,centro)
 
 with open('med_{}_{}_{}.csv'.format(tur_down, tur_up, centro), 'wb') as csvfile:

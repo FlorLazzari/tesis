@@ -111,7 +111,7 @@ coord = Coord(np.array([x_o, y_o, z_o]))
 
 potencia_de_cada_turbina = []
 
-data_prueba = calcular_u_en_coord(gaussiana, 'rss', coord, parque_de_turbinas, u_inf, N)
+data_prueba = calcular_u_en_coord(gaussiana, 'larger', coord, parque_de_turbinas, u_inf, N)
 
 for turbina in turbinas_list:
     potencia_de_cada_turbina.append(float(turbina.potencia))
@@ -152,68 +152,85 @@ print max(X)
 # plt.grid()
 # plt.show()
 
+# plt.figure(figsize=(10,10))
+# cm = plt.cm.get_cmap('bwr')
+# sc = plt.scatter(X, Y, c=potencia_de_cada_turbina_normalizada, s=120,marker='v', edgecolor='black', linewidth='0.5', cmap=cm)
+# plt.clim(0.5, 1.5)
+# plt.xlabel(r'$x/d$', fontsize=20)
+# plt.ylabel(r'$y/d$', fontsize=20)
+# plt.xlim(0,60)
+# plt.ylim(0,60)
+# plt.xticks(fontsize=17)
+# plt.yticks(fontsize=17)
+# plt.colorbar(sc, ticks=[0.5, 1, 1.5]).set_label(label=r'$P_{turbina} / P_{ref}$', size=22, weight='bold')
+# # plt.colorbar().set_label(label='a label',size=15,weight='bold')
+# # plt.title(r'$P_i / P_{u_{mast}}$', fontsize=17)
+# plt.grid()
+# plt.savefig('Rawson_Potencia_Total', dpi=300)
+# plt.show()
 
-
-plt.figure(figsize=(10,10))
+plt.figure(figsize=(9,9))
 cm = plt.cm.get_cmap('bwr')
 sc = plt.scatter(X, Y, c=potencia_de_cada_turbina_normalizada, s=120,marker='v', edgecolor='black', linewidth='0.5', cmap=cm)
-plt.clim(0.5, 1.5)
+plt.clim(min(potencia_de_cada_turbina_normalizada), max(potencia_de_cada_turbina_normalizada))
 plt.xlabel(r'$x/d$', fontsize=20)
 plt.ylabel(r'$y/d$', fontsize=20)
 plt.xlim(0,60)
 plt.ylim(0,60)
-plt.xticks(fontsize=17)
-plt.yticks(fontsize=17)
-plt.colorbar(sc, ticks=[0.5, 1, 1.5]).set_label(label=r'$P_{turbina} / P_{ref}$', size=19, weight='bold')
+plt.xticks(fontsize=20)
+plt.yticks(fontsize=20)
+plt.colorbar(sc, ticks=[min(potencia_de_cada_turbina_normalizada), 1, max(potencia_de_cada_turbina_normalizada)]).set_label(label=r'$P_{TURBINA} / P_{REF}$', size=22, weight='bold')
 # plt.colorbar().set_label(label='a label',size=15,weight='bold')
 # plt.title(r'$P_i / P_{u_{mast}}$', fontsize=17)
 plt.grid()
-plt.savefig('Rawson_Potencia_Total.pdf')
+plt.savefig('Rawson_Potencia_Total', dpi=300)
 plt.show()
 
 
 
-# diferencias con respecto al grafico de gonza:
-# hay una turbina (la 30 en el mapa, que numera desde 1)
-# que genera mucha mas potencia con lo cual "los colores quedan muy distintos"
-# pero me parece que la potencia relativa no me esta dando tan mal.
-# habria que sacar esa turbina 30 del grafico de gonza para ver si "los colores
-# me quedan mas parecidos"
 
+D = 90
+a = 834.9
+b = 2225.2
 
+def trasladar_x_power(x, turbina):
+    xNew = (x + a)/D
+    turbina.coord.x = xNew
 
+def trasladar_y_power(y, turbina):
+    yNew = (y + b)/D
+    turbina.coord.y = yNew
 
+for turbina in turbinas_list:
+    trasladar_x_power(turbina.coord.x, turbina)
+    trasladar_y_power(turbina.coord.y, turbina)
 
+x = np.linspace(0, 60*D, 150)
+y = np.linspace(0, 60*D, 150)
+z_0 = turbina_0.coord.z
 
+X, Y = np.meshgrid(x, y)
 
+data_prueba = np.zeros([len(y), len(x)])
 
+contador = 0
+for i in range(len(x)):
+    for j in range(len(Y)):
+        coord = Coord(np.array([x[i], y[j], z_0]))
+        if coord.z != 0:
+            data_prueba[j,i] = calcular_u_en_coord(gaussiana, 'rrs', coord, parque_de_turbinas, u_inf, N)
+            contador += 1
+            print contador/(100*100)
 
+# contornos = np.linspace(1, 2.2, 20)
 
-# grafico (X,Y)
-
-# recordar que el range funciona de la siguiente forma [)
-# x = np.arange(-300, 4000, 22)
-# y = np.arange(-1500, 2500, 22)
-# z_o = turbina_0.coord.z
-#
-# X, Y = np.meshgrid(x, y)
-#
-# data_prueba = np.zeros([len(y), len(x)])
-#
-# for i in range(len(x)):
-#     for j in range(len(y)):
-#         coord = Coord(np.array([x[i], y[j], z_o]))
-#         if coord.z != 0:
-#             # print "entre en loop"
-#             data_prueba[j,i] = calcular_u_en_coord(gaussiana, 'linear', coord, parque_de_turbinas, u_inf, N)
-#             # print ('data_prueba[i,j]', i, j, data_prueba[i,j])
-
-# plt.contour(X,Y,data_prueba, linewidths=0.5, colors='k')
-# plt.contourf(X,Y,data_prueba, cmap=plt.cm.jet)
-# plt.colorbar()
-# plt.show()
-#
-# # faltaria calcular potencia
-# print "potencia = ",turbina_0.potencia
-# print "potencia = ",turbina_1.potencia
-# print "potencia = ",turbina_2.potencia
+# plt.contour(X,Y,data_prueba, contornos, linewidths=0.5, colors='k')
+# plt.contourf(X,Y,data_prueba, contornos, cmap=plt.cm.jet)
+plt.contour(X,Y,data_prueba, cmap=plt.cm.jet)
+# plt.colorbar(ticks=[1, 1.5, 2, 2.2])
+ax = plt.gca()
+# ax.set_xticks([0, 2*(turbina_0.d_0), 4*(turbina_0.d_0), 8*(turbina_0.d_0), 12*(turbina_0.d_0), 16*(turbina_0.d_0), 20*(turbina_0.d_0), 24*(turbina_0.d_0), 28*(turbina_0.d_0), 32*(turbina_0.d_0)])
+# ax.set_yticks([-1*(turbina_0.d_0), 0, 1*(turbina_0.d_0)])
+# ax.set_xlim([0, 32*(turbina_0.d_0)])
+# ax.set_ylim([-1*(turbina_0.d_0), 1*(turbina_0.d_0)])
+plt.show()
