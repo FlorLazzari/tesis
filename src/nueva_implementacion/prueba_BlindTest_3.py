@@ -83,7 +83,7 @@ metodo_label = {'linear': 'Lineal', 'rss': u'Cuadrática', 'largest':'Dominante'
 data_prueba = np.zeros(len(y))
 
 for distancia in x_array:
-    plt.figure(figsize=(10,10))
+    plt.figure(figsize=(11,11))
     # plt.title('x = {}D'.format(distancia))
     x_o = distancia * D
 
@@ -128,11 +128,11 @@ for distancia in x_array:
 
     plt.plot(y_norm_OpenFOAM - np.mean(y_norm_OpenFOAM), 1 - u_OpenFOAM/u_inf.coord_mast, '--', label='OpenFOAM (CFD)', linewidth= 3)
     plt.xlabel(r'$y/d$', fontsize=30)
-    plt.ylabel(r'$1 - u/u_{\infty}$', fontsize=30)
-    plt.legend(fontsize=16, loc= 'upper right')
+    plt.ylabel(r'$\Delta u/u_{\infty}$', fontsize=30)
+    plt.legend(fontsize=20, loc= 'upper right')
     plt.xlim([-1.3,1.3])
     plt.ylim([-0.3, 1.4])
     plt.xticks(fontsize=22)
     plt.yticks(fontsize=22)
     plt.grid()
-    plt.savefig('BlindTest3_{}'.format(int(distancia)), dpi=300)
+    plt.savefig('BlindTest3_{}.pdf'.format(int(distancia)))

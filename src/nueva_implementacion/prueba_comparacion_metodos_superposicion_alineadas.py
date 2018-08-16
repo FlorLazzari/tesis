@@ -120,19 +120,19 @@ data_prueba_ambas_largest_indep = np.max([data_prueba_primera, data_prueba_segun
 
 
 # plt.title('Perfil de velocidad normalizada detras de dos turbinas alineadas')
-plt.figure(figsize=(10,10))
+plt.figure(figsize=(11,11))
 plt.plot(y/D - np.mean(y/D), 1 - data_prueba_primera/u_inf.coord_mast, 'ob',label='Rotor libre (16d)', markersize= 10)
 plt.plot(y/D - np.mean(y/D), 1 - data_prueba_segunda/u_inf.coord_mast, 'or', label='Rotor libre (8d)', markersize= 10)
 plt.plot(y/D - np.mean(y/D), 1 - data_prueba_ambas_linear/u_inf.coord_mast, 'c', label= 'Lineal (16d)', linewidth= 3)
 plt.plot(y/D - np.mean(y/D), 1 - data_prueba_ambas_rss/u_inf.coord_mast, 'g', label= u'Cuadrática (16d)', linewidth= 3)
 plt.plot(y/D - np.mean(y/D), 1 - data_prueba_ambas_largest/u_inf.coord_mast, 'k', label= 'Dominante (16d)', linewidth= 3)
-plt.legend(fontsize=16, loc= 'upper right')
+plt.legend(fontsize=20, loc= 'upper right')
 plt.grid()
 plt.xticks(fontsize=20)
 plt.yticks(fontsize=20)
 plt.xlabel(r'$y/d$', fontsize=30)
-plt.ylabel(r'$1 - u/u_{\infty}$', fontsize=30)
-plt.savefig('superposicion_alineadas', dpi=300)
+plt.ylabel(r'$\Delta u/u_{\infty}$', fontsize=30)
+plt.savefig('superposicion_alineadas.pdf')
 plt.show()
 
 

@@ -226,7 +226,7 @@ for i in range(len(turb)):
     turbY.append(turb[i][1]/90.0)
 
 #ploteo openfoam
-plt.figure(figsize=(9,9))
+plt.figure()
 cm = plt.cm.get_cmap('bwr')
 sc = plt.scatter(turbX,turbY,c=PopAd,s=120,marker='v' ,edgecolor='black', linewidth='0.5', cmap=cm)
 plt.xlim(0,60)
@@ -235,8 +235,8 @@ plt.ylim(0,60)
 plt.clim(0.5,1.5)
 plt.xlabel(r'$x/d$', fontsize=20)
 plt.ylabel(r'$y/d$', fontsize=20)
-plt.xticks(fontsize=20)
-plt.yticks(fontsize=20)
+plt.xticks(fontsize=17)
+plt.yticks(fontsize=17)
 plt.colorbar(sc, ticks=[0.5, 1, 1.5]).set_label(label=r'$P_{TURBINA} / P_{REF}$', size=22, weight='bold')
 # plt.colorbar(sc, ticks=[min(PopAd), 1, max(PopAd)]).set_label(label=r'$P_{TURBINA} / P_{REF}$', size=22, weight='bold')
 # plt.axes().set_aspect('equal', 'datalim')
@@ -246,26 +246,103 @@ plt.savefig('Rawson_Potencia_Openfoam_'+str(Dir), dpi = 300)
 plt.show
 plt.clf
 
+potencia_mast = 949.027296358
+potenciaTotalNormalizadaOF = sum(PopAd) / (43)
+print 'OF = ',potenciaTotalNormalizadaOF
+
 #ploteo mediciones
-plt.figure(figsize=(9,9))
+# plt.figure(figsize=(9,9))
+# cm = plt.cm.get_cmap('bwr')
+# sc = plt.scatter(turbX,turbY,c=PmlistAd,s=120,marker='v' ,edgecolor='black', linewidth='0.5', cmap=cm)
+# plt.xlim(0,60)
+# plt.ylim(0,60)
+# # plt.clim(0.5,1.5)
+# plt.clim(min(PmlistAd), max(PmlistAd))
+# plt.xlabel(r'$x/d$', fontsize=20)
+# plt.ylabel(r'$y/d$', fontsize=20)
+# plt.xticks(fontsize=20)
+#
+# plt.yticks(fontsize=20)
+# # plt.colorbar(sc, ticks=[0.5, 1, 1.5]).set_label(label=r'$P_{TURBINA} / P_{REF}}$', size=22, weight='bold')
+# plt.colorbar(sc, ticks=[min(PmlistAd), 1, max(PmlistAd)]).set_label(label=r'$P_{TURBINA} / P_{REF}$', size=22, weight='bold')
+# # plt.axes().set_aspect('equal', 'datalim')
+# plt.grid()
+# # plt.xlim(0,60)
+# # plt.ylim(0,60)
+# # plt.title(r'$P_i / P_{u_{mast}}$')
+# # 'Measurements, Dir: '+str(Dir)+',Umet: '+str(Um))
+# plt.savefig('ESCALARawson_Potencia_Medido_'+str(Dir), dpi = 300)
+# plt.show
+# plt.clf
+
+# potenciaTotalNormalizadaMed = sum(plt.figure())
+
+
+plt.figure()
+cm = plt.cm.get_cmap('bwr')
+sc = plt.scatter(turbX,turbY,c=PopAd,s=120,marker='v' ,edgecolor='black', linewidth='0.5', cmap=cm)
+plt.xlim(0,60)
+plt.ylim(0,60)
+# plt.clim(min(PopAd), max(PopAd))
+plt.clim(0.5,1.5)
+plt.xlabel(r'$x/d$', fontsize=20)
+plt.ylabel(r'$y/d$', fontsize=20)
+plt.xticks(fontsize=17)
+plt.yticks(fontsize=17)
+plt.colorbar(sc, ticks=[0.5, 1, 1.5]).set_label(label=r'$P_{TURBINA} / P_{REF}$', size=22, weight='bold')
+# plt.colorbar(sc, ticks=[min(PopAd), 1, max(PopAd)]).set_label(label=r'$P_{TURBINA} / P_{REF}$', size=22, weight='bold')
+# plt.axes().set_aspect('equal', 'datalim')
+plt.grid()
+# plt.title('Openfoam, Dir: '+str(Dir)+',Umet: '+str(Um))
+plt.savefig('Rawson_Potencia_Openfoam_'+str(Dir), dpi = 300)
+plt.show
+plt.clf
+
+#  / 43
+# print 'Med = ',potenciaTotalNormalizadaMed
+
+
+plt.figure()
 cm = plt.cm.get_cmap('bwr')
 sc = plt.scatter(turbX,turbY,c=PmlistAd,s=120,marker='v' ,edgecolor='black', linewidth='0.5', cmap=cm)
 plt.xlim(0,60)
 plt.ylim(0,60)
-# plt.clim(0.5,1.5)
-plt.clim(min(PmlistAd), max(PmlistAd))
+# plt.clim(min(PopAd), max(PopAd))
+plt.clim(0.5,1.5)
 plt.xlabel(r'$x/d$', fontsize=20)
 plt.ylabel(r'$y/d$', fontsize=20)
-plt.xticks(fontsize=20)
-plt.yticks(fontsize=20)
-# plt.colorbar(sc, ticks=[0.5, 1, 1.5]).set_label(label=r'$P_{TURBINA} / P_{REF}}$', size=22, weight='bold')
-plt.colorbar(sc, ticks=[min(PmlistAd), 1, max(PmlistAd)]).set_label(label=r'$P_{TURBINA} / P_{REF}$', size=22, weight='bold')
+plt.xticks(fontsize=17)
+plt.yticks(fontsize=17)
+plt.colorbar(sc, ticks=[0.5, 1, 1.5]).set_label(label=r'$P_{TURBINA} / P_{REF}$', size=22, weight='bold')
+# plt.colorbar(sc, ticks=[min(PopAd), 1, max(PopAd)]).set_label(label=r'$P_{TURBINA} / P_{REF}$', size=22, weight='bold')
 # plt.axes().set_aspect('equal', 'datalim')
 plt.grid()
-# plt.xlim(0,60)
-# plt.ylim(0,60)
-# plt.title(r'$P_i / P_{u_{mast}}$')
-# 'Measurements, Dir: '+str(Dir)+',Umet: '+str(Um))
-plt.savefig('ESCALARawson_Potencia_Medido_'+str(Dir), dpi = 300)
+# plt.title('Openfoam, Dir: '+str(Dir)+',Umet: '+str(Um))
+plt.savefig('Rawson_Potencia_Medido_'+str(Dir), dpi = 300)
 plt.show
 plt.clf
+
+
+fig, ax = plt.subplots()
+ax.hist(PmlistAd)#, alpha=0.9)
+plt.ylabel('Frecuencia', fontsize=16)
+plt.xlabel(r'$P_{TURBINA} / P_{REF}$', fontsize=16)
+plt.xticks(fontsize=16)
+plt.yticks(fontsize=16)
+plt.xlim([0.5, 1.5])
+plt.ylim([0, 11])
+plt.grid()
+plt.savefig('histograma_Rawson_medido.pdf')
+plt.show()
+
+fig, ax = plt.subplots()
+ax.hist(PopAd)#, alpha=0.9)
+plt.ylabel('Frecuencia', fontsize=16)
+plt.xlabel(r'$P_{TURBINA} / P_{REF}$', fontsize=16)
+plt.xticks(fontsize=16)
+plt.yticks(fontsize=16)
+plt.xlim([0.5, 1.5])
+plt.ylim([0, 11])
+plt.grid()
+plt.savefig('histograma_Rawson_OF.pdf')
+plt.show()
