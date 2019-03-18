@@ -116,7 +116,7 @@ for turbina in turbinas_list:
 
 x = np.linspace(0, 60*D, 5)
 y = np.linspace(0, 60*D, 5)
-z_0 = z_mast
+z_plano = z_mast
 
 X, Y = np.meshgrid(x, y)
 
@@ -125,11 +125,15 @@ data_prueba = np.zeros([len(y), len(x)])
 contador = 0
 for i in range(len(x)):
     for j in range(len(Y)):
-        coord = Coord(np.array([x[i], y[j], z_0]))
+        coord = Coord(np.array([x[i], y[j], z_plano]))
         if coord.z != 0:
+            for turbina in turbinas_list:
+                turbina.c_T = None
+            parque_de_turbinas = Parque_de_turbinas(turbinas_list, z_0, z_mast)
             data_prueba[j,i] = calcular_u_en_coord(gaussiana, 'larger', coord, parque_de_turbinas, u_inf, N)
             contador += 1
             print contador
+            print data_prueba[i,j]
 
 # contornos = np.linspace(1, 2.2, 20)
 
@@ -142,7 +146,7 @@ ax = plt.gca()
 # ax.set_yticks([-1*(turbina_0.d_0), 0, 1*(turbina_0.d_0)])
 # ax.set_xlim([0, 32*(turbina_0.d_0)])
 # ax.set_ylim([-1*(turbina_0.d_0), 1*(turbina_0.d_0)])
-# plt.show()
+plt.show()
 
 
 
@@ -156,8 +160,8 @@ ax = plt.gca()
 # ax.set_ylim([-1*(turbina_0.d_0), 1*(turbina_0.d_0)])
 # plt.show()
 
-import csv
-with open('data_prueba_file.csv', mode='w') as data_file:
-    data_writer = csv.writer(data_file, delimiter=',')
-    for fila in range(data_prueba.shape[0]):
-        data_writer.writerow(data_prueba[fila,:])
+# import csv
+# with open('data_prueba_file.csv', mode='w') as data_file:
+#     data_writer = csv.writer(data_file, delimiter=',')
+#     for fila in range(data_prueba.shape[0]):
+#         data_writer.writerow(data_prueba[fila,:])
