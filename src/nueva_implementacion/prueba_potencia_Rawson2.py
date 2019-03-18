@@ -32,6 +32,7 @@ Entonces los casos que estudiaremos seran:
     distintas direcciones de viento, para esto hay que crear la matriz de rotacion
 
 """
+from scipy import interpolate
 
 # comparo Mediciones con modelo reducido
 # casos:
@@ -41,7 +42,25 @@ Entonces los casos que estudiaremos seran:
 #            DISTANCIA = 5.7d ----------------                                  ANGULO = 25
 #            DISTANCIA = 10.5d ----------------------------------               ANGULO = 25
 
+################################################################################
+# estadistica
+
 from scipy.stats import chisquare
+
+def index_agreement(s,o):
+    """
+	index of agreement
+	input:
+        s: simulated
+        o: observed
+    output:
+        ia: index of agreement
+    """
+    ia = 1 -(np.sum((o-s)**2))/(np.sum(
+    			(np.abs(s-np.mean(o))+np.abs(o-np.mean(o)))**2))
+    return ia
+
+################################################################################
 
 gaussiana = Gaussiana()
 u_inf = U_inf()
@@ -95,139 +114,165 @@ ratio_medido = []
 #         1.03435032,  1.0124844 ,  0.97647185,  0.99681935,  1.06672044,
 #         1.11192966])
 
-distancia = 4.7
-print distancia
-
-tur_down = 7
-tur_up = 8
-centro = 320
-
-medido = np.loadtxt('med_{}_{}_{}.csv'.format(tur_down, tur_up, centro), delimiter = ' ')
-ratio_medido = medido[1,320-30:320+31]
-
-CFD = np.loadtxt('cfd_{}_{}_{}.csv'.format(tur_down, tur_up, centro), delimiter = ' ')
-angulos_CFD = CFD[0,:]
-ratio_CFD = CFD[1,:]
-
-
-precision_ang = 1
-angulos = np.arange(-30, 30 + precision_ang, precision_ang)
-
-iters_estadistica = 100
-
-metodo_array = ['linear', 'rss', 'largest']
-metodo_label = {'linear': 'Lineal', 'rss': 'Cuadratica', 'largest':'Dominante'}
-
-chi_array = []
-p_array = []
-
-for metodo_superposicion in metodo_array:
-    turbina_0 = Turbina_Rawson(Coord(np.array([0,0,80]))) # chequear altura del hub
-    turbina_1 = Turbina_Rawson(Coord(np.array([distancia*D,0,80]))) # chequear altura del hub
-    parque_de_turbinas = Parque_de_turbinas([turbina_0, turbina_1], z_0, z_mast)
-    parque_de_turbinas.rotar(-30)
-    array_ratio = np.zeros(iters_estadistica)
-    sigma_ratio = []
-    ratio = []
-    for theta in angulos:
-        for i in range(iters_estadistica):
-            data_prueba = calcular_u_en_coord(gaussiana, metodo_superposicion, coord, parque_de_turbinas, u_inf, N)
-            array_ratio[i] = turbina_1.potencia/turbina_0.potencia
-        ratio = np.append(ratio, np.mean(array_ratio))
-        sigma_ratio = np.append(sigma_ratio, np.std(array_ratio))
-        parque_de_turbinas.rotar(precision_ang)
-        # print theta
-
-    plt.figure(figsize=(10,10))
-    plt.plot(angulos, ratio, label = u'Modelo analítico', linewidth=3)
-    plt.fill_between(angulos, ratio-sigma_ratio, ratio+sigma_ratio, alpha=0.3)
-    plt.xlabel(u'dirección[º]', fontsize=25)
-    plt.ylabel(r'$P_{SOTAVENTO} / P_{BARLOVENTO}$', fontsize=30)
-    plt.plot(angulos, ratio_medido, 'o', label = 'Mediciones', markersize=10)
-    plt.plot(angulos_CFD, ratio_CFD, '--', label='OpenFOAM (CFD)', linewidth = 3)
-    plt.xlim(-30,30)
-    plt.ylim(0.2,1.2)
-    plt.xticks(fontsize=22)
-    plt.yticks(fontsize=22)
-    plt.grid()
-    plt.legend(fontsize=18, loc= 'lower right')
-    chi, p = chisquare(ratio, f_exp=ratio_medido)
-    chi_array = np.append(chi_array, chi)
-    p_array = np.append(p_array, p)
-    plt.savefig('potencia_{}_{}_CFD.pdf'.format(metodo_label[metodo_superposicion], str(int(distancia))))
-    # plt.show()
-
-print 'chi_array = ',chi_array
-print 'p_array = ',p_array
-
-# 2)
-################################################################################
-# +39
-
-distancia = 5.7
-print distancia
-
-tur_down = 7
-tur_up = 9
-centro = 25
-
-medido = np.loadtxt('med_{}_{}_{}.csv'.format(tur_down, tur_up, centro), delimiter = ' ')
-ratio_medido = np.concatenate((medido[1, -5:], medido[1, 0:25+31]), axis=0)
-
-CFD = np.loadtxt('cfd_{}_{}_{}.csv'.format(tur_down, tur_up, centro), delimiter = ' ')
-angulos_CFD = CFD[0,:]
-ratio_CFD = CFD[1,:]
-
-
-precision_ang = 1
-angulos = np.arange(-30, 30 + precision_ang, precision_ang)
-
-iters_estadistica = 100
-
-metodo_array = ['linear', 'rss', 'largest']
-metodo_label = {'linear': 'Lineal', 'rss': 'Cuadratica', 'largest':'Dominante'}
-
-chi_array = []
-p_array = []
-
-for metodo_superposicion in metodo_array:
-    turbina_0 = Turbina_Rawson(Coord(np.array([0,0,80]))) # chequear altura del hub
-    turbina_1 = Turbina_Rawson(Coord(np.array([distancia*D,0,80]))) # chequear altura del hub
-    parque_de_turbinas = Parque_de_turbinas([turbina_0, turbina_1], z_0, z_mast)
-    parque_de_turbinas.rotar(-30)
-    array_ratio = np.zeros(iters_estadistica)
-    sigma_ratio = []
-    ratio = []
-    for theta in angulos:
-        for i in range(iters_estadistica):
-            data_prueba = calcular_u_en_coord(gaussiana, metodo_superposicion, coord, parque_de_turbinas, u_inf, N)
-            array_ratio[i] = turbina_1.potencia/turbina_0.potencia
-        ratio = np.append(ratio, np.mean(array_ratio))
-        sigma_ratio = np.append(sigma_ratio, np.std(array_ratio))
-        parque_de_turbinas.rotar(precision_ang)
-        # print theta
-
-    plt.figure(figsize=(10,10))
-    plt.plot(angulos, ratio, label = u'Modelo analítico', linewidth=3)
-    plt.fill_between(angulos, ratio-sigma_ratio, ratio+sigma_ratio, alpha=0.3)
-    plt.xlabel(u'dirección[º]', fontsize=25)
-    plt.ylabel(r'$P_{SOTAVENTO} / P_{BARLOVENTO}$', fontsize=30)
-    plt.plot(angulos, ratio_medido, 'o', label = 'Mediciones', markersize=10)
-    plt.plot(angulos_CFD, ratio_CFD, '--', label='OpenFOAM (CFD)', linewidth = 3)
-    plt.xlim(-30,30)
-    plt.ylim(0.2,1.2)
-    plt.xticks(fontsize=22)
-    plt.yticks(fontsize=22)
-    plt.grid()
-    plt.legend(fontsize=18, loc= 'lower right')
-    chi, p = chisquare(ratio, f_exp=ratio_medido)
-    chi_array = np.append(chi_array, chi)
-    p_array = np.append(p_array, p)
-    plt.savefig('potencia_{}_{}_CFD.pdf'.format(metodo_label[metodo_superposicion], str(int(distancia))))
-    # plt.show()
-
-print 'chi_array = ',chi_array
-print 'p_array = ',p_array
+# distancia = 4.7
+# print distancia
+#
+# tur_down = 7
+# tur_up = 8
+# centro = 320
+#
+# medido = np.loadtxt('med_{}_{}_{}.csv'.format(tur_down, tur_up, centro), delimiter = ' ')
+# ratio_medido = medido[1,(centro-3)-30:(centro-3)+31]
+#
+# CFD = np.loadtxt('cfd_{}_{}_{}.csv'.format(tur_down, tur_up, centro), delimiter = ' ')
+# angulos_CFD = CFD[0,:]
+# ratio_CFD = CFD[1,:]
+#
+#
+# precision_ang = 1
+# angulos = np.arange(-30, 30 + precision_ang, precision_ang)
+#
+# iters_estadistica = 100
+#
+# # metodo_array = ['linear', 'rss', 'largest']
+# # metodo_label = {'linear': 'Lineal', 'rss': 'Cuadratica', 'largest':'Dominante'}
+#
+# metodo_array = ['linear']
+# metodo_label = {'linear': 'Lineal'}
+#
+#
+# chi_array = []
+# p_array = []
+# ia_array = []
+# ia_CFD_array = []
+#
+# for metodo_superposicion in metodo_array:
+#     turbina_0 = Turbina_Rawson(Coord(np.array([0,0,80]))) # chequear altura del hub
+#     turbina_1 = Turbina_Rawson(Coord(np.array([distancia*D,0,80]))) # chequear altura del hub
+#     parque_de_turbinas = Parque_de_turbinas([turbina_0, turbina_1], z_0, z_mast)
+#     parque_de_turbinas.rotar(-30)
+#     array_ratio = np.zeros(iters_estadistica)
+#     sigma_ratio = []
+#     ratio = []
+#     for theta in angulos:
+#         for i in range(iters_estadistica):
+#             data_prueba = calcular_u_en_coord(gaussiana, metodo_superposicion, coord, parque_de_turbinas, u_inf, N)
+#             array_ratio[i] = turbina_1.potencia/turbina_0.potencia
+#         ratio = np.append(ratio, np.mean(array_ratio))
+#         sigma_ratio = np.append(sigma_ratio, np.std(array_ratio))
+#         parque_de_turbinas.rotar(precision_ang)
+#         # print theta
+#
+#     plt.figure(figsize=(10,10))
+#     plt.plot(angulos, ratio, label = u'Modelo analítico', linewidth=3)
+#     plt.fill_between(angulos, ratio-sigma_ratio, ratio+sigma_ratio, alpha=0.3)
+#     plt.xlabel(u'dirección[º]', fontsize=25)
+#     plt.ylabel(r'$P_{SOTAVENTO} / P_{BARLOVENTO}$', fontsize=30)
+#     plt.plot(angulos, ratio_medido, 'o', label = 'Mediciones', markersize=10)
+#     plt.plot(angulos_CFD, ratio_CFD, '--', label='OpenFOAM (CFD)', linewidth = 3)
+#     plt.xlim(-30,30)
+#     plt.ylim(0.2,1.2)
+#     plt.xticks(fontsize=22)
+#     plt.yticks(fontsize=22)
+#     plt.grid()
+#     plt.legend(fontsize=18, loc= 'lower right')
+#     chi, p = chisquare(ratio, f_exp=ratio_medido)
+#     chi_array = np.append(chi_array, chi)
+#     ia = index_agreement(ratio,ratio_medido)
+#     ia_array = np.append(ia_array, ia)
+#
+#     tck = interpolate.splrep(angulos, ratio, s=0)
+#     ratio_new = interpolate.splev(angulos_CFD, tck, der=0)
+#
+#     ia_CFD = index_agreement(ratio_new,ratio_CFD)
+#     ia_CFD_array = np.append(ia_CFD_array, ia_CFD)
+#     p_array = np.append(p_array, p)
+#     plt.savefig('potencia_{}_{}_CFD.pdf'.format(metodo_label[metodo_superposicion], str(int(distancia))))
+#     # plt.show()
+#
+# print 'chi_array = ',chi_array
+# print 'p_array = ',p_array
+# print 'ia_array = ', ia_array
+# print 'ia_CFD_array = ', ia_CFD_array
+#
+# # 2)
+# ################################################################################
+# # +39
+# #
+# distancia = 5.7
+# print distancia
+#
+# tur_down = 7
+# tur_up = 9
+# centro = 25
+#
+# medido = np.loadtxt('med_{}_{}_{}.csv'.format(tur_down, tur_up, centro), delimiter = ' ')
+# ratio_medido = np.concatenate((medido[1, -5-3:], medido[1, 0:(centro-3)+31]), axis=0)
+#
+# CFD = np.loadtxt('cfd_{}_{}_{}.csv'.format(tur_down, tur_up, centro), delimiter = ' ')
+# angulos_CFD = CFD[0,:]
+# ratio_CFD = CFD[1,:]
+#
+#
+# precision_ang = 1
+# angulos = np.arange(-30, 30 + precision_ang, precision_ang)
+#
+# iters_estadistica = 100
+#
+# metodo_array = ['linear']
+# metodo_label = {'linear': 'Lineal'}
+#
+# chi_array = []
+# p_array = []
+# ia_array = []
+# ia_CFD_array = []
+#
+# for metodo_superposicion in metodo_array:
+#     turbina_0 = Turbina_Rawson(Coord(np.array([0,0,80]))) # chequear altura del hub
+#     turbina_1 = Turbina_Rawson(Coord(np.array([distancia*D,0,80]))) # chequear altura del hub
+#     parque_de_turbinas = Parque_de_turbinas([turbina_0, turbina_1], z_0, z_mast)
+#     parque_de_turbinas.rotar(-30)
+#     array_ratio = np.zeros(iters_estadistica)
+#     sigma_ratio = []
+#     ratio = []
+#     for theta in angulos:
+#         for i in range(iters_estadistica):
+#             data_prueba = calcular_u_en_coord(gaussiana, metodo_superposicion, coord, parque_de_turbinas, u_inf, N)
+#             array_ratio[i] = turbina_1.potencia/turbina_0.potencia
+#         ratio = np.append(ratio, np.mean(array_ratio))
+#         sigma_ratio = np.append(sigma_ratio, np.std(array_ratio))
+#         parque_de_turbinas.rotar(precision_ang)
+#         # print theta
+#
+#     plt.figure(figsize=(10,10))
+#     plt.plot(angulos, ratio, label = u'Modelo analítico', linewidth=3)
+#     plt.fill_between(angulos, ratio-sigma_ratio, ratio+sigma_ratio, alpha=0.3)
+#     plt.xlabel(u'dirección[º]', fontsize=25)
+#     plt.ylabel(r'$P_{SOTAVENTO} / P_{BARLOVENTO}$', fontsize=30)
+#     plt.plot(angulos, ratio_medido, 'o', label = 'Mediciones', markersize=10)
+#     plt.plot(angulos_CFD, ratio_CFD, '--', label='OpenFOAM (CFD)', linewidth = 3)
+#     plt.xlim(-30,30)
+#     plt.ylim(0.2,1.2)
+#     plt.xticks(fontsize=22)
+#     plt.yticks(fontsize=22)
+#     plt.grid()
+#     plt.legend(fontsize=18, loc= 'lower right')
+#     chi, p = chisquare(ratio, f_exp=ratio_medido)
+#     chi_array = np.append(chi_array, chi)
+#     ia = index_agreement(ratio,ratio_medido)
+#     ia_array = np.append(ia_array, ia)
+#     tck = interpolate.splrep(angulos, ratio, s=0)
+#     ratio_new = interpolate.splev(angulos_CFD, tck, der=0)
+#     ia_CFD = index_agreement(ratio_new,ratio_CFD)
+#     ia_CFD_array = np.append(ia_CFD_array, ia_CFD)
+#     p_array = np.append(p_array, p)
+#     plt.savefig('potencia_{}_{}_CFD.pdf'.format(metodo_label[metodo_superposicion], str(int(distancia))))
+#     # plt.show()
+#
+# print 'chi_array = ',chi_array
+# print 'p_array = ',p_array
+# print 'ia_array = ', ia_array
+# print 'ia_CFD_array = ', ia_CFD_array
 
 # 3)
 ################################################################################
@@ -241,15 +286,17 @@ tur_up = 9
 centro = 27
 
 medido = np.loadtxt('med_{}_{}_{}.csv'.format(tur_down, tur_up, centro), delimiter = ' ')
-ratio_medido = np.concatenate((medido[1, -3:], medido[1, 0:27+31]), axis=0)
+# ratio_medido = np.concatenate((medido[1, -3-3:], medido[1, 0:(centro-3)+31]), axis=0)
+ratio_medido = medido[1, (centro-3)-21:(centro-3)+22]
 
 CFD = np.loadtxt('cfd_{}_{}_{}.csv'.format(tur_down, tur_up, centro), delimiter = ' ')
-angulos_CFD = CFD[0,:]
-ratio_CFD = CFD[1,:]
+angulos_CFD = CFD[0,3:-3]
+ratio_CFD = CFD[1,3:-3]
 
+print angulos_CFD
 
 precision_ang = 1
-angulos = np.arange(-30, 30 + precision_ang, precision_ang)
+angulos = np.arange(-21, 21 + precision_ang, precision_ang)
 
 iters_estadistica = 100
 
@@ -258,13 +305,15 @@ metodo_label = {'linear': 'Lineal', 'rss': 'Cuadratica', 'largest':'Dominante'}
 
 chi_array = []
 p_array = []
+ia_array = []
+ia_CFD_array = []
 
 for metodo_superposicion in metodo_array:
     turbina_0 = Turbina_Rawson(Coord(np.array([0,0,80]))) # chequear altura del hub
     turbina_1 = Turbina_Rawson(Coord(np.array([distancia_1*D,19,80]))) # chequear altura del hub
     turbina_2 = Turbina_Rawson(Coord(np.array([distancia_2*D,0,80]))) # chequear altura del hub
     parque_de_turbinas = Parque_de_turbinas([turbina_0, turbina_1, turbina_2], z_0, z_mast)
-    parque_de_turbinas.rotar(-30)
+    parque_de_turbinas.rotar(-21)
     array_ratio = np.zeros(iters_estadistica)
     sigma_ratio = []
     ratio = []
@@ -284,7 +333,7 @@ for metodo_superposicion in metodo_array:
     plt.ylabel(r'$P_{SOTAVENTO} / P_{BARLOVENTO}$', fontsize=30)
     plt.plot(angulos, ratio_medido, 'o', label = 'Mediciones', markersize=10)
     plt.plot(angulos_CFD, ratio_CFD, '--', label='OpenFOAM (CFD)', linewidth = 3)
-    plt.xlim(-30,30)
+    plt.xlim(-20,20)
     plt.ylim(0.2,1.2)
     plt.xticks(fontsize=22)
     plt.yticks(fontsize=22)
@@ -292,9 +341,17 @@ for metodo_superposicion in metodo_array:
     plt.legend(fontsize=18, loc= 'lower right')
     chi, p = chisquare(ratio, f_exp=ratio_medido)
     chi_array = np.append(chi_array, chi)
+    ia = index_agreement(ratio,ratio_medido)
+    ia_array = np.append(ia_array, ia)
+    tck = interpolate.splrep(angulos, ratio, s=0)
+    ratio_new = interpolate.splev(angulos_CFD, tck, der=0)
+    ia_CFD = index_agreement(ratio_new,ratio_CFD)
+    ia_CFD_array = np.append(ia_CFD_array, ia_CFD)
     p_array = np.append(p_array, p)
-    plt.savefig('potencia_{}_{}_CFD.pdf'.format(metodo_label[metodo_superposicion], str(int(distancia_2))))
+    plt.savefig('potencia_{}_{}_CFD_nuevo.pdf'.format(metodo_label[metodo_superposicion], str(int(distancia_2))))
     # plt.show()
 
 print 'chi_array = ',chi_array
 print 'p_array = ',p_array
+print 'ia_array = ',ia_array
+print 'ia_CFD_array = ',ia_CFD_array

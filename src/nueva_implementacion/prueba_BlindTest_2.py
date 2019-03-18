@@ -41,6 +41,23 @@ mencionadas
 
 """
 
+from scipy import interpolate
+
+################################################################################
+def index_agreement(s,o):
+    """
+	index of agreement
+	input:
+        s: simulated
+        o: observed
+    output:
+        ia: index of agreement
+    """
+    ia = 1 -(np.sum((o-s)**2))/(np.sum(
+    			(np.abs(s-np.mean(o))+np.abs(o-np.mean(o)))**2))
+    return ia
+
+
 ################################################################################
 # aca tengo las mediciones del BlindTest
 
@@ -80,6 +97,10 @@ metodo_array = ['linear', 'rss', 'largest']
 metodo_label = {'linear': 'Lineal', 'rss': u'Cuadrática', 'largest':'Dominante'}
 
 for distancia in x_array:
+    ia_array = []
+    ia_CFD_array = []
+    print 'distancia = ', distancia
+
     plt.figure(figsize=(11,11))
     # plt.title('x = {}D'.format(distancia))
 
@@ -114,6 +135,18 @@ for distancia in x_array:
         y_norm_OpenFOAM[i] = datos[i, 0]/D
         u_OpenFOAM[i] = datos[i, 1]
 
+    tck = interpolate.splrep(y_norm, 1-data_prueba/u_inf.coord_mast, s=0)
+    deficit_new_CFD = interpolate.splev(u_OpenFOAM, tck, der=0)
+
+    ia_CFD = index_agreement(deficit_new_CFD, 1 - u_OpenFOAM/u_inf.coord_mast)
+    ia_CFD_array = np.append(ia_CFD_array, ia_CFD)
+
+    deficit_new = interpolate.splev(y_norm_med["{}".format(distancia)], tck, der=0)
+
+    ia = index_agreement(deficit_new,deficit_x_med["{}".format(distancia)])
+    ia_array = np.append(ia_array, ia_CFD)
+
+
     plt.plot(y_norm_OpenFOAM - np.mean(y_norm_OpenFOAM), 1 - u_OpenFOAM/u_inf.coord_mast, '--', label='OpenFOAM (CFD)', linewidth= 3)
     plt.xlabel(r'$y/d$', fontsize=30)
     plt.ylabel(r'$\Delta u/u_{\infty}$', fontsize=30)
@@ -124,3 +157,6 @@ for distancia in x_array:
     plt.yticks(fontsize=22)
     plt.grid()
     plt.savefig('BlindTest2_{}.pdf'.format(int(distancia)))
+
+    print 'ia_array = ', ia_array
+    print 'ia_CFD_array = ', ia_CFD_array

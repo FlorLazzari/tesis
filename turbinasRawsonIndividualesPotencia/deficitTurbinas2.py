@@ -143,9 +143,9 @@ archivo='rawson10min.csv'
 tablaOk = rawsonDatos(archivo)
 
 #ploteo el deficit medido
-tur_down = 8
-tur_up = 7
-centro = 320
+tur_down = 7
+tur_up = 8
+centro = 315
 
 DirAd_Medido, deffMean_Medido, deffstd_Medido = deficitMedido(tablaOk,tur_down,tur_up,centro)
 

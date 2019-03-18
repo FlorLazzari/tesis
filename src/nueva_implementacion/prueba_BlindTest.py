@@ -25,6 +25,22 @@ A continuacion se grafica comparacion de BlindTest, OpenFOAM y modelos reducidos
 en un grafico de curva a la altura del hub para una turbina en: x = {1, 3, 5} D
 """
 
+from scipy import interpolate
+
+################################################################################
+def index_agreement(s,o):
+    """
+	index of agreement
+	input:
+        s: simulated
+        o: observed
+    output:
+        ia: index of agreement
+    """
+    ia = 1 -(np.sum((o-s)**2))/(np.sum(
+    			(np.abs(s-np.mean(o))+np.abs(o-np.mean(o)))**2))
+    return ia
+
 ################################################################################
 # aca tengo las mediciones del BlindTest
 
@@ -92,12 +108,18 @@ D = turbina_0.d_0
 z_0 = 0.1 #?????
 parque_de_turbinas = Parque_de_turbinas([turbina_0], z_0, z_mast)
 
-x_array = [1, 3, 5]
+# x_array = [1, 3, 5]
+x_array = [3, 5]
 y = np.linspace(-1.5*D, 1.5*D, 500)
 y_norm = y/D
 z_o = turbina_0.coord.z
+iters_estadistica = 100
 
 for distancia in x_array:
+    ia_array = []
+    ia_CFD_array = []
+    print 'distancia = ', distancia
+
     plt.figure(figsize=(11,11))
     # plt.title('x = {}D'.format(distancia))
 
@@ -105,13 +127,23 @@ for distancia in x_array:
     for modelo in modelos:
 
         x_o = distancia * D
-        data_prueba = np.zeros(len(y))
+        data_prueba_estadistica = 0
+        deficit_estadistica = np.zeros(iters_estadistica)
+        deficit = np.zeros(len(y))
+        sigma_deficit = np.zeros(len(y))
 
         for i in range(len(y)):
             coord = Coord(np.array([x_o, y[i], z_o]))
-            data_prueba[i] = calcular_u_en_coord(modelo, 'linear', coord, parque_de_turbinas, u_inf, N)
+            for j in range(iters_estadistica):
+                data_prueba_estadistica = calcular_u_en_coord(modelo, 'linear', coord, parque_de_turbinas, u_inf, N)
+                deficit_estadistica[j] = 1-data_prueba_estadistica/u_inf.coord_mast
+            deficit[i] = np.mean(data_prueba_estadistica)
+            sigma_deficit[i] = np.std(deficit_estadistica)
 
-        plt.plot(y_norm, 1-data_prueba/u_inf.coord_mast, label= u'{} (Modelo analítico)'.format(type(modelo).__name__),  linewidth=3)
+        plt.plot(y_norm, deficit, label= u'{} (Modelo analítico)'.format(type(modelo).__name__),  linewidth=3)
+        plt.fill_between(y_norm, deficit-sigma_deficit, deficit+sigma_deficit, alpha=0.3)
+
+        print 'modelo = ', modelo
 
     # comparo con las mediciocones
 
@@ -132,6 +164,17 @@ for distancia in x_array:
         y_norm_OpenFOAM[i] = datos[i, 0]/D
         u_OpenFOAM[i] = datos[i, 1]
 
+    tck = interpolate.splrep(y_norm, deficit, s=0)
+    deficit_new_CFD = interpolate.splev(u_OpenFOAM, tck, der=0)
+
+    ia_CFD = index_agreement(deficit_new_CFD, 1 - u_OpenFOAM/u_inf.coord_mast)
+    ia_CFD_array = np.append(ia_CFD_array, ia_CFD)
+
+    deficit_new = interpolate.splev(y_norm_med["{}".format(distancia)], tck, der=0)
+
+    ia = index_agreement(deficit_new,deficit_x_med["{}".format(distancia)])
+    ia_array = np.append(ia_array, ia_CFD)
+
     plt.plot(y_norm_OpenFOAM - np.mean(y_norm_OpenFOAM), 1 - u_OpenFOAM/u_inf.coord_mast, '--', label='OpenFOAM (CFD)', linewidth= 3)
     plt.xlabel(r'$y/d$', fontsize=30)
     plt.ylabel(r'$\Delta u/u_{\infty}$', fontsize=30)
@@ -140,5 +183,8 @@ for distancia in x_array:
     plt.xticks(fontsize=22)
     plt.yticks(fontsize=22)
     plt.grid()
-    plt.savefig('BlindTest_{}.pdf'.format(distancia))
-    # plt.show()
+    plt.savefig('BlindTest_nuevo{}.pdf'.format(distancia))
+    plt.show()
+
+    print 'ia_array = ', ia_array
+    print 'ia_CFD_array = ', ia_CFD_array
