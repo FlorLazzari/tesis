@@ -16,7 +16,7 @@ from calcular_u_en_coord import calcular_u_en_coord
 A continuacion se corre el modelo Gaussiana para el parque Rawson considerando la topografia
 utilizando distintas alturas de los hubs.
 Se grafica:
-    La potencia en funcion de la ubicacion (numero de turbina de label)
+    El campo de viento en el plano (X,Y) para todo el parque
 """
 
 gaussiana = Gaussiana()
@@ -39,9 +39,7 @@ def trasladar_y(y):
     yNew = (y + b)/D
     return yNew
 
-
 turbina_0 = Turbina_Rawson(Coord(np.array([(0),(0),260 - z_ground])))
-
 turbina_1 = Turbina_Rawson(Coord(np.array([(-204.9),(286.1),269 - z_ground])))
 turbina_2 = Turbina_Rawson(Coord(np.array([(41.9),(565.7),256 - z_ground])))
 turbina_3 = Turbina_Rawson(Coord(np.array([(8.1),(870),247 - z_ground])))
@@ -109,30 +107,6 @@ z_o = 250
 
 coord = Coord(np.array([x_o, y_o, z_o]))
 
-potencia_de_cada_turbina = []
-import time
-tic = time.clock()
-data_prueba = calcular_u_en_coord(gaussiana, 'larger', coord, parque_de_turbinas, u_inf, N)
-toc = time.clock()
-
-for turbina in turbinas_list:
-    potencia_de_cada_turbina.append(float(turbina.potencia))
-
-# potencia nominal cuando la turbina trabaja con un viento de 8.2 m/s
-potencia_mast = 949.027296358
-
-potencia_de_cada_turbina_normalizada = []
-
-for turbina in turbinas_list:
-    potencia_de_cada_turbina_normalizada.append(float(turbina.potencia)/potencia_mast)
-
-# plt.figure()
-# plt.plot(np.arange(0, 43), potencia_de_cada_turbina, '-x')
-# plt.xticks(np.arange(0, 43, 5))
-# # plt.ylim([0, 1200])
-# plt.grid()
-# plt.show()
-
 X = []
 Y = []
 
@@ -140,50 +114,50 @@ for turbina in turbinas_list:
     X.append(trasladar_x(turbina.coord.x))
     Y.append(trasladar_y(turbina.coord.y))
 
-print max(X)
+x = np.linspace(0, 60*D, 5)
+y = np.linspace(0, 60*D, 5)
+z_0 = z_mast
 
-print 'lineal'
-print min(potencia_de_cada_turbina_normalizada)
-print max(potencia_de_cada_turbina_normalizada)
+X, Y = np.meshgrid(x, y)
 
-# plt.figure()
-# cm = plt.cm.get_cmap('coolwarm')
-# sc = plt.scatter(X, Y, c=potencia_de_cada_turbina, s=120,marker='v', cmap=cm)
-# plt.clim(min(potencia_de_cada_turbina),max(potencia_de_cada_turbina))
-# plt.colorbar(sc)
-# plt.grid()
+data_prueba = np.zeros([len(y), len(x)])
+
+contador = 0
+for i in range(len(x)):
+    for j in range(len(Y)):
+        coord = Coord(np.array([x[i], y[j], z_0]))
+        if coord.z != 0:
+            data_prueba[j,i] = calcular_u_en_coord(gaussiana, 'larger', coord, parque_de_turbinas, u_inf, N)
+            contador += 1
+            print contador
+
+# contornos = np.linspace(1, 2.2, 20)
+
+# plt.contour(X,Y,data_prueba, contornos, linewidths=0.5, colors='k')
+# plt.contourf(X,Y,data_prueba, contornos, cmap=plt.cm.jet)
+plt.contour(X,Y,data_prueba, cmap=plt.cm.jet)
+# plt.colorbar(ticks=[1, 1.5, 2, 2.2])
+ax = plt.gca()
+# ax.set_xticks([0, 2*(turbina_0.d_0), 4*(turbina_0.d_0), 8*(turbina_0.d_0), 12*(turbina_0.d_0), 16*(turbina_0.d_0), 20*(turbina_0.d_0), 24*(turbina_0.d_0), 28*(turbina_0.d_0), 32*(turbina_0.d_0)])
+# ax.set_yticks([-1*(turbina_0.d_0), 0, 1*(turbina_0.d_0)])
+# ax.set_xlim([0, 32*(turbina_0.d_0)])
+# ax.set_ylim([-1*(turbina_0.d_0), 1*(turbina_0.d_0)])
 # plt.show()
 
-plt.figure()
-cm = plt.cm.get_cmap('bwr')
-sc = plt.scatter(X, Y, c=potencia_de_cada_turbina_normalizada, s=120,marker='v', edgecolor='black', linewidth='0.5', cmap=cm)
-plt.clim(0.5, 1.5)
-plt.xlabel(r'$x/d$', fontsize=20)
-plt.ylabel(r'$y/d$', fontsize=20)
-plt.xlim(0,60)
-plt.ylim(0,60)
-plt.xticks(fontsize=17)
-plt.yticks(fontsize=17)
-plt.colorbar(sc, ticks=[0.5, 1, 1.5]).set_label(label=r'$P_{TURBINA} / P_{REF}$', size=22, weight='bold')
-# plt.colorbar().set_label(label='a label',size=15,weight='bold')
-# plt.title(r'$P_i / P_{u_{mast}}$', fontsize=17)
-plt.grid()
-# plt.savefig('Rawson_Potencia_Total_dominante', dpi=300)
+
+
+plt.contour(X,Y,data_prueba, linewidths=0.5, colors='k')
+plt.contourf(X,Y,data_prueba, cmap=plt.cm.jet)
+plt.colorbar()
+ax = plt.gca()
+# ax.set_xticks([0, 2*(turbina_0.d_0), 4*(turbina_0.d_0), 8*(turbina_0.d_0), 12*(turbina_0.d_0), 16*(turbina_0.d_0), 20*(turbina_0.d_0), 24*(turbina_0.d_0), 28*(turbina_0.d_0), 32*(turbina_0.d_0)])
+# ax.set_yticks([-1*(turbina_0.d_0), 0, 1*(turbina_0.d_0)])
+# ax.set_xlim([0, 32*(turbina_0.d_0)])
+# ax.set_ylim([-1*(turbina_0.d_0), 1*(turbina_0.d_0)])
 # plt.show()
 
-# plt.figure(figsize=(9,9))
-# cm = plt.cm.get_cmap('bwr')
-# sc = plt.scatter(X, Y, c=potencia_de_cada_turbina_normalizada, s=120,marker='v', edgecolor='black', linewidth='0.5', cmap=cm)
-# plt.clim(min(potencia_de_cada_turbina_normalizada), max(potencia_de_cada_turbina_normalizada))
-# plt.xlabel(r'$x/d$', fontsize=20)
-# plt.ylabel(r'$y/d$', fontsize=20)
-# plt.xlim(0,60)
-# plt.ylim(0,60)
-# plt.xticks(fontsize=20)
-# plt.yticks(fontsize=20)
-# plt.colorbar(sc, ticks=[min(potencia_de_cada_turbina_normalizada), 1, max(potencia_de_cada_turbina_normalizada)]).set_label(label=r'$P_{TURBINA} / P_{REF}$', size=22, weight='bold')
-# # plt.colorbar().set_label(label='a label',size=15,weight='bold')
-# # plt.title(r'$P_i / P_{u_{mast}}$', fontsize=17)
-# plt.grid()
-# plt.savefig('Rawson_Potencia_Total', dpi=300)
-# plt.show()
+import csv
+with open('data_prueba_file.csv', mode='w') as data_file:
+    data_writer = csv.writer(data_file, delimiter=',')
+    for fila in range(data_prueba.shape[0]):
+        data_writer.writerow(data_prueba[fila,:])
