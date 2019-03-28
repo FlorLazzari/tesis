@@ -160,8 +160,8 @@ ax = plt.gca()
 # ax.set_ylim([-1*(turbina_0.d_0), 1*(turbina_0.d_0)])
 # plt.show()
 
-# import csv
-# with open('data_prueba_file.csv', mode='w') as data_file:
-#     data_writer = csv.writer(data_file, delimiter=',')
-#     for fila in range(data_prueba.shape[0]):
-#         data_writer.writerow(data_prueba[fila,:])
+import csv
+with open('data_prueba_file.csv', mode='w') as data_file:
+    data_writer = csv.writer(data_file, delimiter=',')
+    for fila in range(data_prueba.shape[0]):
+        data_writer.writerow(data_prueba[fila,:])
